@@ -1,0 +1,231 @@
+body.itgBody #app .itgPlanPage {
+    position: relative;
+    width: 100%;
+}
+body.itgBody #app .itgPlanPage .itgPlanSelection,
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner{
+    max-width:1160px;
+}
+body.itgBody #app .itgPlanPage .itgPlanSelection{
+    padding: 100px;
+    min-height:100vh;
+    justify-content: center;
+}
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionTitle {
+    position: relative;
+    width: 100%;
+    max-width: 40%;
+    padding-right: 30px;
+}
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox {
+    width: 100%;
+    position: relative;
+    max-width: 60%;
+    padding-left: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild {
+    background-color:var(--white-color);
+    padding: 40px;
+    width: 100%;
+    max-width: calc( 50% - 15px );
+}
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild.active{
+    background-color:var(--primary-color);
+}
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild.active .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerTitle label,
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild.active .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerTitle .title,
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild.active .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerContent{
+    color:var(--white-color);
+}
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild .itgPlanSelectionBoxChildInner {
+    width: 100%;
+    position: relative;
+}
+body.itgBody #app .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerTitle {
+    width: 100%;
+    position: relative;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+body.itgBody #app .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerTitle label {
+    font-size: 14px;
+    text-transform: uppercase;
+    color:var(--text-light-color);
+}
+body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionTitle .desc {
+    padding-top: 20px;
+}
+body.itgBody #app .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerAction {
+    padding-top: 30px;
+}
+body.itgBody #app .itgProPlanConfirmation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body.itgBody #app .itgProPlanConfirmation .itgProPlanConfirmationInner {
+    width: 90%;
+    max-width: 380px;
+    padding: 40px;
+    background-color:var(--white-color);
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+body.itgBody #app .itgProPlanConfirmation .itgProPlanConfirmationInner .title {
+    margin-bottom: 20px;
+}
+body.itgBody #app .itgProPlanConfirmation .itgProPlanConfirmationInner .itgProPlanConfirmationAction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+body.itgBody #app .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionActionBox {
+    width: 100%;
+    padding-top: 30px;
+    text-align: right;
+}
+/*
+@media screen and (min-width: 1400px) {
+    body.itgBody #app .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerTitle label{
+        font-size: 1vw;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner{
+        max-width: 81vw;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionTitle{
+        padding-right: 2vw;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox{
+        padding-left: 2vw;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild{
+        padding: 2.8vw;
+        max-width: calc( 50% - 1.1vw );
+    }
+    body.itgBody #app .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerTitle{
+        padding-bottom: 1.4vw;
+        margin-bottom: 2.1vw;
+        border-width: 0.1vw;
+    }
+    body.itgBody #app ul.list li{
+        margin-bottom: 0.7vw;
+    }
+    body.itgBody #app ul.list{
+        padding-left: 1.1vw;
+    }
+    body.itgBody #app .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerAction{
+        padding-top: 2.1vw;
+    }
+    body.itgBody #app .itgProPlanConfirmation .itgProPlanConfirmationInner{
+        max-width:27vw;
+        padding:3vw;
+    }
+    body.itgBody #app .itgProPlanConfirmation .itgProPlanConfirmationInner .title{
+        margin-bottom: 1.6vw;
+    }
+    body.itgBody #app .itgProPlanConfirmation .itgProPlanConfirmationInner .itgProPlanConfirmationAction{
+        gap:1.6vw;
+    }
+    body.itgBody #app .btn, body.itgBody #app button, body.itgBody #app .button{
+        gap: 0.5vw;
+    }
+}
+*/
+@media screen and (max-width: 1300px) {
+    body.itgBody #app .itgPlanPage .itgPlanSelection{
+        padding: 60px;
+    }
+}
+@media screen and (max-width: 1200px) {
+    body.itgBody #app .itgPlanPage .itgPlanSelection{
+        padding: 50px;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionTitle{
+        padding-right: 25px;
+        max-width: 35%;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox{
+        padding-left: 25px;
+        max-width: 65%;
+    }
+}
+@media screen and (max-width: 1100px) {
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionTitle{
+        padding-right: 20px;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox{
+        padding-left: 20px;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild{
+        padding: 30px;
+        max-width: calc( 50% - 10px );
+    }
+    body.itgBody #app .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerTitle{
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    body.itgBody #app .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerAction{
+        padding-top:20px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionTitle{
+        max-width: 100%;
+        text-align: center;
+        padding-right: 0;
+        padding-bottom: 30px;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionTitle .desc{
+        padding-top: 10px;
+        max-width:400px;
+        margin: auto;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox{
+        padding-left: 0;
+        max-width: 100%;
+        justify-content: center;
+        gap: 40px;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild{
+        max-width: 300px;
+    }
+}
+@media screen and (max-width: 800px) {
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild{
+        max-width:calc( 50% - 15px );
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox{
+        gap: 30px;
+    }
+}
+@media screen and (max-width: 700px) {
+    body.itgBody #app .itgPlanPage .itgPlanSelection{
+        padding: 30px;
+    }
+}
+@media screen and (max-width: 600px) {
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionBoxChild{
+        max-width:300px;
+    }
+    body.itgBody #app .itgPlanPage .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox{
+        gap:20px;
+    }
+}

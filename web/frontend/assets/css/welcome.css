@@ -1,0 +1,93 @@
+body.itgBody #app .itgWelcomeBack {
+    width: 100%;
+    position: relative;
+    min-height: 100vh;
+    height: auto;
+    background-color:var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+body.itgBody #app .itgWelcomeBack .itgWelcomeFront {
+    width: 100%;
+    max-width: 670px;
+    padding: 50px;
+    background-color:var(--white-color);
+}
+body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeIcon {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    margin-bottom: 25px;
+}
+body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeContent {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeContent .title {
+    width: 100%;
+    max-width: 400px;
+}
+body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeButton {
+    display: flex;
+    justify-content: center;
+}
+body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeContent .desc {
+    width: 100%;
+    position: relative;
+    padding-top: 20px;
+}
+/*
+@media screen and (min-width: 1400px) {
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront{
+        max-width:47vw;
+        padding: 3.5vw;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeIcon{
+        margin-bottom: 1.7vw;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeIcon img {
+        width: 5.6vw;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeContent{
+        margin-bottom: 1.5vw;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeContent .title{
+        max-width: 28vw;
+        font-size: 1.7vw;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeContent .desc{
+        padding-top: 1.5vw;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeContent .desc p{
+        font-size: 1vw;
+        line-height: 1.8vw;
+    }
+}
+*/
+@media screen and (max-width: 600px) {
+    body.itgBody #app .itgWelcomeBack{
+        padding: 20px;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront{
+        padding:20px;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeIcon{
+        margin-bottom: 10px;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeContent{
+        margin-bottom: 15px;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeContent .desc{
+        padding-top:10px;
+    }
+    body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeContent .title{
+        font-size:18px;
+    }
+}

@@ -1,0 +1,325 @@
+{% if product.selling_plan_groups.size > 0 %}
+    {%- assign priceAdjustment = 0 -%}
+    {% for group in product.selling_plan_groups %}
+      {% for selling_plan in group.selling_plans %}
+        {%- for price_adjustments in selling_plan.price_adjustments -%}
+          {%- assign priceAdjustment = price_adjustments.value | times: 1 -%}
+        {%- endfor -%}
+      {% endfor %}
+    {% endfor %}
+    {% assign style = app.metafields.metafield.widget %}
+    {% if style %}
+      {% if style == 'easywidgetSetting1' %}
+        <div class="easysubwidgetbox">
+          <label class="easysubwidgetboxtitle">Purchase Options</label>
+          <div class="easysubwidgetboxselectionoptions">
+            <ul>
+              {% unless product.requires_selling_plan %}
+              <li>
+                <div class="easysubwidgetboxselectionoption">
+                  <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime"><span class="easysubwidgetboxselectionoptionlabelcheck"></span>Regular purchase</label>
+                  <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
+                </div>
+              </li>
+              {% endunless %}
+              <li>
+                <div class="easysubwidgetboxselectionoption">
+                  <div class="easysubwidgetboxselectionoptioncover">
+                    <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick{% if product.requires_selling_plan %} checked{% endif %}" data-purchase="subscribe"><span class="easysubwidgetboxselectionoptionlabelcheck"></span>Subscribe {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %} </label>
+                    <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
+                  </div>
+                  <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
+                    <div class="easysubwidgetboxselectionoptionplansselect">
+                      <label>Delivery every</label>
+                      <select name="easy_selling_plan" data-require="{%- if product.requires_selling_plan -%}true{%- else -%}false{%- endif -%}">
+                        {% for group in product.selling_plan_groups %}
+                          {% for selling_plan in group.selling_plans %}
+                            <option value="{{ selling_plan.id }}">{% for option in selling_plan.options %}{{ option.value }}{% endfor %}</option>
+                          {% endfor %}
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      {% endif %}
+      {% if style == 'easywidgetSetting5' %}
+        <div class="easysubwidgetbox styletwo">
+          <label class="easysubwidgetboxtitle">Purchase Options</label>
+          <div class="easysubwidgetboxselectionoptions">
+            <ul>
+              {% unless product.requires_selling_plan %}
+              <li>
+                <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime">
+                  <label class="easysubwidgetboxselectionoptionlabel">
+                    <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></span>
+                    <span>Regular purchase</span>
+                  </label>
+                  <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
+                </div>
+              </li>
+              {% endunless %}
+              <li class="{% if product.requires_selling_plan %}easyfull{% endif %}">
+                <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick{% if product.requires_selling_plan %} checked{% endif %}" data-purchase="subscribe">
+                  <div class="easysubwidgetboxselectionoptioncover">
+                    <label class="easysubwidgetboxselectionoptionlabel">
+                      <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></span>
+                      <span>Subscribe</span>
+                    </label>
+                    <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
+                  </div>
+                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %}
+                </div>
+              </li>
+            </ul>
+            <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
+              <label class="easysubwidgetboxtitle">Delivery every</label>
+              <div class="easysubwidgetboxselectionoptionplansselect">
+                <ul class="easysubwidgetboxselectionoptionplansselectlist">
+                  {% for group in product.selling_plan_groups %}
+                    {% for selling_plan in group.selling_plans %}
+                      <li>
+                        <input type="radio" name="easy_selling_plan" data-require="{%- if product.requires_selling_plan -%}true{%- else -%}false{%- endif -%}" value="{{ selling_plan.id }}" id="easy-plan-{{ selling_plan.id }}" {% if forloop.index == 1 %}checked{% endif %}>
+                        <label class="easysubwidgetboxselectionoptionlabel" for="easy-plan-{{ selling_plan.id }}"><span class="easysubwidgetboxselectionoptionlabelcheck"></span><span>{% for option in selling_plan.options %}{{ option.value }}{% endfor %}</span><span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span></label>
+                      </li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if style == 'easywidgetSetting3' %}
+        <div class="easysubwidgetbox styletwo stylethree">
+          <label class="easysubwidgetboxtitle">Purchase Options</label>
+          <div class="easysubwidgetboxselectionoptions">
+            <ul>
+              {% unless product.requires_selling_plan %}
+              <li>
+                <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime">
+                  <label class="easysubwidgetboxselectionoptionlabel">
+                    <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></span>
+                    <span>Regular purchase</span>
+                  </label>
+                  <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
+                </div>
+              </li>
+              {% endunless %}
+              <li class="{% if product.requires_selling_plan %}easyfull{% endif %}">
+                <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick{% if product.requires_selling_plan %} checked{% endif %}" data-purchase="subscribe">
+                  <div class="easysubwidgetboxselectionoptioncover">
+                    <label class="easysubwidgetboxselectionoptionlabel">
+                      <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></span>
+                      <span>Subscribe</span>
+                    </label>
+                    <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
+                  </div>
+                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %}
+                </div>
+              </li>
+            </ul>
+            <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
+              <label class="easysubwidgetboxtitle">Delivery every</label>
+              <div class="easysubwidgetboxselectionoptionplansselect">
+                <ul class="easysubwidgetboxselectionoptionplansselectlist">
+                  {% for group in product.selling_plan_groups %}
+                    {% for selling_plan in group.selling_plans %}
+                      <li>
+                        <input type="radio" name="easy_selling_plan" data-require="{%- if product.requires_selling_plan -%}true{%- else -%}false{%- endif -%}" value="{{ selling_plan.id }}" id="easy-plan-{{ selling_plan.id }}" {% if forloop.index == 1 %}checked{% endif %}>
+                        <label class="easysubwidgetboxselectionoptionlabel" for="easy-plan-{{ selling_plan.id }}"><span class="easysubwidgetboxselectionoptionlabelcheck"></span><span class="easyfrequencytitle">{% for option in selling_plan.options %}{{ option.value }}{% endfor %}</span><span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span></label>
+                      </li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %} 
+
+      {% if style == 'easywidgetSetting2' %}
+        <div class="easysubwidgetbox styletwo stylethree stylefour">
+          <label class="easysubwidgetboxtitle">Purchase Options</label>
+          <div class="easysubwidgetboxselectionoptions">
+            <ul>
+              {% unless product.requires_selling_plan %}
+              <li>
+                <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime">
+                  <label class="easysubwidgetboxselectionoptionlabel">
+                    <span class="easyicon">
+                      {{ '3dbox.svg' | asset_url | img_tag }}
+                    </span>
+                    <span>Regular purchase</span>
+                  </label>
+                  <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
+                </div>
+              </li>
+              {% endunless %}
+              <li class="{% if product.requires_selling_plan %}easyfull{% endif %}">
+                <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick{% if product.requires_selling_plan %} checked{% endif %}" data-purchase="subscribe">
+                  <div class="easysubwidgetboxselectionoptioncover">
+                    <label class="easysubwidgetboxselectionoptionlabel">
+                      <span class="easyicon">
+                        {{ '3dtruck.svg' | asset_url | img_tag }}
+                      </span>
+                      <span>Subscribe</span>
+                    </label>
+                    <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
+                  </div>
+                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %}
+                </div>
+              </li>
+            </ul>
+            <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
+              <label class="easysubwidgetboxtitle">Delivery every</label>
+              <div class="easysubwidgetboxselectionoptionplansselect">
+                <ul class="easysubwidgetboxselectionoptionplansselectlist">
+                  {% for group in product.selling_plan_groups %}
+                    {% for selling_plan in group.selling_plans %}
+                      {% capture emoji  %}
+                          {% cycle 'emojismile.svg', 'emojismile2.svg', 'emojismile3.svg', 'emojismile4.svg' %}
+                      {% endcapture %}
+                      <li>
+                        <input type="radio" name="easy_selling_plan" data-require="{%- if product.requires_selling_plan -%}true{%- else -%}false{%- endif -%}" value="{{ selling_plan.id }}" id="easy-plan-{{ selling_plan.id }}" {% if forloop.index == 1 %}checked{% endif %}>
+                        <label class="easysubwidgetboxselectionoptionlabel" for="easy-plan-{{ selling_plan.id }}">
+                          <span class="easysubwidgetboxselectionoptionlabelcheck"></span>
+                          <span class="easyemoji">
+                            {{ emoji | asset_url | img_tag }}
+                          </span>
+                          <span class="easyfrequencytitle">{% for option in selling_plan.options %}{{ option.value }}{% endfor %}</span>
+                          <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
+                        </label>
+                      </li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if style == 'easywidgetSetting4' %}
+        <div class="easysubwidgetbox styletwo stylethree stylefive">
+          <label class="easysubwidgetboxtitle">Purchase Options</label>
+          <div class="easysubwidgetboxselectionoptions">
+            <ul>
+              {% unless product.requires_selling_plan %}
+              <li>
+                <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime">
+                  <label class="easysubwidgetboxselectionoptionlabel">
+                    <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></span>
+                    <span>Regular purchase</span>
+                  </label>
+                  <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
+                </div>
+              </li>
+              {% endunless %}
+              <li class="{% if product.requires_selling_plan %}easyfull{% endif %}">
+                <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick{% if product.requires_selling_plan %} checked{% endif %}" data-purchase="subscribe">
+                  <div class="easysubwidgetboxselectionoptioncover">
+                    <label class="easysubwidgetboxselectionoptionlabel">
+                      <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></span>
+                      <span>Subscribe</span>
+                    </label>
+                    <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
+                  </div>
+                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %}
+                </div>
+              </li>
+            </ul>
+            <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
+              <label class="easysubwidgetboxtitle">Delivery every</label>
+              <div class="easysubwidgetboxselectionoptionplansselect">
+                <ul class="easysubwidgetboxselectionoptionplansselectlist">
+                  {% for group in product.selling_plan_groups %}
+                    {% for selling_plan in group.selling_plans %}
+                      <li>
+                        <input type="radio" name="easy_selling_plan" data-require="{%- if product.requires_selling_plan -%}true{%- else -%}false{%- endif -%}" value="{{ selling_plan.id }}" id="easy-plan-{{ selling_plan.id }}" {% if forloop.index == 1 %}checked{% endif %}>
+                        <label class="easysubwidgetboxselectionoptionlabel" for="easy-plan-{{ selling_plan.id }}">
+                          <span class="easysubwidgetboxselectionoptionlabelcheck"></span>
+                          <span class="easyfrequencytitle">{% for option in selling_plan.options %}{{ option.value }}{% endfor %}</span>
+                          <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
+                          <span class="easysubwidgetboxselectionoptionlabelbackground"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-package"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></span>
+                        </label>
+                      </li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="easysubwidgetbox">
+        <label class="easysubwidgetboxtitle">Purchase Options</label>
+        <div class="easysubwidgetboxselectionoptions">
+          <ul>
+            {% unless product.requires_selling_plan %}
+            <li>
+              <div class="easysubwidgetboxselectionoption">
+                <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime"><span class="easysubwidgetboxselectionoptionlabelcheck"></span>Regular purchase</label>
+                <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
+              </div>
+            </li>
+            {% endunless %}
+            <li>
+              <div class="easysubwidgetboxselectionoption">
+                <div class="easysubwidgetboxselectionoptioncover">
+                  <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick{% if product.requires_selling_plan %} checked{% endif %}" data-purchase="subscribe"><span class="easysubwidgetboxselectionoptionlabelcheck"></span>Subscribe {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %} </label>
+                  <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
+                </div>
+                <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
+                  <div class="easysubwidgetboxselectionoptionplansselect">
+                    <label>Delivery every</label>
+                    <select name="easy_selling_plan" data-require="{%- if product.requires_selling_plan -%}true{%- else -%}false{%- endif -%}">
+                      {% for group in product.selling_plan_groups %}
+                        {% for selling_plan in group.selling_plans %}
+                          <option value="{{ selling_plan.id }}">{% for option in selling_plan.options %}{{ option.value }}{% endfor %}</option>
+                        {% endfor %}
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    {% endif %}
+
+    <input type="hidden" name="easy_product_variants" value="{%- for variant in product.variants -%}{{ variant.id }},{%- endfor -%}">
+    <div class="easysubpricelist">
+      {%- for variant in product.variants -%}
+        {% if priceAdjustment == 0 %}
+          <input type="hidden" id="easysubpricevariant-{{ variant.id }}" data-price="{{ variant.price | money }}" data-subprice="{{ variant.price | money }}">
+        {% else %}
+          {% assign discountPriceMulti = variant.price | divided_by:100 %}
+          {% assign discountedPrice = discountPriceMulti | times:priceAdjustment %}
+          {% assign finalPrice = variant.price | minus:discountedPrice %}
+          <input type="hidden" id="easysubpricevariant-{{ variant.id }}" data-price="{{ variant.price | money }}" data-subprice="{{ finalPrice | money }}">
+        {% endif %}
+      {%- endfor -%}
+    </div>
+
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Easy Subscription",
+    "target": "section",
+    "enabled_on": {
+      "templates": ["product"]
+    },
+    "stylesheet": "easywidget.css",
+    "javascript": "easywidget.js",
+    "available_if": "{{ app.metafields.plan.conditional }}",
+    "settings": []
+  }
+{% endschema %}

@@ -1,0 +1,39 @@
+<div class="easySubscriptionWidget">
+  <div class="easySubscriptionWidgetIn">
+      <button class="btn button" id = "easySubscriptionMannage" data-url="{{ app.url }}" email={{ customer.email }} value={{ shop.name }}>Mannage Subscription</button>
+      <div class="easySubscriptionWidgetModel" style="display:none;">
+          <div class="easySubscriptionWidgetModelInner">
+            <div class="easySubscriptionWidgetModelInnerTitle">
+                <h3 class="title">Subscriptions</h3>
+                <button type="button" class="btn button" id="easySubscriptionClosebtn">Close</button>
+            </div>
+            <div id="easySubscriptionWidgetModelIn" class="easySubscriptionWidgetModelIn">
+                <div class="easySubscriptionWidgetModelInstatusfilters">
+                    <span class="easySubscriptionlinks easySubscriptionlinksstatusfilter active" value='All'>All</span>
+                    <span class="easySubscriptionlinks easySubscriptionlinksstatusfilter" value="Active">Active</span>
+                    <span class="easySubscriptionlinks easySubscriptionlinksstatusfilter" value="Paused">Paused</span>
+                    <span class="easySubscriptionlinks easySubscriptionlinksstatusfilter" value="Cancelled">Cancelled</span>
+                </div>
+            </div>
+          </div>
+      </div> 
+      <div id="easySubscriptionSubscriptionModel" style="display:none;" class="easySubscriptionSubscriptionModel">
+        <h4 id="easySubscriptionInnerClosebtn">Close</h4>
+      </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Easy Subscription",
+    "target": "section",
+    "enabled_on": {
+      "templates": ["customers/account"]
+    },
+    "stylesheet": "easyaccount.css",
+    "javascript": "easyaccount.js",
+    "available_if": "{{ app.metafields.plan.conditional }}",
+    "settings": [
+        { "label": "Color", "id": "color", "type": "color", "default": "#000000" }
+    ]
+  }
+{% endschema %}

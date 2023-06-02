@@ -1,0 +1,168 @@
+.easySubscriptionWidget {
+  position: relative;
+  width: 100%;
+}
+.easySubscriptionWidget .easySubscriptionWidgetIn {
+  padding: 20px 0;
+}
+.easySubscriptionWidget .easySubscriptionWidgetIn button.button {
+  background-color: #7167e8;
+  border-color: #7167e8;
+  color: #fff;
+  font-size: 16px;
+  padding: 12px 30px;
+}
+.easySubscriptionWidgetIn .easySubscriptionWidgetModel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba( 255, 255, 255, 0.8 );
+  z-index: 99999999;
+  overflow:auto;
+}
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px;
+  background-color:#F6F6F8;
+  border: 1px solid #eee;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle {
+  position: relative;
+  width: 100%;
+}
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle h3.title {
+  margin: 0;
+  font-size: 24px;
+}
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelIn {
+  position: relative;
+  width: 100%;
+}
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInstatusfilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: #222;
+}
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInstatusfilters span.easySubscriptionlinks {
+  line-height: 1em;
+  padding-bottom: 2px;
+  border-bottom: 2px solid;
+  cursor: pointer;
+}
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInstatusfilters span.easySubscriptionlinks.active {
+  color: #7167e8;
+}
+.easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems {
+  width: 100%;
+  position: relative;
+  padding-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems {
+  position: relative;
+  width: 100%;
+  color:#222;
+}
+.easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsHead {
+  width: 100%;
+  position: relative;
+  padding-bottom: 15px;
+}
+.easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsHead .easySubbscriptionTitle {
+  margin: 0;
+}
+.easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #E0E0E0;
+}
+.easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsHead .easySubbscriptionTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+span.status-ACTIVE,
+span.status-PAUSED,
+span.status-CANCELLED {
+  position: relative;
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 12px;
+  background-color: #6bf88b;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+span.status-PAUSED{
+  background-color: #f7f94e;
+}
+span.status-CANCELLED{
+  background-color: #fa5044;
+}
+.easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetails {
+  position: relative;
+  display: flex;
+}
+.easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetails .easySubscriptionWidgetModelInLineitemsDetailsIn {
+  width: 100%;
+  max-width: 20%;
+  box-sizing: border-box;
+  padding-right: 20px;
+}
+.easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetails .easySubscriptionWidgetModelInLineitemsDetailsIn:nth-child(1),
+.easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetails .easySubscriptionWidgetModelInLineitemsDetailsIn:nth-child(2) {
+  max-width: 30%;
+}
+.easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetails .easySubscriptionWidgetModelInLineitemsDetailsIn:last-child {
+  padding-right: 0;
+}
+.easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetailsIn {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetailsIn .easySubscriptionWidgetModelInLineitemsImg {
+  width: 100%;
+  max-width: 80px;
+  display: flex;
+}
+.easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetailsIn .easySubscriptionWidgetModelInLineitemsImg img {
+  width: 100%;
+}
+.easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetailsIn .easySubscriptionWidgetModelInLineitemsPriceDetails {
+  width: 100%;
+  max-width: calc( 100% - 80px );
+  padding-left: 10px;
+}
+.easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetailsIn .easySubscriptionWidgetModelInLineitemsPriceDetails > label {
+  font-weight: 600;
+  font-size: 16px;
+}
+.easySubscriptionWidgetModelInLineitemsPriceDetails .easySubscriptionProductPriceQuantity {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.easySubscriptionWidgetModelInLineitemsPriceDetails .easySubscriptionProductPriceQuantity > div {
+  width: 100%;
+  max-width: 100%;
+}

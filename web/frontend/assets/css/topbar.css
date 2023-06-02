@@ -1,0 +1,34 @@
+.topbarIn {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: var(--white);
+}
+
+.topbarIn .helpMenu ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.topbarIn .helpMenu ul li a {
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 18px;
+    align-items: center;
+    color: #595F69;
+}
+
+.topbarIn .helpMenu ul li a img {
+    display: block;
+}
+
+.topbarIn .togglemenu a img {
+    display: block;
+}
+.topbar {
+    width: 100%;
+}

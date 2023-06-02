@@ -1,0 +1,433 @@
+
+.easysubwidgetbox {
+    display: block;
+    position: relative;
+    width: 100%;
+    color: #222;
+  }
+  .easysubwidgetbox label.easysubwidgetboxtitle {
+    font-size: 16px;
+    font-weight: 600;
+    position: relative;
+    display: block;
+    line-height:1.2em;
+  }
+  .easysubwidgetbox .easysubwidgetboxselectionoptions {
+    position: relative;
+    width: 100%;
+    display: block;
+    padding-top: 10px;
+  }
+  .easysubwidgetbox .easysubwidgetboxselectionoptions ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .easysubwidgetbox .easysubwidgetboxselectionoptions ul li {
+    width: 100%;
+    position: relative;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption {
+    padding: 20px;
+    background-color: #f6f6f8;
+    line-height: 1em;
+    color: #222;
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    font-size: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 100%;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    label.easysubwidgetboxselectionoptionlabel {
+    color: #222;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    label.easysubwidgetboxselectionoptionlabel
+    span.easysubwidgetboxselectionoptionlabelcheck {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 1px;
+    border: 1px solid #7167e8;
+    border-radius: 100%;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    label.easysubwidgetboxselectionoptionlabel
+    span.easysubwidgetboxselectionoptionlabelcheck:before {
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    content: "";
+    background-color: #7167e8;
+    border-radius: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    label.easysubwidgetboxselectionoptionlabel.checked
+    span.easysubwidgetboxselectionoptionlabelcheck:before,
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    input:checked
+    + label.easysubwidgetboxselectionoptionlabel
+    span.easysubwidgetboxselectionoptionlabelcheck:before {
+    opacity: 1;
+    visibility: visible;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    span.easysubwidgetboxselectionoptionlabeltag {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: #7167e8;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1em;
+    margin-left: 10px;
+    margin-top: -5px;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption
+    .easysubwidgetboxselectionoptioncover {
+    width: 100%;
+    position: relative;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplans,
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplans
+    .easysubwidgetboxselectionoptionplansselect {
+    width: 100%;
+    position: relative;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplans
+    .easysubwidgetboxselectionoptionplansselect
+    select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    max-width: 120px;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplans {
+    display: none;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplans.active {
+    display: block;
+  }
+  .easysubwidgetbox.styletwo .easysubwidgetboxselectionoptions ul li {
+    max-width: calc(50% - 5px);
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    ul
+    li
+    span.easysubwidgetboxselectionoptionprice {
+    display: none;
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption
+    label.easysubwidgetboxselectionoptionlabel {
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.4em;
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption
+    span.easysubwidgetboxselectionoptionlabeltag {
+    position: absolute;
+    margin: 0;
+    border-radius: 0;
+    top: 0;
+    right: 20px;
+    transform: translate(0%, -50%);
+  }
+  .easysubwidgetbox.stylefour
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption
+    span.easysubwidgetboxselectionoptionlabeltag {
+    border-radius: 20px;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionlabelclick {
+    cursor: pointer;
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption {
+    border: 1px solid #eee;
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption.checked {
+    border-color: #7167e8;
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption.checked
+    label.easysubwidgetboxselectionoptionlabel {
+    color: #7167e8;
+  }
+  .easysubwidgetbox.styletwo .easysubwidgetboxselectionoptions ul li.easyfull {
+    max-width: 100%;
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplans {
+    padding-top: 15px;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    ul.easysubwidgetboxselectionoptionplansselectlist
+    input[name="easy_selling_plan"] {
+    display: none;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    ul.easysubwidgetboxselectionoptionplansselectlist
+    li {
+    width: 100%;
+    max-width: 100%;
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplans
+    .easysubwidgetboxselectionoptionplansselect {
+    padding: 20px;
+    background-color: #f6f6f8;
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    label.easysubwidgetboxselectionoptionlabel
+    span.easysubwidgetboxselectionoptionlabelcheck {
+    top: 4px;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    ul.easysubwidgetboxselectionoptionplansselectlist
+    li
+    span.easysubwidgetboxselectionoptionprice {
+    display: block;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplansselectlist
+    label.easysubwidgetboxselectionoptionlabel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    line-height: 1.4em;
+  }
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplans
+    .easysubwidgetboxselectionoptionplansselect {
+    padding-left: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplans
+    label.easysubwidgetboxtitle {
+    padding-bottom: 10px;
+  }
+  .easysubwidgetbox.styletwo.stylethree {
+    padding: 15px;
+    border: 1px solid #eee;
+  }
+  .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption
+    label.easysubwidgetboxselectionoptionlabel
+    span.easyicon {
+    display: flex;
+  }
+  .easysubwidgetbox.stylethree
+    .easysubwidgetboxselectionoptions
+    ul.easysubwidgetboxselectionoptionplansselectlist
+    li {
+    max-width: 90px;
+  }
+  .easysubwidgetbox.stylethree
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplansselectlist
+    label.easysubwidgetboxselectionoptionlabel {
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  .easysubwidgetbox.styletwo.stylethree
+    .easysubwidgetboxselectionoptions
+    label.easysubwidgetboxselectionoptionlabel
+    span.easysubwidgetboxselectionoptionlabelcheck {
+    display: none;
+  }
+  .easysubwidgetbox.styletwo.stylethree
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplans
+    .easysubwidgetboxselectionoptionplansselect {
+    padding: 0;
+    background-color: transparent;
+  }
+  .easysubwidgetbox.stylethree
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplansselectlist
+    label.easysubwidgetboxselectionoptionlabel {
+    flex-wrap: wrap;
+    padding: 5px;
+    border: 1px solid #eee;
+    text-align: center;
+    gap: 5px;
+  }
+  .easysubwidgetbox.stylethree
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplansselectlist
+    label.easysubwidgetboxselectionoptionlabel
+    span.easyfrequencytitle {
+    line-height: 1.4em;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    background-color: #f6f6f8;
+    font-size:14px;
+    text-transform: capitalize;
+  }
+  .easysubwidgetbox.stylethree
+    .easysubwidgetboxselectionoptions
+    ul.easysubwidgetboxselectionoptionplansselectlist
+    li
+    span.easysubwidgetboxselectionoptionprice {
+    width: 100%;
+    font-weight: 600;
+  }
+  .easysubwidgetbox.stylethree
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplansselectlist
+    input:checked+label.easysubwidgetboxselectionoptionlabel
+    span.easyfrequencytitle {
+    background-color: #7167e8;
+    color: #fff;
+  }
+  .easysubwidgetbox.styletwo.stylethree.stylefour {
+    border-radius: 20px;
+    padding: 20px;
+  }
+  .easysubwidgetbox.styletwo .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption.checked{
+    border-color: #7167e8;
+    background-color: #F1F0FD;
+  }
+  .easysubwidgetbox.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption {
+      padding: 15px;
+      border-radius: 50px;
+  }
+  .easysubwidgetbox.stylethree.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist label.easysubwidgetboxselectionoptionlabel{
+      padding:20px 15px;
+      border-radius: 50px;  
+  }
+  .easysubwidgetbox.stylethree.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist label.easysubwidgetboxselectionoptionlabel span.easyfrequencytitle {
+      padding: 0;
+      background-color: transparent;
+      padding-top: 0px;
+      padding-bottom: 5px;
+  }
+  .easysubwidgetbox.stylethree.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist label.easysubwidgetboxselectionoptionlabel span.easyemoji {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding-bottom:10px;
+  }
+  .easysubwidgetbox.stylethree.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel span.easyfrequencytitle {
+      background-color: transparent;
+      color: inherit;
+  }
+  .easysubwidgetbox.stylethree.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel {
+     border-color: #7167e8;
+     background-color: #F1F0FD;
+  }
+  .easysubwidgetbox.styletwo.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption {
+      background-color: #fff;
+      padding: 15px;
+  }
+  .easysubwidgetbox.styletwo.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption.checked {
+      background-color: #f1f0fd;
+  }
+  .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions ul.easysubwidgetboxselectionoptionplansselectlist li {
+      max-width: 130px;
+  }
+  .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions ul.easysubwidgetboxselectionoptionplansselectlist li label.easysubwidgetboxselectionoptionlabel{
+      padding:10px 40px 10px 10px;
+      position:relative;
+      overflow:hidden;
+  }
+  .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions ul.easysubwidgetboxselectionoptionplansselectlist li span.easysubwidgetboxselectionoptionprice {
+      text-align: left;
+  }
+  .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist label.easysubwidgetboxselectionoptionlabel span.easyfrequencytitle {
+      line-height: 1.2em;
+      border-radius: 20px;
+  }
+  .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions ul.easysubwidgetboxselectionoptionplansselectlist li label.easysubwidgetboxselectionoptionlabel span.easysubwidgetboxselectionoptionlabelbackground {
+      position: absolute;
+      display: flex;
+      right: 0;
+      bottom: 0;
+      opacity: 0.1;
+      transform: translate(10px, 10px);
+  }
+  .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel {
+      background-color: #7167e8;
+      color: #fff;
+  }
+  .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel span.easyfrequencytitle {
+      background-color: #fff;
+      color: #222;
+  }
+  .easysubwidgetbox.styletwo .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption label.easysubwidgetboxselectionoptionlabel span.easyicon img{
+    width:22px;
+  }
+  .easysubwidgetbox.stylethree.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist label.easysubwidgetboxselectionoptionlabel span.easyemoji img{
+    width:28px;
+  }
