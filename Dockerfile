@@ -8,7 +8,6 @@ RUN apk update && apk add --update nodejs npm \
     openrc bash nginx
 
 RUN docker-php-ext-install pdo
-RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
 
 COPY --chown=www-data:www-data web /app
 WORKDIR /app
@@ -26,4 +25,4 @@ RUN chown www-data:www-data /app/storage/db.sqlite
 RUN cd frontend && npm install && npm run build
 RUN composer build
 
-ENTRYPOINT ["sh", "/app/entrypoint.sh" ]
+ENTRYPOINT [ "/app/entrypoint.sh" ]
