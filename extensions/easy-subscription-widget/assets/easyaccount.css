@@ -12,8 +12,9 @@
   font-size: 16px;
   padding: 12px 30px;
 }
-.easySubscriptionWidgetIn .easySubscriptionWidgetModel {
-  position: fixed;
+.easySubscriptionWidgetIn .easySubscriptionWidgetModel,
+.easySubscriptionWidgetIn .easySubscriptionSubscriptionModel {
+  position: fixed; 
   top: 0;
   left: 0;
   right: 0;
@@ -22,7 +23,12 @@
   z-index: 99999999;
   overflow:auto;
 }
-.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner {
+.easySubscriptionWidgetIn .easySubscriptionSubscriptionModel{
+  z-index: 999999999;
+  background-color: rgba( 255, 255, 255, 0.90 );
+}
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner,
+.easySubscriptionWidgetIn .easySubscriptionSubscriptionModel .easySubscriptionSubscriptionModelInner {
   width: 90%;
   max-width: 1200px;
   margin: auto;
@@ -32,15 +38,13 @@
   margin-top: 100px;
   margin-bottom: 100px;
 }
-.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle {
-  position: relative;
-  width: 100%;
-}
-.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle h3.title {
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle h3.title,
+.easySubscriptionWidgetIn .easySubscriptionSubscriptionModel .easySubscriptionSubscriptionModelInner .easySubscriptionWidgetModelInnerTitle h3.title {
   margin: 0;
   font-size: 24px;
 }
-.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle {
+.easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle,
+.easySubscriptionWidgetIn .easySubscriptionSubscriptionModel .easySubscriptionSubscriptionModelInner .easySubscriptionWidgetModelInnerTitle {
   position: relative;
   width: 100%;
   display: flex;
@@ -85,9 +89,6 @@
   position: relative;
   padding-bottom: 15px;
 }
-.easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsHead .easySubbscriptionTitle {
-  margin: 0;
-}
 .easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems {
   position: relative;
   width: 100%;
@@ -95,7 +96,8 @@
   background-color: #fff;
   border: 1px solid #E0E0E0;
 }
-.easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsHead .easySubbscriptionTitle {
+.easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsHead .easySubbscriptionTitle,
+.easySubscriptionSubscriptionModelInner .easyCustomerSubscriptionStatus .easySubbscriptionTitle {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
@@ -165,4 +167,55 @@ span.status-CANCELLED{
 .easySubscriptionWidgetModelInLineitemsPriceDetails .easySubscriptionProductPriceQuantity > div {
   width: 100%;
   max-width: 100%;
+}
+.easySubscriptionSubscriptionModelInner .easyCustomerSubscriptionStatus label.easyCustomerSubscriptionStatusNextOrder {
+  font-size: 20px;
+  display: block;
+}
+.easySubscriptionSubscriptionModelInner .easyCustomerSubscriptionStatus .easySubbscriptionTitle{
+  padding-top: 20px;
+}
+.easySubscriptionSubscriptionModelIn .easyCustomerOrderStatusParent {
+  position: relative;
+  width: 100%;
+  padding-bottom: 30px;
+}
+.easySubscriptionSubscriptionModelIn .easySubscriptioneasyCustomerOrdersBox,
+.easySubscriptionSubscriptionModelIn .easySubscriptioneasyCustomerOrdersBox .easySubscriptioneasyCustomerOrders,
+.easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable,
+.easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable .easyCustomerOrdersDataContent {
+  position: relative;
+  width: 100%;
+}
+.easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable .easyCustomerOrdersDataHeader,
+.easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable .easyCustomerOrdersDataContent .easyCustomerOrdersDataContentRow {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  position: relative;
+}
+.easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable .easyCustomerOrdersDataHeader .easyCustomerOrdersHead,
+.easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable .easyCustomerOrdersDataContent .easyCustomerOrdersDataContentRow .easyCustomerOrdersDataTableBox {
+  position: relative;
+  width: 100%;
+  max-width: 25%;
+  box-sizing: border-box;
+  padding: 15px;
+  line-height: 1em;
+  font-weight: 600;
+  background-color: #fff;
+}
+.easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable .easyCustomerOrdersDataContent .easyCustomerOrdersDataContentRow .easyCustomerOrdersDataTableBoxRow {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable .easyCustomerOrdersDataContent .easyCustomerOrdersDataContentRow .easyCustomerOrdersDataTableBoxRow {
+  border-top: 1px solid #eee;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable .easyCustomerOrdersDataContent .easyCustomerOrdersDataContentRow .easyCustomerOrdersDataTableBoxRow .easyCustomerOrdersDataTableBox {
+  font-weight: 400;
 }

@@ -159,18 +159,18 @@ Route::post('singlesubscriptionData',function(Request $request){
             }
         }
     }
-    $changeStatusHtmlfirst = '<div class="itgCustomerOrderStatusParent">
-    <div class="itgCustomerSubscriptionStatus">
-        <h3 class="">Status :<span class="itgCustomerSubscriptionStatusACTIVE">'.$subscriptionStatus.'</span></h3>
-        <h3 class="">Next Order : '.$nextBilling.' '.$total.'</h3>
+    $changeStatusHtmlfirst = '<div class="easyCustomerOrderStatusParent">
+    <div class="easyCustomerSubscriptionStatus">
+        <h4 class="easySubbscriptionTitle">Status :<span class="easyCustomerSubscriptionStatus status-'.$subscriptionStatus.'">'.$subscriptionStatus.'</span></h4>
+        <label class="easyCustomerSubscriptionStatusNextOrder">Next Order : '.$nextBilling.' '.$total.'</label>
     </div>
-    <div class="itgCustomerSubscriptionStatusbtns">';
+    <div class="easyCustomerSubscriptionStatusbtns">';
     $changeStatusHtmlLast = '</div>
     </div>';
-    $cancelSubHtml = '<button class="itgCustomerSubscriptionStatusbutton" value='.$subID.' type="button" statusValue="CANCELLED">Cancle</button>';
-    $skipSubHtml = '<button class="itgCustomerSubscriptionStatusbutton" value='.$subID.' statusValue="SKIP" type="button">Skip</button>';
-    $PauseSubHtml = '<button class="itgCustomerSubscriptionStatusbutton" value='.$subID.' type="button" statusValue="PAUSED">Pause</button>';
-    $activeSubHtml = '<button class="itgCustomerSubscriptionStatusbutton" value='.$subID.' type="button" statusValue="ACTIVE">Active</button>';
+    $cancelSubHtml = '<button class="easyCustomerSubscriptionStatusbutton" value='.$subID.' type="button" statusValue="CANCELLED">Cancle</button>';
+    $skipSubHtml = '<button class="easyCustomerSubscriptionStatusbutton" value='.$subID.' statusValue="SKIP" type="button">Skip</button>';
+    $PauseSubHtml = '<button class="easyCustomerSubscriptionStatusbutton" value='.$subID.' type="button" statusValue="PAUSED">Pause</button>';
+    $activeSubHtml = '<button class="easyCustomerSubscriptionStatusbutton" value='.$subID.' type="button" statusValue="ACTIVE">Active</button>';
     if($subscriptionStatus == 'ACTIVE'){
         $easySubscriptionSubscriptionModelIn = $changeStatusHtmlfirst;
         if($btnStatus['pauseResumeSubscriptions']){
@@ -196,9 +196,9 @@ Route::post('singlesubscriptionData',function(Request $request){
         }
         $easySubscriptionSubscriptionModelIn = $easySubscriptionSubscriptionModelIn.$changeStatusHtmlLast;
     } else if($subscriptionStatus == 'CANCELLED'){
-        $easySubscriptionSubscriptionModelIn = '<div class="itgCustomerOrderStatusParent">
-            <div class="itgCustomerSubscriptionStatus">
-                <h3 class="">Status :<span class="itgCustomerSubscriptionStatusACTIVE">'.$subscriptionStatus.'</span></h3>
+        $easySubscriptionSubscriptionModelIn = '<div class="easyCustomerOrderStatusParent">
+            <div class="easyCustomerSubscriptionStatus">
+                <h3 class="">Status :<span class="easyCustomerSubscriptionStatusACTIVE">'.$subscriptionStatus.'</span></h3>
                 <h3 class="">Next Order : '.$nextBilling.' '.$total.'</h3>
             </div>
         </div>';

@@ -1,11 +1,12 @@
 addEventListener('DOMContentLoaded',(e)=>{
     let lineItemsHtml;
-    let url = 'https://6ad4-49-249-2-6.ngrok-free.app';
+    let url = 'https://8aa6-2401-4900-1c19-eebb-e5e1-55e8-1602-ece.ngrok-free.app';
     let easySubscriptionShowMore;
     let easySubscriptionMannage = document.getElementById('easySubscriptionMannage');
     let easySubscriptionWidgetModelIn = document.getElementById('easySubscriptionWidgetModelIn');
     let easySubscriptionWidgetShowFilter = document.getElementById('easySubscriptionWidgetShowFilter');
     let easySubscriptionSubscriptionModel = document.getElementById('easySubscriptionSubscriptionModel');
+    let easySubscriptionSubscriptionModelInner = document.getElementById('easySubscriptionSubscriptionModelInner');
     let selectValueChange = document.getElementsByClassName('easySubscriptionselectValueChange');
     let shopname = easySubscriptionMannage.value;
     let customerEmail = easySubscriptionMannage.getAttribute('email');
@@ -127,43 +128,46 @@ addEventListener('DOMContentLoaded',(e)=>{
             let data1 = JSON.parse(res1);
             if(data1){
                 easySubscriptionSubscriptionModelIn.innerHTML = data1.btnStatus;
-                let easySubscriptionitgCustomerOrdersdiv = document.getElementsByClassName('easySubscriptionitgCustomerOrders');
-                for(items of easySubscriptionitgCustomerOrdersdiv){
+                let easySubscriptioneasyCustomerOrdersdiv = document.getElementsByClassName('easySubscriptioneasyCustomerOrders');
+                for(items of easySubscriptioneasyCustomerOrdersdiv){
                     items.parentNode.removeChild(items);
                 }
-                let easySubscriptionitgCustomerOrders = document.createElement("div");
-                easySubscriptionitgCustomerOrders.innerHTML = '';
-                easySubscriptionitgCustomerOrders.classList.add('easySubscriptionitgCustomerOrders');
-                easySubscriptionitgCustomerOrders.innerHTML = `<div class="easySubscriptionitgCustomerOrders">
-                    <div class="itgCustomerOrdersTable">
-                        <div class="itgCustomerOrdersDataHeader">
-                            <div class="itgCustomerOrdersHead">
+                let easySubscriptioneasyCustomerOrders = document.createElement("div");
+                easySubscriptioneasyCustomerOrders.innerHTML = '';
+                easySubscriptioneasyCustomerOrders.classList.add('easySubscriptioneasyCustomerOrdersBox');
+                easySubscriptioneasyCustomerOrders.innerHTML = `<div class="easySubscriptioneasyCustomerOrders">
+                    <div class="easyCustomerOrdersTable">
+                        <div class="easyCustomerOrdersDataHeader">
+                            <div class="easyCustomerOrdersHead">
                                 <label>Order</label>
                             </div>
-                            <div class="itgCustomerOrdersHead"><label>Date</label></div>
-                            <div class="itgCustomerOrdersHead"><label>Total</label></div>
-                            <div class="itgCustomerOrdersHead"><label>Type</label></div>
+                            <div class="easyCustomerOrdersHead"><label>Date</label></div>
+                            <div class="easyCustomerOrdersHead"><label>Total</label></div>
+                            <div class="easyCustomerOrdersHead"><label>Type</label></div>
                         </div>
-                        <div class="itgCustomerOrdersDataContent">
-                            <div id="itgCustomerOrdersDataContentRow" class="itgCustomerOrdersDataContentRow">   
+                        <div class="easyCustomerOrdersDataContent">
+                            <div id="easyCustomerOrdersDataContentRow" class="easyCustomerOrdersDataContentRow">   
                             </div>
                         </div>
                     </div>
                 </div>`;
-                easySubscriptionSubscriptionModelIn.appendChild(easySubscriptionitgCustomerOrders);
-                easySubscriptionSubscriptionModel.appendChild(easySubscriptionSubscriptionModelIn);
-                
-                document.getElementById('itgCustomerOrdersDataContentRow').innerHTML += data1.orders.map(({interval,intervalCount,name,createdAt,total})=>{
+                easySubscriptionSubscriptionModelIn.appendChild(easySubscriptioneasyCustomerOrders);
+                easySubscriptionSubscriptionModelInner.appendChild(easySubscriptionSubscriptionModelIn);
+                var subbId = subidmoredetailsId.replace('gid://shopify/SubscriptionContract/','');
+                document.getElementById('easySubscriptionId').innerText="#"+subbId;
+                document.getElementById('easyCustomerOrdersDataContentRow').innerHTML += data1.orders.map(({interval,intervalCount,name,createdAt,total})=>{
                     return(
-                        `<div class="itgCustomerOrdersDataTableBox"><span>`+name+`</span></div>
-                        <div class="itgCustomerOrdersDataTableBox"><span>`+createdAt+`</span></div>
-                        <div class="itgCustomerOrdersDataTableBox"><span>`+total+`</span></div>
-                        <div class="itgCustomerOrdersDataTableBox"><span>Every `+data1.intervalCount+` `+data1.interval+`</span></div>`
+                        `<div class="easyCustomerOrdersDataTableBoxRow">
+                            <div class="easyCustomerOrdersDataTableBox"><span>`+name+`</span></div>
+                            <div class="easyCustomerOrdersDataTableBox"><span>`+createdAt+`</span></div>
+                            <div class="easyCustomerOrdersDataTableBox"><span>`+total+`</span></div>
+                            <div class="easyCustomerOrdersDataTableBox"><span>Every `+data1.intervalCount+` `+data1.interval+`</span></div>
+                        </div>`
                     )
                 }).join('')
                 easySubscriptionSubscriptionModel.style.display="block";
-                let itgCustomerSubscriptionStatusbutton = document.getElementsByClassName("itgCustomerSubscriptionStatusbutton");
-                for (const iterator of itgCustomerSubscriptionStatusbutton) {
+                let easyCustomerSubscriptionStatusbutton = document.getElementsByClassName("easyCustomerSubscriptionStatusbutton");
+                for (const iterator of easyCustomerSubscriptionStatusbutton) {
                     iterator.addEventListener('click',(e)=>{
                         let target = e.target;
                         let changesubscriptionDatastatusform = new FormData();
