@@ -126,11 +126,7 @@ Route::post('singlesubscriptionData',function(Request $request){
         }else{
             $orders[$i]['status']=$order['node']['fulfillments'][0]['displayStatus'];
         }
-        if($order['node']['totalPriceSet']['presentmentMoney']['currencyCode'] == 'INR'){
-            $currency = '₹';
-        }else{
-            $currency = $order['node']['totalPriceSet']['presentmentMoney']['currencyCode'];
-        }
+        $currency = $order['node']['totalPriceSet']['presentmentMoney']['currencyCode'];
         $orders[$i]['total']= $currency." ".$order['node']['totalPriceSet']['presentmentMoney']['amount'];
         $total = $orders[$i]['total'];
         $orders[$i]['id']=$order['node']['id'];
@@ -167,10 +163,10 @@ Route::post('singlesubscriptionData',function(Request $request){
     <div class="easyCustomerSubscriptionStatusbtns">';
     $changeStatusHtmlLast = '</div>
     </div>';
-    $cancelSubHtml = '<button class="easyCustomerSubscriptionStatusbutton" value='.$subID.' type="button" statusValue="CANCELLED">Cancle</button>';
-    $skipSubHtml = '<button class="easyCustomerSubscriptionStatusbutton" value='.$subID.' statusValue="SKIP" type="button">Skip</button>';
-    $PauseSubHtml = '<button class="easyCustomerSubscriptionStatusbutton" value='.$subID.' type="button" statusValue="PAUSED">Pause</button>';
-    $activeSubHtml = '<button class="easyCustomerSubscriptionStatusbutton" value='.$subID.' type="button" statusValue="ACTIVE">Active</button>';
+    $cancelSubHtml = '<button class="easyCustomerSubscriptionStatusbutton btn button" value='.$subID.' type="button" statusValue="CANCELLED">Cancle</button>';
+    $skipSubHtml = '<button class="easyCustomerSubscriptionStatusbutton btn button" value='.$subID.' statusValue="SKIP" type="button">Skip</button>';
+    $PauseSubHtml = '<button class="easyCustomerSubscriptionStatusbutton btn button" value='.$subID.' type="button" statusValue="PAUSED">Pause</button>';
+    $activeSubHtml = '<button class="easyCustomerSubscriptionStatusbutton btn button" value='.$subID.' type="button" statusValue="ACTIVE">Active</button>';
     if($subscriptionStatus == 'ACTIVE'){
         $easySubscriptionSubscriptionModelIn = $changeStatusHtmlfirst;
         if($btnStatus['pauseResumeSubscriptions']){
@@ -198,8 +194,8 @@ Route::post('singlesubscriptionData',function(Request $request){
     } else if($subscriptionStatus == 'CANCELLED'){
         $easySubscriptionSubscriptionModelIn = '<div class="easyCustomerOrderStatusParent">
             <div class="easyCustomerSubscriptionStatus">
-                <h3 class="">Status :<span class="easyCustomerSubscriptionStatusACTIVE">'.$subscriptionStatus.'</span></h3>
-                <h3 class="">Next Order : '.$nextBilling.' '.$total.'</h3>
+                <h3 class="easySubbscriptionTitle">Status :<span class="easyCustomerSubscriptionStatus status-'.$subscriptionStatus.'">'.$subscriptionStatus.'</span></h3>
+                <label class="easyCustomerSubscriptionStatusNextOrder">Next Order : '.$nextBilling.' '.$total.'</label>
             </div>
         </div>';
     }
@@ -367,11 +363,7 @@ Route::post('cstm/changesubscriptionDatastatus',function(Request $request){
         $date=date_create($order['created_at']);
         $creteadDate = $order['created_at'];
         $orders['createdAt']=date_format($date,"M d,Y");
-        if($order['current_total_price_set']['shop_money']['currency_code'] == 'INR'){
-            $currency = '₹';
-        }else{
-            $currency = $order['current_total_price_set']['shop_money']['currency_code'];
-        }
+        $currency = $order['current_total_price_set']['shop_money']['currency_code'];
         $orders['total']= $currency." ".$order['current_total_price'];
         $orders['currency'] = $currency;
         $orders['tax'] = $order['current_total_tax'];
@@ -380,7 +372,7 @@ Route::post('cstm/changesubscriptionDatastatus',function(Request $request){
         $orders['shipping'] = $order['total_shipping_price_set']['shop_money']['amount'];
         $orders['shippingAddress'] = $order['shipping_address'];
         $orders['billingAddress'] = $order['billing_address'];
-        $orders['payment'] = $order['payment_details'];
+      //  $orders['payment'] = $order['payment_details'];
         for($i=0;$i<count($order['line_items']);$i++){
             $orders['products'][$i]['id'] = $order['line_items'][$i]['id'];
             $orders['products'][$i]['productTitle'] = $order['line_items'][$i]['name'];
@@ -490,11 +482,7 @@ Route::post('cstm/changesubscriptionDatastatus',function(Request $request){
         $date=date_create($order['created_at']);
         $creteadDate = $order['created_at'];
         $orders['createdAt']=date_format($date,"M d,Y");
-        if($order['current_total_price_set']['shop_money']['currency_code'] == 'INR'){
-            $currency = '₹';
-        }else{
-            $currency = $order['current_total_price_set']['shop_money']['currency_code'];
-        }
+        $currency = $order['current_total_price_set']['shop_money']['currency_code'];
         $orders['total']= $currency." ".$order['current_total_price'];
         $orders['currency'] = $currency;
         $orders['tax'] = $order['current_total_tax'];
@@ -503,7 +491,7 @@ Route::post('cstm/changesubscriptionDatastatus',function(Request $request){
         $orders['shipping'] = $order['total_shipping_price_set']['shop_money']['amount'];
         $orders['shippingAddress'] = $order['shipping_address'];
         $orders['billingAddress'] = $order['billing_address'];
-        $orders['payment'] = $order['payment_details'];
+        //$orders['payment'] = $order['payment_details'];
         for($i=0;$i<count($order['line_items']);$i++){
             $orders['products'][$i]['id'] = $order['line_items'][$i]['id'];
             $orders['products'][$i]['productTitle'] = $order['line_items'][$i]['name'];

@@ -219,3 +219,53 @@ span.status-CANCELLED{
 .easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable .easyCustomerOrdersDataContent .easyCustomerOrdersDataContentRow .easyCustomerOrdersDataTableBoxRow .easyCustomerOrdersDataTableBox {
   font-weight: 400;
 }
+.easySubscriptionSubscriptionModelIn .easyCustomerOrderStatusParent .easyCustomerSubscriptionStatusbtns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+  .easySubscriptionWidgetModel .easySubscriptionWidgetModelInner, .easySubscriptionWidgetIn .easySubscriptionSubscriptionModel .easySubscriptionSubscriptionModelInner{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding:15px;
+  }
+  .easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle, .easySubscriptionWidgetIn .easySubscriptionSubscriptionModel .easySubscriptionSubscriptionModelInner .easySubscriptionWidgetModelInnerTitle{
+    flex-wrap: wrap;
+  }
+  .easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle h3.title, .easySubscriptionWidgetIn .easySubscriptionSubscriptionModel .easySubscriptionSubscriptionModelInner .easySubscriptionWidgetModelInnerTitle h3.title{
+    order:2;
+    display: block;
+    padding-top: 15px;
+    font-size: 20px;
+    width: 100%;
+  }
+  .easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle, .easySubscriptionWidgetIn .easySubscriptionSubscriptionModel .easySubscriptionSubscriptionModelInner .easySubscriptionWidgetModelInnerTitle{
+    padding-bottom: 15px;
+  }
+  .easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems{
+    padding: 15px;
+  }
+  .easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsHead .easySubbscriptionTitle, .easySubscriptionSubscriptionModelInner .easyCustomerSubscriptionStatus .easySubbscriptionTitle{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap:10px;
+  }
+  .easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsHead .easySubbscriptionTitle > span,
+  .easySubscriptionSubscriptionModelInner .easyCustomerSubscriptionStatus .easySubbscriptionTitle > span{
+    margin-left: 0;
+  } 
+  .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetails{
+    flex-wrap: wrap; 
+    gap:10px;
+  }
+  .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetails .easySubscriptionWidgetModelInLineitemsDetailsIn:nth-child(1),
+  .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetails .easySubscriptionWidgetModelInLineitemsDetailsIn:nth-child(2),
+  .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetails .easySubscriptionWidgetModelInLineitemsDetailsIn{
+    max-width: 100%;
+    padding-right: 0;
+  }
+}

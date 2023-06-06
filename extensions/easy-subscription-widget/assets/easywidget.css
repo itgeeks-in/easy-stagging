@@ -424,7 +424,7 @@
   .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel span.easyfrequencytitle {
       background-color: #fff;
       color: #222;
-  }
+  } 
   .easysubwidgetbox.styletwo .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption label.easysubwidgetboxselectionoptionlabel span.easyicon img{
     width:22px;
   }
