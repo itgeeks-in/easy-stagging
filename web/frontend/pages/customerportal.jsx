@@ -92,7 +92,7 @@ export default function NotificationSettings(){
                                 the customer portal.
                             </p>
                         </div>
-                        <div className="notificationSections">
+                        <div className={activation.pauseResumeSubscriptions?"notificationSections active":"notificationSections"}>
                             <div className="cont">
                                 <h6 className="sectionsHead">
                                     Customers can pause and resume their subscriptions
@@ -118,11 +118,11 @@ export default function NotificationSettings(){
                                 }
                             >
                                 {activation.pauseResumeSubscriptions
-                                    ? "Enable"
-                                    : "Disable"}
+                                    ? "Disable"
+                                    : "Enable"}
                             </button>
                         </div>
-                        <div className="notificationSections">
+                        <div className={activation.cancelSubscriptions?"notificationSections active":"notificationSections"}>
                             <div className="cont">
                                 <h6 className="sectionsHead">
                                     Customers can cancel their subscriptions
@@ -147,10 +147,10 @@ export default function NotificationSettings(){
                                         : "btn"
                                 }
                             >
-                                {activation.cancelSubscriptions ? "Enable" : "Disable"}
+                                {activation.cancelSubscriptions ? "Disable" : "Enable"}
                             </button>
                         </div>
-                        <div className="notificationSections">
+                        <div className={activation.skipNextOrder?"notificationSections active":"notificationSections"}>
                             <div className="cont">
                                 <h6 className="sectionsHead">
                                     Customers can skip their next order
@@ -172,7 +172,7 @@ export default function NotificationSettings(){
                                     activation.skipNextOrder ? "btn active" : "btn"
                                 }
                             >
-                                {activation.skipNextOrder ? "Enable" : "Disable"}
+                                {activation.skipNextOrder ? "Disable" : "Enable"}
                             </button>
                         </div>
                         </>}
