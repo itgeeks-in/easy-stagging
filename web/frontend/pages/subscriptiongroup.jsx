@@ -656,8 +656,8 @@ export default function createSubscriptionGroup(){
                                         <div className="itgSubGroupPageInnerGroupDiscountNumberBox">
                                             <div className="itgSubGroupPageInnerGroupDiscountNumber">
                                                 <input type="number" name="set-up-discount-percent" value={subscriptionAction.discountPer} onChange={(e) => {
-                                                    if( e.target.value > 100 ){
-                                                        subscriptionActionOptions({...subscriptionAction, discountPer:100 });
+                                                    if( e.target.value > 99 ){
+                                                        subscriptionActionOptions({...subscriptionAction, discountPer:99 });
                                                     }else if( e.target.value < 1 ){
                                                         subscriptionActionOptions({...subscriptionAction, discountPer:0 });
                                                     }else{
