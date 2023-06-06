@@ -1898,8 +1898,8 @@ Route::get('/api/getsubscription', function (Request $request) {
 
     $pendingSubscriptionId = '';
     $nextActionUrl = '';
-    if (Schema::hasTable($shop_name[0] . '_billingattempt')) {
-        $billingids = DB::table($shop_name[0].'_billingattempt')->where('subId',$id)->where('status','pending')->latest()->first();
+    if (Schema::hasTable($shop_name[0] . '_billingAttempt')) {
+        $billingids = DB::table($shop_name[0].'_billingAttempt')->where('subId',$id)->where('status','pending')->latest()->first();
         $pendingSubscriptionId = $billingids;
         if(!empty($billingids) && !empty($billingids->data)){
             $findbillId = json_decode($billingids->data);
@@ -2197,8 +2197,8 @@ Route::get('/api/index/data',function( Request $request){
         $sevenDayAfter = date('Y-m-d H:i:s', strtotime('+'.$interval));
     }
     $curretDay = date('Y-m-d H:i:s');
-    if (Schema::hasTable($shop_name[0] . '_billingattempt')) {
-        $getDBDataBefore = DB::table($shop_name[0].'_billingattempt')->select('subId')->where('created_at','>',$sevenDayBefore)->where('created_at','<',$curretDay)->where('status','success')->get();
+    if (Schema::hasTable($shop_name[0] . '_billingAttempt')) {
+        $getDBDataBefore = DB::table($shop_name[0].'_billingAttempt')->select('subId')->where('created_at','>',$sevenDayBefore)->where('created_at','<',$curretDay)->where('status','success')->get();
         foreach($getDBDataBefore as $getDBDataBeforeIds){
             $getTotalBefore = DB::table($shop_name[0].'_subscriptioncontracts')->select('total')->where('subId',$getDBDataBeforeIds->subId)->get()->toArray();
             foreach($getTotalBefore as $TotalBefore){
@@ -2738,9 +2738,7 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                     $customers['activePlans'] =$planData;
                     $subscriptionContractIds = DB::table($shop_name[0] . '_subscriptioncontracts')->select('subId','total')->where('email',$customers['email'])->get();
                     foreach($subscriptionContractIds as $subscriptionContractId){
-                        $addTotalsTest = DB::table($shop_name[0] . '_billingattempt')->select('*')->get()->toArray();
-                        //dd(addTotalsTest);
-                       // $addTotals = DB::table($shop_name[0] . '_billingattempt')->select('total')->where('subId',$subscriptionContractId->subId)->where('status','success')->get()->toArray();
+                        $addTotals = DB::table($shop_name[0] . '_billingAttempt')->select('total')->where('subId',$subscriptionContractId->subId)->where('status','success')->get()->toArray();
                         if(!empty($addTotals)){ 
                             foreach($addTotals as $addTotal){
                                 preg_match_all('!\d+(?:\.\d+)?!', $addTotal->total, $newTotalBefore);
