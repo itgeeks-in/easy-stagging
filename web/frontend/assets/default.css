@@ -1590,6 +1590,10 @@ body.itgBody #app .itgCustomerDataTable .itgCustomerDataPagination{
     padding: 20px;
     background: var(--white-color);
     gap: 10px;
+    border:2px solid var(--secondary-color);
+}
+.itgBody #app .notificationSections.active{
+    border-color:var(--primary-color);
 }
 .itgBody #app .toggleBtn button {
     position: relative;
