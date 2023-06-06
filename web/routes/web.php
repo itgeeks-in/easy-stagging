@@ -2738,7 +2738,7 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                     $customers['activePlans'] =$planData;
                     $subscriptionContractIds = DB::table($shop_name[0] . '_subscriptioncontracts')->select('subId','total')->where('email',$customers['email'])->get();
                     foreach($subscriptionContractIds as $subscriptionContractId){
-                        $addTotals = DB::table($shop_name[0] . '_billingattempt')->select('*')->where('subId',$subscriptionContractId->subId)->where('status','success')->get()->toArray();
+                        $addTotals = DB::table($shop_name[0] . '_billingattempt')->select('total')->where('subId',$subscriptionContractId->subId)->where('status','success')->get()->toArray();
                         if(!empty($addTotals)){
                             foreach($addTotals as $addTotal){
                                 preg_match_all('!\d+(?:\.\d+)?!', $addTotal->total, $newTotalBefore);
