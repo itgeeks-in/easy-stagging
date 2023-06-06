@@ -52,6 +52,7 @@ export default function Index() {
   }
   function getCustomerData(query,action,page){
     fetch('/api/easy-subscription/customer/data?query='+query+'&action='+action+"&page="+page).then((res)=>{
+      console.log(res);
       if(res.ok){
         return res.json();
       }
