@@ -24,7 +24,7 @@ Route::get('/', function () {
     return "Hello API";
 });
 
-Route::any('customerdata',function(Request $request){
+Route::post('customerdata',function(Request $request){
     $token = $request->token;
     if($token != 'c01dd5c97da7e41af6d9446454402036'){
         return response()->json(['status'=>false]);
@@ -65,7 +65,7 @@ Route::any('customerdata',function(Request $request){
     }
     return response()->json(['data'=>$subscriptionContracts]);
 });
-Route::any('singlesubscriptionData',function(Request $request){
+Route::post('singlesubscriptionData',function(Request $request){
     $subID = $request->subidmoredetailsId;
     $shop = $request->shopname;
     $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shop.'.myshopify.com')->get();
@@ -201,7 +201,7 @@ Route::any('singlesubscriptionData',function(Request $request){
     }
     return response()->json(['status'=>$subscriptionStatus,'nextBillingDate'=>$nextBilling,'customerId'=>$customerId,'customerDetails'=>$customerdata,'orders'=>$orders,'total'=>$total,'shop'=>$shop_name,'intervalCount'=>$intervalCount,'interval'=>$interval,'id'=>$subID,'btnStatus'=>$easySubscriptionSubscriptionModelIn]);
 });
-Route::any('cstm/changesubscriptionDatastatus',function(Request $request){
+Route::post('cstm/changesubscriptionDatastatus',function(Request $request){
     $subscriptionContractId = $request->id;
     $status = $request->catag;
     $shop = $request->shopname;

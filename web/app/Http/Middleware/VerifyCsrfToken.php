@@ -12,18 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'api/graphql',
-        'api/webhooks',
-        'api/createsubgroup',
-        'api/getsubgroup',
-        'api/getsubscriptions',
-        'api/subscriptioncontracts',
-        '/api/subscriptioncontracts/update',
-        'api/subscriptioncontracts/billingattempt',
-        '/api/subscriptioncontracts/billingattempt/failure',
-        '/api/easy-subscription/settings/subscription_mail_activation/update',
-        '/api/easy-subscription/testmail',
-        '/api/easy-subscription/previewmail',
-        'api/customerdata',
+        'api/*',
     ];
 }
