@@ -33,7 +33,6 @@ Route::post('customerdata',function(Request $request){
     $email = $request->customerEmail;
     $statusFilter = $request->statusFilter;
 
-    return response()->json(['status'=>$shop,'email'=>$email,'statusFilter'=>$statusFilter]);
 
     $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shop.'.myshopify.com')->get();
     $subscriptionContracts = [];
@@ -48,6 +47,9 @@ Route::post('customerdata',function(Request $request){
     }elseif($statusFilter == 'Paused'){
         $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$email)->where('status','PAUSED')->orderBy("created_at","desc")->get()->toArray();
     }
+
+
+    return response()->json(['status'=>$shop,'email'=>$email,'statusFilter'=>$statusFilter,'test'=>1]);
     
     foreach($subscriptionContractsDbData as $subscriptionContractDbData){
         $data = [];
