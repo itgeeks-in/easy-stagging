@@ -1,6 +1,6 @@
 addEventListener('DOMContentLoaded',(e)=>{
     let lineItemsHtml;
-    let url = 'https://2eb2-2401-4900-1c19-eebb-e5e1-55e8-1602-ece.ngrok-free.app';
+    let url = 'https://easysubscription-pemp5.ondigitalocean.app';
     let easySubscriptionShowMore;
     let easySubscriptionMannage = document.getElementById('easySubscriptionMannage');
     let easySubscriptionWidgetModelIn = document.getElementById('easySubscriptionWidgetModelIn');
