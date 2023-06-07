@@ -404,6 +404,7 @@ export default function SubscriptionActivation(){
                                 <div className="subActiveFormDiv">
                                     <form id="subActiveForm" onSubmit={(e) => { e.preventDefault(); }} >
                                         <div className="subActiveFormInput">
+                                            {/*
                                             <label htmlFor="">
                                                 From name
                                                 <input className={ nameError.status ? "itginputerror" : "" } type="text" value={formData.name} onChange={nameChange} placeholder="Store Name" name="name" />
@@ -414,6 +415,7 @@ export default function SubscriptionActivation(){
                                                 <input className={ emailError.status ? "itginputerror" : "" } type="text" value={formData.email} onChange={emailChange} placeholder="Store Email" name="email" />
                                                 {emailError.status ? <p className="itgErrorAlert"> {emailError.message} </p> :""}
                                             </label>
+                                             */}
                                             <label htmlFor="">
                                                 Email subject
                                                 <input className={ subjectError.status ? "itginputerror" : "" } type="text" value={formData.subject} onChange={(e) => { setFormData({ ...formData, subject: e.target.value, }); }} placeholder="Order Confirmation" name="email" />
