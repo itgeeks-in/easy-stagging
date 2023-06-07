@@ -1,6 +1,6 @@
 <div class="easySubscriptionWidget">
   <div class="easySubscriptionWidgetIn">
-      <button class="btn button" id = "easySubscriptionMannage" data-url="{{ app.url }}" email={{ customer.email }} value={{ shop.name }}>Mannage Subscription</button>
+      <button class="btn button" id = "easySubscriptionMannage" data-url="{{ app.url }}" email="{{ customer.email }}" value="{{ shop.permanent_domain | replace: ".myshopify.com", "" }}">Mannage Subscription</button>
       <div class="easySubscriptionWidgetModel" style="display:none;">
           <div class="easySubscriptionWidgetModelInner">
             <div class="easySubscriptionWidgetModelInnerTitle">
