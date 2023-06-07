@@ -25,6 +25,7 @@ Route::get('/', function () {
 });
 
 Route::post('customerdata',function(Request $request){
+    return response()->json(['status'=>false]);
     $token = $request->token;
     if($token != 'c01dd5c97da7e41af6d9446454402036'){
         return response()->json(['status'=>false]);
