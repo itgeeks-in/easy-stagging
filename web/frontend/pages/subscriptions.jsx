@@ -530,8 +530,9 @@ export default function Groups() {
                         <div className="itgCustomerOrdersNextOrder">
                           <h3 className={changeStatus?"itgCustomerSubscriptionStatusLowOp":""}>Next Order : {showCustomerDetailsData.nextBillingDate} {showCustomerDetailsData.total}</h3>
                           <div>
+
                             {showCustomerDetailsData.pendingSubscriptionId != ''?
-                               <button style={{marginRight:"10px"}} disabled={changeStatus} type='button' onClick={retrySubscription} value={showCustomerDetailsData.nextActionUrl}>Retry Billing</button>
+                           {/*    <button style={{marginRight:"10px"}} disabled={changeStatus} type='button' onClick={retrySubscription} value={showCustomerDetailsData.nextActionUrl}>Retry Billing</button> */}
                             :""}
                             <button disabled={changeStatus} type='button' onClick={skipSubscription}>Skip</button>
                           </div>

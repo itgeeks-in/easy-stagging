@@ -225,6 +225,13 @@ span.status-CANCELLED{
   gap: 10px;
   padding-top: 10px;
 }
+.easySubscriptionWidgetModelInLineItems .easySubNotFound {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #E0E0E0;
+}
 
 @media only screen and (max-width: 800px) {
   .easySubscriptionWidgetModel .easySubscriptionWidgetModelInner, .easySubscriptionWidgetIn .easySubscriptionSubscriptionModel .easySubscriptionSubscriptionModelInner{

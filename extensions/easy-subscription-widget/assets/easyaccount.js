@@ -110,8 +110,10 @@ addEventListener('DOMContentLoaded',(e)=>{
                         getCutomerSubscription(subidmoredetailsId);
                     })
                 }
-            }else{
-                console.log('Empty');
+            }else{ 
+                lineItemsDiv.innerHTML +=`<div class="easySubNotFound">No result found !</div>`;
+                easySubscriptionWidgetModelIn.appendChild(lineItemsDiv);
+                document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="block";
             }
         }
         xhttp.open("POST", url+"/api/customerdata");
