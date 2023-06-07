@@ -23,6 +23,9 @@ use App\Http\Controllers\PendingMail;
 Route::get('/', function () {
     return "Hello API";
 });
+Route::get('/customercheck', function () {
+    return "Hello Customer";
+});
 
 Route::post('customerdata',function(Request $request){
     $token = $request->token;

@@ -47,6 +47,7 @@ addEventListener('DOMContentLoaded',(e)=>{
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
         let res = this.responseText;
+        console.log(res);
         let data = JSON.parse(res);
         var easySubscriptionWidgetModelInLineItems = document.getElementsByClassName('easySubscriptionWidgetModelInLineItems');
         for(items of easySubscriptionWidgetModelInLineItems){
