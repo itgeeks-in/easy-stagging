@@ -401,13 +401,14 @@ export default function SubscriptionCancel(){
                                 <div className="subActiveFormDiv">
                                     <form id="subActiveForm" onSubmit={(e) => { e.preventDefault(); }} >
                                         <div className="subActiveFormInput">
-                                            {/*  
+                                           
                                             <label htmlFor="">
                                                 From name
                                                 <input className={ nameError.status ? "itginputerror" : "" } type="text" value={formData.name} onChange={nameChange} placeholder="Store Name" name="name" />
                                                 {nameError.status ? <p className="itgErrorAlert"> {nameError.message} </p> :""}
                                             </label>
-                                            <label htmlFor="">
+                                           {/*  
+                                             <label htmlFor="">
                                                 From email
                                                 <input className={ emailError.status ? "itginputerror" : "" } type="text" value={formData.email} onChange={emailChange} placeholder="Store Email" name="email" />
                                                 {emailError.status ? <p className="itgErrorAlert"> {emailError.message} </p> :""}
