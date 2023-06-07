@@ -26,6 +26,9 @@ Route::get('/', function () {
 Route::get('/customercheck', function () {
     return "Hello Customer";
 });
+Route::get('customerchecking', function () {
+    return "Hello Customer";
+});
 
 Route::post('customerdata',function(Request $request){
     $token = $request->token;
