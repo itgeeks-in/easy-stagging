@@ -25,7 +25,6 @@ Route::get('/', function () {
 });
 
 Route::post('customerdata',function(Request $request){
-    return response()->json(['status'=>false]);
     $token = $request->token;
     if($token != 'c01dd5c97da7e41af6d9446454402036'){
         return response()->json(['status'=>false]);
@@ -33,6 +32,9 @@ Route::post('customerdata',function(Request $request){
     $shop = $request->shopname;
     $email = $request->customerEmail;
     $statusFilter = $request->statusFilter;
+
+    return response()->json(['status'=>$shop,'email'=>$email,'statusFilter'=>$statusFilter]);
+
     $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shop.'.myshopify.com')->get();
     $subscriptionContracts = [];
     $authShop = $sessions[0]->shop;
