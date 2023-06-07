@@ -113,7 +113,9 @@ addEventListener('DOMContentLoaded',(e)=>{
                 }
             }
         }
+        console.log(customerDataForm);
         xhttp.open("POST", url+"/api/customerdata");
+
         xhttp.send(customerDataForm);
     }
     function getCutomerSubscription(subidmoredetailsId){
