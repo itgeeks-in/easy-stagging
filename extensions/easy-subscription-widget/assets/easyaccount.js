@@ -47,7 +47,6 @@ addEventListener('DOMContentLoaded',(e)=>{
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
         let res = this.responseText;
-        console.log(res);
         let data = JSON.parse(res);
         var easySubscriptionWidgetModelInLineItems = document.getElementsByClassName('easySubscriptionWidgetModelInLineItems');
         for(items of easySubscriptionWidgetModelInLineItems){
@@ -111,11 +110,11 @@ addEventListener('DOMContentLoaded',(e)=>{
                         getCutomerSubscription(subidmoredetailsId);
                     })
                 }
+            }else{
+                console.log('Empty');
             }
         }
-        console.log(customerDataForm);
         xhttp.open("POST", url+"/api/customerdata");
-
         xhttp.send(customerDataForm);
     }
     function getCutomerSubscription(subidmoredetailsId){

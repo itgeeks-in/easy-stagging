@@ -32,8 +32,6 @@ Route::post('customerdata',function(Request $request){
     $shop = $request->shopname;
     $email = $request->customerEmail;
     $statusFilter = $request->statusFilter;
-
-
     $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shop.'.myshopify.com')->get();
     $subscriptionContracts = [];
     $authShop = $sessions[0]->shop;
@@ -47,8 +45,6 @@ Route::post('customerdata',function(Request $request){
     }elseif($statusFilter == 'Paused'){
         $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$email)->where('status','PAUSED')->orderBy("created_at","desc")->get()->toArray();
     }
-
-    
     foreach($subscriptionContractsDbData as $subscriptionContractDbData){
         $data = [];
         if(!empty(json_decode($subscriptionContractDbData->data)->products[0]->productImage)){
