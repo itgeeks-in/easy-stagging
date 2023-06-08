@@ -43,6 +43,8 @@ class RunHourly extends Command
      * @return int
      */
     public function handle(){
+
+        info( 'Test Cron' );
        // Log::error("itgCronRunning");
         $sessions = DB::table('sessions')->select('shop','access_token')->where('access_token','!=','')->get();
         foreach($sessions as $session){
