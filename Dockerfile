@@ -26,6 +26,4 @@ RUN chown www-data:www-data /app/storage/db.sqlite
 RUN cd frontend && nam install && npm run build
 RUN composer build
 
-Run php artisan schedule:work
-
 ENTRYPOINT ["sh", "/app/entrypoint.sh" ]
