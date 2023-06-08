@@ -19,7 +19,7 @@ export function Variables(props){
                                 </tr>
                                 <tr>
                                     <th>&#60;orderName&#62;</th>
-                                    <td>Typically this is a pound symbol followed by the order_number. Example: #1004</td>
+                                    <td>Typically this is a unique name followed by the order_number. Example: #1004</td>
                                 </tr>
                                 <tr>
                                     <th>&#60;shop&#62;</th>
