@@ -259,6 +259,7 @@ export default function SubscriptionActivation(){
         if (!error) {
             let savedata = {
                 form: formData,
+                code:message,
             };
             loadStartOption(true);
             fetch( "/api/easy-subscription/settings/subscription_mail_activation/update",
