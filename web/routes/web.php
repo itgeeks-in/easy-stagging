@@ -2811,7 +2811,6 @@ Route::post('/api/easy-subscription/settings/subscription_mail_activation/update
     $shop = $session->getShop();
     $shop_name = explode('.', $shop);
     $result = ['status' => false];
-
     return response($result);
     $requesteddata = $request->form;
     $name = $requesteddata['name'];

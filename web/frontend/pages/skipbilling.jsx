@@ -418,13 +418,11 @@ export default function SkipBilling(){
                                                 <input className={ nameError.status ? "itginputerror" : "" } type="text" value={formData.name} onChange={nameChange} placeholder="Store Name" name="name" />
                                                 {nameError.status ? <p className="itgErrorAlert"> {nameError.message} </p> :""}
                                             </label>
-                                           {/*  
                                             <label htmlFor="">
                                                 From email
                                                 <input className={ emailError.status ? "itginputerror" : "" } type="text" value={formData.email} onChange={emailChange} placeholder="Store Email" name="email" />
                                                 {emailError.status ? <p className="itgErrorAlert"> {emailError.message} </p> :""}
                                             </label>
-                                            */}
                                             <label htmlFor="">
                                                 Email subject
                                                 <input className={ subjectError.status ? "itginputerror" : "" } type="text" value={formData.subject} onChange={(e) => { setFormData({ ...formData, subject: e.target.value, }); }} placeholder="Your Next Order is skipped" name="email" />
