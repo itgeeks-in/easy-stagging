@@ -44,7 +44,7 @@ class RunHourly extends Command
      */
     public function handle()
     {
-        Log::error("itgCronRunning");
+       // Log::error("itgCronRunning");
         $sessions = DB::table('sessions')->select('shop','access_token')->where('access_token','!=','')->get();
         foreach($sessions as $session){
             $shop = $session->shop;
@@ -194,6 +194,9 @@ class RunHourly extends Command
                 }
             }
             $this->info('command run succesfully.');
+            $croninfo = DB::table('cronrun')->insert([
+                'store' => $shop
+            ]);
         }
     }
 }
