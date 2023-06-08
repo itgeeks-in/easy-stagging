@@ -11,6 +11,7 @@ export default function Groups() {
   const fetch = useAuthenticatedFetch();
   const [ toggleMenu, setToggleMenu ] = useState(true);
   const [ loadStart , loadStartOption ] = useState(false);
+  const [ allowRetry , setAllowRetry ] = useState(false);
   const [ showApp, showAppOption ] = useState(true);
   const [ getsubscription, getsubscriptionOptions ] = useState({ data: {}, loading:true, deleteid:0, deletedid:0 });
   const [ currentSubscription, currentSubscriptionOption ] = useState({ id: "", customer:"" });
@@ -530,10 +531,11 @@ export default function Groups() {
                         <div className="itgCustomerOrdersNextOrder">
                           <h3 className={changeStatus?"itgCustomerSubscriptionStatusLowOp":""}>Next Order : {showCustomerDetailsData.nextBillingDate} {showCustomerDetailsData.total}</h3>
                           <div>
-
+                          {allowRetry? <>
                             {showCustomerDetailsData.pendingSubscriptionId != ''?
-                           {/*    <button style={{marginRight:"10px"}} disabled={changeStatus} type='button' onClick={retrySubscription} value={showCustomerDetailsData.nextActionUrl}>Retry Billing</button> */}
-                            :""}
+                               <button style={{marginRight:"10px"}} disabled={changeStatus} type='button' onClick={retrySubscription} value={showCustomerDetailsData.nextActionUrl}>Retry Billing</button>
+                            :""} </>
+                          :""} 
                             <button disabled={changeStatus} type='button' onClick={skipSubscription}>Skip</button>
                           </div>
                         </div></>:""}
