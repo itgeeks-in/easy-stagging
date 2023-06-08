@@ -14,6 +14,10 @@ export function Variables(props){
                         <table className="easySubVariblesTable">
                             <tbody>
                                 <tr>
+                                    <th>&#60;defaulteasystyle&#62;</th>
+                                    <td>Default email Stylesheet</td>
+                                </tr>
+                                <tr>
                                     <th>&#60;orderName&#62;</th>
                                     <td>Typically this is a pound symbol followed by the order_number. Example: #1004</td>
                                 </tr>
