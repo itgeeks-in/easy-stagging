@@ -331,7 +331,7 @@ export default function SubscriptionCancel(){
             } else {
                 loadStartOption(false);
             }
-            console.log(data);
+           // console.log(data);
             loadStartOption(false);
         })
         .catch((error) => {

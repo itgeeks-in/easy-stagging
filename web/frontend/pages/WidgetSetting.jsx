@@ -48,7 +48,7 @@ export default function NotificationSettings(){
     function easywidgetSettingValuefun(e){
         let target = e.target;
         let value = target.getAttribute('value');
-        console.log(value);
+       // console.log(value);
         setEasywidgetSettingValue(value);
         widgetMetaField(value);
     }

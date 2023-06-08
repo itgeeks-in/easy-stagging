@@ -251,7 +251,7 @@ export default function Groups() {
     let target = e.target;
     let value = target.value;
     setChangeStatus(true);
-    console.log(e.target.value);
+   // console.log(e.target.value);
     fetch('/api/subscriptionContract/retry?nextactionurl='+value+'&id='+subscriptionId).then((res)=>{
       if(res.ok){
         return res.json();
@@ -268,7 +268,7 @@ export default function Groups() {
       console.warn(err);
       setChangeStatus(false);
     })
-    console.log('skip');
+    //console.log('skip');
   }
   function changeSearchValue(e) {
     let target = e.target;

@@ -97,7 +97,7 @@ export default function SubscriptionActivation(){
             }
             throw new Error("Something went wrong");
         }).then((data) => {
-            console.log(data);
+            //console.log(data);
             if (data.status) {
                 let name;
                 let email;
@@ -288,7 +288,7 @@ export default function SubscriptionActivation(){
                     }, 8000);
                     loadStartOption(false);
                 }
-                console.log(data);
+               // console.log(data);
                 loadStartOption(false);
             })
             .catch((error) => {
@@ -328,13 +328,13 @@ export default function SubscriptionActivation(){
         })
         .then((data) => {
             if (data.status) {
-                console.log(data.html);
+               // console.log(data.html);
                 setPreview(true);
                 setPreviewHtml(data.html);
             } else {
                 loadStartOption(false);
             }
-            console.log(data);
+            //console.log(data);
             loadStartOption(false);
         })
         .catch((error) => {

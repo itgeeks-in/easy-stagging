@@ -288,7 +288,7 @@ export default function SkipBilling(){
                     }, 8000);
                     loadStartOption(false);
                 }
-                console.log(data);
+               // console.log(data);
                 loadStartOption(false);
             })
             .catch((error) => {
@@ -333,7 +333,7 @@ export default function SkipBilling(){
             } else {
                 loadStartOption(false);
             }
-            console.log(data);
+            //console.log(data);
             loadStartOption(false);
         })
         .catch((error) => {
