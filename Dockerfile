@@ -23,7 +23,7 @@ RUN composer install
 RUN touch /app/storage/db.sqlite
 RUN chown www-data:www-data /app/storage/db.sqlite
 
-RUN cd frontend && nam install && npm run build
+RUN cd frontend && npm install && npm run build
 RUN composer build
 
 ENTRYPOINT ["sh", "/app/entrypoint.sh" ]
