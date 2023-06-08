@@ -193,7 +193,7 @@ class RunHourly extends Command
                     }
                 }
             }
-            $this->info('command run succesfully.');
+            $this->info('Command run succesfully.');
             $croninfo = DB::table('cronrun')->insert([
                 'store' => $shop
             ]);
