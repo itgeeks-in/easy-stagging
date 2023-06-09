@@ -37,6 +37,13 @@ class OrderMail extends Mailable
             $replacement_find[$i] = "<orderName>";
             $replacement_replace[$i++] = $data['name'];
         }
+
+    if(!empty($data['subscriptionContractId'])){
+        $replacement_find[$i] = "<subscriptionContractId>";
+        $replacedId = str_replace("gid://shopify/SubscriptionContract/","",$data['subscriptionContractId']);
+        $replacement_replace[$i++] = 'Subscription #'.$replacedId;
+    }
+    
         if(!empty($data['shop'])){
             $replacement_find[$i] = "<shop>";
             $replacement_replace[$i++] = $data['shop'];
