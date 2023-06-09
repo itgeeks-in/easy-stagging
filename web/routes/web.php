@@ -681,7 +681,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
 });
 
 Route::post('/api/subscriptioncontracts/update',function(Request $request){
-    echo true;
+   // echo true;
     $data = $request->getContent();
     $decodeData = json_decode($data);
     $origin_order_id = $decodeData->origin_order_id;
@@ -2429,8 +2429,8 @@ Route::get('/api/subscriptionContract/update/status',function( Request $request)
     }
     return true;
 })->middleware('shopify.auth');
+
 Route::get('/api/subscriptionContract/update/skip',function(Request $request){
-    
     $session = $request->get('shopifySession');
     $shop = $session->getShop();
     $shop_name = explode('.', $shop); 

@@ -105,10 +105,6 @@ export function Variables(props){
                                     <th>&#60;billingAddressCountry&#62;</th>
                                     <td>The Country for the billing address.</td>
                                 </tr>
-                                <tr>
-                                    <th>&#60;products&#62;</th>
-                                    <td>The Products of order.</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

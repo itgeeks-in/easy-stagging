@@ -11,7 +11,7 @@ export default function Groups() {
   const fetch = useAuthenticatedFetch();
   const [ toggleMenu, setToggleMenu ] = useState(true);
   const [ loadStart , loadStartOption ] = useState(false);
-  const [ allowRetry , setAllowRetry ] = useState(true);
+  const [ allowRetry , setAllowRetry ] = useState(false);
   const [ showApp, showAppOption ] = useState(true);
   const [ getsubscription, getsubscriptionOptions ] = useState({ data: {}, loading:true, deleteid:0, deletedid:0 });
   const [ currentSubscription, currentSubscriptionOption ] = useState({ id: "", customer:"" });
