@@ -2894,13 +2894,18 @@ Route::post('/api/easy-subscription/previewmail',function(Request $request){
     for($i=0;$i<count($dummyData['products']);$i++){
         $dummyData['products'][$i]= (array)$dummyData['products'][$i];
     }
-    $orders = $dummyData ;
+    $orders = $dummyData;
     $i=0;
     $html = $request['code'];
     $data = $orders;
     if(!empty($data['subscriptionContractStatus'])){
         $replacement_find[$i] = "<subscriptionContractStatus>";
         $replacement_replace[$i++] = $data['subscriptionContractStatus'];
+    }
+    if(!empty($data['subscriptionContractId'])){
+        $replacement_find[$i] = "<subscriptionContractId>";
+        $replacedId = str_replace("gid://shopify/SubscriptionContract/","",$data['subscriptionContractId']);
+        $replacement_replace[$i++] = 'Subscription #'.$replacedId;
     }
     if(!empty($data['name'])){
         $replacement_find[$i] = "<orderName>";
