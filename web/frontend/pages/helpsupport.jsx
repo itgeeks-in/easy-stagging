@@ -1,6 +1,6 @@
 import { useNavigate, NavLink } from 'react-router-dom';
 import ItgContext from '../context/activityState.jsx';
-import { loaderIcon, editIcon, settingsIcon, bellIcon, messageIcon, videoIcon, mailIcon } from "../assets";
+import { loaderIcon, editIcon, settingsIcon, bellIcon, messageIcon, videoIcon, mailIcon, bookOpen } from "../assets";
 import { useAppQuery, useAuthenticatedFetch } from '../hooks';
 import { useContext, useEffect, useState, useRef } from 'react';
 import { Sidebar, Topbar } from '../components';
