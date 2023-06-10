@@ -1,6 +1,6 @@
 import { useNavigate, NavLink } from 'react-router-dom';
 import ItgContext from '../context/activityState.jsx';
-import { loaderIcon, editIcon, settingsIcon, bellIcon } from "../assets";
+import { loaderIcon, editIcon, settingsIcon, bellIcon, messageIcon, videoIcon, mailIcon } from "../assets";
 import { useAppQuery, useAuthenticatedFetch } from '../hooks';
 import { useContext, useEffect, useState, useRef } from 'react';
 import { Sidebar, Topbar } from '../components';
@@ -58,7 +58,7 @@ export default function settings(){
                             <div onClick={() => { navigateTo("/customerportal"); }} className="settingOptions" >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
-                                        <img src={settingsIcon} alt="general" />
+                                        <img src={messageIcon} alt="general" />
                                     </div>
                                 </div>
                                 <div className="settingOptionContent">
@@ -73,7 +73,7 @@ export default function settings(){
                             <div className="settingOptions" onClick={() => { navigateTo("/notificationSettings"); }} >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
-                                        <img src={bellIcon} alt="general" />
+                                        <img src={bookOpen} alt="general" />
                                     </div>
                                 </div>
                                 <div className="settingOptionContent">
@@ -88,7 +88,7 @@ export default function settings(){
                             <div className="settingOptions" onClick={() => { navigateTo("/WidgetSetting"); }} >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
-                                        <img src={editIcon} alt="general" />
+                                        <img src={videoIcon} alt="general" />
                                     </div>
                                 </div>
                                 <div className="settingOptionContent">
@@ -103,7 +103,7 @@ export default function settings(){
                             <div className="settingOptions" onClick={() => { navigateTo("/WidgetSetting"); }} >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
-                                        <img src={editIcon} alt="general" />
+                                        <img src={mailIcon} alt="general" />
                                     </div>
                                 </div>
                                 <div className="settingOptionContent">

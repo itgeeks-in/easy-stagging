@@ -42,7 +42,9 @@ export { default as bellIcon } from "./images/bell.svg";
 export { default as closeIcon  } from "./images/close.svg";
 export { default as notificationEditIcon  } from "./images/notificationEdit.svg";
 export { default as phoneIcon  } from "./images/phone.svg";
-
+export { default as messageIcon  } from "./images/message-circle.svg";
+export { default as bookOpen  } from "./images/book-open.svg";
+export { default as videoIcon  } from "./images/video.svg";
 
 // export { default as widget1 } from "./images/widget1.png";
 export { default as widget1 } from "./images/widget1.svg";
