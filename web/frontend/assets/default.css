@@ -1912,6 +1912,24 @@ body.itgBody #app .itgCustomerDataContent .itgCustomerContentRow .itgCustomerDat
 .itgBody #app .itgModelInInput .alertMessage{
     justify-content: center;
 }
+span.status-tag {
+    font-size: 12px;
+    padding: 4px 15px;
+    background-color: #eee;
+    border-radius: 15px;
+}
+span.status-tag.statsACTIVE {
+    background-color: #d2ffd2;
+    color: #187c00;
+}
+span.status-tag.statsPAUSED {
+    background-color: #ffffa1;
+    color: #707000;
+}
+span.status-tag.statsCANCELLED {
+    background-color: #ffabab;
+    color: #830000;
+}
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
         display: none;
