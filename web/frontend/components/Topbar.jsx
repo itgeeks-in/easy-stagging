@@ -1,4 +1,4 @@
-import { toggleIcon, mailIcon, helpCircleIcon } from "../assets";
+import { toggleIcon, mailIcon, phoneIcon } from "../assets";
 import { Link  } from "react-router-dom";
 export function Topbar(props) {
     return (
@@ -13,7 +13,7 @@ export function Topbar(props) {
                     <div className="itgDashboardPageTopBarMenu">
                         <ul>
                             <li>
-                                <Link to="/"><img src={mailIcon} className="icon" alt="easy-subscription" /><span>Feature Request</span></Link>
+                                <Link to="/"><img src={phoneIcon} className="icon" alt="easy-subscription" /><span>Schedule demo call</span></Link>
                             </li>
                         </ul>
                     </div>
