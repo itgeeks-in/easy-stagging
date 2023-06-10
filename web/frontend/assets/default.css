@@ -2320,7 +2320,7 @@ body.itgBody #app .itgCustomerDataContent .itgCustomerContentRow .itgCustomerDat
         display: none;
     }
     body.itgBody #app .itgCustomerDataTable .itgCustomerDataHeader, body.itgBody #app .itgCustomerDataContent .itgCustomerContentRow{
-        grid-template-columns: 50% 33.33% 33.33%;
+        grid-template-columns: 50% 33.33% 17.66%;
     }
     body.itgBody #app .itgSubscriptionCustomersIn{
         gap: 10px;
