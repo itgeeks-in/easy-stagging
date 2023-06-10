@@ -13,7 +13,7 @@ export function Topbar(props) {
                     <div className="itgDashboardPageTopBarMenu">
                         <ul>
                             <li>
-                                <Link to="/"><img src={phoneIcon} className="icon" alt="easy-subscription" /><span>Schedule demo call</span></Link>
+                                <Link to="/"><img src={phoneIcon} className="icon" alt="easy-subscription" width="16"/><span>Schedule demo call</span></Link>
                             </li>
                         </ul>
                     </div>
