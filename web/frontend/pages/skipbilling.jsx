@@ -376,7 +376,7 @@ export default function SkipBilling(){
                                         <input className={ testEmailError.status ? "itginputerror" : ""} type="text" value={testEmail} onChange={testemailChange} placeholder="Enter email" name="email" />
                                         {testEmailError.status ? <p className="itgErrorAlert"> {testEmailError.message} </p> : "" }
                                         <div className="subActiveModelButtons">
-                                            <button onClick={testMail} className="btn"> Send </button>
+                                            <button onClick={testMail} className="btn primary-btn"> Send </button>
                                             <button onClick={() => { setTestMailModel(false); }} > Close </button>
                                         </div>
                                         <div style={ testErrorAlert.status || testSuccessAlert.status ? { display: "flex" } : { display: "none" } } className="alertMessage" >

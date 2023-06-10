@@ -1909,6 +1909,9 @@ body.itgBody #app .itgCustomerDataContent .itgCustomerContentRow .itgCustomerDat
     align-items: center;
     justify-content: flex-end;
 }
+.itgBody #app .itgModelInInput .alertMessage{
+    justify-content: center;
+}
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
         display: none;
