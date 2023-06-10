@@ -407,6 +407,7 @@ export default function Groups() {
                       <div className="itgAddSubGroupDataContent">
                         {getsubscription.data.records.map(function({subId,name,order_name,email,created_at,intervalCount,interval,status}){
                             var objectId = subId.replace("gid://shopify/SubscriptionContract/", "");
+                            var statusClass = "status-tag stats"+status;
                             return(
                               <div key={objectId} className="itgAddSubGroupDataContentRow">
                                   <div className="itgAddSubGroupDataTableBox">
@@ -431,7 +432,7 @@ export default function Groups() {
                                       </span>
                                   </div>
                                   <div className="itgAddSubGroupDataTableBox">
-                                      <span>
+                                      <span class={statusClass}>
                                         {status}
                                       </span>
                                   </div>
