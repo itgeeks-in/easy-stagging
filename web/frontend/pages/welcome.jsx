@@ -57,7 +57,7 @@ export default function Welcome(){
                             </div>
                         </div>
                         <div className="itgWelcomeButton">
-                            <button type="button" onClick={letsGoEvent} className="btn">Start exploring now! <span>{'>'}</span></button>
+                            <button type="button" onClick={letsGoEvent} className="btn primary-btn">Start exploring now! <span>{'>'}</span></button>
                         </div>
                     </div>
                 </div>
