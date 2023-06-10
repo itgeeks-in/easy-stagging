@@ -167,7 +167,7 @@ export default function subscription(){
                                 {existingPlan.activity==2?<>
                                     <button type="button" className="btn" onClick={goToDashboard}>Dashboard</button>
                                 </>:<>
-                                    <button type="button" className="btn" onClick={integrateTheme}>Next</button>
+                                    <button type="button" className="btn primary-btn" onClick={integrateTheme}>Next</button>
                                 </>}
                             </div>
                         </>:<></>}
@@ -179,7 +179,7 @@ export default function subscription(){
                     <div className="itgProPlanConfirmationInner">
                         <h5 className="title">Kindly please confirm to select this plan</h5>
                         <div className="itgProPlanConfirmationAction">
-                            <button type="button" className="btn" onClick={sentToPaymentPage}>Yes</button>
+                            <button type="button" className="btn primary-btn" onClick={sentToPaymentPage}>Yes</button>
                             <button type="button" className="btn" onClick={closeConfirmPopup}>No</button>
                         </div>
                     </div>
