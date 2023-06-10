@@ -51,13 +51,13 @@ export default function Welcome(){
                             <img src={welcomeIcon} alt="" width="80"/>
                         </div>
                         <div className="itgWelcomeContent">
-                            <h4 className="title">Welcome to the early release of Subscriptions by recharge</h4>
+                            <h4 className="title"> !!  Welcome to world of Easy Subscription  !!</h4>
                             <div className="desc">
-                                <p>Our latest version allows you to sell subscription products directly through your Shopify checkout!<br/>Learn more about the release program, avaible features, and what features are coming soon in our help documentation.</p>
+                                <p>Smoothest App to sell subscription products directly through your Shopify checkouts. Unlock a world of possibilities with our subscription service.</p>
                             </div>
                         </div>
                         <div className="itgWelcomeButton">
-                            <button type="button" onClick={letsGoEvent} className="btn">Let's go! <span>{'>'}</span></button>
+                            <button type="button" onClick={letsGoEvent} className="btn">Start exploring now! <span>{'>'}</span></button>
                         </div>
                     </div>
                 </div>
