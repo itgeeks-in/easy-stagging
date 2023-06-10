@@ -784,6 +784,7 @@ export default function createSubscriptionGroup(){
                                             var objectId = object.id.replace("gid://shopify/Product/", "");
                                             var imageSrc = productPlaceholder;
                                             var already = object.sellingPlanGroups.edges.length;
+                                            var objectIdLabbel = 'labbelproduct-'+objectId;
                                             var checkedAlready = false;
                                             if( object.images ){
                                                 if( object.images.edges ){
@@ -803,16 +804,15 @@ export default function createSubscriptionGroup(){
                                                     checkedAlready = true;
                                                 }
                                             })}
-                                            subscriptionAdd.ids
                                             return(
-                                                <div key={object.id} className={already?"itgAddSubProductsPopupProductTableBody already":"itgAddSubProductsPopupProductTableBody"}>
+                                                <label key={object.id} htmlFor={objectIdLabbel} className={already?"itgAddSubProductsPopupProductTableBody already":"itgAddSubProductsPopupProductTableBody"}>
                                                     <div className="itgTableBlock">
                                                         <div className="itgTableBlockProductView">
                                                             <div className="itgTableBlockProductCheck">
                                                             {already? <>
                                                                 <input type="checkbox" className="itg-add-product-check" name="productadd" disabled/>
                                                             </> : <>
-                                                                <input type="checkbox" value={objectId} className="itg-add-product-check" name="productadd" onChange={checkOptionChange}/>
+                                                                <input type="checkbox" id={objectIdLabbel} value={objectId} className="itg-add-product-check" name="productadd" onChange={checkOptionChange}/>
                                                             </> }
                                                             </div>
                                                             <div className="itgTableBlockProductImage">
@@ -823,7 +823,7 @@ export default function createSubscriptionGroup(){
                                                     </div>
                                                     <div className="itgTableBlock"><span>{object.vendor}</span></div>
                                                     <div className="itgTableBlock"><span>{object.product_type}</span></div>
-                                                </div>
+                                                </label>
                                             );
                                         })}
                                     </>

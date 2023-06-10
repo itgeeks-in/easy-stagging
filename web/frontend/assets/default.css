@@ -471,7 +471,7 @@ body.itgBody #app .itgAddSubProductsPopup .itgAddSubProductsPopupBox{
     background-color:var(--white-color);
     box-shadow: 0px 0px 14px rgb(0 0 0 / 6%);
     width: 100%;
-    max-width: 540px;
+    max-width: 740px;
 }
 body.itgBody #app .itgAddSubProductsPopupBox .itgAddSubProductsPopupTitle,
 body.itgBody #app .itgAddSubProductsPopupBox .itgAddSubProductsPopupSearch {
@@ -550,8 +550,12 @@ body.itgBody #app .itgAddSubProductsPopupProductTableBodyItems{
     max-height: 160px;
     overflow: auto;
 }
+body.itgBody #app .itgAddSubProductsPopupProductTableBody{
+    cursor: pointer;
+}
 body.itgBody #app .itgAddSubProductsPopupProductTableBody.already{
     background-color: var(--secondary-color);
+    cursor: auto;
 }
 body.itgBody #app .itgAddSubProductsPopupProductTableBodyAction{
     padding: 20px 0 0 0;
