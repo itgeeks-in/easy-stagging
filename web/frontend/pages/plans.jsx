@@ -155,7 +155,7 @@ export default function subscription(){
                                     {existingPlan.type == 'pro'?
                                         <button type="button" className="btn dark-btn" plantype="free" disabled="disabled">Activated</button>
                                     :
-                                        <button type="button" className="btn" onClick={paymentPage} plantype="pro">
+                                        <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="pro">
                                             {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
                                         </button>
                                     }

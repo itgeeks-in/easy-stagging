@@ -77,7 +77,7 @@ export default function NotificationSettings(){
                                 </div>
                                 <div className="widgetSectionInContent" value="easywidgetSetting1">
                                     <div className={easywidgetSettingValue == 'easywidgetSetting1'?'easywidgetSetting active':"easywidgetSetting"} value="easywidgetSetting1"><span></span></div>
-                                    <label value="easywidgetSetting1">Style One</label>
+                                    <label value="easywidgetSetting1">Style I</label>
                                 </div>
                             </div>
                             <div className={easywidgetSettingValue == 'easywidgetSetting2'?'widgetSectionIn active':"widgetSectionIn"} onClick={easywidgetSettingValuefun} value="easywidgetSetting2">
@@ -86,7 +86,7 @@ export default function NotificationSettings(){
                                 </div>
                                 <div className="widgetSectionInContent" value="easywidgetSetting2">
                                     <div className={easywidgetSettingValue == 'easywidgetSetting2'?'easywidgetSetting active':"easywidgetSetting"} value="easywidgetSetting2"><span></span></div>
-                                    <label value="easywidgetSetting2">Style Second</label>
+                                    <label value="easywidgetSetting2">Style II</label>
                                 </div>
                             </div>
                             <div className={easywidgetSettingValue == 'easywidgetSetting3'?'widgetSectionIn active':"widgetSectionIn"} onClick={easywidgetSettingValuefun} value="easywidgetSetting3">
@@ -95,7 +95,7 @@ export default function NotificationSettings(){
                                 </div>
                                 <div className="widgetSectionInContent" value="easywidgetSetting3">
                                     <div className={easywidgetSettingValue == 'easywidgetSetting3'?'easywidgetSetting active':"easywidgetSetting"} value="easywidgetSetting3"><span></span></div>
-                                    <label value="easywidgetSetting3">Style Third</label>
+                                    <label value="easywidgetSetting3">Style III</label>
                                 </div>
                             </div>
                             <div className={easywidgetSettingValue == 'easywidgetSetting4'?'widgetSectionIn active':"widgetSectionIn"} onClick={easywidgetSettingValuefun} value="easywidgetSetting4">
@@ -104,7 +104,7 @@ export default function NotificationSettings(){
                                 </div>
                                 <div className="widgetSectionInContent" value="easywidgetSetting4">
                                     <div className={easywidgetSettingValue == 'easywidgetSetting4'?'easywidgetSetting active':"easywidgetSetting"} value="easywidgetSetting4"><span></span></div>
-                                    <label value="easywidgetSetting4">Style Fourth</label>
+                                    <label value="easywidgetSetting4">Style IV</label>
                                 </div>
                             </div>
                             <div className={easywidgetSettingValue == 'easywidgetSetting5'?'widgetSectionIn active':"widgetSectionIn"} onClick={easywidgetSettingValuefun} value="easywidgetSetting5">
@@ -113,7 +113,7 @@ export default function NotificationSettings(){
                                 </div>
                                 <div className="widgetSectionInContent" value="easywidgetSetting5">
                                     <div className={easywidgetSettingValue == 'easywidgetSetting5'?'easywidgetSetting active':"easywidgetSetting"} value="easywidgetSetting5"><span></span></div>
-                                    <label value="easywidgetSetting5">Style Fifth</label>
+                                    <label value="easywidgetSetting5">Style V</label>
                                 </div>
                             </div>
                         </div>
