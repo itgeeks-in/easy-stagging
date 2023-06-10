@@ -42,6 +42,10 @@ export default function App() {
                     label: "Settings",
                     destination: "/settings",
                   },
+                  {
+                    label: "Help Support",
+                    destination: "/helpsupport",
+                  }
                 ]}
               />
               <Routes pages={pages} />
