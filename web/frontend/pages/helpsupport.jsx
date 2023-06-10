@@ -74,7 +74,7 @@ export default function settings(){
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
                                         <img src={bookOpen} alt="general" />
-                                    </div>
+                                    </div> 
                                 </div>
                                 <div className="settingOptionContent">
                                     <h5 className="settingOptionContentHead">
