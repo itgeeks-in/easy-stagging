@@ -63,11 +63,10 @@ export default function settings(){
                                 </div>
                                 <div className="settingOptionContent">
                                     <h5 className="settingOptionContentHead">
-                                        Customer portal
+                                        Live Chat
                                     </h5>
                                     <p className="settingOptionContentDes">
-                                        Select which features your customers have
-                                        access to from the customer portal.
+                                       Connect with us through live chat for immediate support and personalized assistance.
                                     </p>
                                 </div>
                             </div>
@@ -79,11 +78,10 @@ export default function settings(){
                                 </div>
                                 <div className="settingOptionContent">
                                     <h5 className="settingOptionContentHead">
-                                        Notifications
+                                        Help docs
                                     </h5>
                                     <p className="settingOptionContentDes">
-                                        Manage email notifications sent to you and
-                                        your customers
+                                        Access our comprehensive help documentation for clear instructions and valuable resources to resolve your queries.
                                     </p>
                                 </div>
                             </div>
@@ -95,11 +93,25 @@ export default function settings(){
                                 </div>
                                 <div className="settingOptionContent">
                                     <h5 className="settingOptionContentHead">
-                                        Widget
+                                        Video tutorials
                                     </h5>
                                     <p className="settingOptionContentDes">
-                                        To show subscription widget on product page,
-                                        you would...
+                                        Explore our extensive library of video tutorials for step-by-step guidance and hands-on learning.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="settingOptions" onClick={() => { navigateTo("/WidgetSetting"); }} >
+                                <div className="settingsOptionIconBack">
+                                    <div className="settingsOptionIcon">
+                                        <img src={editIcon} alt="general" />
+                                    </div>
+                                </div>
+                                <div className="settingOptionContent">
+                                    <h5 className="settingOptionContentHead">
+                                        Email Support
+                                    </h5>
+                                    <p className="settingOptionContentDes">
+                                        Reach out to us via email for reliable and efficient support tailored to your needs.
                                     </p>
                                 </div>
                             </div>
