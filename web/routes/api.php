@@ -24,6 +24,10 @@ Route::get('/', function () {
     return "Hello API";
 });
 
+Route::get('/easysubcron', function () {
+    return "Hello Cron";
+});
+
 Route::post('customerdata',function(Request $request){
     $token = $request->token;
     if($token != 'c01dd5c97da7e41af6d9446454402036'){
