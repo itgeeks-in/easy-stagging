@@ -11,7 +11,6 @@
     {% if style %}
       {% if style == 'easywidgetSetting1' %}
         <div class="easysubwidgetbox">
-        {{ block.settings.title }}fevevve
           <label class="easysubwidgetboxtitle">
           {% if block.settings.title != '' %}
             {{ block.settings.title }}
@@ -85,7 +84,13 @@
       {% endif %}
       {% if style == 'easywidgetSetting5' %}
         <div class="easysubwidgetbox styletwo">
-          <label class="easysubwidgetboxtitle">Purchase Options</label>
+          <label class="easysubwidgetboxtitle">
+            {% if block.settings.title != '' %}
+              {{ block.settings.title }}
+            {% else %}
+              Purchase Options
+            {% endif %}
+          </label>
           <div class="easysubwidgetboxselectionoptions">
             <ul>
               {% unless product.requires_selling_plan %}
@@ -93,7 +98,11 @@
                 <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime">
                   <label class="easysubwidgetboxselectionoptionlabel">
                     <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></span>
-                    <span>Regular purchase</span>
+                    <span>{% if block.settings.otlabel != '' %}
+                      {{ block.settings.otlabel }}
+                    {% else %}
+                      Regular purchase
+                    {% endif %}</span>
                   </label>
                   <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
                 </div>
@@ -104,16 +113,28 @@
                   <div class="easysubwidgetboxselectionoptioncover">
                     <label class="easysubwidgetboxselectionoptionlabel">
                       <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></span>
-                      <span>Subscribe</span>
+                      <span>{% if block.settings.sublabel != '' %}
+                          {{ block.settings.sublabel }}
+                        {% else %}
+                          Subscribe
+                        {% endif %}</span>
                     </label>
                     <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
                   </div>
-                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %}
+                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">{% if block.settings.savelabel != '' %}
+                              {{ block.settings.savelabel }} 
+                            {% else %}
+                              Save 
+                            {% endif %} {{ priceAdjustment }}%</span>{% endif %}
                 </div>
               </li>
             </ul>
             <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
-              <label class="easysubwidgetboxtitle">Delivery every</label>
+              <label class="easysubwidgetboxtitle">{% if block.settings.oplabel != '' %}
+                        block.settings.oplabel
+                      {% else %}
+                        Delivery every
+                      {% endif %}</label>
               <div class="easysubwidgetboxselectionoptionplansselect">
                 <ul class="easysubwidgetboxselectionoptionplansselectlist">
                   {% for group in product.selling_plan_groups %}
@@ -133,7 +154,11 @@
 
       {% if style == 'easywidgetSetting3' %}
         <div class="easysubwidgetbox styletwo stylethree">
-          <label class="easysubwidgetboxtitle">Purchase Options</label>
+          <label class="easysubwidgetboxtitle">{% if block.settings.title != '' %}
+            {{ block.settings.title }}
+          {% else %}
+            Purchase Options
+          {% endif %}</label>
           <div class="easysubwidgetboxselectionoptions">
             <ul>
               {% unless product.requires_selling_plan %}
@@ -141,7 +166,11 @@
                 <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime">
                   <label class="easysubwidgetboxselectionoptionlabel">
                     <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></span>
-                    <span>Regular purchase</span>
+                    <span>{% if block.settings.otlabel != '' %}
+                      {{ block.settings.otlabel }}
+                    {% else %}
+                      Regular purchase
+                    {% endif %}</span>
                   </label>
                   <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
                 </div>
@@ -152,16 +181,28 @@
                   <div class="easysubwidgetboxselectionoptioncover">
                     <label class="easysubwidgetboxselectionoptionlabel">
                       <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></span>
-                      <span>Subscribe</span>
+                      <span>{% if block.settings.sublabel != '' %}
+                          {{ block.settings.sublabel }}
+                        {% else %}
+                          Subscribe
+                        {% endif %}</span>
                     </label>
                     <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
                   </div>
-                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %}
+                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">{% if block.settings.savelabel != '' %}
+                              {{ block.settings.savelabel }} 
+                            {% else %}
+                              Save 
+                            {% endif %} {{ priceAdjustment }}%</span>{% endif %}
                 </div>
               </li>
             </ul>
             <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
-              <label class="easysubwidgetboxtitle">Delivery every</label>
+              <label class="easysubwidgetboxtitle">{% if block.settings.oplabel != '' %}
+                        block.settings.oplabel
+                      {% else %}
+                        Delivery every
+                      {% endif %}</label>
               <div class="easysubwidgetboxselectionoptionplansselect">
                 <ul class="easysubwidgetboxselectionoptionplansselectlist">
                   {% for group in product.selling_plan_groups %}
@@ -181,7 +222,11 @@
 
       {% if style == 'easywidgetSetting2' %}
         <div class="easysubwidgetbox styletwo stylethree stylefour">
-          <label class="easysubwidgetboxtitle">Purchase Options</label>
+          <label class="easysubwidgetboxtitle">{% if block.settings.title != '' %}
+            {{ block.settings.title }}
+          {% else %}
+            Purchase Options
+          {% endif %}</label>
           <div class="easysubwidgetboxselectionoptions">
             <ul>
               {% unless product.requires_selling_plan %}
@@ -191,7 +236,11 @@
                     <span class="easyicon">
                       {{ '3dbox.svg' | asset_url | img_tag }}
                     </span>
-                    <span>Regular purchase</span>
+                    <span>{% if block.settings.otlabel != '' %}
+                      {{ block.settings.otlabel }}
+                    {% else %}
+                      Regular purchase
+                    {% endif %}</span>
                   </label>
                   <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
                 </div>
@@ -204,16 +253,28 @@
                       <span class="easyicon">
                         {{ '3dtruck.svg' | asset_url | img_tag }}
                       </span>
-                      <span>Subscribe</span>
+                      <span>{% if block.settings.sublabel != '' %}
+                          {{ block.settings.sublabel }}
+                        {% else %}
+                          Subscribe
+                        {% endif %}</span>
                     </label>
                     <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
                   </div>
-                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %}
+                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">{% if block.settings.savelabel != '' %}
+                              {{ block.settings.savelabel }} 
+                            {% else %}
+                              Save 
+                            {% endif %} {{ priceAdjustment }}%</span>{% endif %}
                 </div>
               </li>
             </ul>
             <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
-              <label class="easysubwidgetboxtitle">Delivery every</label>
+              <label class="easysubwidgetboxtitle">{% if block.settings.oplabel != '' %}
+                        block.settings.oplabel
+                      {% else %}
+                        Delivery every
+                      {% endif %}</label>
               <div class="easysubwidgetboxselectionoptionplansselect">
                 <ul class="easysubwidgetboxselectionoptionplansselectlist">
                   {% for group in product.selling_plan_groups %}
@@ -243,7 +304,11 @@
 
       {% if style == 'easywidgetSetting4' %}
         <div class="easysubwidgetbox styletwo stylethree stylefive">
-          <label class="easysubwidgetboxtitle">Purchase Options</label>
+          <label class="easysubwidgetboxtitle">{% if block.settings.title != '' %}
+            {{ block.settings.title }}
+          {% else %}
+            Purchase Options
+          {% endif %}</label>
           <div class="easysubwidgetboxselectionoptions">
             <ul>
               {% unless product.requires_selling_plan %}
@@ -251,7 +316,11 @@
                 <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime">
                   <label class="easysubwidgetboxselectionoptionlabel">
                     <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></span>
-                    <span>Regular purchase</span>
+                    <span>{% if block.settings.otlabel != '' %}
+                      {{ block.settings.otlabel }}
+                    {% else %}
+                      Regular purchase
+                    {% endif %}</span>
                   </label>
                   <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
                 </div>
@@ -262,16 +331,28 @@
                   <div class="easysubwidgetboxselectionoptioncover">
                     <label class="easysubwidgetboxselectionoptionlabel">
                       <span class="easyicon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></span>
-                      <span>Subscribe</span>
+                      <span>{% if block.settings.sublabel != '' %}
+                          {{ block.settings.sublabel }}
+                        {% else %}
+                          Subscribe
+                        {% endif %}</span>
                     </label>
                     <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
                   </div>
-                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %}
+                  {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">{% if block.settings.savelabel != '' %}
+                              {{ block.settings.savelabel }} 
+                            {% else %}
+                              Save 
+                            {% endif %} {{ priceAdjustment }}%</span>{% endif %}
                 </div>
               </li>
             </ul>
             <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
-              <label class="easysubwidgetboxtitle">Delivery every</label>
+              <label class="easysubwidgetboxtitle">{% if block.settings.oplabel != '' %}
+                        block.settings.oplabel
+                      {% else %}
+                        Delivery every
+                      {% endif %}</label>
               <div class="easysubwidgetboxselectionoptionplansselect">
                 <ul class="easysubwidgetboxselectionoptionplansselectlist">
                   {% for group in product.selling_plan_groups %}
@@ -295,13 +376,21 @@
       {% endif %}
     {% else %}
       <div class="easysubwidgetbox">
-        <label class="easysubwidgetboxtitle">Purchase Options</label>
+        <label class="easysubwidgetboxtitle">{% if block.settings.title != '' %}
+            {{ block.settings.title }}
+          {% else %}
+            Purchase Options
+          {% endif %}</label>
         <div class="easysubwidgetboxselectionoptions">
           <ul>
             {% unless product.requires_selling_plan %}
             <li>
               <div class="easysubwidgetboxselectionoption">
-                <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime"><span class="easysubwidgetboxselectionoptionlabelcheck"></span>Regular purchase</label>
+                <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime"><span class="easysubwidgetboxselectionoptionlabelcheck"></span>{% if block.settings.otlabel != '' %}
+                      {{ block.settings.otlabel }}
+                    {% else %}
+                      Regular purchase
+                    {% endif %}</label>
                 <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
               </div>
             </li>
@@ -309,12 +398,24 @@
             <li>
               <div class="easysubwidgetboxselectionoption">
                 <div class="easysubwidgetboxselectionoptioncover">
-                  <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick{% if product.requires_selling_plan %} checked{% endif %}" data-purchase="subscribe"><span class="easysubwidgetboxselectionoptionlabelcheck"></span>Subscribe {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %} </label>
+                  <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick{% if product.requires_selling_plan %} checked{% endif %}" data-purchase="subscribe"><span class="easysubwidgetboxselectionoptionlabelcheck"></span>{% if block.settings.sublabel != '' %}
+                          {{ block.settings.sublabel }}
+                        {% else %}
+                          Subscribe
+                        {% endif %} {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">{% if block.settings.savelabel != '' %}
+                              {{ block.settings.savelabel }} 
+                            {% else %}
+                              Save 
+                            {% endif %} {{ priceAdjustment }}%</span>{% endif %} </label>
                   <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
                 </div>
                 <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
                   <div class="easysubwidgetboxselectionoptionplansselect">
-                    <label>Delivery every</label>
+                    <label>{% if block.settings.oplabel != '' %}
+                        block.settings.oplabel
+                      {% else %}
+                        Delivery every
+                      {% endif %}</label>
                     <select name="easy_selling_plan" data-require="{%- if product.requires_selling_plan -%}true{%- else -%}false{%- endif -%}">
                       {% for group in product.selling_plan_groups %}
                         {% for selling_plan in group.selling_plans %}
