@@ -11,13 +11,27 @@
     {% if style %}
       {% if style == 'easywidgetSetting1' %}
         <div class="easysubwidgetbox">
-          <label class="easysubwidgetboxtitle">Purchase Options</label>
+        {{ block.settings.title }}fevevve
+          <label class="easysubwidgetboxtitle">
+          {% if block.settings.title != '' %}
+            {{ block.settings.title }}
+          {% else %}
+            Purchase Options
+          {% endif %}
+          </label>
           <div class="easysubwidgetboxselectionoptions">
             <ul>
               {% unless product.requires_selling_plan %}
               <li>
                 <div class="easysubwidgetboxselectionoption">
-                  <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime"><span class="easysubwidgetboxselectionoptionlabelcheck"></span>Regular purchase</label>
+                  <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime">
+                    <span class="easysubwidgetboxselectionoptionlabelcheck"></span>
+                    {% if block.settings.otlabel != '' %}
+                      {{ block.settings.otlabel }}
+                    {% else %}
+                      Regular purchase
+                    {% endif %}
+                  </label>
                   <span class="easysubwidgetboxselectionoptionprice" data-type="one"></span>
                 </div>
               </li>
@@ -25,12 +39,35 @@
               <li>
                 <div class="easysubwidgetboxselectionoption">
                   <div class="easysubwidgetboxselectionoptioncover">
-                    <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick{% if product.requires_selling_plan %} checked{% endif %}" data-purchase="subscribe"><span class="easysubwidgetboxselectionoptionlabelcheck"></span>Subscribe {% if priceAdjustment == 0 %}{% else %}<span class="easysubwidgetboxselectionoptionlabeltag">Save {{ priceAdjustment }}%</span>{% endif %} </label>
+                    <label class="easysubwidgetboxselectionoptionlabel easysubwidgetboxselectionoptionlabelclick{% if product.requires_selling_plan %} checked{% endif %}" data-purchase="subscribe">
+                      <span class="easysubwidgetboxselectionoptionlabelcheck"></span>
+                        {% if block.settings.sublabel != '' %}
+                          {{ block.settings.sublabel }}
+                        {% else %}
+                          Subscribe
+                        {% endif %}
+                        {% if priceAdjustment == 0 %}{% else %}
+                          <span class="easysubwidgetboxselectionoptionlabeltag">
+                            {% if block.settings.savelabel != '' %}
+                              {{ block.settings.savelabel }} 
+                            {% else %}
+                              Save 
+                            {% endif %}
+                            {{ priceAdjustment }}%
+                          </span>
+                        {% endif %} 
+                      </label>
                     <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>
                   </div>
                   <div class="easysubwidgetboxselectionoptionplans{% if product.requires_selling_plan %} active{% endif %}">
                     <div class="easysubwidgetboxselectionoptionplansselect">
-                      <label>Delivery every</label>
+                      <label>
+                      {% if block.settings.oplabel != '' %}
+                        block.settings.oplabel
+                      {% else %}
+                        Delivery every
+                      {% endif %}
+                      </label>
                       <select name="easy_selling_plan" data-require="{%- if product.requires_selling_plan -%}true{%- else -%}false{%- endif -%}">
                         {% for group in product.selling_plan_groups %}
                           {% for selling_plan in group.selling_plans %}
@@ -307,8 +344,46 @@
         {% endif %}
       {%- endfor -%}
     </div>
-
 {% endif %}
+<style>
+  .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    label.easysubwidgetboxselectionoptionlabel
+    span.easysubwidgetboxselectionoptionlabelcheck,
+    .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption.checked,
+    .easysubwidgetbox.styletwo .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption.checked,
+    .easysubwidgetbox.stylethree.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel{
+      border-color:{{ block.settings.pcolor }};
+    }
+    .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    label.easysubwidgetboxselectionoptionlabel
+    span.easysubwidgetboxselectionoptionlabelcheck:before,
+    .easysubwidgetbox
+    .easysubwidgetboxselectionoptions
+    span.easysubwidgetboxselectionoptionlabeltag,
+    .easysubwidgetbox.stylethree
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoptionplansselectlist
+    input:checked+label.easysubwidgetboxselectionoptionlabel
+    span.easyfrequencytitle,
+    .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel{
+      background-color:{{ block.settings.pcolor }};
+    }
+    .easysubwidgetbox.styletwo
+    .easysubwidgetboxselectionoptions
+    .easysubwidgetboxselectionoption.checked
+    label.easysubwidgetboxselectionoptionlabel{
+      color:{{ block.settings.pcolor }};
+    }
+    .easysubwidgetbox.styletwo .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption.checked,
+    .easysubwidgetbox.stylethree.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel,
+    .easysubwidgetbox.styletwo.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption.checked{
+      background-color:{{ block.settings.scolor }};
+    }
+</style>
 
 {% schema %}
   {
@@ -323,15 +398,45 @@
     "settings": [
       { 
         "label": "Primary Color",
-        "id": "color",  
+        "id": "pcolor",  
         "type": "color",
         "default": "#7167e8"
-      }
+      },
       { 
         "label": "Secondary Color",
-        "id": "color",  
+        "id": "scolor",  
         "type": "color",
         "default": "#F1F0FD"
+      },
+      { 
+        "label": "Widget title",
+        "id": "title",  
+        "type": "text",
+        "default": "Purchase Options"
+      },
+      { 
+        "label": "One-time label",
+        "id": "otlabel",  
+        "type": "text",
+        "default": "Regular purchase"
+      },
+      { 
+        "label": "Subscribe label",
+        "id": "sublabel",  
+        "type": "text",
+        "default": "Subscribe"
+      },
+      { 
+        "label": "Save tag label",
+        "id": "savelabel",  
+        "type": "text",
+        "default": "Save"
+      },
+      { 
+        "label": "Options label",
+        "id": "oplabel",  
+        "type": "text",
+        "default": "Delivery every"
       }
     ]
   }
