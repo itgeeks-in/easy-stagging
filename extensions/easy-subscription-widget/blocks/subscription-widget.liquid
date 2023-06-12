@@ -320,6 +320,13 @@
     "stylesheet": "easywidget.css",
     "javascript": "easywidget.js",
     "available_if": "{{ app.metafields.plan.conditional }}",
-    "settings": []
+    "settings": [
+      { 
+        "label": "Widget Color",
+        "id": "color",  
+        "type": "color",
+        "default": "#7167e8"
+      }
+    ]
   }
 {% endschema %}
