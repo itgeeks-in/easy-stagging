@@ -481,7 +481,7 @@ export default function createSubscriptionGroup(){
                         <div className="itgSubGroupPageInnerGroup">
                             <h6 className="title">Subscription type</h6>
                             <div className="itgSubGroupPageInnerFieldTypes">
-                                <div className="itgSubGroupPageInnerFieldItem">
+                                <div className="itgSubGroupPageInnerFieldItem" data-checked={subscriptionAction.type === "subscription-one-time"}>
                                     <div className="itgSubGroupPageInnerFieldItemInner">
                                         <div className="itgSubGroupPageInnerFieldItemInnerCheck">
                                             <input 
@@ -503,7 +503,7 @@ export default function createSubscriptionGroup(){
                                         </div>
                                     </div>
                                 </div>
-                                <div className="itgSubGroupPageInnerFieldItem">
+                                <div className="itgSubGroupPageInnerFieldItem" data-checked={subscriptionAction.type === "subscription-only"}>
                                     <div className="itgSubGroupPageInnerFieldItemInner">
                                         <div className="itgSubGroupPageInnerFieldItemInnerCheck">
                                             <input 
