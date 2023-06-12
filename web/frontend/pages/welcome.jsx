@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useAppQuery } from '../hooks';
-import { welcomeCss, welcomeIcon, loaderIcon } from "../assets";
+import { welcomeCss, welcomeIcon, loaderIcon, welcomeGiftIcon } from "../assets";
 
 export default function Welcome(){
     const navigateTo = useNavigate();
@@ -48,7 +48,7 @@ export default function Welcome(){
                 <div className="itgWelcomeBack">
                     <div className="itgWelcomeFront">
                         <div className="itgWelcomeIcon">
-                            <img src={welcomeIcon} alt="" width="80"/>
+                            <img src={welcomeGiftIcon} alt="" width="80"/>
                         </div>
                         <div className="itgWelcomeContent">
                             <h4 className="title"> !!  Welcome to world of Easy Subscription  !!</h4>

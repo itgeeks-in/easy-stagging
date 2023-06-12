@@ -3,6 +3,7 @@ export { default as notFoundImage } from "./images/empty-state.svg";
 export { default as trophyImage } from "./images/home-trophy.png";
 export { default as loaderIcon } from "./images/loader-icon.svg";
 export { default as welcomeIcon } from "./images/welcome.svg";
+export { default as welcomeGiftIcon } from "./images/gift.svg";
 export { default as themeIcon } from "./images/themedownload.svg";
 export { default as buttonDownloadIcon } from "./images/btndwnld.svg";
 export { default as Logo } from "./images/logo.svg";
