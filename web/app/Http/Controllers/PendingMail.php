@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\PendingMailSend;
+use App\Mail\OrderMail;
 
 class PendingMail extends Controller
 {
@@ -90,7 +90,7 @@ class PendingMail extends Controller
         $orders['shipping'] = $order['total_shipping_price_set']['shop_money']['amount'];
         $orders['shippingAddress'] = $order['shipping_address'];
         $orders['billingAddress'] = $order['billing_address'];
-        $orders['payment'] = $order['payment_details'];
+       // $orders['payment'] = $order['payment_details'];
         for($i=0;$i<count($order['line_items']);$i++){
             $orders['products'][$i]['id'] = $order['line_items'][$i]['id'];
             $orders['products'][$i]['productTitle'] = $order['line_items'][$i]['name'];
@@ -102,6 +102,6 @@ class PendingMail extends Controller
             $orders['products'][$i]['productQuantity'] = $order['line_items'][$i]['quantity'];
             $orders['products'][$i]['totalPrice'] = $order['line_items'][$i]['price'];
         }
-        Mail::to($email)->send(new PendingMailSend($orders));
+        Mail::to($email)->send(new OrderMail($orders));
     }
 }
