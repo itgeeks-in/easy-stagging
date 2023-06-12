@@ -152,7 +152,7 @@
                 <div class="easysubwidgetboxselectionoption easysubwidgetboxselectionoptionlabelclick checked" data-purchase="onetime">
                   <label class="easysubwidgetboxselectionoptionlabel">
                     <span class="easyicon">
-                      {{ '3dbox.svg' | asset_url | image_tag }}
+                      {{ '3dbox.svg' | asset_url | img_tag }}
                     </span>
                     <span>Regular purchase</span>
                   </label>
@@ -165,7 +165,7 @@
                   <div class="easysubwidgetboxselectionoptioncover">
                     <label class="easysubwidgetboxselectionoptionlabel">
                       <span class="easyicon">
-                        {{ '3dtruck.svg' | asset_url | image_tag }}
+                        {{ '3dtruck.svg' | asset_url | img_tag }}
                       </span>
                       <span>Subscribe</span>
                     </label>
@@ -189,7 +189,7 @@
                         <label class="easysubwidgetboxselectionoptionlabel" for="easy-plan-{{ selling_plan.id }}">
                           <span class="easysubwidgetboxselectionoptionlabelcheck"></span>
                           <span class="easyemoji">
-                            {{ emoji | asset_url | image_tag }}
+                            {{ emoji | asset_url | img_tag }}
                           </span>
                           <span class="easyfrequencytitle">{% for option in selling_plan.options %}{{ option.value }}{% endfor %}</span>
                           <span class="easysubwidgetboxselectionoptionprice" data-type="sub"></span>

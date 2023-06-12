@@ -161,7 +161,7 @@ export default function SelectTheme(){
                             </div>
                             <h5 className="title">Create a new subscription plan group</h5>
                             <div className="desc">
-                                <p>A subscription plan group is a set of billing intervals that shoppers can subscribe to products with (e.g., a group might contain options for weekly, monthly and annual billing intervals.</p>
+                                <p>A subscription plan group is a collection of subscriptions which allows customers to choose from different options that best suit their needs.</p>
                             </div>
                         </div>
                         <div className="itgCreatePlanGroupAction">
