@@ -120,59 +120,6 @@ export default function NotificationSettings(){
                                     : "Enable"}
                             </button>
                         </div>
-                        <div className={activation.cancelSubscriptions?"notificationSections active":"notificationSections"}>
-                            <div className="cont">
-                                <h6 className="sectionsHead">
-                                    Customers can cancel their subscriptions
-                                </h6>
-                            </div>
-                            <button
-                                onClick={() => {
-                                    let dataChange = {
-                                        type: "cancelSubscriptions",
-                                        bool: !activation.cancelSubscriptions,
-                                    };
-                                    UpdateSetting(dataChange);
-                                    setActivation({
-                                        ...activation,
-                                        cancelSubscriptions:
-                                            !activation.cancelSubscriptions,
-                                    });
-                                }}
-                                className={
-                                    activation.cancelSubscriptions
-                                        ? "btn active"
-                                        : "btn"
-                                }
-                            >
-                                {activation.cancelSubscriptions ? "Disable" : "Enable"}
-                            </button>
-                        </div>
-                        <div className={activation.skipNextOrder?"notificationSections active":"notificationSections"}>
-                            <div className="cont">
-                                <h6 className="sectionsHead">
-                                    Customers can skip their next order
-                                </h6>
-                            </div>
-                            <button
-                                onClick={() => {
-                                    let dataChange = {
-                                        type: "skipNextOrder",
-                                        bool: !activation.skipNextOrder,
-                                    };
-                                    UpdateSetting(dataChange);
-                                    setActivation({
-                                        ...activation,
-                                        skipNextOrder: !activation.skipNextOrder,
-                                    });
-                                }}
-                                className={
-                                    activation.skipNextOrder ? "btn active" : "btn"
-                                }
-                            >
-                                {activation.skipNextOrder ? "Disable" : "Enable"}
-                            </button>
-                        </div>
                         </>}
                     </div>
                 </div>
