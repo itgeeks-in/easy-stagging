@@ -24,6 +24,8 @@ class CreateSessionsTable extends Migration
             $table->string('pending_plan_type')->nullable(true);
             $table->string('charge_id')->nullable(true);
             $table->string('plan_type')->nullable(true);
+            $table->string('ordertag')->nullable(true);
+            $table->string('ordertagvalue')->nullable(true);
             $table->timestamps();
         });
     }
