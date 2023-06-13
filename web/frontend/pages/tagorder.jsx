@@ -113,8 +113,7 @@ export default function NotificationSettings(){
                                     activation.pauseResumeSubscriptions
                                         ? "btn active"
                                         : "btn"
-                                }
-                            >
+                                }>
                                 {activation.pauseResumeSubscriptions
                                     ? "Disable"
                                     : "Enable"}
