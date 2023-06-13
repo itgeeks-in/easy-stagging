@@ -1,16 +1,17 @@
-import { useNavigate, NavLink } from 'react-router-dom';
-import ItgContext from '../context/activityState.jsx';
-import { loaderIcon, editIcon, settingsIcon, bellIcon, messageIcon, videoIcon, mailIcon, bookOpen } from "../assets";
+import { useNavigate } from 'react-router-dom';
+import { useState, useContext, useEffect, useRef } from 'react';
 import { useAppQuery, useAuthenticatedFetch } from '../hooks';
-import { useContext, useEffect, useState, useRef } from 'react';
 import { Sidebar, Topbar } from '../components';
-export default function settings(){ 
+import ItgContext from '../context/activityState.jsx';
+import { loaderIcon } from "../assets";
+export default function NotificationSettings(){
     const windowSize = useRef([window.innerWidth, window.innerHeight]);
     const fetch = useAuthenticatedFetch();
     const navigateTo = useNavigate();
     const [ toggleMenu, setToggleMenu ] = useState(true);
     const [ loadStart , loadStartOption ] = useState(false);
     const [ showApp, showAppOption ] = useState(true);
+    const [ isLoading, setIsLoading ] = useState(true);
     const activityContext = useContext(ItgContext);
     useEffect(()=>{
         if(activityContext.activity !== ' '){
@@ -24,101 +25,162 @@ export default function settings(){
             showAppOption(true);
             loadStartOption(false);
             }
-        }else{
-            loadStartOption(true);
         }
     },[activityContext]);
-    
+
     useEffect(()=>{
-        if( windowSize.current[0] < 776 ){
+      if( windowSize.current[0] < 776 ){
         setToggleMenu(!toggleMenu);
-        }
+      }
     }, []);
-    
+
     const toggle = () =>{
         setToggleMenu(!toggleMenu);
     }
-    return (
+    const [activation, setActivation] = useState({
+        pauseResumeSubscriptions: false,
+        cancelSubscriptions: false,
+        skipNextOrder: false,
+    });
+    function UpdateSetting(data) {
+        fetch(
+            "/api/easy-subscription/settings/customerportal/update?data=" +
+                JSON.stringify(data)
+        ).then((res) => res.json()).then((data) => console.log(data));
+    }
+    useAppQuery({
+        url: "/api/easy-subscription/settings/customerportal",
+        reactQueryOptions: {
+            onSuccess: (data) => {
+                if (data.length > 0) {
+                    setActivation({
+                        ...activation,
+                        pauseResumeSubscriptions:
+                            data[0]["pauseResumeSubscriptions"],
+                        cancelSubscriptions: data[0]["cancelSubscriptions"],
+                        skipNextOrder: data[0]["skipNextOrder"]
+                    });
+                    setIsLoading(false);
+                }
+            },
+        },
+    });
+    return(
         <>
             {showApp?<>
-            {loadStart?<>
-            <div className="itg-main-loader active">
-                <img src={loaderIcon} alt=""/>
-            </div>
-            </>:<></>}
-            <div className="itgDashboardPage">
+                {loadStart?<>
+                <div className="itg-main-loader active">
+                    <img src={loaderIcon} alt=""/>
+                </div>
+                </>:<></>}
+                <div className="itgDashboardPage">
                 <Sidebar toggle={toggle} togglemenu={toggleMenu}/>
                 <div className={toggleMenu?"itgDashboardPageContent":"itgDashboardPageContent full"}>
                     <Topbar toggle={toggle}/>
-                    <div className="itgSettingPage">
-                        <div className="itgSettingPageIn">
-                            <div className="itgSettingPageHead">
-                                <h5 className="itgSubscriptionCustomersInnerHead">Settings</h5>
+                    <div className="notificationSetting">
+                        {isLoading ? (
+                            <div className="itg-main-loader active">
+                                <img src={loaderIcon} alt=""/>
                             </div>
-                            <div onClick={() => { navigateTo("/customerportal"); }} className="settingOptions" >
-                                <div className="settingsOptionIconBack">
-                                    <div className="settingsOptionIcon">
-                                        <img src={messageIcon} alt="general" />
-                                    </div>
-                                </div>
-                                <div className="settingOptionContent">
-                                    <h5 className="settingOptionContentHead">
-                                        Live Chat
-                                    </h5>
-                                    <p className="settingOptionContentDes">
-                                       Connect with us through live chat for immediate support and personalized assistance.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="settingOptions" onClick={() => { navigateTo("/notificationSettings"); }} >
-                                <div className="settingsOptionIconBack">
-                                    <div className="settingsOptionIcon">
-                                        <img src={bookOpen} alt="general" />
-                                    </div> 
-                                </div>
-                                <div className="settingOptionContent">
-                                    <h5 className="settingOptionContentHead">
-                                        Help docs
-                                    </h5>
-                                    <p className="settingOptionContentDes">
-                                        Access our comprehensive help documentation for clear instructions and valuable resources to resolve your queries.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="settingOptions" onClick={() => { navigateTo("/WidgetSetting"); }} >
-                                <div className="settingsOptionIconBack">
-                                    <div className="settingsOptionIcon">
-                                        <img src={videoIcon} alt="general" />
-                                    </div>
-                                </div>
-                                <div className="settingOptionContent">
-                                    <h5 className="settingOptionContentHead">
-                                        Video tutorials
-                                    </h5>
-                                    <p className="settingOptionContentDes">
-                                        Explore our extensive library of video tutorials for step-by-step guidance and hands-on learning.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="settingOptions" onClick={() => { navigateTo("/WidgetSetting"); }} >
-                                <div className="settingsOptionIconBack">
-                                    <div className="settingsOptionIcon">
-                                        <img src={mailIcon} alt="general" />
-                                    </div>
-                                </div>
-                                <div className="settingOptionContent">
-                                    <h5 className="settingOptionContentHead">
-                                        Email Support
-                                    </h5>
-                                    <p className="settingOptionContentDes">
-                                        Reach out to us via email for reliable and efficient support tailored to your needs.
-                                    </p>
-                                </div>
-                            </div>
+                        ) :<>
+                        <div className="notificationSettingHead">
+                            <h5 className="innerHead">Customer portal</h5>
+                            <p className="paragraph">
+                                Select which features your customers have access to from
+                                the customer portal.
+                            </p>
                         </div>
+                        <div className={activation.pauseResumeSubscriptions?"notificationSections active":"notificationSections"}>
+                            <div className="cont">
+                                <h6 className="sectionsHead">
+                                    Customers can pause and resume their subscriptions
+                                </h6>
+                            </div>
+                            <button
+                                onClick={() => {
+                                    let dataChange = {
+                                        type: "pauseResumeSubscriptions",
+                                        bool: !activation.pauseResumeSubscriptions,
+                                    };
+                                    UpdateSetting(dataChange);
+                                    setActivation({
+                                        ...activation,
+                                        pauseResumeSubscriptions:
+                                            !activation.pauseResumeSubscriptions,
+                                    });
+                                }}
+                                className={
+                                    activation.pauseResumeSubscriptions
+                                        ? "btn active"
+                                        : "btn"
+                                }
+                            >
+                                {activation.pauseResumeSubscriptions
+                                    ? "Disable"
+                                    : "Enable"}
+                            </button>
+                        </div>
+                        <div className={activation.cancelSubscriptions?"notificationSections active":"notificationSections"}>
+                            <div className="cont">
+                                <h6 className="sectionsHead">
+                                    Customers can cancel their subscriptions
+                                </h6>
+                            </div>
+                            <button
+                                onClick={() => {
+                                    let dataChange = {
+                                        type: "cancelSubscriptions",
+                                        bool: !activation.cancelSubscriptions,
+                                    };
+                                    UpdateSetting(dataChange);
+                                    setActivation({
+                                        ...activation,
+                                        cancelSubscriptions:
+                                            !activation.cancelSubscriptions,
+                                    });
+                                }}
+                                className={
+                                    activation.cancelSubscriptions
+                                        ? "btn active"
+                                        : "btn"
+                                }
+                            >
+                                {activation.cancelSubscriptions ? "Disable" : "Enable"}
+                            </button>
+                        </div>
+                        <div className={activation.skipNextOrder?"notificationSections active":"notificationSections"}>
+                            <div className="cont">
+                                <h6 className="sectionsHead">
+                                    Customers can skip their next order
+                                </h6>
+                            </div>
+                            <button
+                                onClick={() => {
+                                    let dataChange = {
+                                        type: "skipNextOrder",
+                                        bool: !activation.skipNextOrder,
+                                    };
+                                    UpdateSetting(dataChange);
+                                    setActivation({
+                                        ...activation,
+                                        skipNextOrder: !activation.skipNextOrder,
+                                    });
+                                }}
+                                className={
+                                    activation.skipNextOrder ? "btn active" : "btn"
+                                }
+                            >
+                                {activation.skipNextOrder ? "Disable" : "Enable"}
+                            </button>
+                        </div>
+                        </>}
                     </div>
                 </div>
-            </div></>:""}
+            </div>       
+            </>:<>
+                <div className="itg-main-loader active"> <img src={loaderIcon} alt=""/> </div>
+            </>}
         </>
-    )
+    
+)
 }
