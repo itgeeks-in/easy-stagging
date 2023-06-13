@@ -106,7 +106,7 @@ export default function settings(){
                             <div className="settingOptions" onClick={() => { navigateTo("/WidgetSetting"); }} >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
-                                        <img src={editIcon} alt="general" />
+                                        <img src={tagIcon} alt="general" />
                                     </div>
                                 </div>
                                 <div className="settingOptionContent">

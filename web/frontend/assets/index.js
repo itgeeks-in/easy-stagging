@@ -33,6 +33,7 @@ export { default as deleteIconLight } from "./images/delete-icon-light.svg";
 export { default as verifyCheck } from "./images/verify-check.svg";
 export { default as addIcon } from "./images/add-icon.svg";
 export { default as editIcon } from "./images/edit-icon.svg";
+export { default as tagIcon } from "./images/tag.svg";
 export { default as removeIcon } from "./images/remove-icon.svg";
 export { default as chevronLeft } from "./images/chevron-left.svg";
 export { default as chevronRight } from "./images/chevron-right.svg";
