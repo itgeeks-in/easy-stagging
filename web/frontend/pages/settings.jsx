@@ -103,7 +103,7 @@ export default function settings(){
                                     </p>
                                 </div>
                             </div>
-                            <div className="settingOptions" onClick={() => { navigateTo("/WidgetSetting"); }} >
+                            <div className="settingOptions" onClick={() => { navigateTo("/tagorder"); }} >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
                                         <img src={tagIcon} alt="general" />
