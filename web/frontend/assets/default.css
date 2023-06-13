@@ -1933,6 +1933,12 @@ span.status-tag.statsCANCELLED {
 body.itgBody #app .itgSubGroupPageInnerFieldTypes .itgSubGroupPageInnerFieldItem[data-checked="true"] {
     background-color: var(--secondary-color);
 }
+.itgBody #app .app_index_in .app_index_in_coloumn span.app_index_in_coloumn_icon {
+    display: flex;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
         display: none;
