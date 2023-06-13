@@ -3,7 +3,7 @@ import { useState,useContext, useEffect, useRef } from 'react';
 import { useAppQuery, useAuthenticatedFetch } from '../hooks';
 import { Sidebar, Topbar } from '../components';
 import ItgContext from '../context/activityState.jsx';
-import { loaderIcon, customizeIcon, subscriptionGroupIcon,managesubscriptionIcon, selectIcon } from "../assets";
+import { loaderIcon, customizeIcon, subscriptionGroupIcon,managesubscriptionIcon, selectIcon, upcomingSales, salesIcon, orderState } from "../assets";
 export default function Index() {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
   const fetch = useAuthenticatedFetch();
@@ -49,6 +49,7 @@ export default function Index() {
   const toggle = () =>{
     setToggleMenu(!toggleMenu);
   }
+
   function StatisticsData(interval){
     fetch('/api/index/data?interval='+interval).then((res)=>{
       if(res.ok){
@@ -63,15 +64,18 @@ export default function Index() {
       console.log(err);
     })
   }
+
   function resetFilter(){
     setIndexData(' ');
     setSelectedTextInterval('WEEK');
     setSelectedValueInterval('WEEK');
     StatisticsData('WEEK');
   }
+
   function customSelectInterval() {
     setCstmSlctOptionsTypeInterval(!cstmSlctOptionsTypeInterval);
   }
+
   function selectIntervalValue(e) {
     setIndexData(' ');
     let target = e.target;
@@ -142,6 +146,7 @@ export default function Index() {
                           <span className='app_index_in_linksstyle'>Orders</span>
                           <span className='app_index_in_count'>{indexData.count}</span>
                           <span className='app_index_in_timeline'>LAST {selectedValueInterval}</span>
+                          <span className='app_index_in_coloumn_icon'><img src={orderState} alt=""/></span>
                         </>
                     }
                     
@@ -160,6 +165,7 @@ export default function Index() {
                         <span className='app_index_in_linksstyle'>Sales</span>
                         <span className='app_index_in_count'>{indexData.currency} {indexData.totalsumBefore.toFixed(2)}</span>
                         <span className='app_index_in_timeline'>LAST {selectedValueInterval}</span>
+                        <span className='app_index_in_coloumn_icon'><img src={salesIcon} alt=""/></span>
                       </>
                     }
                   </div>
@@ -177,6 +183,7 @@ export default function Index() {
                         <span className='app_index_in_linksstyle'>Upcoming sales</span>
                         <span className='app_index_in_count'>{indexData.currency} {indexData.totalsumAfter.toFixed(2)}</span>
                         <span className='app_index_in_timeline'>NEXT {selectedValueInterval}</span>
+                        <span className='app_index_in_coloumn_icon'><img src={upcomingSales} alt=""/></span>
                       </>
                     }
                   </div>
