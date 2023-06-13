@@ -103,6 +103,21 @@ export default function settings(){
                                     </p>
                                 </div>
                             </div>
+                            <div className="settingOptions" onClick={() => { navigateTo("/WidgetSetting"); }} >
+                                <div className="settingsOptionIconBack">
+                                    <div className="settingsOptionIcon">
+                                        <img src={editIcon} alt="general" />
+                                    </div>
+                                </div>
+                                <div className="settingOptionContent">
+                                    <h5 className="settingOptionContentHead">
+                                        Order Tags
+                                    </h5>
+                                    <p className="settingOptionContentDes">
+                                        Add tags in Subscription orders.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
