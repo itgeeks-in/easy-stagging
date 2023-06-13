@@ -875,7 +875,7 @@ Route::post('/api/subscriptioncontracts/update',function(Request $request){
 
 Route::post('/api/subscriptioncontracts/billingattempt',function(Request $request){
     $data = $request->getContent();
-     Log::error(['error'=>$data]);
+    // Log::error(['error'=>$data]);
     $decodeData = json_decode($data);
     $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
     $header = $request->header();
@@ -1031,6 +1031,8 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
             $orders['mail']['from_name'] = '';
             $orders['mail']['subject'] = '';
         }
+        print_r($orders);
+        die();
         $done = DB::table($shop_name[0] . '_billingAttemptSuccess')->select('*')->where('subId',$subscriptionContractId)->get()->count();
         $mail = DB::table($shop_name[0] . '_billingAttemptSuccess')->select('mail')->where('subId',$subscriptionContractId)->get();
         if(!empty($mail) && !empty($mail->toArray())){
@@ -1053,7 +1055,6 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
     } catch (\Throwable $th) {
         Log::error(['error'=>$th]);
     }
-
     return true;
 });
 
