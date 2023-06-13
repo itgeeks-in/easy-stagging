@@ -83,9 +83,6 @@ Route::get('/easysubcron', function () {
             }
             $subscriptionContracts = DB::table($shop_name[0].'_subscriptioncontracts')->select('*')->where('nextBillingDate','<',$time)->where('status','ACTIVE')->get()->toArray();
             foreach($subscriptionContracts as $subscriptionContract){
-                if (Schema::hasTable($shop_name[0] . '_billingAttemptSuccess')) {
-                    $mail = DB::table($shop_name[0] . '_billingAttemptSuccess')->where('subId',$oldsubscriptionContractid)->update(['mail'=>false]);
-                }
                 $client = new Graphql($shop, $token);
                 $oldsubscriptionContractid = $subscriptionContract->subId;
                 $breaksubscriptionContractId = str_replace('gid://shopify/SubscriptionContract/','',$subscriptionContract->subId);
@@ -159,6 +156,9 @@ Route::get('/easysubcron', function () {
                         $table->string('total')->nullable(true);
                         $table->timestamp('created_at')->useCurrent();
                     });
+                }
+                if (Schema::hasTable($shop_name[0] . '_billingAttemptSuccess')) {
+                    $mail = DB::table($shop_name[0] . '_billingAttemptSuccess')->where('subId',$oldsubscriptionContractid)->update(['mail'=>false]);
                 }
                 try {
                     DB::table($shop_name[0] . '_billingAttempt')->insert([
