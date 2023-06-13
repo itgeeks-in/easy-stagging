@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
 import { useState, useContext, useEffect } from "react";
-import { themeCss, buttonDownloadIcon, themeIcon, fileTextIcon, loaderIcon, downArrowIcon } from '../assets';
+import { themeCss, buttonDownloadIcon, themeIcon, fileTextIcon, loaderIcon, downArrowIcon, creatGroup } from '../assets';
 import ItgContext from '../context/activityState.jsx';
 
 export default function SelectTheme(){
@@ -157,7 +157,7 @@ export default function SelectTheme(){
                     <div className="itgCreatePlanGroup">
                         <div className="itgCreatePlanGroupTitle">
                             <div className="icon">
-                                <img src={fileTextIcon} alt="select theme" />
+                                <img src={creatGroup} alt="" />
                             </div>
                             <h5 className="title">Create a new subscription plan group</h5>
                             <div className="desc">

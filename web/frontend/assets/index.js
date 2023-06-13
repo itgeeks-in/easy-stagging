@@ -49,6 +49,8 @@ export { default as videoIcon  } from "./images/video.svg";
 export { default as upcomingSales  } from "./images/upcoming-sale.svg";
 export { default as salesIcon  } from "./images/sales.svg";
 export { default as orderState  } from "./images/order-state.svg";
+export { default as creatGroup  } from "./images/creatgroup.svg";
+
 
 // export { default as widget1 } from "./images/widget1.png";
 export { default as widget1 } from "./images/widget1.svg";
