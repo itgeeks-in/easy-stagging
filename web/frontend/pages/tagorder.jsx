@@ -64,9 +64,9 @@ export default function NotificationSettings(){
                         enaletag:
                             data[0]["enaletag"]
                     });
-                    setIsLoading(false);
                 }
                 */
+                setIsLoading(false);
 
             },
         },

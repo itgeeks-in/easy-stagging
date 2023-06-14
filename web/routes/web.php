@@ -3092,7 +3092,7 @@ Route::get('/api/easy-subscription/settings/ordertags',function(Request $request
     $result = [];
     $shop = $session->getShop();
     $shop_name = explode('.', $shop);
-    $data = DB::table('sessions')->get();
+    $data = DB::table('sessions')->select('ordertag','ordertagvalue')->where('shop',$shop)->get();
     if (!empty($data->toArray())) {
         $result = $data->toArray();
     }
