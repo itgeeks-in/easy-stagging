@@ -69,7 +69,7 @@ export default function NotificationSettings(){
             },
         },
     });
-
+console.log(activation);
     return(
         <>
             {showApp?<>
