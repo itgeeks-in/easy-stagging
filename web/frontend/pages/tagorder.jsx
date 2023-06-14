@@ -57,7 +57,7 @@ export default function NotificationSettings(){
         reactQueryOptions: {
             onSuccess: (data) => {
                 console.log(data);
-                /*
+                /* 
                 if ( data.length > 0 ) {
                     setActivation({
                         ...activation,
