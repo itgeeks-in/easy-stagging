@@ -57,15 +57,13 @@ export default function NotificationSettings(){
         reactQueryOptions: {
             onSuccess: (data) => {
                 console.log(data);
-                /* 
                 if ( data.length > 0 ) {
                     setActivation({
                         ...activation,
-                        enaletag:
-                            data[0]["enaletag"]
+                        enaletag:data[0]["ordertag"]
                     });
+                    setOrderTag(data[0]["ordertagvalue"]);
                 }
-                */
                 setIsLoading(false);
 
             },
