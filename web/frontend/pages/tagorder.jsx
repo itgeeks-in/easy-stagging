@@ -13,6 +13,7 @@ export default function NotificationSettings(){
     const [ showApp, showAppOption ] = useState(true);
     const [ isLoading, setIsLoading ] = useState(true);
     const activityContext = useContext(ItgContext);
+
     useEffect(()=>{
         if(activityContext.activity !== ' '){
             if( activityContext.activity === 9 ){
@@ -52,7 +53,7 @@ export default function NotificationSettings(){
         url: "/api/easy-subscription/settings/customerportal",
         reactQueryOptions: {
             onSuccess: (data) => {
-                if (data.length > 0) {
+                if ( data.length > 0 ) {
                     setActivation({
                         ...activation,
                         pauseResumeSubscriptions:
@@ -84,17 +85,17 @@ export default function NotificationSettings(){
                             </div>
                         ) :<>
                         <div className="notificationSettingHead">
-                            <h5 className="innerHead">Customer portal</h5>
+                            <h5 className="innerHead">Order Tags</h5>
                             <p className="paragraph">
-                                Select which features your customers have access to from
-                                the customer portal.
+                                Enable tag for all suscription orders
                             </p>
                         </div>
                         <div className={activation.pauseResumeSubscriptions?"notificationSections active":"notificationSections"}>
                             <div className="cont">
                                 <h6 className="sectionsHead">
-                                    Customers can pause and resume their subscriptions
+                                    Enable this tag
                                 </h6>
+                                <input type="text" placeholder="Suscription tag" value="easysubscription"/>
                             </div>
                             <button
                                 onClick={() => {
