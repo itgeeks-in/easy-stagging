@@ -527,7 +527,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
             $updateOrder = $clientRest->put( 'orders/'.$origin_order_id, ["tags"=>$newTags] );
             $updateOrderValue = $updateOrder->getDecodedBody();
             $croninfo = DB::table('easylog')->insert([
-                'data' => 'Test'
+                'data' => json_encode($updateOrderValue)
             ]);
         }
     }
