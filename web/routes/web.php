@@ -3086,6 +3086,19 @@ Route::get('/api/easy-subscription/settings/customerportal/update',function(Requ
     }
     return response($result);
 })->middleware('shopify.auth');
+
+Route::get('/api/easy-subscription/settings/ordertags',function(Request $request){
+    $session = $request->get('shopifySession');
+    $result = [];
+    $shop = $session->getShop();
+    $shop_name = explode('.', $shop);
+    $data = DB::table('sessions')->get();
+    if (!empty($data->toArray())) {
+        $result = $data->toArray();
+    }
+    return response(json_encode($result));
+})->middleware('shopify.auth');
+
 Route::get('/api/easy-subscription/settings/customerportal',function(Request $request){
     $session = $request->get('shopifySession');
     $result = [];
@@ -3118,6 +3131,7 @@ Route::get('/api/easy-subscription/settings/customerportal',function(Request $re
     }
     return response(json_encode($result));
 })->middleware('shopify.auth');
+
 Route::get('/api/easy-subscription/widgetsetting/product',function(Request $request){
     $session = $request->get('shopifySession');
     $client = new Graphql($session->getShop(), $session->getAccessToken());

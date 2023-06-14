@@ -12,6 +12,7 @@ export default function NotificationSettings(){
     const [ loadStart , loadStartOption ] = useState(false);
     const [ showApp, showAppOption ] = useState(true);
     const [ isLoading, setIsLoading ] = useState(true);
+    const [ orderTag, setOrderTag ] = useState("easysubscription");
     const activityContext = useContext(ItgContext);
 
     useEffect(()=>{
@@ -39,33 +40,38 @@ export default function NotificationSettings(){
         setToggleMenu(!toggleMenu);
     }
     const [activation, setActivation] = useState({
-        pauseResumeSubscriptions: false,
-        cancelSubscriptions: false,
-        skipNextOrder: false,
+        enaletag: false,
     });
     function UpdateSetting(data) {
+        let dataChange = {
+            tagvalue: orderTag,
+            tagenable: data
+        };
         fetch(
             "/api/easy-subscription/settings/customerportal/update?data=" +
-                JSON.stringify(data)
+                JSON.stringify(dataChange)
         ).then((res) => res.json()).then((data) => console.log(data));
     }
     useAppQuery({
-        url: "/api/easy-subscription/settings/customerportal",
+        url: "/api/easy-subscription/settings/ordertags",
         reactQueryOptions: {
             onSuccess: (data) => {
+                console.log(data);
+                /*
                 if ( data.length > 0 ) {
                     setActivation({
                         ...activation,
-                        pauseResumeSubscriptions:
-                            data[0]["pauseResumeSubscriptions"],
-                        cancelSubscriptions: data[0]["cancelSubscriptions"],
-                        skipNextOrder: data[0]["skipNextOrder"]
+                        enaletag:
+                            data[0]["enaletag"]
                     });
                     setIsLoading(false);
                 }
+                */
+
             },
         },
     });
+
     return(
         <>
             {showApp?<>
@@ -95,28 +101,24 @@ export default function NotificationSettings(){
                                 <h6 className="sectionsHead">
                                     Enable this tag for all suscription orders.
                                 </h6>
-                                <input type="text" placeholder="Suscription tag" value="easysubscription"/>
+                                <input type="text" placeholder="Suscription tag" value={orderTag}/>
                                 <p>Tag for any order that contains a subscription product</p>
                             </div>
                             <button
                                 onClick={() => {
-                                    let dataChange = {
-                                        type: "pauseResumeSubscriptions",
-                                        bool: !activation.pauseResumeSubscriptions,
-                                    };
-                                    UpdateSetting(dataChange);
+                                    UpdateSetting(!activation.enaletag);
                                     setActivation({
                                         ...activation,
-                                        pauseResumeSubscriptions:
-                                            !activation.pauseResumeSubscriptions,
+                                        enaletag:
+                                            !activation.enaletag,
                                     });
                                 }}
                                 className={
-                                    activation.pauseResumeSubscriptions
+                                    activation.enaletag
                                         ? "btn active"
                                         : "btn"
                                 }>
-                                {activation.pauseResumeSubscriptions
+                                {activation.enaletag
                                     ? "Disable"
                                     : "Enable"}
                             </button>
