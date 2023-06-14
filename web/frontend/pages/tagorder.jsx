@@ -93,9 +93,10 @@ export default function NotificationSettings(){
                         <div className={activation.pauseResumeSubscriptions?"notificationSections active":"notificationSections"}>
                             <div className="cont easycont">
                                 <h6 className="sectionsHead">
-                                    Enable this tag
+                                    Enable this tag for all suscription orders.
                                 </h6>
                                 <input type="text" placeholder="Suscription tag" value="easysubscription"/>
+                                <p>Tag for any order that contains a subscription product</p>
                             </div>
                             <button
                                 onClick={() => {
