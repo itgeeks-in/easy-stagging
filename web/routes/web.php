@@ -3087,6 +3087,21 @@ Route::get('/api/easy-subscription/settings/customerportal/update',function(Requ
     return response($result);
 })->middleware('shopify.auth');
 
+Route::get('/api/easy-subscription/settings/ordertags/update',function(Request $request){
+    $session = $request->get('shopifySession');
+    $shop = $session->getShop();
+    $shop_name = explode('.', $shop);
+    $result = [];
+    $userUpdateData = json_decode($request['data']);
+    try {
+        DB::table('sessions')->where('shop', $shop)->update(['ordertag' => $userUpdateData->tagenable, 'ordertagvalue' => $userUpdateData->tagvalue]);
+        $result = ['status' => true];
+    } catch (\Throwable $th) {
+        $result = ['status' => false];
+    }
+    return response($result);
+})->middleware('shopify.auth');
+
 Route::get('/api/easy-subscription/settings/ordertags',function(Request $request){
     $session = $request->get('shopifySession');
     $result = [];

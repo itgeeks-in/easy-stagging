@@ -47,8 +47,9 @@ export default function NotificationSettings(){
             tagvalue: orderTag,
             tagenable: data
         };
+        console.log(dataChange);
         fetch(
-            "/api/easy-subscription/settings/customerportal/update?data=" +
+            "/api/easy-subscription/settings/ordertags/update?data=" +
                 JSON.stringify(dataChange)
         ).then((res) => res.json()).then((data) => console.log(data));
     }
@@ -70,7 +71,7 @@ export default function NotificationSettings(){
             },
         },
     });
-console.log(activation);
+    
     return(
         <>
             {showApp?<>
