@@ -58,10 +58,11 @@ export default function NotificationSettings(){
             onSuccess: (data) => {
                 console.log(data);
                 if ( data.length > 0 ) {
-                    setActivation({
-                        ...activation,
-                        enaletag:data[0]["ordertag"]
-                    });
+                    if( data[0]["ordertag"] == 'true' ){
+                        setActivation({...activation,enaletag:true});
+                    }else{
+                        setActivation({...activation,enaletag:false});
+                    }
                     setOrderTag(data[0]["ordertagvalue"]);
                 }
                 setIsLoading(false);
