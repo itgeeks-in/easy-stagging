@@ -40,9 +40,11 @@ export default function NotificationSettings(){
     const toggle = () =>{
         setToggleMenu(!toggleMenu);
     }
+
     const [activation, setActivation] = useState({
         enaletag: false,
     });
+
     function UpdateSetting(data) {
         let dataChange = {
             tagvalue: orderTag,
@@ -55,6 +57,7 @@ export default function NotificationSettings(){
             setSaveButton("Save");
         });
     }
+
     useAppQuery({
         url: "/api/easy-subscription/settings/ordertags",
         reactQueryOptions: {
@@ -62,10 +65,11 @@ export default function NotificationSettings(){
                 console.log(data);
                 if ( data.length > 0 ) {
                     if( data[0]["ordertag"] == '1' || data[0]["ordertag"] == 'true' ){
-                        setActivation({...activation,enaletag:true});
+                        setActivation({...activation, enaletag:true });
                     }else{
-                        setActivation({...activation,enaletag:false});
+                        setActivation({...activation, enaletag:false });
                     }
+                    console.log(data[0]["ordertagvalue"]);
                     if( data[0]["ordertagvalue"] != '' && data[0]["ordertagvalue"] != null  ){
                        setOrderTag(data[0]["ordertagvalue"]);
                     }
@@ -75,7 +79,6 @@ export default function NotificationSettings(){
             },
         },
     });
-
     
     function orderTagChange(e) {
         let target = e.target;
