@@ -59,7 +59,7 @@ export default function NotificationSettings(){
             onSuccess: (data) => {
                 console.log(data);
                 if ( data.length > 0 ) {
-                    if( data[0]["ordertag"] == '1' ){
+                    if( data[0]["ordertag"] == '1' || data[0]["ordertag"] == 'true' ){
                         setActivation({...activation,enaletag:true});
                     }else{
                         setActivation({...activation,enaletag:false});
@@ -71,6 +71,15 @@ export default function NotificationSettings(){
             },
         },
     });
+
+    
+    function orderTagChange(e) {
+        let target = e.target;
+        let value = target.value;
+        if (value != "") {
+            setOrderTag(value);
+        }
+    }
     
     return(
         <>
@@ -101,7 +110,7 @@ export default function NotificationSettings(){
                                 <h6 className="sectionsHead">
                                     Enable this tag for all suscription orders.
                                 </h6>
-                                <input type="text" placeholder="Suscription tag" value={orderTag}/>
+                                <input type="text" placeholder="Suscription tag" value={orderTag} onChange={orderTagChange}/>
                                 <p>Tag for any order that contains a subscription product</p>
                             </div>
                             <button
