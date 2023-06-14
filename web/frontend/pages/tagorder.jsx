@@ -113,11 +113,11 @@ export default function NotificationSettings(){
                                     Enable this tag for all suscription orders.
                                 </h6>
                                 <input type="text" placeholder="Suscription tag" value={orderTag} onChange={orderTagChange}/>
+                                <p>Tag for any order that contains a subscription product</p>
                                 <button type="button" onClick={() => {
                                     UpdateSetting(activation.enaletag);
                                     setSaveButton("Saving...");
                                 }}>{saveButton}</button>
-                                <p>Tag for any order that contains a subscription product</p>
                             </div>
                             <button
                                 onClick={() => {
