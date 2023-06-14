@@ -95,7 +95,7 @@ console.log(activation);
                                 Enable tag for all suscription orders
                             </p>
                         </div>
-                        <div className={activation.pauseResumeSubscriptions?"notificationSections active":"notificationSections"}>
+                        <div className={activation.enaletag?"notificationSections active":"notificationSections"}>
                             <div className="cont easycont">
                                 <h6 className="sectionsHead">
                                     Enable this tag for all suscription orders.
