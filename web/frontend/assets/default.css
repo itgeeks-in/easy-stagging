@@ -1947,6 +1947,11 @@ body.itgBody #app .itgThemePage .itgThemePageInner .itgCreatePlanGroup .itgCreat
 .itgBody #app .notificationSections .cont input[type="text"] {
     margin-top: 15px;
     width: 100%;
+    margin-bottom: 10px;
+}
+.itgBody #app .notificationSections .cont.easycont {
+    width: 100%;
+    max-width: 600px;
 }
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
