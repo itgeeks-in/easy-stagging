@@ -66,7 +66,7 @@ export default function NotificationSettings(){
                     }else{
                         setActivation({...activation,enaletag:false});
                     }
-                    if( data[0]["ordertagvalue"] != '' ){
+                    if( data[0]["ordertagvalue"] != '' && data[0]["ordertagvalue"] != null  ){
                        setOrderTag(data[0]["ordertagvalue"]);
                     }
                 }
