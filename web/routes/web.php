@@ -525,6 +525,10 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
         $newTags = $orderTags.','.$ordertagvalue;
         if( $tagAlready == 0 ){
             $updateOrder = $clientRest->put( 'orders/'.$origin_order_id, ["tags"=>$newTags] );
+            $updateOrderValue = $updateOrder->getDecodedBody();
+            $croninfo = DB::table('easylog')->insert([
+                'data' => 'Test'
+            ]);
         }
     }
 
