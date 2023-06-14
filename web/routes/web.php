@@ -528,9 +528,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                 "tags"=>$newTags
             ]] );
             $updateOrderValue = $updateOrder->getDecodedBody();
-            $croninfo = DB::table('easylog')->insert([
-                'data' => json_encode($updateOrder)
-            ]);
         }
     }
 
@@ -952,6 +949,14 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
                     }
                 }
             }
+            orders(first:5){
+                edges{
+                    node{
+                        id
+                        name
+                    }
+                }
+            }
           }
           userErrors {
             field
@@ -966,6 +971,11 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
     ];
     $result = $client->query(['query' => $query,'variables'=>$variables]);
     $data = $result->getDecodedBody();
+
+    $croninfo = DB::table('easylog')->insert([
+        'data' => json_encode($data)
+    ]);
+    
     $origin_order_id = str_replace('gid://shopify/Order/','',$data['data']['subscriptionContractSetNextBillingDate']['contract']['originOrder']['id']);
     $subscriptionContractId = $data['data']['subscriptionContractSetNextBillingDate']['contract']['id'];
     $clientRest = new Rest($shop, $token);
