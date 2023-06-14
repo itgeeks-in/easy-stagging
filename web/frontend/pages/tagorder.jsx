@@ -91,7 +91,7 @@ export default function NotificationSettings(){
                             </p>
                         </div>
                         <div className={activation.pauseResumeSubscriptions?"notificationSections active":"notificationSections"}>
-                            <div className="cont">
+                            <div className="cont easycont">
                                 <h6 className="sectionsHead">
                                     Enable this tag
                                 </h6>

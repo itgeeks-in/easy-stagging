@@ -1944,6 +1944,10 @@ body.itgBody #app .itgThemePage .itgThemePageInner .itgCreatePlanGroup .itgCreat
     margin: auto;
     margin-bottom: 20px;
 }
+.itgBody #app .notificationSections .cont input[type="text"] {
+    margin-top: 15px;
+    width: 100%;
+}
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
         display: none;
