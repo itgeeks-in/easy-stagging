@@ -61,15 +61,13 @@ export default function NotificationSettings(){
     useAppQuery({
         url: "/api/easy-subscription/settings/ordertags",
         reactQueryOptions: {
-            onSuccess: (data) => {
-                console.log(data);
+            onSuccess:(data) => {
                 if( data.length > 0 ) {
                     if( data[0]["ordertag"] == '1' || data[0]["ordertag"] == 'true' ){
                         setActivation({...activation, enaletag:true });
                     }else{
                         setActivation({...activation, enaletag:false });
                     }
-                    console.log(data[0]["ordertagvalue"]);
                     if( data[0]["ordertagvalue"] != '' && data[0]["ordertagvalue"] != null ){
                        setOrderTag(data[0]["ordertagvalue"]);
                     }
