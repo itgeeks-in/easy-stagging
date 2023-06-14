@@ -12,6 +12,7 @@ export default function NotificationSettings(){
     const [ loadStart , loadStartOption ] = useState(false);
     const [ showApp, showAppOption ] = useState(true);
     const [ isLoading, setIsLoading ] = useState(true);
+    const [ saveButton, setSaveButton ] = useState("Save");
     const [ orderTag, setOrderTag ] = useState("easysubscription");
     const activityContext = useContext(ItgContext);
 
@@ -47,11 +48,12 @@ export default function NotificationSettings(){
             tagvalue: orderTag,
             tagenable: data
         };
-        console.log(dataChange);
         fetch(
             "/api/easy-subscription/settings/ordertags/update?data=" +
                 JSON.stringify(dataChange)
-        ).then((res) => res.json()).then((data) => console.log(data));
+        ).then((res) => res.json()).then((data) => {
+            setSaveButton("Save");
+        });
     }
     useAppQuery({
         url: "/api/easy-subscription/settings/ordertags",
@@ -111,6 +113,10 @@ export default function NotificationSettings(){
                                     Enable this tag for all suscription orders.
                                 </h6>
                                 <input type="text" placeholder="Suscription tag" value={orderTag} onChange={orderTagChange}/>
+                                <button type="button" onClick={() => {
+                                    UpdateSetting(activation.enaletag);
+                                    setSaveButton("Saving...");
+                                }}>{saveButton}</button>
                                 <p>Tag for any order that contains a subscription product</p>
                             </div>
                             <button
