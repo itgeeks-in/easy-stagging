@@ -990,7 +990,7 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
         }
         $newTags = $orderTags.','.$ordertagvalue;
         if( $tagAlready == 0 ){
-            $updateOrder = $clientRest->put( 'orders/'.$origin_order_id, ["order"=>[
+            $updateOrder = $clientRest->put( 'orders/'.$admin_graphql_order_id, ["order"=>[
                 "tags"=>$newTags
             ]] );
             $updateOrderValue = $updateOrder->getDecodedBody();
