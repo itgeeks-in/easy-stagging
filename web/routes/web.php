@@ -949,7 +949,7 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
                     }
                 }
             }
-            orders(last:5){
+            orders(first:2,reverse:true){
                 edges{
                     node{
                         id
