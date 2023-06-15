@@ -23,7 +23,7 @@ export default function App() {
               <NavigationMenu
                 navigationLinks={[
                   {
-                    label: "Orders",
+                    label: "Subscription Orders",
                     destination: "/subscriptions",
                   },
                   {
