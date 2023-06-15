@@ -899,17 +899,16 @@ Route::post('/api/subscriptioncontracts/update',function(Request $request){
 Route::post('/api/subscriptioncontracts/billingattempt',function(Request $request){
     $data = $request->getContent();
     // Log::error(['error'=>$data]);
-
-    $croninfo = DB::table('easylog')->insert([
-        'data' => json_encode($data)
-    ]);
     $decodeData = json_decode($data);
     $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
+    $admin_graphql_order_id = $decodeData->order_id;
     $header = $request->header();
     $shop = $header['x-shopify-shop-domain'][0];
     $shop_name = explode('.', $shop);
-    $session = DB::table('sessions')->select('access_token')->where('shop',$shop)->get();
+    $session = DB::table('sessions')->select('access_token','ordertag','ordertagvalue')->where('shop',$shop)->get();
     $token = $session->toArray()[0]->access_token;
+    $ordertag = $session->toArray()[0]->ordertag;
+    $ordertagvalue = $session->toArray()[0]->ordertagvalue;
     $client = new Graphql($shop, $token);
     $query1 = <<<QUERY
     {
@@ -967,14 +966,34 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
     ];
     $result = $client->query(['query' => $query,'variables'=>$variables]);
     $data = $result->getDecodedBody();
-
     
     $origin_order_id = str_replace('gid://shopify/Order/','',$data['data']['subscriptionContractSetNextBillingDate']['contract']['originOrder']['id']);
     $subscriptionContractId = $data['data']['subscriptionContractSetNextBillingDate']['contract']['id'];
     $clientRest = new Rest($shop, $token);
-    $restOrder = $clientRest->get('orders/'.$origin_order_id);
+    $restOrder = $clientRest->get('orders/'.$admin_graphql_order_id);
     $restOrder = $restOrder->getDecodedBody();
     $order = $restOrder['order'];
+
+    if( $ordertag == '1' ){
+        $orderTags = $order['tags'];
+        $orderTagsArray = explode( ",", $orderTags );
+        $tagAlready = 0;
+        if( $orderTags != '' ){
+            foreach ( $orderArrayValue as $orderTagsArray ) {
+                if( $orderArrayValue == $ordertagvalue ){
+                    $tagAlready = 1;
+                }
+            }
+        }
+        $newTags = $orderTags.','.$ordertagvalue;
+        if( $tagAlready == 0 ){
+            $updateOrder = $clientRest->put( 'orders/'.$origin_order_id, ["order"=>[
+                "tags"=>$newTags
+            ]] );
+            $updateOrderValue = $updateOrder->getDecodedBody();
+        }
+    }
+    
     $orders = [];
     $orders['id']=$order['id'];
     $orders['shop']=$shop_name[0];
