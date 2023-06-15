@@ -899,6 +899,10 @@ Route::post('/api/subscriptioncontracts/update',function(Request $request){
 Route::post('/api/subscriptioncontracts/billingattempt',function(Request $request){
     $data = $request->getContent();
     // Log::error(['error'=>$data]);
+
+    $croninfo = DB::table('easylog')->insert([
+        'data' => json_encode($data)
+    ]);
     $decodeData = json_decode($data);
     $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
     $header = $request->header();
@@ -949,14 +953,6 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
                     }
                 }
             }
-            orders(first:2,reverse:true){
-                edges{
-                    node{
-                        id
-                        name
-                    }
-                }
-            }
           }
           userErrors {
             field
@@ -972,9 +968,6 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
     $result = $client->query(['query' => $query,'variables'=>$variables]);
     $data = $result->getDecodedBody();
 
-    $croninfo = DB::table('easylog')->insert([
-        'data' => json_encode($data)
-    ]);
     
     $origin_order_id = str_replace('gid://shopify/Order/','',$data['data']['subscriptionContractSetNextBillingDate']['contract']['originOrder']['id']);
     $subscriptionContractId = $data['data']['subscriptionContractSetNextBillingDate']['contract']['id'];
