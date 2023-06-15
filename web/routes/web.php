@@ -352,23 +352,58 @@ Route::get('/api/payment', function (Request $request) {
     $application_charge = new RecurringApplicationCharge($session);
     $application_charge->name = "Subscription";
 
+    $client = new Graphql($session->getShop(), $session->getAccessToken());
+    
     $croninfo = DB::table('easylog')->insert([
         'data' => $request['freq']
     ]);
-    if ($request['plan'] == 'pro') {
-        $application_charge->price = 29.00;
-    } else {
-        $application_charge->price = 29.00;
+
+    if( $request['freq'] == 'years' ){
+        $query = <<<QUERY
+                    mutation {
+                        appSubscriptionCreate(
+                            name: "Subscription"
+                            returnUrl: "https://www.shopify.com"
+                            lineItems: [
+                            {
+                                plan: {
+                                    appRecurringPricingDetails: {
+                                        price: { amount: 10.00, currencyCode: USD }
+                                        interval: ANNUAL
+                                    }
+                                }
+                            }
+                            ]
+                        ) {
+                            appSubscription {
+                                id
+                            }
+                            confirmationUrl
+                            userErrors {
+                                field
+                                message
+                            }
+                        }
+                    }
+            QUERY;
+            $result = $client->query(['query' => $query]);
+    }else{
+        if ($request['plan'] == 'pro') {
+            $application_charge->price = 29.00;
+        } else {
+            $application_charge->price = 29.00;
+        }
+        $application_charge->return_url = "https://" . $session->getShop() . "/admin/apps/easysubscription/confirm";
+        $application_charge->trial_days = 15;
+        $application_charge->test = true;
+        try {
+            $application_charge->save(true);
+            return response(json_encode(['status' => true, 'url' => $application_charge->confirmation_url, 'id' => $application_charge->id]));
+        } catch (\Throwable $th) {
+            return response(json_encode(['status' => false]));
+        }
     }
-    $application_charge->return_url = "https://" . $session->getShop() . "/admin/apps/easysubscription/confirm";
-    $application_charge->trial_days = 15;
-    $application_charge->test = true;
-    try {
-        $application_charge->save(true);
-        return response(json_encode(['status' => true, 'url' => $application_charge->confirmation_url, 'id' => $application_charge->id]));
-    } catch (\Throwable $th) {
-        return response(json_encode(['status' => false]));
-    }
+
 })->middleware('shopify.auth');
 
 Route::get('/api/paymentfree', function (Request $request) {
