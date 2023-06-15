@@ -63,7 +63,7 @@ export default function settings(){
                                 </div>
                                 <div className="settingOptionContent">
                                     <h5 className="settingOptionContentHead">
-                                        Customer portal
+                                        Customer Portal
                                     </h5>
                                     <p className="settingOptionContentDes">
                                         Select which features your customers have

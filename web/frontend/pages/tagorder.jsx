@@ -11,6 +11,7 @@ export default function NotificationSettings(){
     const [ toggleMenu, setToggleMenu ] = useState(true);
     const [ loadStart , loadStartOption ] = useState(false);
     const [ showApp, showAppOption ] = useState(true);
+    const [ showSuccess, setShowSuccess ] = useState(false);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ saveButton, setSaveButton ] = useState("Save");
     const [ orderTag, setOrderTag ] = useState("easysubscription");
@@ -55,6 +56,11 @@ export default function NotificationSettings(){
                 JSON.stringify(dataChange)
         ).then((res) => res.json()).then((data) => {
             setSaveButton("Save");
+            setShowSuccess(true);
+            setIsLoading(false);
+            setTimeout(function(){
+                setShowSuccess(false);
+            }, 5000);
         });
     }
 
@@ -119,6 +125,7 @@ export default function NotificationSettings(){
                                 <button type="button" onClick={() => {
                                     UpdateSetting(activation.enaletag);
                                     setSaveButton("Saving...");
+                                    setIsLoading(true);
                                 }}>{saveButton}</button>
                             </div>
                             <button

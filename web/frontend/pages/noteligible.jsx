@@ -42,9 +42,9 @@ export default function Welcome(){
                             <img src={helpCircle} alt="" width="80"/>
                         </div>
                         <div className="itgWelcomeContent">
-                            <h4 className="title">Your store is not eligible for subscriptions.</h4>
+                            <h4 className="title">Your store does not meet the requirements for subscriptions.</h4>
                             <div className="desc">
-                                <p>This can usually be resolved by adjusting a few settings in your Shopify store. You can learn more about Shopify’s subscription eligibility requirements <a href="https://help.shopify.com/en/manual/products/purchase-options/subscriptions/setup#eligibility-requirements" target="_blank" className="link-btn">here.</a></p>
+                                <p>This issue can be fixed by making some changes to your Shopify store settings. You can learn moreabout Shopify's subscription eligibility requirements <a href="https://help.shopify.com/en/manual/products/purchase-options/subscriptions/setup#eligibility-requirements" target="_blank" className="link-btn">here.</a></p>
                             </div>
                         </div>
                         <div className="itgWelcomeButton">

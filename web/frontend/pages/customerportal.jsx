@@ -84,16 +84,15 @@ export default function NotificationSettings(){
                             </div>
                         ) :<>
                         <div className="notificationSettingHead">
-                            <h5 className="innerHead">Customer portal</h5>
+                            <h5 className="innerHead">Customer Portal</h5>
                             <p className="paragraph">
-                                Select which features your customers have access to from
-                                the customer portal.
+                                Customize the customer portal experience for your customers.
                             </p>
                         </div>
                         <div className={activation.pauseResumeSubscriptions?"notificationSections active":"notificationSections"}>
                             <div className="cont">
                                 <h6 className="sectionsHead">
-                                    Customers can pause and resume their subscriptions
+                                    Can customers temporarily stop and restart their subscription?
                                 </h6>
                             </div>
                             <button
@@ -123,7 +122,7 @@ export default function NotificationSettings(){
                         <div className={activation.cancelSubscriptions?"notificationSections active":"notificationSections"}>
                             <div className="cont">
                                 <h6 className="sectionsHead">
-                                    Customers can cancel their subscriptions
+                                    Can customers end their subscription?
                                 </h6>
                             </div>
                             <button
@@ -151,7 +150,7 @@ export default function NotificationSettings(){
                         <div className={activation.skipNextOrder?"notificationSections active":"notificationSections"}>
                             <div className="cont">
                                 <h6 className="sectionsHead">
-                                    Customers can skip their next order
+                                    Can a customer change their mind about their next order?
                                 </h6>
                             </div>
                             <button

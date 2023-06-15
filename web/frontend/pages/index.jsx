@@ -106,7 +106,7 @@ export default function Index() {
             <div className='app_index'>
               <div className='app_index_in'>
                 <div className="app_index_in_head">
-                  <h5 className='app_index_in_innerHead'>Dunning Statistics</h5>
+                  <h5 className='app_index_in_innerHead'>Progress Analyser</h5>
                   <div className="itgSubscriptionsFilter">
                     {selectedValueInterval !== 'WEEK'?<>
                           <button type='button' onClick={resetFilter}>Reset Filter</button>
@@ -194,8 +194,8 @@ export default function Index() {
                   </div>
                   <div className='app_index_in_details'>
                     <div>
-                      <h5>Create subscription group</h5>
-                      <p>Add subscription selling plans to your products by creating a subscription rule.</p>
+                      <h5>Creating Subscription Group</h5>
+                      <p>Set up a subscription plan by creating subscription rules .</p>
                     </div>
                     <div>
                     <NavLink className="btn" to="/subscriptiongroup">Create subscription group</NavLink>
@@ -209,7 +209,7 @@ export default function Index() {
                   <div className='app_index_in_details'>
                     <div>
                       <h5>Customise your subscription widget</h5>
-                      <p>Make it your own! Create your customized look for the subscription.</p>
+                      <p>Make changes in your subscription widget .</p>
                     </div>
                     <div>
                     <NavLink className="btn" to="/WidgetSetting">Customize your widget</NavLink>
@@ -222,8 +222,8 @@ export default function Index() {
                   </div>
                   <div className='app_index_in_details'>
                     <div>
-                      <h5>Manage subscriptions</h5>
-                      <p>You can view and manage all the created subscriptions from your subscriptions page.</p>
+                      <h5>Manage Subscription</h5>
+                      <p>Take control of your created subscriptions from your subscription page .</p>
                     </div>
                     <div>
                       <NavLink className="btn" to="/groups">Manage subscriptions</NavLink>

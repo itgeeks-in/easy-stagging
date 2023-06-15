@@ -491,7 +491,7 @@ export default function Groups() {
                           {showCustomerDetailsData.status=='ACTIVE'?<>
                             <div className="itgCustomerSubscriptionStatusbtns">
                               <button disabled={changeStatus} onClick={changeSubscriptionStatus} type='button' value='PAUSED'>Pause</button>
-                              <button disabled={changeStatus} onClick={changeSubscriptionStatus} type='button' value='CANCELLED'>Cancle</button>
+                              <button disabled={changeStatus} onClick={changeSubscriptionStatus} type='button' value='CANCELLED'>Cancel</button>
                             </div>
                           </>:showCustomerDetailsData.status=='CANCELLED'?
                             <div className="itgCustomerSubscriptionStatusbtns">
@@ -499,7 +499,7 @@ export default function Groups() {
                             </div>:showCustomerDetailsData.status=='PAUSED'?<>
                             <div className="itgCustomerSubscriptionStatusbtns">
                               <button disabled={changeStatus} onClick={changeSubscriptionStatus} type='button' value='ACTIVE'>Resume</button>
-                              <button disabled={changeStatus} onClick={changeSubscriptionStatus} type='button' value='CANCELLED'>Cancle</button>
+                              <button disabled={changeStatus} onClick={changeSubscriptionStatus} type='button' value='CANCELLED'>Cancel</button>
                             </div>
                           </>:""}
                         </div>

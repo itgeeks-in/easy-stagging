@@ -165,7 +165,7 @@ export default function SelectTheme(){
                             </div>
                         </div>
                         <div className="itgCreatePlanGroupAction">
-                            <button className="btn primary-btn" onClick={subscriptionGroupCreation}>Create group</button>
+                            <button className="btn primary-btn" onClick={subscriptionGroupCreation}>Create Group</button>
                             <button className="btn" onClick={skipGroupCreation}>Skip</button>
                         </div>
                     </div>
