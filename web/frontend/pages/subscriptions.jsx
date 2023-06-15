@@ -478,44 +478,6 @@ export default function Groups() {
                   </>:
                   <>
                   <div className="itgorderview">
-                      <div className="itgorderviewcustomerdetails">
-                          <div className="itgorderviewcustomerdetailsIn">
-                              <div>
-                                  <div className="itgorderviewcustomerdetailsInHead">
-                                      <h6>Customer</h6>
-                                  </div>
-                                  <div className="itgorderviewcustomerdetailsInCont customer">
-                                      <p>{showCustomerDetailsData.customerDetails.displayName}</p>
-                                      <p>{showCustomerDetailsData.customerDetails.email}</p>
-                                      {/* <p className="link" onClick={customerRedirect}>View in Shopify</p> */}
-                                  </div>
-                              </div>
-                          </div>
-                          <div className="itgorderviewcustomerdetailsIn">
-                              <div>
-                                  <div className="itgorderviewcustomerdetailsInHead">
-                                      <h6>Shipping Address</h6>
-                                  </div>
-                                  <div className="itgorderviewcustomerdetailsInCont address">
-                                      <p>{showCustomerDetailsData.billingAddress.name}</p>
-                                      <p>{showCustomerDetailsData.billingAddress.address2} {showCustomerDetailsData.billingAddress.city} {showCustomerDetailsData.billingAddress.province}, {showCustomerDetailsData.billingAddress.provinceCode} {showCustomerDetailsData.billingAddress.zip}</p>
-                                      <p>{showCustomerDetailsData.billingAddress.country}</p>
-                                  </div>
-                              </div>
-                          </div>
-                          <div className="itgorderviewcustomerdetailsIn">
-                              <div>
-                                  <div className="itgorderviewcustomerdetailsInHead">
-                                      <h6>Billing Address</h6>
-                                  </div>
-                                  <div className="itgorderviewcustomerdetailsInCont address">
-                                  <p>{showCustomerDetailsData.shippingAddress.name}</p>
-                                      <p>{showCustomerDetailsData.shippingAddress.address2} {showCustomerDetailsData.shippingAddress.city} {showCustomerDetailsData.shippingAddress.province}, {showCustomerDetailsData.shippingAddress.provinceCode} {showCustomerDetailsData.shippingAddress.zip}</p>
-                                      <p>{showCustomerDetailsData.shippingAddress.country}</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
                       <div className="itgCustomerOrderStatusParent">
                           {!changeStatus?<></>:<>
                             <div className="itgCustomerSubscriptionStatusLoader">
@@ -611,6 +573,45 @@ export default function Groups() {
                         </div>:""
                         }
 
+                      </div>
+                      
+                      <div className="itgorderviewcustomerdetails">
+                          <div className="itgorderviewcustomerdetailsIn">
+                              <div>
+                                  <div className="itgorderviewcustomerdetailsInHead">
+                                      <h6>Customer</h6>
+                                  </div>
+                                  <div className="itgorderviewcustomerdetailsInCont customer">
+                                      <p>{showCustomerDetailsData.customerDetails.displayName}</p>
+                                      <p>{showCustomerDetailsData.customerDetails.email}</p>
+                                      {/* <p className="link" onClick={customerRedirect}>View in Shopify</p> */}
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="itgorderviewcustomerdetailsIn">
+                              <div>
+                                  <div className="itgorderviewcustomerdetailsInHead">
+                                      <h6>Shipping Address</h6>
+                                  </div>
+                                  <div className="itgorderviewcustomerdetailsInCont address">
+                                      <p>{showCustomerDetailsData.billingAddress.name}</p>
+                                      <p>{showCustomerDetailsData.billingAddress.address2} {showCustomerDetailsData.billingAddress.city} {showCustomerDetailsData.billingAddress.province}, {showCustomerDetailsData.billingAddress.provinceCode} {showCustomerDetailsData.billingAddress.zip}</p>
+                                      <p>{showCustomerDetailsData.billingAddress.country}</p>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="itgorderviewcustomerdetailsIn">
+                              <div>
+                                  <div className="itgorderviewcustomerdetailsInHead">
+                                      <h6>Billing Address</h6>
+                                  </div>
+                                  <div className="itgorderviewcustomerdetailsInCont address">
+                                  <p>{showCustomerDetailsData.shippingAddress.name}</p>
+                                      <p>{showCustomerDetailsData.shippingAddress.address2} {showCustomerDetailsData.shippingAddress.city} {showCustomerDetailsData.shippingAddress.province}, {showCustomerDetailsData.shippingAddress.provinceCode} {showCustomerDetailsData.shippingAddress.zip}</p>
+                                      <p>{showCustomerDetailsData.shippingAddress.country}</p>
+                                  </div>
+                              </div>
+                          </div>
                       </div>
                   </div>
                   </>
