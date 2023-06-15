@@ -9,7 +9,8 @@ export default function subscription(){
     const fetch = useAuthenticatedFetch();
     const [ loadStart , loadStartOption ] = useState(true);
     const [ planType, setplantype ] = useState('');
-    const [ existingPlan, setExistingPlan ] = useState({ type:'', confirmCheck:false, activity:1, chooseDiscount:false });
+    const [ planFreq, setPlanFreq ] = useState('month');
+    const [ existingPlan, setExistingPlan ] = useState({ type:'', confirmCheck:false, activity:1, chooseDiscount:false, chooseDplan:false });
     
     const{ planStatus }=useAppQuery({
         url:"/api/planStatus",
@@ -38,8 +39,9 @@ export default function subscription(){
     },[]); 
     
     const upgradePlan = planType;
+    const upgradePlanFreq = planFreq;
     const{ data, refetch:createPaidPlan } = useAppQuery({
-        url:"/api/payment?plan="+upgradePlan,
+        url:"/api/payment?plan="+upgradePlan+"&freq="+upgradePlanFreq,
         reactQueryOptions: {
             onSuccess: (data) => {
                 if( data.id ){
@@ -69,6 +71,13 @@ export default function subscription(){
         }else{
             setExistingPlan({...existingPlan, confirmCheck:true, chooseDiscount:true});
         }
+    }
+
+    function paymentPageDicount(e){
+        var targetElement = e.target
+        var plan = targetElement.getAttribute('planfreq');
+        setPlanFreq(plan);
+        setExistingPlan({...existingPlan, confirmCheck:true, chooseDiscount:false});
     }
 
     function closeConfirmPopup(){
@@ -182,8 +191,8 @@ export default function subscription(){
                         {existingPlan.chooseDiscount?<>
                             <h5 className="title">Kindly please select frequency</h5>
                             <div className="itgProPlanConfirmationAction">
-                                <button type="button" className="btn primary-btn" onClick={sentToPaymentPage}>Yearly</button>
-                                <button type="button" className="btn" onClick={closeConfirmPopup}>Monthly</button>
+                                <button type="button" className="btn primary-btn" onClick={paymentPageDicount} planfreq="year">Yearly</button>
+                                <button type="button" className="btn" onClick={paymentPageDicount} planfreq="month">Monthly</button>
                             </div>
                         </>:<>
                             <h5 className="title">Kindly please confirm to select this plan</h5>
