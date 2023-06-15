@@ -304,7 +304,7 @@ export default function Groups() {
             <Topbar toggle={toggle}/>
             <div className="itgDashboardPageContentInner">
               <div className="itgDashboardPageContentTitle">
-                <h5 className="title">Orders {customerId!=null&&subscriptionId!=null?"Details":""} {subscriptionId!=null?<>#{subscriptionId}</>:<></>}</h5>
+                <h5 className="title">{customerId!=null&&subscriptionId!=null?"Subscription":"Subscriptions"} {subscriptionId!=null?<>#{subscriptionId}</>:<></>}</h5>
                 {showCustomerDetails?<NavLink to="/subscriptions" className="link-btn">Back</NavLink>:
                   <>
                     <div className="itgSubscriptionsFilter">
