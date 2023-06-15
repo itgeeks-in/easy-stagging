@@ -357,6 +357,7 @@ Route::get('/api/payment', function (Request $request) {
         $application_charge->price = 29.00;
     }
     $application_charge->return_url = "https://" . $session->getShop() . "/admin/apps/easysubscription/confirm";
+    $application_charge->trial_days = 15;
     $application_charge->test = true;
     try {
         $application_charge->save(true);
