@@ -900,9 +900,6 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
     $data = $request->getContent();
     // Log::error(['error'=>$data]);
     $decodeData = json_decode($data);
-    $croninfo = DB::table('easylog')->insert([
-        'data' => json_encode($decodeData)
-    ]);
     $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
     $admin_graphql_order_id = $decodeData->order_id;
     $header = $request->header();
@@ -994,9 +991,6 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
                 "tags"=>$newTags
             ]] );
             $updateOrderValue = $updateOrder->getDecodedBody();
-            $croninfo = DB::table('easylog')->insert([
-                'data' => json_encode($updateOrderValue)
-            ]);
         }
     }
     
