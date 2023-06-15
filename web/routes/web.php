@@ -991,6 +991,9 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
                 "tags"=>$newTags
             ]] );
             $updateOrderValue = $updateOrder->getDecodedBody();
+            $croninfo = DB::table('easylog')->insert([
+                'data' => json_encode($updateOrderValue)
+            ]);
         }
     }
     
