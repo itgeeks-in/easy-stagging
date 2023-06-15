@@ -304,7 +304,7 @@ export default function Groups() {
             <Topbar toggle={toggle}/>
             <div className="itgDashboardPageContentInner">
               <div className="itgDashboardPageContentTitle">
-                <h5 className="title">Orders {customerId!=null&&subscriptionId!=null?"Details":""}</h5>
+                <h5 className="title">Orders {customerId!=null&&subscriptionId!=null?"Details":""} {subscriptionId!=null?<>#{subscriptionId}</>:<></>}</h5>
                 {showCustomerDetails?<NavLink to="/subscriptions" className="link-btn">Back</NavLink>:
                   <>
                     <div className="itgSubscriptionsFilter">
@@ -386,7 +386,7 @@ export default function Groups() {
                     <div className="itgAddSubGroupDataTable subscriptionsTable">
                       <div className="itgAddSubGroupDataHeader">
                         <div className="itgAddSubGroupDataTableBox">
-                          <label>Order</label>
+                          <label>Subscription</label>
                         </div>
                         <div className="itgAddSubGroupDataTableBox">
                           <label>Customer</label>
@@ -412,7 +412,7 @@ export default function Groups() {
                               <div key={objectId} className="itgAddSubGroupDataContentRow">
                                   <div className="itgAddSubGroupDataTableBox">
                                       <span className="product-title">
-                                        {order_name}
+                                        #{objectId}
                                       </span>
                                   </div>
                                   <div className="itgAddSubGroupDataTableBox">
