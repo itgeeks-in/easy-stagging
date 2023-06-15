@@ -9,7 +9,7 @@ export default function subscription(){
     const fetch = useAuthenticatedFetch();
     const [ loadStart , loadStartOption ] = useState(true);
     const [ planType, setplantype ] = useState('');
-    const [ existingPlan, setExistingPlan ] = useState({ type:'', confirmCheck:false, activity:1 });
+    const [ existingPlan, setExistingPlan ] = useState({ type:'', confirmCheck:false, activity:1, chooseDiscount:false });
     
     const{ planStatus }=useAppQuery({
         url:"/api/planStatus",
@@ -65,14 +65,14 @@ export default function subscription(){
         var plan = targetElement.getAttribute('plantype');
         setplantype(plan);
         if( plan == 'free' ){
-            setExistingPlan({...existingPlan, confirmCheck:true});
+            setExistingPlan({...existingPlan, confirmCheck:true, chooseDiscount:false});
         }else{
-            setExistingPlan({...existingPlan, confirmCheck:true});
+            setExistingPlan({...existingPlan, confirmCheck:true, chooseDiscount:true});
         }
     }
 
     function closeConfirmPopup(){
-        setExistingPlan({...existingPlan, confirmCheck:false});
+        setExistingPlan({...existingPlan, confirmCheck:false, chooseDiscount:false});
     }
 
     function sentToPaymentPage(){
@@ -179,11 +179,19 @@ export default function subscription(){
             {existingPlan.confirmCheck?<>
                 <div className="itgProPlanConfirmation">
                     <div className="itgProPlanConfirmationInner">
-                        <h5 className="title">Kindly please confirm to select this plan</h5>
-                        <div className="itgProPlanConfirmationAction">
-                            <button type="button" className="btn primary-btn" onClick={sentToPaymentPage}>Yes</button>
-                            <button type="button" className="btn" onClick={closeConfirmPopup}>No</button>
-                        </div>
+                        {existingPlan.chooseDiscount?<>
+                            <h5 className="title">Kindly please select frequency</h5>
+                            <div className="itgProPlanConfirmationAction">
+                                <button type="button" className="btn primary-btn" onClick={sentToPaymentPage}>Yearly</button>
+                                <button type="button" className="btn" onClick={closeConfirmPopup}>Monthly</button>
+                            </div>
+                        </>:<>
+                            <h5 className="title">Kindly please confirm to select this plan</h5>
+                            <div className="itgProPlanConfirmationAction">
+                                <button type="button" className="btn primary-btn" onClick={sentToPaymentPage}>Yes</button>
+                                <button type="button" className="btn" onClick={closeConfirmPopup}>No</button>
+                            </div>
+                        </>}
                     </div>
                 </div>
             </>:<></>}
