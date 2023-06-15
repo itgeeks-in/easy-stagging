@@ -386,7 +386,7 @@ export default function Groups() {
                     <div className="itgAddSubGroupDataTable subscriptionsTable">
                       <div className="itgAddSubGroupDataHeader">
                         <div className="itgAddSubGroupDataTableBox">
-                          <label>Subscription</label>
+                          <label>ID</label>
                         </div>
                         <div className="itgAddSubGroupDataTableBox">
                           <label>Customer</label>
