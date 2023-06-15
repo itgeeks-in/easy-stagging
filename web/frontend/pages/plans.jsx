@@ -140,6 +140,7 @@ export default function subscription(){
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
                                     <label>PRO</label>
                                     <h5 className="title">$29.00/month</h5>
+                                    <h4 className="subtitle">or $278/year and save 20%</h4>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
@@ -159,6 +160,7 @@ export default function subscription(){
                                             {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
                                         </button>
                                     }
+                                    <p class="easyYearlyDiscount"></p>
                                 </div>
                             </div>
                         </div>
