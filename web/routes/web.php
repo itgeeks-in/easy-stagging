@@ -351,6 +351,10 @@ Route::get('/api/payment', function (Request $request) {
     $session = $request->get('shopifySession'); // Provided by the shopify.auth middleware, guaranteed to be active
     $application_charge = new RecurringApplicationCharge($session);
     $application_charge->name = "Subscription";
+
+    $croninfo = DB::table('easylog')->insert([
+        'data' => $request['freq']
+    ]);
     if ($request['plan'] == 'pro') {
         $application_charge->price = 29.00;
     } else {
