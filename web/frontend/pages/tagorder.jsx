@@ -127,6 +127,9 @@ export default function NotificationSettings(){
                                     setSaveButton("Saving...");
                                     setIsLoading(true);
                                 }}>{saveButton}</button>
+                                {showSuccess?<>
+                                    <div class="itgDashboardAction">Order tag is saved successfully.</div>
+                                </>:<></>}
                             </div>
                             <button
                                 onClick={() => {
