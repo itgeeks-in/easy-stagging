@@ -352,9 +352,9 @@ Route::get('/api/payment', function (Request $request) {
     $application_charge = new RecurringApplicationCharge($session);
     $application_charge->name = "Subscription";
     if ($request['plan'] == 'pro') {
-        $application_charge->price = 9.00;
+        $application_charge->price = 29.00;
     } else {
-        $application_charge->price = 9.00;
+        $application_charge->price = 29.00;
     }
     $application_charge->return_url = "https://" . $session->getShop() . "/admin/apps/easysubscription/confirm";
     $application_charge->test = true;

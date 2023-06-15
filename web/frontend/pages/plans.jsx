@@ -116,8 +116,8 @@ export default function subscription(){
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
-                                        <li>Recurring Billing engine</li>
-                                        <li>Integration library</li>
+                                        <li>Manage Subscriptions</li>
+                                        <li>Customer Management</li>
                                         <li>Recharge API</li>
                                         <li>Recharge SMS</li>
                                         <li>Customer Portal</li>
@@ -139,7 +139,7 @@ export default function subscription(){
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
                                     <label>PRO</label>
-                                    <h5 className="title">$9.00/month</h5>
+                                    <h5 className="title">$29.00/month</h5>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
@@ -148,7 +148,7 @@ export default function subscription(){
                                         <li>Custom domains Bundles</li>
                                         <li>Bundles</li>
                                         <li>Enhanced customer portal</li>
-                                        <li>Configurable API Rate Limits</li>
+                                        <li>Configurable API Rate Limits</li> 
                                     </ul>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerAction">
