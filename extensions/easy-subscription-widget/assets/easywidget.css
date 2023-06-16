@@ -63,7 +63,7 @@
     position: absolute;
     left: 0;
     top: 1px;
-    border: 1px solid #7167e8;
+    border: 1px solid #2D292A;
     border-radius: 100%;
   }
   .easysubwidgetbox
@@ -74,7 +74,7 @@
     height: 6px;
     position: absolute;
     content: "";
-    background-color: #7167e8;
+    background-color: #2D292A;
     border-radius: 100%;
     top: 50%;
     left: 50%;
@@ -100,7 +100,7 @@
     display: inline-block;
     padding: 5px 10px;
     border-radius: 20px;
-    background-color: #7167e8;
+    background-color: #2D292A;
     color: #fff;
     font-size: 14px;
     line-height: 1em;
@@ -200,13 +200,13 @@
   .easysubwidgetbox.styletwo
     .easysubwidgetboxselectionoptions
     .easysubwidgetboxselectionoption.checked {
-    border-color: #7167e8;
+    border-color: #2D292A;
   }
   .easysubwidgetbox.styletwo
     .easysubwidgetboxselectionoptions
     .easysubwidgetboxselectionoption.checked
     label.easysubwidgetboxselectionoptionlabel {
-    color: #7167e8;
+    color: #2D292A;
   }
   .easysubwidgetbox.styletwo .easysubwidgetboxselectionoptions ul li.easyfull {
     max-width: 100%;
@@ -348,7 +348,7 @@
     .easysubwidgetboxselectionoptionplansselectlist
     input:checked+label.easysubwidgetboxselectionoptionlabel
     span.easyfrequencytitle {
-    background-color: #7167e8;
+    background-color: #2D292A;
     color: #fff;
   }
   .easysubwidgetbox.styletwo.stylethree.stylefour {
@@ -356,8 +356,8 @@
     padding: 20px;
   }
   .easysubwidgetbox.styletwo .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption.checked{
-    border-color: #7167e8;
-    background-color: #F1F0FD;
+    border-color: #2D292A;
+    background-color: #b9b9b9;
   }
   .easysubwidgetbox.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption {
       padding: 15px;
@@ -384,15 +384,15 @@
       color: inherit;
   }
   .easysubwidgetbox.stylethree.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel {
-     border-color: #7167e8;
-     background-color: #F1F0FD;
+     border-color: #2D292A;
+     background-color: #b9b9b9;
   }
   .easysubwidgetbox.styletwo.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption {
       background-color: #fff;
       padding: 15px;
   }
   .easysubwidgetbox.styletwo.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption.checked {
-      background-color: #f1f0fd;
+      background-color: #b9b9b9;
   }
   .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions ul.easysubwidgetboxselectionoptionplansselectlist li {
       max-width: 130px;
@@ -418,7 +418,7 @@
       transform: translate(10px, 10px);
   }
   .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel {
-      background-color: #7167e8;
+      background-color: #2D292A;
       color: #fff;
   }
   .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel span.easyfrequencytitle {

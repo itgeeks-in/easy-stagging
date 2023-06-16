@@ -6,8 +6,8 @@
   padding: 20px 0;
 }
 .easySubscriptionWidget .easySubscriptionWidgetIn button.button {
-  background-color: #7167e8;
-  border-color: #7167e8;
+  background-color: #2D292A;
+  border-color: #2D292A;
   color: #fff;
   font-size: 16px;
   padding: 12px 30px;
@@ -69,7 +69,7 @@
   cursor: pointer;
 }
 .easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInstatusfilters span.easySubscriptionlinks.active {
-  color: #7167e8;
+  color: #2D292A;
 }
 .easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInLineItems {
   width: 100%;
