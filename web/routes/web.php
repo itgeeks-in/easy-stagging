@@ -383,8 +383,13 @@ Route::get('/api/payment', function (Request $request) {
                         }
                     }
             QUERY;
-            $result = $client->query(['query' => $query]);
-            $data = $result->getDecodedBody();
+            try {
+                $result = $client->query(['query' => $query]);
+                $data = $result->getDecodedBody();
+                return response(json_encode(['status' => true, 'url' => $data['appSubscriptionCreate']['appSubscription']['confirmationUrl'], 'id' => $data['appSubscriptionCreate']['appSubscription']['id']]));
+            } catch (\Throwable $th) {
+                return response(json_encode(['status' => false]));
+            }
             $croninfo = DB::table('easylog')->insert([
                 'data' => json_encode($data)
             ]);
