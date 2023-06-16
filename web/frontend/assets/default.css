@@ -1969,6 +1969,9 @@ body.itgBody #app .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerT
 body.itgBody #app .active .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerTitle h4.subtitle {
     color: var(--white-color);
 }
+body.itgBody #app .itgWelcomeBack .itgWelcomeFront .itgWelcomeIcon img {
+    width: 200px;
+}
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
         display: none;
