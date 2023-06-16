@@ -121,8 +121,7 @@ export default function subscription(){
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
                                     <label>PRO</label>
-                                    <h5 className="title">$29.00/month</h5>
-                                    <h4 className="subtitle">or $278/year and save 20%</h4>
+                                    <h5 className="title">$29/month</h5>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
@@ -151,8 +150,8 @@ export default function subscription(){
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
                                     <label>PRO</label>
-                                    <h5 className="title">$29.00/month</h5>
-                                    <h4 className="subtitle">or $278/year and save 20%</h4>
+                                    <h5 className="title">$278/month</h5>
+                                    <h4 className="subtitle">Save 20%</h4>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
