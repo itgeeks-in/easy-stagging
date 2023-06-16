@@ -57,8 +57,6 @@ export default function subscription(){
                             createPaidPlan();
                         }
                     });
-                }else{
-                    createPaidPlan();
                 }
             },
             enabled:false,

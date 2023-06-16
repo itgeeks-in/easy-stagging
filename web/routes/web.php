@@ -362,14 +362,14 @@ Route::get('/api/payment', function (Request $request) {
                             name: "Subscription"
                             returnUrl: "$returnUrl"
                             lineItems: [
-                            {
-                                plan: {
-                                    appRecurringPricingDetails: {
-                                        price: { amount: 278.00, currencyCode: USD }
-                                        interval: ANNUAL
+                                {
+                                    plan: {
+                                        appRecurringPricingDetails: {
+                                            price: { amount: 278.00, currencyCode: USD }
+                                            interval: ANNUAL
+                                        }
                                     }
                                 }
-                            }
                             ]
                         ){
                             appSubscription {
