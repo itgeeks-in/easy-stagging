@@ -391,9 +391,6 @@ Route::get('/api/payment', function (Request $request) {
             } catch (\Throwable $th) {
                 return response(json_encode(['status' => false]));
             }
-            $croninfo = DB::table('easylog')->insert([
-                'data' => json_encode($data)
-            ]);
     }else{
         if ($request['plan'] == 'pro') {
             $application_charge->price = 29.00;

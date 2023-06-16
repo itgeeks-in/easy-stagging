@@ -44,6 +44,7 @@ export default function subscription(){
         url:"/api/payment?plan="+upgradePlan+"&freq="+upgradePlanFreq,
         reactQueryOptions: {
             onSuccess: (data) => {
+                console.log(data);
                 if( data.id ){
                     fetch(`/api/payment/update?id=`+data.id+`&plan=`+upgradePlan).then((response)=>{
                         if(response.status === 200){
