@@ -117,34 +117,36 @@ export default function subscription(){
                         </div>
                     </div>
                     <div className="itgPlanSelectionBox">
-                        {/*
-                        <div className={existingPlan.type=='free'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
+                        <div className={existingPlan.type=='pro'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
-                                    <label>STANDARD</label>
-                                    <h5 className="title">Free to install</h5>
+                                    <label>PRO</label>
+                                    <h5 className="title">$29.00/month</h5>
+                                    <h4 className="subtitle">or $278/year and save 20%</h4>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
-                                        <li>Single Subscription Group</li>
-                                        <li>Single Widget Style</li>
+                                        <li>Multiple Subscription Groups</li>
+                                        <li>Multiple Widget Styles</li>
                                         <li>Customer Management</li>
                                         <li>Email Customization</li>
-                                        <li>24*7 Support</li>
+                                        <li>Order Tagging</li>
+                                        <li>24*7 Support</li> 
+                                        <li>Dedicated Manager</li> 
                                     </ul>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerAction">
-                                    {existingPlan.type == 'free'?
+                                    {existingPlan.type == 'pro'?
                                         <button type="button" className="btn dark-btn" plantype="free" disabled="disabled">Activated</button>
                                     :
-                                        <button type="button" className="btn" onClick={paymentPage} plantype="free">
-                                          {existingPlan.type == 'pro'?"Downgrade plan":"Choose standard "}<span>{'>'}</span>
+                                        <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="pro">
+                                            {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
                                         </button>
                                     }
+                                    <p class="easyYearlyDiscount"></p>
                                 </div>
                             </div>
                         </div>
-                        */}
                         <div className={existingPlan.type=='pro'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
