@@ -102,7 +102,6 @@ export default function subscription(){
         navigateTo('/');
     }
 
-
     return(
         <>
         <div className="itgPlanPage">
