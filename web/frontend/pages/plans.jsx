@@ -66,11 +66,13 @@ export default function subscription(){
     function paymentPage(e){
         var targetElement = e.target
         var plan = targetElement.getAttribute('plantype');
+        var planFreq = targetElement.getAttribute('planfreq');
+        setPlanFreq(planFreq);
         setplantype(plan);
         if( plan == 'free' ){
             setExistingPlan({...existingPlan, confirmCheck:true, chooseDiscount:false});
         }else{
-            setExistingPlan({...existingPlan, confirmCheck:true, chooseDiscount:true});
+            setExistingPlan({...existingPlan, confirmCheck:true, chooseDiscount:false});
         }
     }
 
@@ -136,9 +138,9 @@ export default function subscription(){
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerAction">
                                     {existingPlan.type == 'pro'?
-                                        <button type="button" className="btn dark-btn" plantype="free" disabled="disabled">Activated</button>
+                                        <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Activated</button>
                                     :
-                                        <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="pro">
+                                        <button type="button" className="btn" onClick={paymentPage} plantype="pro" planfreq="month">
                                             {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
                                         </button>
                                     }
@@ -150,7 +152,7 @@ export default function subscription(){
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
                                     <label>PRO</label>
-                                    <h5 className="title">$278/month</h5>
+                                    <h5 className="title">$278/year</h5>
                                     <h4 className="subtitle">Save 20%</h4>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
@@ -166,9 +168,9 @@ export default function subscription(){
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerAction">
                                     {existingPlan.type == 'pro'?
-                                        <button type="button" className="btn dark-btn" plantype="free" disabled="disabled">Activated</button>
+                                        <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Activated</button>
                                     :
-                                        <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="pro">
+                                        <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="pro" planfreq="year">
                                             {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
                                         </button>
                                     }
