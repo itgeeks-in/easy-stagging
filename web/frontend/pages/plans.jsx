@@ -191,8 +191,8 @@ export default function subscription(){
                         {existingPlan.chooseDiscount?<>
                             <h5 className="title">Kindly please select frequency</h5>
                             <div className="itgProPlanConfirmationAction">
-                                <button type="button" className="btn primary-btn" onClick={paymentPageDicount} planfreq="year">Yearly</button>
-                                <button type="button" className="btn" onClick={paymentPageDicount} planfreq="month">Monthly</button>
+                                <button type="button" className="btn" onClick={paymentPageDicount} planfreq="month">Monthly $29.00/month </button>
+                                <button type="button" className="btn primary-btn" onClick={paymentPageDicount} planfreq="year">Yearly $278/year and save 20%</button>
                             </div>
                         </>:<>
                             <h5 className="title">Kindly please confirm to select this plan</h5>
