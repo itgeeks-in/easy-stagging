@@ -156,7 +156,7 @@ export default function subscription(){
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
-                                        <li>Multiple Widget Styles</li>
+                                        <li>Widget Styling</li>
                                         <li>Customer Management</li>
                                         <li>Email Customization</li>
                                         <li>Order Tagging</li>
@@ -198,10 +198,10 @@ export default function subscription(){
                                 <button type="button" className="btn primary-btn" onClick={paymentPageDicount} planfreq="year">Yearly $278/year and save 20%</button>
                             </div>
                         </>:<>
-                            <h5 className="title">Kindly please confirm to select this plan</h5>
+                            <h5 className="title">Please press "Confirm" to continue with the Pro Plan.</h5>
                             <div className="itgProPlanConfirmationAction">
-                                <button type="button" className="btn primary-btn" onClick={sentToPaymentPage}>Yes</button>
-                                <button type="button" className="btn" onClick={closeConfirmPopup}>No</button>
+                                <button type="button" className="btn primary-btn" onClick={sentToPaymentPage}>Confirm</button>
+                                <button type="button" className="btn" onClick={closeConfirmPopup}>Cancel</button>
                             </div>
                         </>}
                     </div>
