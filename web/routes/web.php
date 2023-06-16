@@ -361,6 +361,7 @@ Route::get('/api/payment', function (Request $request) {
                         appSubscriptionCreate(
                             name: "Subscription"
                             returnUrl: "$returnUrl"
+                            test:true
                             lineItems: [
                                 {
                                     plan: {
