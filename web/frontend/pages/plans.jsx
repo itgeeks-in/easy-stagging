@@ -127,8 +127,7 @@ export default function subscription(){
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
-                                        <li>Multiple Subscription Groups</li>
-                                        <li>Multiple Widget Styles</li>
+                                        <li>Widget Styling</li>
                                         <li>Customer Management</li>
                                         <li>Email Customization</li>
                                         <li>Order Tagging</li>
@@ -157,7 +156,6 @@ export default function subscription(){
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
-                                        <li>Multiple Subscription Groups</li>
                                         <li>Multiple Widget Styles</li>
                                         <li>Customer Management</li>
                                         <li>Email Customization</li>
