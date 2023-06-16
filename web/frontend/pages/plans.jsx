@@ -125,12 +125,11 @@ export default function subscription(){
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
-                                        <li>Manage Subscriptions</li>
+                                        <li>Single Subscription Group</li>
+                                        <li>Single Widget Style</li>
                                         <li>Customer Management</li>
-                                        <li>Recharge API</li>
-                                        <li>Recharge SMS</li>
-                                        <li>Customer Portal</li>
-                                        <li>Payment Processing</li>
+                                        <li>Email Customization</li>
+                                        <li>24*7 Support</li>
                                     </ul>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerAction">
@@ -153,12 +152,13 @@ export default function subscription(){
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
                                     <ul className="list">
-                                        <li>Everything in standard plus:</li>
-                                        <li>Enhanced analytics</li>
-                                        <li>Custom domains Bundles</li>
-                                        <li>Bundles</li>
-                                        <li>Enhanced customer portal</li>
-                                        <li>Configurable API Rate Limits</li> 
+                                        <li>Multiple Subscription Groups</li>
+                                        <li>Multiple Widget Styles</li>
+                                        <li>Customer Management</li>
+                                        <li>Email Customization</li>
+                                        <li>Order Tagging</li>
+                                        <li>24*7 Support</li> 
+                                        <li>Dedicated Manager</li> 
                                     </ul>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerAction">
