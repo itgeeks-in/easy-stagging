@@ -893,7 +893,7 @@ body.itgBody #app .itgDashboardPageTopBar .itgDashboardPageTopBarMenu ul {
 body.itgBody #app .itgDashboardPageTopBarInner a {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 body.itgBody #app .itgDashboardPageSidebar.deactivate span.linksstyle{
     display: none;

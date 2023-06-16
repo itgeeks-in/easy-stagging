@@ -13,7 +13,7 @@ export function Topbar(props) {
                     <div className="itgDashboardPageTopBarMenu">
                         <ul>
                             <li>
-                                <Link to="/"><img src={phoneIcon} className="icon" alt="easy-subscription" width="16"/><span>Schedule demo call</span></Link>
+                                <a href="https://calendly.com/support-hiq/support" target="_blank"><img src={phoneIcon} className="icon" alt="easy-subscription" width="16"/><span>Schedule demo call</span></a>
                             </li>
                         </ul>
                     </div>
