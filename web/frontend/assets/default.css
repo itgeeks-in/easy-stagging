@@ -1566,7 +1566,7 @@ body.itgBody #app .itgCustomerDataTable .itgCustomerDataPagination{
     width: 100%;
 }
 .itgBody #app .itgSettingPageIn .settingsOptionIconBack {
-    background: #F1F0FD;
+    background: var(--secondary-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1965,6 +1965,9 @@ body.itgBody #app .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerT
     font-size: 16px;
     padding-top: 5px;
     color: var(--primary-color);
+}
+body.itgBody #app .active .itgPlanSelectionBoxChildInner .itgPlanSelectionBoxChildInnerTitle h4.subtitle {
+    color: var(--white-color);
 }
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{

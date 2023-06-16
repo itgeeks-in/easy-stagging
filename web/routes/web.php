@@ -354,27 +354,24 @@ Route::get('/api/payment', function (Request $request) {
 
     $client = new Graphql($session->getShop(), $session->getAccessToken());
     
-    $croninfo = DB::table('easylog')->insert([
-        'data' => $request['freq']
-    ]);
-
-    if( $request['freq'] == 'years' ){
+    $returnUrl = "https://" . $session->getShop() . "/admin/apps/easysubscription/confirm";
+    if( $request['freq'] == 'year' ){
         $query = <<<QUERY
                     mutation {
                         appSubscriptionCreate(
                             name: "Subscription"
-                            returnUrl: "https://www.shopify.com"
+                            returnUrl: "$returnUrl"
                             lineItems: [
                             {
                                 plan: {
                                     appRecurringPricingDetails: {
-                                        price: { amount: 10.00, currencyCode: USD }
+                                        price: { amount: 278.00, currencyCode: USD }
                                         interval: ANNUAL
                                     }
                                 }
                             }
                             ]
-                        ) {
+                        ){
                             appSubscription {
                                 id
                             }
@@ -387,13 +384,17 @@ Route::get('/api/payment', function (Request $request) {
                     }
             QUERY;
             $result = $client->query(['query' => $query]);
+            $data = $result->getDecodedBody();
+            $croninfo = DB::table('easylog')->insert([
+                'data' => json_encode($data)
+            ]);
     }else{
         if ($request['plan'] == 'pro') {
             $application_charge->price = 29.00;
         } else {
             $application_charge->price = 29.00;
         }
-        $application_charge->return_url = "https://" . $session->getShop() . "/admin/apps/easysubscription/confirm";
+        $application_charge->return_url = $returnUrl;
         $application_charge->trial_days = 15;
         $application_charge->test = true;
         try {
