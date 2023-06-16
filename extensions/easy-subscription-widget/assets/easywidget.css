@@ -357,7 +357,7 @@
   }
   .easysubwidgetbox.styletwo .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption.checked{
     border-color: #2D292A;
-    background-color: #b9b9b9;
+    background-color: #E3E3E3;
   }
   .easysubwidgetbox.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption {
       padding: 15px;
@@ -385,14 +385,14 @@
   }
   .easysubwidgetbox.stylethree.stylefour .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoptionplansselectlist input:checked+label.easysubwidgetboxselectionoptionlabel {
      border-color: #2D292A;
-     background-color: #b9b9b9;
+     background-color: #E3E3E3;
   }
   .easysubwidgetbox.styletwo.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption {
       background-color: #fff;
       padding: 15px;
   }
   .easysubwidgetbox.styletwo.stylefive .easysubwidgetboxselectionoptions .easysubwidgetboxselectionoption.checked {
-      background-color: #b9b9b9;
+      background-color: #E3E3E3;
   }
   .easysubwidgetbox.stylethree.stylefive .easysubwidgetboxselectionoptions ul.easysubwidgetboxselectionoptionplansselectlist li {
       max-width: 130px;
