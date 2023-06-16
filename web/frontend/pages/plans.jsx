@@ -117,6 +117,7 @@ export default function subscription(){
                         </div>
                     </div>
                     <div className="itgPlanSelectionBox">
+                        {/*
                         <div className={existingPlan.type=='free'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
@@ -143,6 +144,7 @@ export default function subscription(){
                                 </div>
                             </div>
                         </div>
+                        */}
                         <div className={existingPlan.type=='pro'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
