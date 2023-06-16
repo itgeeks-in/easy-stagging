@@ -386,7 +386,8 @@ Route::get('/api/payment', function (Request $request) {
             try {
                 $result = $client->query(['query' => $query]);
                 $data = $result->getDecodedBody();
-                return response(json_encode(['status' => true, 'url' => $data['appSubscriptionCreate']['appSubscription']['confirmationUrl'], 'id' => $data['appSubscriptionCreate']['appSubscription']['id']]));
+                $application_charge_id = str_replace('gid://shopify/AppSubscription/','',$data['appSubscriptionCreate']['appSubscription']['id']);
+                return response(json_encode(['status' => true, 'url' => $data['appSubscriptionCreate']['appSubscription']['confirmationUrl'], 'id' =>$application_charge_id ]));
             } catch (\Throwable $th) {
                 return response(json_encode(['status' => false]));
             }
