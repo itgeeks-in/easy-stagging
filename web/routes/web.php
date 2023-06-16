@@ -386,19 +386,8 @@ Route::get('/api/payment', function (Request $request) {
             try {
                 $result = $client->query(['query' => $query]);
                 $data = $result->getDecodedBody();
-
-        $croninfo = DB::table('easylog')->insert([
-            'data' => json_encode($data)
-        ]);
-                $application_charge_id = str_replace('gid://shopify/AppSubscription/','',$data['appSubscriptionCreate']['appSubscription']['id']);
-
-        $croninfo = DB::table('easylog')->insert([
-            'data' => $application_charge_id
-        ]);
-        $croninfo = DB::table('easylog')->insert([
-            'data' => $data['appSubscriptionCreate']['appSubscription']['confirmationUrl']
-        ]);
-                return response(json_encode(['status' => true, 'url' => $data['appSubscriptionCreate']['appSubscription']['confirmationUrl'], 'id' =>$application_charge_id ]));
+                $application_charge_id = str_replace('gid://shopify/AppSubscription/','',$data['data']['appSubscriptionCreate']['appSubscription']['id']);
+                return response(json_encode(['status' => true, 'url' => $data['data']['appSubscriptionCreate']['appSubscription']['confirmationUrl'], 'id' =>$application_charge_id ]));
             } catch (\Throwable $th) {
                 return response(json_encode(['status' => false]));
             }
