@@ -1,7 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Logo, shortLogo, closeIcon } from "../assets";
 
 export function Sidebar(props) {
+    const location = useLocation();
+    const { pathname } = location;
+    const splitLocation = pathname.split("/");
+
+    console.log(splitLocation);
+
 return (
     <>
         <div className={props.togglemenu?"itgDashboardPageSidebar":"itgDashboardPageSidebar deactivate"}>
