@@ -27,6 +27,15 @@
       </div>
   </div>
 </div>
+<style>
+  .easySubscriptionWidget .easySubscriptionWidgetIn button.button {
+    background-color: {{ block.settings.pcolor }};
+    border-color: {{ block.settings.pcolor }};
+  }
+  .easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelIn .easySubscriptionWidgetModelInstatusfilters span.easySubscriptionlinks.active {
+    color: {{ block.settings.pcolor }};
+  }
+</style>
 {% schema %}
   {
     "name": "Easy Subscription",
@@ -38,7 +47,18 @@
     "javascript": "easyaccount.js",
     "available_if": "{{ app.metafields.plan.conditional }}",
     "settings": [
-        { "label": "Color", "id": "color", "type": "color", "default": "#000000" }
+        { 
+        "label": "Primary Color",
+        "id": "pcolor",  
+        "type": "color",
+        "default": "#2D292A"
+        },
+        { 
+          "label": "Secondary Color",
+          "id": "scolor",  
+          "type": "color",
+          "default": "#E3E3E3"
+        }
     ]
   }
 {% endschema %}
