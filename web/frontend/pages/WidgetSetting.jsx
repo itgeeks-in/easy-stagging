@@ -66,9 +66,8 @@ export default function NotificationSettings(){
                     <Topbar toggle={toggle}/>
                     <div className="widgetSetting">
                         <div className="widgetSettingHead">
-                            <h5 >Notification settings</h5>
-                            <p>Notifications are automatically sent out to either
-                                the store owner or the customer.</p>
+                            <h5>Customize Widget</h5>
+                            <p>Choose from different styles the way you want to show your widget</p>
                         </div>
                         <div className="widgetSection">
                             <div className={easywidgetSettingValue == 'easywidgetSetting1'?'widgetSectionIn active':"widgetSectionIn"} onClick={easywidgetSettingValuefun} value="easywidgetSetting1">

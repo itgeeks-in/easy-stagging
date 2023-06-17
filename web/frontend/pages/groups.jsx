@@ -182,7 +182,7 @@ export default function Groups() {
                 </>:<></>}
               <div className="itgAddSubSearchFormGroup">
                 <form onSubmit={serchingPerformSubmit}>
-                  <input type="text" name="query" placeholder="Searching all subscription groups" className="input-area" value={subscriptionFilter.query} onChange={serchingPerform}/>
+                  <input type="text" name="query" placeholder="Search" className="input-area" value={subscriptionFilter.query} onChange={serchingPerform}/>
                   <button type="submit" className="btn primary-btn">
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 

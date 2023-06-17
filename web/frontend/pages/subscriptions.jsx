@@ -361,7 +361,7 @@ export default function Groups() {
                   <>
                     <div className="itgOrderSearch">
                       <div className="itgOrderSearchInput">
-                        <input type="text" placeholder="Search by name, email, order" value={searchValue} onChange={changeSearchValue} name="search" />
+                        <input type="text" placeholder="Search by Order ID, Customer Name, or Customer Email" value={searchValue} onChange={changeSearchValue} name="search" />
                         <div className="itgOrderSearchButton">
                           <button onClick={searchData} type="button" className="btn primary-btn">
                             <svg 
