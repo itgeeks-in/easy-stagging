@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Logo, shortLogo, closeIcon } from "../assets";
 
@@ -21,7 +22,7 @@ return (
                 </div>
                 <ul className="menu">
                     <li>
-                        <a href="/" title="Home">
+                        <NavLink to="/" title="Home">
                             <svg width="18"
                                 height="19"
                                 viewBox="0 0 18 19"
@@ -35,7 +36,7 @@ return (
                                 <path d="M6.75 17V9.5H11.25V17"/>
                             </svg>
                             <span className="linksstyle">Home</span>
-                        </a>
+                        </NavLink>
                     </li>
                     <li>
                         <a href="/subscriptions" title="Orders">
