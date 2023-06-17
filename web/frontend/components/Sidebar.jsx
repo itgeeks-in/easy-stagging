@@ -71,6 +71,16 @@ return (
                             </svg>
                             <span className="linksstyle">Subscription Groups</span>
                         </NavLink>
+                        {(splitLocation[1]=='groups' || splitLocation[1]=='subscriptiongroup')  ?<>
+                            <ul className="submenus">
+                                <li>
+                                    <NavLink to="/subscriptiongroup" title="Create Group">
+                                        <span className="linksstyle">Create Group</span>
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </>:<>
+                        </>}
                     </li>
                     <li>
                         <NavLink to="/customers" title="Customers">
