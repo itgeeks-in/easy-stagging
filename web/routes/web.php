@@ -2971,7 +2971,10 @@ Route::post('/api/easy-subscription/testmail',function(Request $request){
     $orders['mail']['subject'] = 'This is a test mail';
 
     if($topic=='order'){
-        Mail::to($testEmail)->send(new OrderMail($orders));
+       $mailSend = Mail::to($testEmail)->send(new OrderMail($orders));
+       $croninfo = DB::table('easylog')->insert([
+           'data' => json_encode($mailSend)
+       ]);
     }else if($topic=='status'){
         Mail::to($testEmail)->send(new SubStatusMail($orders));
     }else if($topic=='skip'){
