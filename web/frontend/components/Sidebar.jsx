@@ -7,7 +7,7 @@ export function Sidebar(props) {
     const { pathname } = location;
     const splitLocation = pathname.split("/");
 
-    console.log(splitLocation);
+   // console.log(splitLocation);
 
 return (
     <>
