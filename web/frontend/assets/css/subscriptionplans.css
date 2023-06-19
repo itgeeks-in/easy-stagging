@@ -99,7 +99,7 @@ body.itgBody #app .itgProPlanConfirmation .itgProPlanConfirmationInner .itgProPl
 }
 body.itgBody #app .itgPlanSelection .itgPlanSelectionInner .itgPlanSelectionBox .itgPlanSelectionActionBox {
     width: 100%;
-    padding-top: 30px;
+    padding-bottom: 30px;
     text-align: right;
 }
 /*

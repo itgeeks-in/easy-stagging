@@ -118,7 +118,16 @@ export default function subscription(){
                             <p>We offer monthly and yearly plans for Easy Subscription</p>
                         </div>
                     </div>
-                    <div className="itgPlanSelectionBox">
+                    <div className="itgPlanSelectionBox"> 
+                        {existingPlan.type!=''?<>
+                            <div className="itgPlanSelectionActionBox">
+                                {existingPlan.activity==2?<>
+                                    <button type="button" className="btn" onClick={goToDashboard}>Dashboard</button>
+                                </>:<>
+                                    <button type="button" className="btn primary-btn" onClick={integrateTheme}>Next</button>
+                                </>}
+                            </div>
+                        </>:<></>}
                         <div className={existingPlan.type=='pro'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
@@ -176,15 +185,6 @@ export default function subscription(){
                                 </div>
                             </div>
                         </div>
-                        {existingPlan.type!=''?<>
-                            <div className="itgPlanSelectionActionBox">
-                                {existingPlan.activity==2?<>
-                                    <button type="button" className="btn" onClick={goToDashboard}>Dashboard</button>
-                                </>:<>
-                                    <button type="button" className="btn primary-btn" onClick={integrateTheme}>Next</button>
-                                </>}
-                            </div>
-                        </>:<></>}
                     </div>
                 </div>
             </div>

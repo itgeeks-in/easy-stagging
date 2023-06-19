@@ -13,7 +13,7 @@ export default function createSubscriptionGroup(){
     const [ samePlan, samePlanOption ] = useState(false);  
     const [ subscriptionAdd, subscriptionAddOptions ] = useState({ count: 0, load:false, adding:false, ids:[], products:{}, shop:{}, alreadyIds:[] });
     const [ filterValues, filterValuesOptions ] = useState({ title: '', type: '', vendor: '' , query: '' });
-    const [ subscriptionAction, subscriptionActionOptions ] = useState({ name:"", namereq:false, details:true, discountPer:0, discount:false, type:'subscription-one-time', scheduleInterval:'MONTH', scheduleIntervalValue:'Months' , scheduleFrequency:[1], scheduleFrequencyName:["Delivery every"],scheduleFrequencyIds:[], expire:false, expireNumber:0 });
+    const [ subscriptionAction, subscriptionActionOptions ] = useState({ name:"New Subscription Group", namereq:false, details:true, discountPer:0, discount:false, type:'subscription-one-time', scheduleInterval:'MONTH', scheduleIntervalValue:'Months' , scheduleFrequency:[1], scheduleFrequencyName:["Delivery every"],scheduleFrequencyIds:[], expire:false, expireNumber:0 });
     const [ productData, productDataOption ] = useState({}); 
     const [ editSubscriptionGroup, editSubscriptionGroupOption ] = useState({ edit:false, data:{}, id:'', plansState:{}, planUpdate:{}, planRemove:[] }); 
 
@@ -494,9 +494,9 @@ export default function createSubscriptionGroup(){
                                             />
                                         </div>
                                         <div className="itgSubGroupPageInnerFieldItemInnerDetail">
-                                            <label className="h7" htmlFor="subscription-one-time">One-time and subscription</label>
+                                            <label className="h7" htmlFor="subscription-one-time">One-time + Subscription</label>
                                             <div className="desc">
-                                                <p>This gives option to your customers either to purchase the item as one time purchase or a recurring subscriptions.</p>
+                                                <p>This gives option to your customers either to purchase the item as one time purchase or a recurring subscription.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -518,7 +518,7 @@ export default function createSubscriptionGroup(){
                                         <div className="itgSubGroupPageInnerFieldItemInnerDetail">
                                             <label className="h7" htmlFor="subscription-type">Subscription only</label>
                                             <div className="desc">
-                                                <p>This gives option to your customers to purchase the item a recurring subscriptions .</p>
+                                                <p>This gives option to your customers to purchase the item on recurring basis.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -758,7 +758,7 @@ export default function createSubscriptionGroup(){
                     <div className="itgAddSubProductsPopupSearch">
                         <form className="itgAddSubProductsPopupSearchForm" onSubmit={formFilterSubmit}>
                             <div className="itgAddSubProductsPopupSearchFormGroup">
-                                <input type="text" name="query" placeholder="Searching all products" className="input-area" onChange={inputOptionChange}/>
+                                <input type="text" name="query" placeholder="Search Products" className="input-area" onChange={inputOptionChange}/>
                                 <button type="submit" className="icon-btn">
                                     <img src={searchIcon} alt=""/>
                                 </button>
@@ -838,8 +838,8 @@ export default function createSubscriptionGroup(){
                                 </>}
                             </div>
                             <div className="itgAddSubProductsPopupProductTableBodyActionInfo">
-                                <label>Info :</label>
-                                <span>Products that are in the highlighted or disabled state are already included in the sales plan.</span>
+                                <label>Note :</label>
+                                <span>The products that are highlighted are disabled because they are already added in a different Subscription Group.</span>
                             </div>
                             <div className="itgAddSubProductsPopupProductTableBodyAction">
                                 <button type="button" className="btn" onClick={closePopupFunc}>Cancel</button>

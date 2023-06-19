@@ -429,10 +429,11 @@ body.itgBody #app .itgSubGroupPage .itgSubGroupPageInner .itgSubGroupPageInnerTi
 }
 body.itgBody #app .itgSubGroupPageInnerRight .itgSubGroupPageInnerSaveAction {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     position: relative;
     width: 100%;
     align-items: center;
+    gap: 20px;
 }
 body.itgBody #app .itgSubGroupPage .itgSubGroupPageInnerGroup{
     padding: 20px;
