@@ -471,10 +471,8 @@ export default function createSubscriptionGroup(){
                             <h5 className="title">{editSubscriptionGroup.edit?"Edit":"Create"} a subscription group</h5>
                         </div>
                         <div className="itgSubGroupPageInnerGroup">
-                            <h6 className="title">Subscription Group</h6>
-                            <div className="desc"><p>Name your group which is easy to remember / find</p></div>
+                            <h6 className="title">Group Name</h6>
                             <div className="itgSubGroupPageInnerField">
-                                <label>Group Name :</label>
                                 <input type="text" className={subscriptionAction.namereq?"input required":"input"} value={subscriptionAction.name} onChange={groupNameChange}/>
                             </div>
                         </div>
@@ -531,7 +529,7 @@ export default function createSubscriptionGroup(){
                             <div className="itgSubGroupPageInnerGroupTitle">
                                 <div className="itgSubGroupPageInnerGroupTitleBox">
                                     <h6 className="title">Subscription Products</h6>
-                                    <div className="desc"><p>List your subscription products & variants here .</p></div>
+                                    <div className="desc"><p>Add the products for which you want to offer a subscription</p></div>
                                 </div>
                                 <div className="itgSubGroupPageInnerGroupTitleAction">
                                     <button type="button" className="btn secondary-btn" onClick={openPopupFunc}>Add Products</button>
@@ -576,7 +574,7 @@ export default function createSubscriptionGroup(){
                         </div>
                         <div className="itgSubGroupPageInnerGroup">
                             <h6 className="title">Subscription Plans</h6>
-                            <div className="desc"><p>Put more details to your plan under this group</p></div>
+                            <div className="desc"><p>Set the name and billing rules for your subscription group</p></div>
                             <div className="itgSubGroupPageInnerFieldPlans">
                                 {subscriptionAction.scheduleFrequency.map(function(object, i){
                                     var sellingPlanName = subscriptionAction.scheduleFrequencyName[i]; 
@@ -626,7 +624,7 @@ export default function createSubscriptionGroup(){
                                 <h6 className="title">Create a discount</h6>
                                 <div className="itgSubGroupPageInnerGroupDiscountBox">
                                     <div className="itgSubGroupPageInnerGroupDiscountItem">
-                                        <div className="desc"><p>Give customers a free trial of the subscription service.</p></div>
+                                        <div className="desc"><p>Offer discounts for the subscription product</p></div>
                                         <div className="itgSubGroupPageInnerGroupDiscountItemDiscount">
                                             <input type="checkbox" name="set-up-discount" checked={subscriptionAction.discount} id="set-up-discount" onChange={(e) => {
                                                 if( e.target.checked ){ 

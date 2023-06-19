@@ -43,7 +43,7 @@ export default function App() {
                     destination: "/settings",
                   },
                   {
-                    label: "Help Support",
+                    label: "Support",
                     destination: "/helpsupport",
                   }
                 ]}

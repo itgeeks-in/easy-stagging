@@ -53,7 +53,7 @@ export default function settings(){
                     <div className="itgSettingPage">
                         <div className="itgSettingPageIn">
                             <div className="itgSettingPageHead">
-                                <h5 className="itgSubscriptionCustomersInnerHead">Settings</h5>
+                                <h5 className="itgSubscriptionCustomersInnerHead">Support</h5>
                             </div>
                             <div onClick={() => { navigateTo("/customerportal"); }} className="settingOptions" >
                                 <div className="settingsOptionIconBack">

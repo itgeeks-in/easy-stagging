@@ -194,7 +194,7 @@ export default function Index() {
                   </div>
                   <div className='app_index_in_details'>
                     <div>
-                      <h5>Create a Subscription Group</h5>
+                      <h5>Create a subscription group</h5>
                       <p>Set up a subscription plan by creating subscription group</p>
                     </div>
                     <div>

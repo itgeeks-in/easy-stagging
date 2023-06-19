@@ -113,9 +113,9 @@ export default function subscription(){
             <div className="itgPlanSelection">
                 <div className="itgPlanSelectionInner">
                     <div className="itgPlanSelectionTitle">
-                        <h4 className="title">Give a try on our Free Version</h4>
+                        <h4 className="title">Plans and Pricing</h4>
                         <div className="desc">
-                            <p>Scale your subscription business with no monthly fees, paying on a per transaction basis.</p>
+                            <p>We offer monthly and yearly plans for Easy Subscription</p>
                         </div>
                     </div>
                     <div className="itgPlanSelectionBox">

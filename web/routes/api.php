@@ -60,13 +60,13 @@ Route::get('/easysubcron', function () {
                 $query2 = <<<QUERY
                 mutation subscriptionContractSetNextBillingDate(\$contractId: ID!, \$date: DateTime!) {
                     subscriptionContractSetNextBillingDate(contractId: \$contractId, date: \$date) {
-                    contract {
-                        id
-                    }
-                    userErrors {
-                        field
-                        message
-                    }
+                        contract {
+                            id
+                        }
+                        userErrors {
+                            field
+                            message
+                        }
                     }
                 }
                 QUERY;
