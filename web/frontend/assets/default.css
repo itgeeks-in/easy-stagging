@@ -1985,6 +1985,11 @@ body.itgBody #app .itgDashboardPageSidebarInner ul.menu li ul.submenus li a {
 body.itgBody #app .itgDashboardPageSidebar.deactivate ul.submenus {
     display: none;
 }
+.itgBody #app .subActiveFormInput input.disaled {
+    cursor: inherit;
+    background-color: var(--grey-background);
+    opacity: 0.5;
+}
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
         display: none;
