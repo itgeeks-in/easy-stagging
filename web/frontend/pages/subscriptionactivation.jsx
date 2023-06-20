@@ -178,14 +178,6 @@ export default function SubscriptionActivation(){
         }
         return error;
     }
-    function testemailChange(e) {
-        let target = e.target;
-        let value = target.value;
-        setTestEmail(value);
-        if (value != "") {
-            setTestEmailError({ ...emailError, status: false, message: "", });
-        }
-    }
     function testMail() {
         if (!(testEmailValidation(false) || validation(false))) {
             let savedata = { testEmail: testEmail, form: formData, code: message, };
@@ -233,18 +225,20 @@ export default function SubscriptionActivation(){
         setFormData({ ...formData, name: value, });
     }
     function emailChange(e) {
+        /*
         let target = e.target;
         let value = target.value;
         setFormData({ ...formData, email: value, });
         if (value != "") {
             setEmailError({ ...emailError, status: false, message: "", });
         }
+        */
     }
+    
     function testemailChange(e) {
         let target = e.target;
         let value = target.value;
         setTestEmail(value);
-
         if (value != "") {
             setTestEmailError({ ...emailError, status: false, message: "", });
         }
@@ -364,7 +358,7 @@ export default function SubscriptionActivation(){
                                 <div className="itgModelIn itgTestEmailModel">
                                     <h6 className="itgModelHeading">Send Test Mail</h6>
                                     <div className="itgModelInInput">
-                                        <input className={ testEmailError.status ? "itginputerror" : ""} type="text" value={testEmail} onChange={testemailChange} placeholder="Enter email" name="email" />
+                                        <input className={ testEmailError.status ? "itginputerror" : ""} type="text" value={testEmail} onChange={testemailChange} placeholder="Enter email" name="email" disabled/>
                                         {testEmailError.status ? <p className="itgErrorAlert"> {testEmailError.message} </p> : "" }
                                         <div className="subActiveModelButtons">
                                             <button onClick={testMail} className="btn primary-btn"> Send </button>

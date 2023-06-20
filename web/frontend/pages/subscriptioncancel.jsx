@@ -232,12 +232,14 @@ export default function SubscriptionCancel(){
         setFormData({ ...formData, name: value, });
     }
     function emailChange(e) {
+        /*
         let target = e.target;
         let value = target.value;
         setFormData({ ...formData, email: value, });
         if (value != "") {
             setEmailError({ ...emailError, status: false, message: "", });
         }
+        */
     }
     function testemailChange(e) {
         let target = e.target;
@@ -409,7 +411,7 @@ export default function SubscriptionCancel(){
                                             </label>
                                             <label htmlFor="">
                                                 From email
-                                                <input className={ emailError.status ? "itginputerror" : "" } type="text" value={formData.email} onChange={emailChange} placeholder="Store Email" name="email" />
+                                                <input className={ emailError.status ? "itginputerror" : "" } type="text" value={formData.email} onChange={emailChange} placeholder="Store Email" name="email" disabled/>
                                                 {emailError.status ? <p className="itgErrorAlert"> {emailError.message} </p> :""}
                                             </label>
                                             <label htmlFor="">
