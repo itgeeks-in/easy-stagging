@@ -148,9 +148,15 @@ export default function subscription(){
                                     {existingPlan.type == 'promonthly'?
                                         <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Activated</button>
                                     :
-                                        <button type="button" className="btn" onClick={paymentPage} plantype="promonthly" planfreq="month">
-                                            {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
-                                        </button>
+                                        <>
+                                            {existingPlan.type == 'promonthly'?
+                                                <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Disabled</button>
+                                            :
+                                                <button type="button" className="btn" onClick={paymentPage} plantype="promonthly" planfreq="month">
+                                                    {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
+                                                </button>
+                                            }
+                                        </>
                                     }
                                     <p class="easyYearlyDiscount"></p>
                                 </div>
@@ -177,11 +183,12 @@ export default function subscription(){
                                     {existingPlan.type == 'proyearly'?
                                         <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Activated</button>
                                     :
-                                        <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="proyearly" planfreq="year">
-                                            {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
-                                        </button>
+                                        <>
+                                            <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="proyearly" planfreq="year">
+                                                {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
+                                            </button>
+                                        </>
                                     }
-                                    <p class="easyYearlyDiscount"></p>
                                 </div>
                             </div>
                         </div>
