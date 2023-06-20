@@ -1801,7 +1801,7 @@ Route::post('/api/getsubscriptions', function (Request $request) {
     // }
     if (Schema::hasTable($shop_name[0] . '_subscriptioncontracts')) {
         if(!empty($query)){
-            $records = DB::table($database)->where('email', 'LIKE', '%' . $query['searchValue'] . '%')->orWhere('name', 'like', '%' . $query['searchValue'] . '%')->orwhere('order_name', 'LIKE', '%' . $query['searchValue'] . '%')->select('subId','order_name','name','email','status','interval','intervalCount','created_at')->limit(10)->offset(0)->get();
+            $records = DB::table($database)->where('email', 'LIKE', '%' . $query['searchValue'] . '%')->orWhere('name', 'like', '%' . $query['searchValue'] . '%')->orwhere('order_name', 'LIKE', '%' . $query['searchValue'] . '%')->orwhere('subId', 'LIKE', '%' . $query['searchValue'] . '%')->select('subId','order_name','name','email','status','interval','intervalCount','created_at')->limit(10)->offset(0)->get();
             $allPages = 0;
             for($i=0;$i<count($records);$i++){
                 $date = $records[$i]->created_at;
