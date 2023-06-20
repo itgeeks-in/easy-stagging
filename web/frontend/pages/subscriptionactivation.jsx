@@ -358,7 +358,6 @@ export default function SubscriptionActivation(){
                                 <div className="itgModelIn itgTestEmailModel">
                                     <h6 className="itgModelHeading">Send Test Mail</h6>
                                     <div className="itgModelInInput">
-                                        <input className={ testEmailError.status ? "itginputerror" : ""} type="text" value={testEmail} onChange={testemailChange} placeholder="Enter email" name="email"/>
                                         {testEmailError.status ? <p className="itgErrorAlert"> {testEmailError.message} </p> : "" }
                                         <div className="subActiveModelButtons">
                                             <button onClick={testMail} className="btn primary-btn"> Send </button>
