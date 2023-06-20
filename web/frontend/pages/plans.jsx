@@ -131,7 +131,7 @@ export default function subscription(){
                         <div className={existingPlan.type=='pro'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
-                                    <label>PRO</label>
+                                    <label>PRO monthly</label>
                                     <h5 className="title">$29/month</h5>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerContent">
@@ -159,7 +159,7 @@ export default function subscription(){
                         <div className={existingPlan.type=='pro'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
-                                    <label>PRO</label>
+                                    <label>PRO yearly</label>
                                     <h5 className="title">$278/year</h5>
                                     <h4 className="subtitle">Save 20%</h4>
                                 </div>
