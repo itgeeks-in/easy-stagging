@@ -148,7 +148,7 @@ export default function subscription(){
                                     {existingPlan.type == 'pro'?
                                         <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Activated</button>
                                     :
-                                        <button type="button" className="btn" onClick={paymentPage} plantype="pro" planfreq="month">
+                                        <button type="button" className="btn" onClick={paymentPage} plantype="promonthly" planfreq="month">
                                             {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
                                         </button>
                                     }
@@ -177,7 +177,7 @@ export default function subscription(){
                                     {existingPlan.type == 'pro'?
                                         <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Activated</button>
                                     :
-                                        <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="pro" planfreq="year">
+                                        <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="proyearly" planfreq="year">
                                             {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
                                         </button>
                                     }
