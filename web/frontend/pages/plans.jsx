@@ -149,7 +149,7 @@ export default function subscription(){
                                         <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Activated</button>
                                     :
                                         <>
-                                            {existingPlan.type == 'promonthly'?
+                                            {existingPlan.type == 'proyearly'?
                                                 <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Disabled</button>
                                             :
                                                 <button type="button" className="btn" onClick={paymentPage} plantype="promonthly" planfreq="month">
