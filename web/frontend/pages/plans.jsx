@@ -128,7 +128,7 @@ export default function subscription(){
                                 </>}
                             </div>
                         </>:<></>}
-                        <div className={existingPlan.type=='pro'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
+                        <div className={existingPlan.type=='promonthly'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
                                     <label>PRO monthly</label>
@@ -145,7 +145,7 @@ export default function subscription(){
                                     </ul>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerAction">
-                                    {existingPlan.type == 'pro'?
+                                    {existingPlan.type == 'promonthly'?
                                         <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Activated</button>
                                     :
                                         <button type="button" className="btn" onClick={paymentPage} plantype="promonthly" planfreq="month">
@@ -156,7 +156,7 @@ export default function subscription(){
                                 </div>
                             </div>
                         </div>
-                        <div className={existingPlan.type=='pro'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
+                        <div className={existingPlan.type=='proyearly'?"itgPlanSelectionBoxChild active":"itgPlanSelectionBoxChild"}>
                             <div className="itgPlanSelectionBoxChildInner">
                                 <div className="itgPlanSelectionBoxChildInnerTitle">
                                     <label>PRO yearly</label>
@@ -174,7 +174,7 @@ export default function subscription(){
                                     </ul>
                                 </div>
                                 <div className="itgPlanSelectionBoxChildInnerAction">
-                                    {existingPlan.type == 'pro'?
+                                    {existingPlan.type == 'proyearly'?
                                         <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Activated</button>
                                     :
                                         <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="proyearly" planfreq="year">
