@@ -422,7 +422,7 @@ export default function SkipBilling(){
                                             </label>
                                             <label htmlFor="">
                                                 From email
-                                                <input className={ emailError.status ? "itginputerror disaled" : "disaled" } type="text" value={formData.email} onChange={emailChange} placeholder="Store Email" name="email"/>
+                                                <input className={ emailError.status ? "itginputerror disaled" : "disaled" } type="text" value={formData.email} onChange={emailChange} placeholder="Store Email" name="email" disabled/>
                                                 {emailError.status ? <p className="itgErrorAlert"> {emailError.message} </p> :""}
                                             </label>
                                             <label htmlFor="">
