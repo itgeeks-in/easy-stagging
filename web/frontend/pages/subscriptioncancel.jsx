@@ -411,7 +411,7 @@ export default function SubscriptionCancel(){
                                             </label>
                                             <label htmlFor="">
                                                 From email
-                                                <input className={ emailError.status ? "itginputerror" : "" } type="text" value={formData.email} onChange={emailChange} placeholder="Store Email" name="email" disabled/>
+                                                <input className={ emailError.status ? "itginputerror disaled" : "disaled" } type="text" value={formData.email} onChange={emailChange} placeholder="Store Email" name="email"/>
                                                 {emailError.status ? <p className="itgErrorAlert"> {emailError.message} </p> :""}
                                             </label>
                                             <label htmlFor="">
