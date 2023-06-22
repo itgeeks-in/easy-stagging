@@ -164,7 +164,6 @@ Route::get('/easysubcron', function () {
                 try {
                     DB::table($shop_name[0] . '_billingAttempt')->insert([
                             'subId' =>$oldsubscriptionContractid,
-                            'data' => json_encode($resultBody),
                             'status' => $billingStatus,
                             'total' => $totalprice,
                         ]

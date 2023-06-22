@@ -663,9 +663,17 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
             });
         }
         $customerdone = DB::table($shop_name[0] . '_customer')->where('customer_id',$customerId)->get()->count();
+        $simple_string = $name;
+        $ciphering = "AES-128-CTR";
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = 0;
+        $encryption_iv = '1332425434231121';
+        $encryption_key = "easyitgkeyencryp";
+        $encryptionname = openssl_encrypt( $simple_string, $ciphering,
+            $encryption_key, $options, $encryption_iv );
         if(!$customerdone){
             DB::table($shop_name[0] . '_customer')->insert([
-                        'name' => $name,
+                        'name' => $encryptionname,
                         'email' => $email,
                         'customer_id'=>$customerId
                 ]
@@ -680,7 +688,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                             'data' => json_encode($orders),
                             'status' => $status,
                             'order_name' => $orders['name'],
-                            'name' => $name,
+                            'name' => $encryptionname,
                             'email' => $email,
                             'interval' => $interval,
                             'total'=>$orders['total'],
@@ -692,7 +700,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                 );
                 DB::table($shop_name[0] . '_billingAttempt')->insert([
                         'subId' =>$subscriptionContractId,
-                        'data' => json_encode($orders),
                         'status' => 'success',
                         'total' => $orders['total'],
                     ]
@@ -735,7 +742,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                     DB::table($shop_name[0] . '_billingAttemptSuccess')->insert([
                                 'subId' =>$admin_graphql_api_id,
                                 'total' =>$orders['total'],
-                                'data' => json_encode($orders),
                         ]
                     );
                 }
@@ -1089,8 +1095,7 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
                     'nextBillingDate' => $dateTimeUTC,
                     'created_at' => $creteadDate,
                     'total'=>$orders['total'],
-            ]
-        );
+        ]);
         
         if (!Schema::hasTable($shop_name[0] . '_billingAttemptSuccess')) {
             Schema::create($shop_name[0] . '_billingAttemptSuccess', function (Blueprint $table) {
@@ -1142,7 +1147,6 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
         if(!$done){
             DB::table($shop_name[0] . '_billingAttemptSuccess')->insert([
                         'subId' =>$subscriptionContractId,
-                        'data' => json_encode($orders),
                         'total'=>$orders['total'],
                         'mail'=>true
                 ]
