@@ -257,10 +257,13 @@ export default function createSubscriptionGroup(){
     function groupNameChange(e){
         var targetElement = e.target;
         if( targetElement.value == '' ){
-            subscriptionActionOptions({...subscriptionAction, name:targetElement.value, namereq:true });
+            subscriptionActionOptions({...subscriptionAction, name:targetElement.value, namereq:true, namespec:false });
         }else{
-            console.log(containsSpecialChars(targetElement.value));
-            subscriptionActionOptions({...subscriptionAction, name:targetElement.value, namereq:false });
+            if( containsSpecialChars(targetElement.value) === true ){
+                subscriptionActionOptions({...subscriptionAction, name:targetElement.value, namereq:false, namespec:true });
+            }else{
+                subscriptionActionOptions({...subscriptionAction, name:targetElement.value, namereq:false, namespec:false });
+            }
         }
     }
 
@@ -454,14 +457,16 @@ export default function createSubscriptionGroup(){
         }
     }
 
-    function createSubscriptionGroup(){
+    function createSubscriptionGroupF(){
         if( dayWarn ){}else{
             if( samePlan ){}else{
                 if( subscriptionAction.name == '' ){
                     subscriptionActionOptions({...subscriptionAction, namereq:true });
                 }else{
-                    loadStartOption(true);
-                    createSubGroupTriggerFunc();
+                    if( subscriptionAction.namespec === true ){}else{
+                        loadStartOption(true);
+                        createSubGroupTriggerFunc();
+                    }
                 }
             }
         }
@@ -695,7 +700,7 @@ export default function createSubscriptionGroup(){
                             </div>
                         </div>
                         <div className="itgSubGroupPageInnerGroupSave">
-                            <button type="button" className="btn primary-btn" onClick={createSubscriptionGroup}>Save Group</button>
+                            <button type="button" className="btn primary-btn" onClick={createSubscriptionGroupF}>Save Group</button>
                             {samePlan?<>
                             <div className="itgSubGroupPageInnerGroupSaveRequire">
                                 Every plan will have different Billing Rules
@@ -712,7 +717,7 @@ export default function createSubscriptionGroup(){
                     <div className="itgSubGroupPageInnerRight">
                         <div className="itgSubGroupPageInnerSaveAction">
                             <NavLink to="/groups" className="link-btn">Back</NavLink>
-                            <button type="button" className="btn primary-btn" onClick={createSubscriptionGroup}>Save</button>
+                            <button type="button" className="btn primary-btn" onClick={createSubscriptionGroupF}>Save</button>
                         </div>
                         <div className="itgSubGroupPageInnerPreview">
                             <h6 className="title">Product preview</h6>
