@@ -78,7 +78,9 @@ export default function Index() {
     let target = e.target;
     let value = target.value;
     if (value == "") {
-      customerDataReset();
+      setCustomerDataLoad(true);
+      setSearchValue('');
+      getCustomerData('','',1);
     }
     setSearchValue(value);
   }
@@ -94,7 +96,6 @@ export default function Index() {
     setCustomerDataLoad(true);
     setSearchValue('');
     getCustomerData('','',1);
-
   }
   function paginationPerform(e){
     let action = e.target.getAttribute('data-action');
