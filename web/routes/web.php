@@ -2854,11 +2854,27 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                     $customers['shop'] =$shop_name[0];
                     $encryption = $customers['name'];
                     $ciphering = "AES-128-CTR";
-                    $iv_length = openssl_cipher_iv_length($ciphering);
                     $options = 0;
-                    $decryption_iv = '1332425434231121';
+                    $decryption_iv = "1332425434231121";
                     $decryption_key = "easyitgkeyencryp";
+                    $croninfo = DB::table('easylog')->insert([
+                        'data' => $encryption
+                    ]);
+                    $croninfo = DB::table('easylog')->insert([
+                        'data' => $ciphering
+                    ]);
+                    $croninfo = DB::table('easylog')->insert([
+                        'data' => $decryption_iv
+                    ]);
+                    $croninfo = DB::table('easylog')->insert([
+                        'data' => $decryption_key
+                    ]);
                     $decryption=openssl_decrypt ($encryption, $ciphering, $decryption_key, $options, $decryption_iv);
+
+                    $croninfo = DB::table('easylog')->insert([
+                        'data' => $decryption
+                    ]);
+
                     $customers['name'] = 'Test';
                     $customer[] = $customers;
                 }
