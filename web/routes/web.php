@@ -669,8 +669,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
         $options = 0;
         $encryption_iv = '1332425434231121';
         $encryption_key = "easyitgkeyencryp";
-        $encryptionname = openssl_encrypt( $simple_string, $ciphering,
-            $encryption_key, $options, $encryption_iv );
+        $encryptionname = openssl_encrypt( $simple_string, $ciphering, $encryption_key, $options, $encryption_iv );
         if(!$customerdone){
             DB::table($shop_name[0] . '_customer')->insert([
                         'name' => $encryptionname,
@@ -2853,6 +2852,16 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                     $customers['currency'] = $currency;
                     $customers['total'] =$total;
                     $customers['shop'] =$shop_name[0];
+                    $encryption = $customers['name'];
+                    $simple_string = $name;
+                    $ciphering = "AES-128-CTR";
+                    $iv_length = openssl_cipher_iv_length($ciphering);
+                    $options = 0;
+                    $decryption_iv = '1332425434231121';
+                    $decryption_key = "easyitgkeyencryp";
+                    $decryption=openssl_decrypt ($encryption, $ciphering,
+                            $decryption_key, $options, $decryption_iv);
+                    $customers['name'] = $decryption;
                     $customer[] = $customers;
                 }
                 return $customer;
