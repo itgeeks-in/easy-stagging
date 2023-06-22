@@ -259,8 +259,14 @@ export default function createSubscriptionGroup(){
         if( targetElement.value == '' ){
             subscriptionActionOptions({...subscriptionAction, name:targetElement.value, namereq:true });
         }else{
+            console.log(containsSpecialChars(targetElement.value));
             subscriptionActionOptions({...subscriptionAction, name:targetElement.value, namereq:false });
         }
+    }
+
+    function containsSpecialChars(str) {
+        const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+        return specialChars.test(str);  
     }
 
     function scheduleIntervalChange(e){
