@@ -77,9 +77,9 @@ export default function Index() {
   function changeSearchValue(e) {
     let target = e.target;
     let value = target.value;
-    // if (value == "") {
-    //     orderDataReset();
-    // }
+    if (value == "") {
+      customerDataReset();
+    }
     setSearchValue(value);
   }
   function searchData() {
