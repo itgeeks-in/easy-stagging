@@ -2859,7 +2859,7 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                     $decryption_iv = '1332425434231121';
                     $decryption_key = "easyitgkeyencryp";
                     $decryption=openssl_decrypt ($encryption, $ciphering, $decryption_key, $options, $decryption_iv);
-                    $customers['name'] = $decryption;
+                    $customers['name'] = 'Test';
                     $customer[] = $customers;
                 }
                 return $customer;
