@@ -2853,14 +2853,12 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                     $customers['total'] =$total;
                     $customers['shop'] =$shop_name[0];
                     $encryption = $customers['name'];
-                    $simple_string = $name;
                     $ciphering = "AES-128-CTR";
                     $iv_length = openssl_cipher_iv_length($ciphering);
                     $options = 0;
                     $decryption_iv = '1332425434231121';
                     $decryption_key = "easyitgkeyencryp";
-                    $decryption=openssl_decrypt ($encryption, $ciphering,
-                            $decryption_key, $options, $decryption_iv);
+                    $decryption=openssl_decrypt ($encryption, $ciphering, $decryption_key, $options, $decryption_iv);
                     $customers['name'] = $decryption;
                     $customer[] = $customers;
                 }
