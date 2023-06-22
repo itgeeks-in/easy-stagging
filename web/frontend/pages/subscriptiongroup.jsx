@@ -13,7 +13,7 @@ export default function createSubscriptionGroup(){
     const [ samePlan, samePlanOption ] = useState(false);  
     const [ subscriptionAdd, subscriptionAddOptions ] = useState({ count: 0, load:false, adding:false, ids:[], products:{}, shop:{}, alreadyIds:[] });
     const [ filterValues, filterValuesOptions ] = useState({ title: '', type: '', vendor: '' , query: '' });
-    const [ subscriptionAction, subscriptionActionOptions ] = useState({ name:"New Subscription Group", namereq:false, details:true, discountPer:0, discount:false, type:'subscription-one-time', scheduleInterval:'MONTH', scheduleIntervalValue:'Months' , scheduleFrequency:[1], scheduleFrequencyName:["Delivery every"],scheduleFrequencyIds:[], expire:false, expireNumber:0 });
+    const [ subscriptionAction, subscriptionActionOptions ] = useState({ name:"New Subscription Group", namereq:false, namespec:false, details:true, discountPer:0, discount:false, type:'subscription-one-time', scheduleInterval:'MONTH', scheduleIntervalValue:'Months' , scheduleFrequency:[1], scheduleFrequencyName:["Delivery every"],scheduleFrequencyIds:[], expire:false, expireNumber:0 });
     const [ productData, productDataOption ] = useState({}); 
     const [ editSubscriptionGroup, editSubscriptionGroupOption ] = useState({ edit:false, data:{}, id:'', plansState:{}, planUpdate:{}, planRemove:[] }); 
 
@@ -473,7 +473,10 @@ export default function createSubscriptionGroup(){
                         <div className="itgSubGroupPageInnerGroup">
                             <h6 className="title">Group Name</h6>
                             <div className="itgSubGroupPageInnerField">
-                                <input type="text" className={subscriptionAction.namereq?"input required":"input"} value={subscriptionAction.name} onChange={groupNameChange}/>
+                                <input type="text" className={(subscriptionAction.namereq || subscriptionAction.namespec )?"input required":"input"} value={subscriptionAction.name} onChange={groupNameChange}/>
+                                {subscriptionAction.namespec?<>
+                                    <div className="itgSubGroupPageInnerGroupNameSpecial">Special characters not allowed</div>
+                                </>:<></>}
                             </div>
                         </div>
                         <div className="itgSubGroupPageInnerGroup">
