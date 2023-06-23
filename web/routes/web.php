@@ -663,17 +663,19 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
             });
         }
         $customerdone = DB::table($shop_name[0] . '_customer')->where('customer_id',$customerId)->get()->count();
-        $simple_string = $name;
+        $encryption_name = $name;
+        $encryption_email = $email;
         $ciphering = "AES-128-CTR";
         $iv_length = openssl_cipher_iv_length($ciphering);
         $options = 0;
         $encryption_iv = '1332425434231121';
         $encryption_key = "easyitgkeyencryp";
-        $encryptionname = openssl_encrypt( $simple_string, $ciphering, $encryption_key, $options, $encryption_iv );
+        $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
+        $encryptionemail = openssl_encrypt( $encryption_email, $ciphering, $encryption_key, $options, $encryption_iv );
         if(!$customerdone){
             DB::table($shop_name[0] . '_customer')->insert([
                         'name' => $encryptionname,
-                        'email' => $email,
+                        'email' => $encryptionemail,
                         'customer_id'=>$customerId
                 ]
             );
@@ -2852,30 +2854,16 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                     $customers['currency'] = $currency;
                     $customers['total'] =$total;
                     $customers['shop'] =$shop_name[0];
-                    $encryption = $customers['name'];
+                    $encryptionname = $customers['name'];
+                    $encryptionemail = $customers['email'];
                     $ciphering = "AES-128-CTR";
                     $options = 0;
                     $decryption_iv = "1332425434231121";
                     $decryption_key = "easyitgkeyencryp";
-                    $croninfo = DB::table('easylog')->insert([
-                        'data' => $encryption
-                    ]);
-                    $croninfo = DB::table('easylog')->insert([
-                        'data' => $ciphering
-                    ]);
-                    $croninfo = DB::table('easylog')->insert([
-                        'data' => $decryption_iv
-                    ]);
-                    $croninfo = DB::table('easylog')->insert([
-                        'data' => $decryption_key
-                    ]);
-                    $decryption=openssl_decrypt ($encryption, $ciphering, $decryption_key, $options, $decryption_iv);
-
-                    $croninfo = DB::table('easylog')->insert([
-                        'data' => $decryption
-                    ]);
-
-                    $customers['name'] = 'Test';
+                    $decryptionname=openssl_decrypt($encryptionname, $ciphering, $decryption_key, $options, $decryption_iv);
+                    $decryptionemail=openssl_decrypt($encryptionemail, $ciphering, $decryption_key, $options, $decryption_iv);
+                    $customers['email'] = $decryptionemail;
+                    $customers['name'] = $decryptionname;
                     $customer[] = $customers;
                 }
                 return $customer;
