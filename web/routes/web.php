@@ -1821,16 +1821,11 @@ Route::post('/api/getsubscriptions', function (Request $request) {
                 $date=date_create($date);
                 $records[$i]->created_at=date_format($date,"M d,Y");
             }
-            $encryptionname = $records['name'];
-            $encryptionemail = $records['email'];
-            $ciphering = "AES-128-CTR";
-            $options = 0;
-            $decryption_iv = "1332425434231121";
-            $decryption_key = "easyitgkeyencryp";
-            $decryptionname=openssl_decrypt($encryptionname, $ciphering, $decryption_key, $options, $decryption_iv);
-            $decryptionemail=openssl_decrypt($encryptionemail, $ciphering, $decryption_key, $options, $decryption_iv);
-            $records['name'] = $decryptionname;
-            $records['email'] = $decryptionemail;
+        
+            $croninfo = DB::table('easylog')->insert([
+                'data' => json_encode($records)
+            ]);
+            
             return response(json_encode(['records' => $records, 'pages' => $allPages, 'page' => 1]));
             die;
         }
@@ -1862,16 +1857,12 @@ Route::post('/api/getsubscriptions', function (Request $request) {
                 $date=date_create($date);
                 $records[$i]->created_at=date_format($date,"M d,Y");
             }
-            $encryptionname = $records['name'];
-            $encryptionemail = $records['email'];
-            $ciphering = "AES-128-CTR";
-            $options = 0;
-            $decryption_iv = "1332425434231121";
-            $decryption_key = "easyitgkeyencryp";
-            $decryptionname=openssl_decrypt($encryptionname, $ciphering, $decryption_key, $options, $decryption_iv);
-            $decryptionemail=openssl_decrypt($encryptionemail, $ciphering, $decryption_key, $options, $decryption_iv);
-            $records['name'] = $decryptionname;
-            $records['email'] = $decryptionemail;
+
+        
+        $croninfo = DB::table('easylog')->insert([
+            'data' => json_encode($records)
+        ]);
+        
             return response(json_encode(['records' => $records, 'pages' => $allPages, 'page' => 1]));
         }else {
             if( !empty($type) || !empty($status) ){
@@ -1926,17 +1917,10 @@ Route::post('/api/getsubscriptions', function (Request $request) {
             $date=date_create($date);
             $records[$i]->created_at=date_format($date,"M d,Y");
         }
-
-        $encryptionname = $records['name'];
-        $encryptionemail = $records['email'];
-        $ciphering = "AES-128-CTR";
-        $options = 0;
-        $decryption_iv = "1332425434231121";
-        $decryption_key = "easyitgkeyencryp";
-        $decryptionname=openssl_decrypt($encryptionname, $ciphering, $decryption_key, $options, $decryption_iv);
-        $decryptionemail=openssl_decrypt($encryptionemail, $ciphering, $decryption_key, $options, $decryption_iv);
-        $records['name'] = $decryptionname;
-        $records['email'] = $decryptionemail;
+        
+        $croninfo = DB::table('easylog')->insert([
+            'data' => json_encode($records)
+        ]);
 
     }else{
         $records = '';
