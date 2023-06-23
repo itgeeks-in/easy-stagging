@@ -2838,22 +2838,6 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                 foreach($data as $customers){
                     $total = 0;
                     $customers = (array)$customers;
-                    $planData = DB::table($shop_name[0] . '_subscriptioncontracts')->where('email',$customers['email'])->where('status','ACTIVE')->get()->count();
-                    $customers['activePlans'] =$planData;
-                    $subscriptionContractIds = DB::table($shop_name[0] . '_subscriptioncontracts')->select('subId','total')->where('email',$customers['email'])->get();
-                    foreach($subscriptionContractIds as $subscriptionContractId){
-                        $addTotals = DB::table($shop_name[0] . '_billingAttempt')->select('total')->where('subId',$subscriptionContractId->subId)->where('status','success')->get()->toArray();
-                        if(!empty($addTotals)){ 
-                            foreach($addTotals as $addTotal){
-                                preg_match_all('!\d+(?:\.\d+)?!', $addTotal->total, $newTotalBefore);
-                                $total += $newTotalBefore[0][0];
-                            }
-                        }
-                        $currency = explode(' ',$subscriptionContractId->total)[0];
-                    }
-                    $customers['currency'] = $currency;
-                    $customers['total'] =$total;
-                    $customers['shop'] =$shop_name[0];
                     $encryptionname = $customers['name'];
                     $encryptionemail = $customers['email'];
                     $ciphering = "AES-128-CTR";
@@ -2862,6 +2846,23 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                     $decryption_key = "easyitgkeyencryp";
                     $decryptionname=openssl_decrypt($encryptionname, $ciphering, $decryption_key, $options, $decryption_iv);
                     $decryptionemail=openssl_decrypt($encryptionemail, $ciphering, $decryption_key, $options, $decryption_iv);
+                    $planData = DB::table($shop_name[0] . '_subscriptioncontracts')->where('email',$customers['email'])->where('status','ACTIVE')->get()->count();
+                    $customers['activePlans'] =$planData;
+                    $subscriptionContractIds = DB::table($shop_name[0] . '_subscriptioncontracts')->select('data','subId','total')->where('email',$customers['email'])->get();
+                    foreach($subscriptionContractIds as $subscriptionContractId){
+                        $addTotals = DB::table($shop_name[0] . '_billingAttempt')->select('total')->where('subId',$subscriptionContractId->subId)->where('status','success')->get()->toArray();
+                        if(!empty($addTotals)){ 
+                            foreach($addTotals as $addTotal){
+                                preg_match_all('!\d+(?:\.\d+)?!', $addTotal->total, $newTotalBefore);
+                                $total += $newTotalBefore[0][0];
+                            }
+                        }
+                        $currencydata = json_decode($subscriptionContractId->data);
+                        $currency = $currencydata['currency'];
+                    }
+                    $customers['currency'] = $currency;
+                    $customers['total'] =$total;
+                    $customers['shop'] =$shop_name[0];
                     $customers['email'] = $decryptionemail;
                     $customers['name'] = $decryptionname;
                     $customer[] = $customers;
