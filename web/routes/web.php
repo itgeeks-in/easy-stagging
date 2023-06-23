@@ -684,13 +684,17 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
         try {
             $done = DB::table($shop_name[0] . '_subscriptioncontracts')->select('*')->where('subId',$subscriptionContractId)->get()->count();
             if(!$done){
+
+        $croninfo = DB::table('easylog')->insert([
+            'data' => $encryptionemail
+        ]);
                 DB::table($shop_name[0] . '_subscriptioncontracts')->insert([
                             'subId' =>$subscriptionContractId,
                             'data' => json_encode($orders),
                             'status' => $status,
                             'order_name' => $orders['name'],
                             'name' => $encryptionname,
-                            'email' => $email,
+                            'email' => $encryptionemail,
                             'interval' => $interval,
                             'total'=>$orders['total'],
                             'intervalCount' => $intervalCount,
@@ -871,14 +875,23 @@ Route::post('/api/subscriptioncontracts/update',function(Request $request){
             });
         }
         $subscriptionContractId = $orders['subscriptionContractId'];
+        $encryption_name = $name;
+        $encryption_email = $email;
+        $ciphering = "AES-128-CTR";
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = 0;
+        $encryption_iv = '1332425434231121';
+        $encryption_key = "easyitgkeyencryp";
+        $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
+        $encryptionemail = openssl_encrypt( $encryption_email, $ciphering, $encryption_key, $options, $encryption_iv );
         try {
             DB::table($shop_name[0] . '_subscriptioncontracts')->where('subId',$admin_graphql_api_id)->update([
                         'subId' =>$subscriptionContractId,
                         'data' => json_encode($orders),
                         'status' => $status,
                         'order_name' => $orders['name'],
-                        'name' => $name,
-                        'email' => $email,
+                        'name' => $encryptionname,
+                        'email' => $encryptionemail,
                         'interval' => $interval,
                         'total'=>$orders['total'],
                         'intervalCount' => $intervalCount,
