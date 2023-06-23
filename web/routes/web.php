@@ -1812,11 +1812,6 @@ Route::post('/api/getsubscriptions', function (Request $request) {
     $page = $params['page'];
     $status = $params['status'];
     $type = $params['type'];
-    // if( !empty($type) || !empty($status) ){
-    //     print_r($params['status']);
-    //     print_r($params['type']);
-    //     die;
-    // }
     if (Schema::hasTable($shop_name[0] . '_subscriptioncontracts')) {
         if(!empty($query)){
             $records = DB::table($database)->where('email', 'LIKE', '%' . $query['searchValue'] . '%')->orWhere('name', 'like', '%' . $query['searchValue'] . '%')->orwhere('order_name', 'LIKE', '%' . $query['searchValue'] . '%')->orwhere('subId', 'LIKE', '%' . $query['searchValue'] . '%')->select('subId','order_name','name','email','status','interval','intervalCount','created_at')->limit(10)->offset(0)->get();
@@ -1826,6 +1821,16 @@ Route::post('/api/getsubscriptions', function (Request $request) {
                 $date=date_create($date);
                 $records[$i]->created_at=date_format($date,"M d,Y");
             }
+            $encryptionname = $records['name'];
+            $encryptionemail = $records['email'];
+            $ciphering = "AES-128-CTR";
+            $options = 0;
+            $decryption_iv = "1332425434231121";
+            $decryption_key = "easyitgkeyencryp";
+            $decryptionname=openssl_decrypt($encryptionname, $ciphering, $decryption_key, $options, $decryption_iv);
+            $decryptionemail=openssl_decrypt($encryptionemail, $ciphering, $decryption_key, $options, $decryption_iv);
+            $records['name'] = $decryptionname;
+            $records['email'] = $decryptionemail;
             return response(json_encode(['records' => $records, 'pages' => $allPages, 'page' => 1]));
             die;
         }
@@ -1857,6 +1862,16 @@ Route::post('/api/getsubscriptions', function (Request $request) {
                 $date=date_create($date);
                 $records[$i]->created_at=date_format($date,"M d,Y");
             }
+            $encryptionname = $records['name'];
+            $encryptionemail = $records['email'];
+            $ciphering = "AES-128-CTR";
+            $options = 0;
+            $decryption_iv = "1332425434231121";
+            $decryption_key = "easyitgkeyencryp";
+            $decryptionname=openssl_decrypt($encryptionname, $ciphering, $decryption_key, $options, $decryption_iv);
+            $decryptionemail=openssl_decrypt($encryptionemail, $ciphering, $decryption_key, $options, $decryption_iv);
+            $records['name'] = $decryptionname;
+            $records['email'] = $decryptionemail;
             return response(json_encode(['records' => $records, 'pages' => $allPages, 'page' => 1]));
         }else {
             if( !empty($type) || !empty($status) ){
@@ -1906,12 +1921,23 @@ Route::post('/api/getsubscriptions', function (Request $request) {
         }else{
             $records = DB::table($database)->orderBy('created_at_sort', 'DESC')->select('subId','order_name','name','email','status','interval','intervalCount','created_at')->limit(10)->offset($newpage)->get();
         }
-        
         for($i=0;$i<count($records);$i++){
             $date = $records[$i]->created_at;
             $date=date_create($date);
             $records[$i]->created_at=date_format($date,"M d,Y");
         }
+
+        $encryptionname = $records['name'];
+        $encryptionemail = $records['email'];
+        $ciphering = "AES-128-CTR";
+        $options = 0;
+        $decryption_iv = "1332425434231121";
+        $decryption_key = "easyitgkeyencryp";
+        $decryptionname=openssl_decrypt($encryptionname, $ciphering, $decryption_key, $options, $decryption_iv);
+        $decryptionemail=openssl_decrypt($encryptionemail, $ciphering, $decryption_key, $options, $decryption_iv);
+        $records['name'] = $decryptionname;
+        $records['email'] = $decryptionemail;
+
     }else{
         $records = '';
         $page = 0;
