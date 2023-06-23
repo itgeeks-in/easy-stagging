@@ -2858,7 +2858,7 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                             }
                         }
                         $currencydata = json_decode($subscriptionContractId->data);
-                        $currency = $currencydata['currency'];
+                        $currency = $currencydata->currency; 
                     }
                     $customers['currency'] = $currency;
                     $customers['total'] =$total;
