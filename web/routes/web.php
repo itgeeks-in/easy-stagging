@@ -2908,9 +2908,9 @@ Route::get('/api/easy-subscription/customer/data',function(Request $request){
                     $decryption_key = "easyitgkeyencryp";
                     $decryptionname=openssl_decrypt($encryptionname, $ciphering, $decryption_key, $options, $decryption_iv);
                     $decryptionemail=openssl_decrypt($encryptionemail, $ciphering, $decryption_key, $options, $decryption_iv);
-                    $planData = DB::table($shop_name[0] . '_subscriptioncontracts')->where('email',$decryptionemail)->where('status','ACTIVE')->get()->count();
+                    $planData = DB::table($shop_name[0] . '_subscriptioncontracts')->where('email',$encryptionemail)->where('status','ACTIVE')->get()->count();
                     $customers['activePlans'] =$planData;
-                    $subscriptionContractIds = DB::table($shop_name[0] . '_subscriptioncontracts')->select('data','subId','total')->where('email',$decryptionemail)->get();
+                    $subscriptionContractIds = DB::table($shop_name[0] . '_subscriptioncontracts')->select('data','subId','total')->where('email',$encryptionemail)->get();
                     foreach($subscriptionContractIds as $subscriptionContractId){
                         $addTotals = DB::table($shop_name[0] . '_billingAttempt')->select('total')->where('subId',$subscriptionContractId->subId)->where('status','success')->get()->toArray();
                         if(!empty($addTotals)){ 
