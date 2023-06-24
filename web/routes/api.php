@@ -191,14 +191,21 @@ Route::post('customerdata',function(Request $request){
     $subscriptionContracts = [];
     $authShop = $sessions[0]->shop;
     $authTokken = $sessions[0]->access_token;
+    $encryption_email = $email;
+    $ciphering = "AES-128-CTR";
+    $iv_length = openssl_cipher_iv_length($ciphering);
+    $options = 0;
+    $encryption_iv = '1332425434231121';
+    $encryption_key = "easyitgkeyencryp";
+    $encryptionemail = openssl_encrypt( $encryption_email, $ciphering, $encryption_key, $options, $encryption_iv );
     if(!$statusFilter || $statusFilter == '' || $statusFilter == 'All'){
-        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$email)->orderBy("created_at","desc")->get()->toArray();
+        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->orderBy("created_at","desc")->get()->toArray();
     }elseif($statusFilter == 'Active'){
-        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$email)->where('status','ACTIVE')->orderBy("created_at","desc")->get()->toArray();
+        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->where('status','ACTIVE')->orderBy("created_at","desc")->get()->toArray();
     }elseif($statusFilter == 'Cancelled'){
-        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$email)->where('status','CANCELLED')->orderBy("created_at","desc")->get()->toArray();
+        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->where('status','CANCELLED')->orderBy("created_at","desc")->get()->toArray();
     }elseif($statusFilter == 'Paused'){
-        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$email)->where('status','PAUSED')->orderBy("created_at","desc")->get()->toArray();
+        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->where('status','PAUSED')->orderBy("created_at","desc")->get()->toArray();
     }
     foreach($subscriptionContractsDbData as $subscriptionContractDbData){
         $data = [];
