@@ -46,7 +46,7 @@ export default function NotificationSettings(){
         fetch(
             "/api/easy-subscription/settings/customerportal/update?data=" +
                 JSON.stringify(data)
-        ).then((res) => res.json()).then((data) => console.log(data));
+        ).then((res) => res.json()).then((data) => {});
     }
     useAppQuery({
         url: "/api/easy-subscription/settings/customerportal",

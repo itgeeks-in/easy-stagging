@@ -354,7 +354,7 @@ Route::get('/api/payment', function (Request $request) {
 
     $client = new Graphql($session->getShop(), $session->getAccessToken());
     
-    $returnUrl = "https://" . $session->getShop() . "/admin/apps/easysubscription/confirm";
+    $returnUrl = "https://" . $session->getShop() . "/admin/apps/itgeeks-subscription/confirm";
     if( $request['freq'] == 'year' ){
         $query = <<<QUERY
                     mutation {
