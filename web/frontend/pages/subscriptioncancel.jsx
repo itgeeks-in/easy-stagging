@@ -202,7 +202,7 @@ export default function SubscriptionCancel(){
                 throw new Error("Something went wrong");
             }).then((data) => {
                 if (data.status) {
-                    setTestSuccessAlert({ ...testSuccessAlert, message: "Sent Successfully", status: true, });
+                    setTestSuccessAlert({ ...testSuccessAlert, message: "Email has been successfully sent.", status: true, });
                     setTimeout(() => {
                         setTestSuccessAlert({ ...testSuccessAlert, message: "", status: false, });
                     }, 8000);

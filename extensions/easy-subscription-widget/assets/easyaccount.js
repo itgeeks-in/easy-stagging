@@ -31,11 +31,11 @@ addEventListener('DOMContentLoaded',(e)=>{
         })
     }
     document.getElementById('easySubscriptionClosebtn').addEventListener('click',()=>{
-    document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="none";
+        document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="none";
     });
     document.getElementById('easySubscriptionInnerClosebtn').addEventListener('click',()=>{
-    easySubscriptionSubscriptionModel.style.display="none";
-    document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="none";
+        easySubscriptionSubscriptionModel.style.display="none";
+        document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="block";
     });
     function getCutomerSubscriptions(){
         let statusFilter = '';
@@ -171,6 +171,7 @@ addEventListener('DOMContentLoaded',(e)=>{
                     )
                 }).join('')
                 easySubscriptionSubscriptionModel.style.display="block";
+                document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="none";
                 let easyCustomerSubscriptionStatusbutton = document.getElementsByClassName("easyCustomerSubscriptionStatusbutton");
                 for (const iterator of easyCustomerSubscriptionStatusbutton) {
                     iterator.addEventListener('click',(e)=>{

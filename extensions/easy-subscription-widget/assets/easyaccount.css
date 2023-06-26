@@ -14,7 +14,7 @@
 }
 .easySubscriptionWidgetIn .easySubscriptionWidgetModel,
 .easySubscriptionWidgetIn .easySubscriptionSubscriptionModel {
-  position: fixed; 
+  position: relative; 
   top: 0;
   left: 0;
   right: 0;
@@ -29,14 +29,13 @@
 }
 .easySubscriptionWidgetModel .easySubscriptionWidgetModelInner,
 .easySubscriptionWidgetIn .easySubscriptionSubscriptionModel .easySubscriptionSubscriptionModelInner {
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
   margin: auto;
   padding: 30px;
   background-color:#F6F6F8;
   border: 1px solid #eee;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 30px;
 }
 .easySubscriptionWidgetModel .easySubscriptionWidgetModelInner .easySubscriptionWidgetModelInnerTitle h3.title,
 .easySubscriptionWidgetIn .easySubscriptionSubscriptionModel .easySubscriptionSubscriptionModelInner .easySubscriptionWidgetModelInnerTitle h3.title {
