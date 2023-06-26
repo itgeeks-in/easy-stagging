@@ -362,7 +362,6 @@ Route::get('/api/payment', function (Request $request) {
                             name: "Subscription"
                             returnUrl: "$returnUrl"
                             trialDays:15
-                            test:true
                             lineItems: [
                                 {
                                     plan: {
