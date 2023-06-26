@@ -588,10 +588,11 @@ export default function Groups() {
                                   </div>
                               </div>
                           </div>
+                          {showCustomerDetailsData.billingAddress?<>
                           <div className="itgorderviewcustomerdetailsIn">
                               <div>
                                   <div className="itgorderviewcustomerdetailsInHead">
-                                      <h6>Shipping Address</h6>
+                                      <h6>Billing Address</h6>
                                   </div>
                                   <div className="itgorderviewcustomerdetailsInCont address">
                                       <p>{showCustomerDetailsData.billingAddress.name}</p>
@@ -600,10 +601,12 @@ export default function Groups() {
                                   </div>
                               </div>
                           </div>
+                          </>:<></>}
+                          {showCustomerDetailsData.shippingAddress?<>
                           <div className="itgorderviewcustomerdetailsIn">
                               <div>
                                   <div className="itgorderviewcustomerdetailsInHead">
-                                      <h6>Billing Address</h6>
+                                      <h6>Shipping Address</h6>
                                   </div>
                                   <div className="itgorderviewcustomerdetailsInCont address">
                                   <p>{showCustomerDetailsData.shippingAddress.name}</p>
@@ -612,6 +615,7 @@ export default function Groups() {
                                   </div>
                               </div>
                           </div>
+                          </>:<></>}
                       </div>
                   </div>
                   </>
