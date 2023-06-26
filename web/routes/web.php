@@ -692,24 +692,49 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                 $options = 0;
                 $encryption_iv = '1332425434231121';
                 $encryption_key = "easyitgkeyencryp";
-                $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                $encryptionfirst_name = openssl_encrypt( $encryption_first_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                $encryptionlast_name = openssl_encrypt( $encryption_last_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                $encryptionsname = openssl_encrypt( $encryption_sname, $ciphering, $encryption_key, $options, $encryption_iv );
-                $encryptionsfirst_name = openssl_encrypt( $encryption_sfirst_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                $encryptionslast_name = openssl_encrypt( $encryption_slast_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                $orders['billingAddress']['name'] = $encryptionname;
-                $orders['billingAddress']['first_name'] = $encryptionfirst_name;
-                $orders['billingAddress']['last_name'] = $encryptionlast_name;
-                $orders['shippingAddress']['name'] = $encryptionsname;
-                $orders['shippingAddress']['first_name'] = $encryptionsfirst_name;
-                $orders['shippingAddress']['last_name'] = $encryptionslast_name;
+
+                if( isset( $orders['shippingAddress']['last_name'] ) ){
+                    $encryption_slast_name = $orders['shippingAddress']['last_name'];
+                    $encryptionslast_name = openssl_encrypt( $encryption_slast_name, $ciphering, $encryption_key, $options, $encryption_iv );
+                    $orders['shippingAddress']['last_name'] = $encryptionslast_name;
+                }
+
+                if( isset( $orders['shippingAddress']['first_name'] ) ){
+                    $encryption_sfirst_name = $orders['shippingAddress']['first_name'];
+                    $encryptionsfirst_name = openssl_encrypt( $encryption_sfirst_name, $ciphering, $encryption_key, $options, $encryption_iv );
+                    $orders['shippingAddress']['first_name'] = $encryptionsfirst_name;
+                }
+
+                if( isset( $orders['shippingAddress']['name'] ) ){
+                    $encryption_sname = $orders['shippingAddress']['name'];
+                    $encryptionsname = openssl_encrypt( $encryption_sname, $ciphering, $encryption_key, $options, $encryption_iv );
+                    $orders['shippingAddress']['name'] = $encryptionsname;
+                }
+
+                if( isset( $orders['billingAddress']['last_name'] ) ){
+                    $encryption_last_name = $orders['billingAddress']['last_name'];
+                    $encryptionlast_name = openssl_encrypt( $encryption_last_name, $ciphering, $encryption_key, $options, $encryption_iv );
+                    $orders['billingAddress']['last_name'] = $encryptionlast_name;
+                }
+
+                if( isset( $orders['billingAddress']['first_name'] ) ){
+                    $encryption_first_name = $orders['billingAddress']['first_name'];
+                    $encryptionfirst_name = openssl_encrypt( $encryption_first_name, $ciphering, $encryption_key, $options, $encryption_iv );
+                    $orders['billingAddress']['first_name'] = $encryptionfirst_name;
+                }
+                
+                if( isset( $orders['billingAddress']['name'] ) ){
+                    $encryption_name = $orders['billingAddress']['name'];
+                    $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
+                    $orders['billingAddress']['name'] = $encryptionname;
+                }
 
                 if( isset( $orders['billingAddress']['phone'] ) ){
                     $encryption_phone = $orders['billingAddress']['phone'];
                     $encryptionphone = openssl_encrypt( $encryption_phone, $ciphering, $encryption_key, $options, $encryption_iv );
                     $orders['billingAddress']['phone'] = $encryptionphone;
                 }
+
                 if( isset( $orders['shippingAddress']['phone'] ) ){
                     $encryption_sphone = $orders['shippingAddress']['phone'];
                     $encryptionsphone = openssl_encrypt( $encryption_sphone, $ciphering, $encryption_key, $options, $encryption_iv );
