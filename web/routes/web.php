@@ -684,7 +684,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
             if(!$done){
 
         $croninfo = DB::table('easylog')->insert([
-            'data' => json_encode($orders);
+            'data' => json_encode($orders)
         ]);
                 $encryption_name = $orders['billingAddress']['name'];
                 $croninfo = DB::table('easylog')->insert([
