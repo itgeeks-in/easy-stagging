@@ -101,14 +101,8 @@ class OrderMail extends Mailable
             $replacement_replace[$i++] = $data['shippingAddress']['country'];
         }
         if(!empty($data['billingAddress']['name'])){
-            $encryptionname = $data['billingAddress']['name'];
-            $ciphering = "AES-128-CTR";
-            $options = 0;
-            $decryption_iv = "1332425434231121";
-            $decryption_key = "easyitgkeyencryp";
-            $decryptionname=openssl_decrypt($encryptionname, $ciphering, $decryption_key, $options, $decryption_iv);
             $replacement_find[$i] = "<billingAddressName>";
-            $replacement_replace[$i++] = $decryptionname;
+            $replacement_replace[$i++] = $data['billingAddress']['name'];
         }
         if(!empty($data['billingAddress']['address1'])){
             $replacement_find[$i] = "<billingAddressAddress1>";
