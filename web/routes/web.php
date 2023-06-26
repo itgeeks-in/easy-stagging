@@ -682,36 +682,62 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
         try {
             $done = DB::table($shop_name[0] . '_subscriptioncontracts')->select('*')->where('subId',$subscriptionContractId)->get()->count();
             if(!$done){
+
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => 'Test'
+                ]);
                 $encryption_name = $orders['billingAddress']['name'];
-                $encryption_phone = $orders['billingAddress']['phone'];
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => 'name'
+                ]);
                 $encryption_first_name = $orders['billingAddress']['first_name'];
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => 'first_name'
+                ]);
                 $encryption_last_name = $orders['billingAddress']['last_name'];
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => 'last_name'
+                ]);
                 $encryption_sname = $orders['shippingAddress']['name'];
-                $encryption_sphone = $orders['shippingAddress']['phone'];
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => 'sname'
+                ]);
                 $encryption_sfirst_name = $orders['shippingAddress']['first_name'];
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => 'sfirst_name'
+                ]);
                 $encryption_slast_name = $orders['shippingAddress']['last_name'];
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => 'slast_name'
+                ]);
                 $ciphering = "AES-128-CTR";
                 $iv_length = openssl_cipher_iv_length($ciphering);
                 $options = 0;
                 $encryption_iv = '1332425434231121';
                 $encryption_key = "easyitgkeyencryp";
                 $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                $encryptionphone = openssl_encrypt( $encryption_phone, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionfirst_name = openssl_encrypt( $encryption_first_name, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionlast_name = openssl_encrypt( $encryption_last_name, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionsname = openssl_encrypt( $encryption_sname, $ciphering, $encryption_key, $options, $encryption_iv );
-                $encryptionsphone = openssl_encrypt( $encryption_sphone, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionsfirst_name = openssl_encrypt( $encryption_sfirst_name, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionslast_name = openssl_encrypt( $encryption_slast_name, $ciphering, $encryption_key, $options, $encryption_iv );
                 $orders['billingAddress']['name'] = $encryptionname;
-                $orders['billingAddress']['phone'] = $encryptionphone;
                 $orders['billingAddress']['first_name'] = $encryptionfirst_name;
                 $orders['billingAddress']['last_name'] = $encryptionlast_name;
                 $orders['shippingAddress']['name'] = $encryptionsname;
-                $orders['shippingAddress']['phone'] = $encryptionsphone;
                 $orders['shippingAddress']['first_name'] = $encryptionsfirst_name;
                 $orders['shippingAddress']['last_name'] = $encryptionslast_name;
 
+                if( isset( $orders['billingAddress']['phone'] ) ){
+                    $encryption_phone = $orders['billingAddress']['phone'];
+                    $encryptionphone = openssl_encrypt( $encryption_phone, $ciphering, $encryption_key, $options, $encryption_iv );
+                    $orders['billingAddress']['phone'] = $encryptionphone;
+                }
+                if( isset( $orders['shippingAddress']['phone'] ) ){
+                    $encryption_sphone = $orders['shippingAddress']['phone'];
+                    $encryptionsphone = openssl_encrypt( $encryption_sphone, $ciphering, $encryption_key, $options, $encryption_iv );
+                    $orders['shippingAddress']['phone'] = $encryptionsphone;
+                }
                 
                 DB::table($shop_name[0] . '_subscriptioncontracts')->insert([
                             'subId' =>$subscriptionContractId,
