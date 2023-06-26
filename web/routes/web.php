@@ -684,9 +684,12 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
             if(!$done){
 
         $croninfo = DB::table('easylog')->insert([
-            'data' => 'Test'
+            'data' => json_encode($orders);
         ]);
                 $encryption_name = $orders['billingAddress']['name'];
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => 'Test1'
+                ]);
                 $encryption_phone = $orders['billingAddress']['phone'];
                 $encryption_first_name = $orders['billingAddress']['first_name'];
                 $encryption_last_name = $orders['billingAddress']['last_name'];
@@ -695,14 +698,14 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                 $encryption_sfirst_name = $orders['shippingAddress']['first_name'];
                 $encryption_slast_name = $orders['shippingAddress']['last_name'];
 
-        $croninfo = DB::table('easylog')->insert([
-            'data' => 'Test1'
-        ]);
                 $ciphering = "AES-128-CTR";
                 $iv_length = openssl_cipher_iv_length($ciphering);
                 $options = 0;
                 $encryption_iv = '1332425434231121';
                 $encryption_key = "easyitgkeyencryp";
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => 'Test2'
+                ]);
                 $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionphone = openssl_encrypt( $encryption_phone, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionfirst_name = openssl_encrypt( $encryption_first_name, $ciphering, $encryption_key, $options, $encryption_iv );
@@ -711,9 +714,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                 $encryptionsphone = openssl_encrypt( $encryption_sphone, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionsfirst_name = openssl_encrypt( $encryption_sfirst_name, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionslast_name = openssl_encrypt( $encryption_slast_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => 'Test2'
-                ]);
                 $orders['billingAddress']['name'] = $encryptionname;
                 $orders['billingAddress']['phone'] = $encryptionphone;
                 $orders['billingAddress']['first_name'] = $encryptionfirst_name;
