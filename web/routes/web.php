@@ -684,32 +684,9 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
             if(!$done){
 
                 $croninfo = DB::table('easylog')->insert([
-                    'data' => 'Test'
+                    'data' => json_encode($orders)
                 ]);
-                $encryption_name = $orders['billingAddress']['name'];
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => 'name'
-                ]);
-                $encryption_first_name = $orders['billingAddress']['first_name'];
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => 'first_name'
-                ]);
-                $encryption_last_name = $orders['billingAddress']['last_name'];
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => 'last_name'
-                ]);
-                $encryption_sname = $orders['shippingAddress']['name'];
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => 'sname'
-                ]);
-                $encryption_sfirst_name = $orders['shippingAddress']['first_name'];
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => 'sfirst_name'
-                ]);
-                $encryption_slast_name = $orders['shippingAddress']['last_name'];
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => 'slast_name'
-                ]);
+                
                 $ciphering = "AES-128-CTR";
                 $iv_length = openssl_cipher_iv_length($ciphering);
                 $options = 0;
@@ -727,9 +704,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                 $orders['shippingAddress']['name'] = $encryptionsname;
                 $orders['shippingAddress']['first_name'] = $encryptionsfirst_name;
                 $orders['shippingAddress']['last_name'] = $encryptionslast_name;
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => 'encrypt'
-                ]);
 
                 if( isset( $orders['billingAddress']['phone'] ) ){
                     $encryption_phone = $orders['billingAddress']['phone'];
@@ -741,9 +715,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                     $encryptionsphone = openssl_encrypt( $encryption_sphone, $ciphering, $encryption_key, $options, $encryption_iv );
                     $orders['shippingAddress']['phone'] = $encryptionsphone;
                 }
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => 'savinng'
-                ]);
                 
                 DB::table($shop_name[0] . '_subscriptioncontracts')->insert([
                             'subId' =>$subscriptionContractId,
