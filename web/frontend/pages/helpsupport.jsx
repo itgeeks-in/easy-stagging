@@ -55,7 +55,7 @@ export default function settings(){
                             <div className="itgSettingPageHead">
                                 <h5 className="itgSubscriptionCustomersInnerHead">Support</h5>
                             </div>
-                            <div onClick={() => { navigateTo("/customerportal"); }} className="settingOptions" >
+                            <a href="https://calendly.com/support-hiq/support" target="_blank" className="settingOptions" >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
                                         <img src={messageIcon} alt="general" />
@@ -69,8 +69,8 @@ export default function settings(){
                                        Connect with us through live chat for immediate support and personalized assistance.
                                     </p>
                                 </div>
-                            </div>
-                            <div className="settingOptions" onClick={() => { navigateTo("/notificationSettings"); }} >
+                            </a>
+                            <a href="https://easysubscription.io/help-doc/" target="_blank" className="settingOptions" >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
                                         <img src={bookOpen} alt="general" />
@@ -84,7 +84,8 @@ export default function settings(){
                                         Access our comprehensive help documentation for clear instructions and valuable resources to resolve your queries.
                                     </p>
                                 </div>
-                            </div>
+                            </a>
+                            {/*
                             <div className="settingOptions" onClick={() => { navigateTo("/WidgetSetting"); }} >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
@@ -100,7 +101,8 @@ export default function settings(){
                                     </p>
                                 </div>
                             </div>
-                            <div className="settingOptions" onClick={() => { navigateTo("/WidgetSetting"); }} >
+                            */}
+                            <a href="https://easysubscription.io/contact-us/" target="_blank" className="settingOptions" >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
                                         <img src={mailIcon} alt="general" />
@@ -114,7 +116,7 @@ export default function settings(){
                                         Reach out to us via email for reliable and efficient support tailored to your needs.
                                     </p>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
