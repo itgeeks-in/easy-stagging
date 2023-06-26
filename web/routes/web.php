@@ -682,10 +682,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
         try {
             $done = DB::table($shop_name[0] . '_subscriptioncontracts')->select('*')->where('subId',$subscriptionContractId)->get()->count();
             if(!$done){
-
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => json_encode($orders)
-                ]);
                 
                 $ciphering = "AES-128-CTR";
                 $iv_length = openssl_cipher_iv_length($ciphering);
