@@ -694,6 +694,10 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                 $encryption_sphone = $orders['shippingAddress']['phone'];
                 $encryption_sfirst_name = $orders['shippingAddress']['first_name'];
                 $encryption_slast_name = $orders['shippingAddress']['last_name'];
+
+        $croninfo = DB::table('easylog')->insert([
+            'data' => 'Test1'
+        ]);
                 $ciphering = "AES-128-CTR";
                 $iv_length = openssl_cipher_iv_length($ciphering);
                 $options = 0;
@@ -707,6 +711,9 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                 $encryptionsphone = openssl_encrypt( $encryption_sphone, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionsfirst_name = openssl_encrypt( $encryption_sfirst_name, $ciphering, $encryption_key, $options, $encryption_iv );
                 $encryptionslast_name = openssl_encrypt( $encryption_slast_name, $ciphering, $encryption_key, $options, $encryption_iv );
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => 'Test2'
+                ]);
                 $orders['billingAddress']['name'] = $encryptionname;
                 $orders['billingAddress']['phone'] = $encryptionphone;
                 $orders['billingAddress']['first_name'] = $encryptionfirst_name;
