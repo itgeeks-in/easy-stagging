@@ -682,6 +682,10 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
         try {
             $done = DB::table($shop_name[0] . '_subscriptioncontracts')->select('*')->where('subId',$subscriptionContractId)->get()->count();
             if(!$done){
+
+        $croninfo = DB::table('easylog')->insert([
+            'data' => 'Test'
+        ]);
                 $encryption_name = $orders['billingAddress']['name'];
                 $encryption_phone = $orders['billingAddress']['phone'];
                 $encryption_first_name = $orders['billingAddress']['first_name'];
@@ -711,6 +715,17 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                 $orders['shippingAddress']['phone'] = $encryptionsphone;
                 $orders['shippingAddress']['first_name'] = $encryptionsfirst_name;
                 $orders['shippingAddress']['last_name'] = $encryptionslast_name;
+
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => json_encode($orders)
+                ]);
+                $croninfo = DB::table('easylog')->insert([
+                    'data' =>$encryptionname
+                ]);
+                $croninfo = DB::table('easylog')->insert([
+                    'data' =>$encryptionemail
+                ]);
+                
                 DB::table($shop_name[0] . '_subscriptioncontracts')->insert([
                             'subId' =>$subscriptionContractId,
                             'data' => json_encode($orders),
@@ -726,6 +741,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                             'created_at_sort'=>$created_at_sort
                     ]
                 );
+
                 DB::table($shop_name[0] . '_billingAttempt')->insert([
                         'subId' =>$subscriptionContractId,
                         'status' => 'success',
