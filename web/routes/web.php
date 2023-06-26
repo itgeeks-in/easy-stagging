@@ -736,6 +736,10 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
                     $encryptionsphone = openssl_encrypt( $encryption_sphone, $ciphering, $encryption_key, $options, $encryption_iv );
                     $orders['shippingAddress']['phone'] = $encryptionsphone;
                 }
+
+                $croninfo = DB::table('easylog')->insert([
+                    'data' => json_encode($orders)
+                ]);
                 
                 DB::table($shop_name[0] . '_subscriptioncontracts')->insert([
                             'subId' =>$subscriptionContractId,
