@@ -70,7 +70,7 @@ export default function settings(){
                                     </p>
                                 </div>
                             </a>
-                            <a href="https://easysubscription.io/help-doc/" target="_blank" className="settingOptions" >
+                            <a href="https://easysubscription.io/help-guide/" target="_blank" className="settingOptions" >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
                                         <img src={bookOpen} alt="general" />
