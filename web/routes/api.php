@@ -324,7 +324,7 @@ Route::post('singlesubscriptionData',function(Request $request){
     <div class="easyCustomerSubscriptionStatusbtns">';
     $changeStatusHtmlLast = '</div>
     </div>';
-    $cancelSubHtml = '<button class="easyCustomerSubscriptionStatusbutton btn button" value='.$subID.' type="button" statusValue="CANCELLED">Cancle</button>';
+    $cancelSubHtml = '<button class="easyCustomerSubscriptionStatusbutton btn button" value='.$subID.' type="button" statusValue="CANCELLED">Cancel</button>';
     $skipSubHtml = '<button class="easyCustomerSubscriptionStatusbutton btn button" value='.$subID.' statusValue="SKIP" type="button">Skip</button>';
     $PauseSubHtml = '<button class="easyCustomerSubscriptionStatusbutton btn button" value='.$subID.' type="button" statusValue="PAUSED">Pause</button>';
     $activeSubHtml = '<button class="easyCustomerSubscriptionStatusbutton btn button" value='.$subID.' type="button" statusValue="ACTIVE">Active</button>';
