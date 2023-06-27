@@ -92,7 +92,7 @@ export default function NotificationSettings(){
                         <div className={activation.pauseResumeSubscriptions?"notificationSections active":"notificationSections"}>
                             <div className="cont">
                                 <h6 className="sectionsHead">
-                                    Can customers temporarily stop and restart their subscription?
+                                    Pause and Resume Subscriptions
                                 </h6>
                             </div>
                             <button
@@ -122,7 +122,7 @@ export default function NotificationSettings(){
                         <div className={activation.cancelSubscriptions?"notificationSections active":"notificationSections"}>
                             <div className="cont">
                                 <h6 className="sectionsHead">
-                                    Can customers end their subscription?
+                                    Subscription Cancellation
                                 </h6>
                             </div>
                             <button
@@ -150,7 +150,7 @@ export default function NotificationSettings(){
                         <div className={activation.skipNextOrder?"notificationSections active":"notificationSections"}>
                             <div className="cont">
                                 <h6 className="sectionsHead">
-                                    Can a customer change their mind about their next order?
+                                    Skip Next Order
                                 </h6>
                             </div>
                             <button
