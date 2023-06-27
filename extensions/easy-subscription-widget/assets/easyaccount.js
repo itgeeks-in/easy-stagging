@@ -95,7 +95,7 @@ addEventListener('DOMContentLoaded',(e)=>{
                                     </div>
                                 </div>
                                 <div class="easySubscriptionWidgetModelInLineitemsDetailsIn">
-                                    <button class="easySubscriptionMoreDetails btn button" subId=`+subId+`>Show more detail</button>
+                                    <button class="easySubscriptionMoreDetails btn button" subId=`+subId+`>Show more details</button>
                                 </div>
                             </div>
                         </div>`
