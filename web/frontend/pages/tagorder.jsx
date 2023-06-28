@@ -118,7 +118,7 @@ export default function NotificationSettings(){
                         <div className={activation.enaletag?"notificationSections active":"notificationSections"}>
                             <div className="cont easycont">
                                 <h6 className="sectionsHead">
-                                    Enable this tag for all suscription orders.
+                                    Enable this tag for all Susbcription orders.
                                 </h6>
                                 <input type="text" placeholder="Suscription tag" value={orderTag} onChange={orderTagChange}/>
                                 <p>Tag for any order that contains a subscription product</p>
