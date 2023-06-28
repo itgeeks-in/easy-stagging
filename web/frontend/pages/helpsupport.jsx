@@ -78,10 +78,10 @@ export default function settings(){
                                 </div>
                                 <div className="settingOptionContent">
                                     <h5 className="settingOptionContentHead">
-                                        Help docs
+                                        Help Guide
                                     </h5>
                                     <p className="settingOptionContentDes">
-                                        Access our comprehensive help documentation for clear instructions and valuable resources to resolve your queries.
+                                        Access our comprehensive help guide for clear instructions and valuable resources to resolve your queries.
                                     </p>
                                 </div>
                             </a>
