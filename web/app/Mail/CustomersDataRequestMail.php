@@ -32,6 +32,6 @@ class CustomersDataRequestMail extends Mailable
         $customerShopUserId = $data['customer'];
         $html = "<b>Customers data request</b> for Easy Subscription and Customer shop is <b>$customerShop</b>, Shop's user id is <b>$customerShopUserId</b>";
         $this->mailData['mailHtml'] = $html;
-        return $this->subject("Customer Data Request Easy Suscriptions")->from("support@easysubscription.io","Easy Suscription")->view('customer.request');
+        return $this->subject("Customer Data Request Easy Suscriptions")->from("support@easysubscription.io","Easy Suscription")->view('emails.customer');
     }
 }
