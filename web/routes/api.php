@@ -685,5 +685,5 @@ Route::post('cstm/changesubscriptionDatastatus',function(Request $request){
     }
 });
 
-Route::post('/easywebhook', 'App\Http\Controllers\WebhookController@handleWebhook');
+Route::post('/easycustomerdatarequest', 'App\Http\Controllers\CustomersDataRequest@handleWebhook');
 
