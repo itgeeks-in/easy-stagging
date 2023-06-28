@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class CustomersDataRequest extends Mailable
+class CustomersDataRequestMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $mailData;
@@ -26,13 +26,12 @@ class CustomersDataRequest extends Mailable
      *
      * @return $this
      */
-    public function build()
-    {
+    public function build(){
         $data = $this->mailData;
         $customerShop = $data['store'];
         $customerShopUserId = $data['customer'];
         $html = "<b>Customers data request</b> for Easy Subscription and Customer shop is <b>$customerShop</b>, Shop's user id is <b>$customerShopUserId</b>";
         $this->mailData['mailHtml'] = $html;
-        return $this->subject("Customer Data Request Easy Suscriptions")->from("support@easysubscription.io","Easy Suscriptionn")->view('customer.request');
+        return $this->subject("Customer Data Request Easy Suscriptions")->from("support@easysubscription.io","Easy Suscription")->view('customer.request');
     }
 }
