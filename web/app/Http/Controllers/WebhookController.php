@@ -73,6 +73,7 @@ class WebhookController extends Controller
         // Perform necessary actions for GDPR compliance
         // ...
         $shop_domain = $payload['shop_domain'];
+        $topic = $payload['topic'];
 
         $croninfo = DB::table('easywebhook')->insert([
             'shop' => $shop_domain,
@@ -85,6 +86,7 @@ class WebhookController extends Controller
         // Perform necessary actions for GDPR compliance
         // ...
         $shop_domain = $payload['shop_domain'];
+        $topic = $payload['topic'];
 
         $croninfo = DB::table('easywebhook')->insert([
             'shop' => $shop_domain,
