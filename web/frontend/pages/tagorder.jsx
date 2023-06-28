@@ -112,13 +112,13 @@ export default function NotificationSettings(){
                         <div className="notificationSettingHead">
                             <h5 className="innerHead">Order Tags</h5>
                             <p className="paragraph">
-                                Enable tag for all suscription orders
+                                Enable tag for all Subscription orders
                             </p>
                         </div>
                         <div className={activation.enaletag?"notificationSections active":"notificationSections"}>
                             <div className="cont easycont">
                                 <h6 className="sectionsHead">
-                                    Enable this tag for all Susbcription orders.
+                                    Enable this tag for all Subscription orders.
                                 </h6>
                                 <input type="text" placeholder="Suscription tag" value={orderTag} onChange={orderTagChange}/>
                                 <p>Tag for any order that contains a subscription product</p>
