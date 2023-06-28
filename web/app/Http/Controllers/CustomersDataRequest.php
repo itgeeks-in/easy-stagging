@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\CustomersDataRequestMail;
 
 class CustomersDataRequest extends Controller
@@ -14,8 +15,6 @@ class CustomersDataRequest extends Controller
         $hmacHeader = $request->header('X-Shopify-Hmac-SHA256');
         $data = $request->getContent();
         $verified = $this->verifyWebhook($data, $hmacHeader);
-
-
 
         if (!$verified) {
             Log::warning('Webhook verification failed.');
