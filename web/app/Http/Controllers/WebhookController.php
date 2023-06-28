@@ -45,6 +45,10 @@ class WebhookController extends Controller
     private function verifyWebhook($data, $hmacHeader){
         $secret = env('SHOPIFY_API_SECRET'); // Replace with your webhook secret
 
+        $croninfo = DB::table('easylog')->insert([
+            'data' => $secret
+        ]);
+
         $calculatedHmac = base64_encode(hash_hmac('sha256', $data, $secret, true));
 
         return hash_equals($hmacHeader, $calculatedHmac);
