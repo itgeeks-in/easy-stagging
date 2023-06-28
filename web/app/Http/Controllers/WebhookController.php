@@ -12,12 +12,12 @@ class WebhookController extends Controller
         // Verify the webhook request
         $hmacHeader = $request->header('X-Shopify-Hmac-SHA256');
         $data = $request->getContent();
-     //   $verified = $this->verifyWebhook($data, $hmacHeader);
+        $verified = $this->verifyWebhook($data, $hmacHeader);
 
-    //    if (!$verified) {
-    //        Log::warning('Webhook verification failed.');
-    //        return response('Unauthorized', 401);
-     //   }
+        if (!$verified) {
+            Log::warning('Webhook verification failed.');
+           return response('Unauthorized', 401);
+        }
 
         // Process the webhook payload
         $payload = $request->all();
@@ -43,7 +43,7 @@ class WebhookController extends Controller
     }
 
     private function verifyWebhook($data, $hmacHeader){
-        $secret = config('shopify.webhook_secret'); // Replace with your webhook secret
+        $secret = env('SHOPIFY_API_SECRET'); // Replace with your webhook secret
 
         $calculatedHmac = base64_encode(hash_hmac('sha256', $data, $secret, true));
 
