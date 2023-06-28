@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\CustomersDataRequestMail;
 
-class CustomersDataRequest extends Controller
+class CustomersDataErasure extends Controller
 {
     public function handleWebhook(Request $request){
         // Verify the webhook request
@@ -31,14 +29,10 @@ class CustomersDataRequest extends Controller
         $croninfo = DB::table('easywebhook')->insert([
             'shop' => $shop_domain,
             'data' => json_encode($payload),
-            'topic' => 'customers/data_request'
+            'topic' => 'customers/redact'
         ]);
 
-        $maildata = array();
-        $maildata['store']=$shop_domain;
-        $maildata['customer']=$customerId;
-
-        Mail::to("yogesh@itgeeks.com")->send(new CustomersDataRequestMail($maildata));
+        
 
         return response('Webhook processed', 200);
     }
