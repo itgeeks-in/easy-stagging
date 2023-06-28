@@ -66,8 +66,7 @@ export default function settings(){
                                         Customer Portal
                                     </h5>
                                     <p className="settingOptionContentDes">
-                                        Select which features your customers have
-                                        access to from the customer portal.
+                                    Choose the features that will be available to your customers through the customer portal
                                     </p>
                                 </div>
                             </div>
@@ -82,8 +81,7 @@ export default function settings(){
                                         Notifications
                                     </h5>
                                     <p className="settingOptionContentDes">
-                                        Manage email notifications sent to you and
-                                        your customers
+                                    Manage email notifications that are sent to you and your customers
                                     </p>
                                 </div>
                             </div>
@@ -98,8 +96,7 @@ export default function settings(){
                                         Widget
                                     </h5>
                                     <p className="settingOptionContentDes">
-                                        To show subscription widget on product page,
-                                        you would...
+                                    Select the subscription widget for the product page
                                     </p>
                                 </div>
                             </div>
@@ -115,7 +112,7 @@ export default function settings(){
                                         Order Tags
                                     </h5>
                                     <p className="settingOptionContentDes">
-                                        Add tags in Subscription orders.
+                                    Include tags in subscription orders
                                     </p>
                                 </div>
                             </div>
