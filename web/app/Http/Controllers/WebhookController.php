@@ -15,9 +15,6 @@ class WebhookController extends Controller
         $verified = $this->verifyWebhook($data, $hmacHeader);
 
 
-        $croninfo = DB::table('easylog')->insert([
-            'data' => $verified
-        ]);
 
         if (!$verified) {
             Log::warning('Webhook verification failed.');
@@ -26,6 +23,11 @@ class WebhookController extends Controller
 
         // Process the webhook payload
         $payload = $request->all();
+
+
+        $croninfo = DB::table('easylog')->insert([
+            'data' => json_encode($payload)
+        ]);
 
         // Retrieve the event and perform necessary actions based on the event type
         $topic = $payload['topic'];
