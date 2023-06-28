@@ -26,7 +26,7 @@ class WebhookController extends Controller
 
 
         $croninfo = DB::table('easylog')->insert([
-            'data' => json_encode($payload)
+            'data' => json_encode($data)
         ]);
 
         // Retrieve the event and perform necessary actions based on the event type
