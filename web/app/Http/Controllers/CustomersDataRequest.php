@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use App\Mail\CustomersDataRequestMail;
 
 class CustomersDataRequest extends Controller
 {
@@ -25,12 +26,20 @@ class CustomersDataRequest extends Controller
         $payload = $request->all();
 
         $shop_domain = $payload['shop_domain'];
+        $customer = $payload['customer'];
+        $customerId=$customer['id'];
         
         $croninfo = DB::table('easywebhook')->insert([
             'shop' => $shop_domain,
             'data' => json_encode($payload),
             'topic' => 'customers/data_request'
         ]);
+
+        $maildata = array();
+        $maildata['store']=$shop_domain;
+        $maildata['customer']=$customerId;
+
+        Mail::to("akashsharma@itgeeks.com")->send(new CustomersDataRequestMail($maildata));
 
         return response('Webhook processed', 200);
     }
