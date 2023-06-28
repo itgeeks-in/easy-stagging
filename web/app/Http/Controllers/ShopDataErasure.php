@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CustomersDataErasure extends Controller
+class ShopDataErasure extends Controller
 {
     public function handleWebhook(Request $request){
         // Verify the webhook request
@@ -23,22 +25,26 @@ class CustomersDataErasure extends Controller
         $payload = $request->all();
 
         $shop_domain = $payload['shop_domain'];
-        $customer = $payload['customer'];
-        $customerId=$customer['id'];
         
         $croninfo = DB::table('easywebhook')->insert([
             'shop' => $shop_domain,
             'data' => json_encode($payload),
-            'topic' => 'customers/redact'
+            'topic' => 'shop/redact'
         ]);
 
         $shop_name = explode('.', $shop_domain);
 
-        $deleteId = "gid://shopify/Customer/$customerId";
-
-        $data = DB::table($shop_name[0].'_customer')->where('customer_id', $deleteId)->delete();
+        Schema::dropIfExists($shop_name[0].'_billingAttempt');
+        Schema::dropIfExists($shop_name[0].'_billingAttemptSuccess');
+        Schema::dropIfExists($shop_name[0].'_customer');
+        Schema::dropIfExists($shop_name[0].'_customerportal_settings');
+        Schema::dropIfExists($shop_name[0].'_notification_template');
+        Schema::dropIfExists($shop_name[0].'_sellingplangroup');
+        Schema::dropIfExists($shop_name[0].'_subscriptioncontracts');
+        Schema::dropIfExists($shop_name[0].'_subscriptioncontracts_history');
 
         return response('Webhook processed', 200);
+        
     }
 
     private function verifyWebhook($data, $hmacHeader){
