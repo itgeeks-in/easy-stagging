@@ -1991,6 +1991,12 @@ body.itgBody #app .itgDashboardPageSidebar.deactivate ul.submenus {
     background-color: var(--grey-background);
     opacity: 0.5;
 }
+body.itgBody #app .itgAddSubProductsPopupProductTableBody .itgTableBlock span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
         display: none;
