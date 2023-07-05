@@ -513,11 +513,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     $calculatedHmac = base64_encode(hash_hmac('sha256', $data, $secret, true));
 
     $ifShopify = hash_equals($hmacHeader, $calculatedHmac);
-
-
-    $croninfo = DB::table('easylog')->insert([
-        'data' => $data
-    ]);
 /*
     if (!$ifShopify) {
         Log::warning('Webhook verification failed.');
@@ -528,7 +523,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     $origin_order_id = $decodeData->origin_order_id;
     $admin_graphql_api_id = $decodeData->admin_graphql_api_id;
     $header = $request->header();
-    $shop = $header['x-shopify-shop-domain'][0];
+    $shop = $header['X-Shopify-Shop-Domain'];
     $shop_name = explode('.', $shop);
     $session = DB::table('sessions')->select('access_token','ordertag','ordertagvalue')->where('shop','=',$shop)->get();
     $token = $session->toArray()[0]->access_token;
@@ -847,7 +842,7 @@ Route::post('/api/subscriptioncontracts/update',function(Request $request){
     $origin_order_id = $decodeData->origin_order_id;
     $admin_graphql_api_id = $decodeData->admin_graphql_api_id;
     $header = $request->header();
-    $shop = $header['x-shopify-shop-domain'][0];
+    $shop = $header['X-Shopify-Shop-Domain'];
     $shop_name = explode('.', $shop);
     $session = DB::table('sessions')->select('access_token')->where('shop','=',$shop)->get();
     $token = $session->toArray()[0]->access_token;
@@ -1114,7 +1109,7 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
     $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
     $admin_graphql_order_id = $decodeData->order_id;
     $header = $request->header();
-    $shop = $header['x-shopify-shop-domain'][0];
+    $shop = $header['X-Shopify-Shop-Domain'];
     $shop_name = explode('.', $shop);
     $session = DB::table('sessions')->select('access_token','ordertag','ordertagvalue')->where('shop',$shop)->get();
     $token = $session->toArray()[0]->access_token;
@@ -1391,7 +1386,7 @@ Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request
     $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
     
     $header = $request->header();
-    $shop = $header['x-shopify-shop-domain'][0];
+    $shop = $header['X-Shopify-Shop-Domain'];
     $shop_name = explode('.', $shop);
     $session = DB::table('sessions')->select('access_token')->where('shop',$shop)->get();
     $token = $session->toArray()[0]->access_token;
