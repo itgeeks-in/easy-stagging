@@ -354,7 +354,7 @@ Route::get('/api/payment', function (Request $request) {
 
     $client = new Graphql($session->getShop(), $session->getAccessToken());
     
-    $returnUrl = "https://" . $session->getShop() . "/admin/apps/itgeeks-subscription/confirm";
+    $returnUrl = "https://" . $session->getShop() . "/admin/apps/easysubscription/confirm";
     if( $request['freq'] == 'year' ){
         $query = <<<QUERY
                     mutation {
@@ -362,6 +362,7 @@ Route::get('/api/payment', function (Request $request) {
                             name: "Subscription"
                             returnUrl: "$returnUrl"
                             trialDays:15
+                            test:true
                             lineItems: [
                                 {
                                     plan: {
@@ -400,6 +401,7 @@ Route::get('/api/payment', function (Request $request) {
         }
         $application_charge->return_url = $returnUrl;
         $application_charge->trial_days = 15;
+        $application_charge->test = true;
         try {
             $application_charge->save(true);
             return response(json_encode(['status' => true, 'url' => $application_charge->confirmation_url, 'id' => $application_charge->id]));
@@ -1459,7 +1461,7 @@ Route::post('/api/createsubgroup', function (Request $request) {
     $sellingPlanGroupName = $params['nm'];
     $scheduleFrequency = $params['sF'];
     $scheduleFrequencyName = $params['sFN'];
-    $scheduleInterval = $params['sI'];
+    $scheduleIntervalArray = $params['sI'];
     $discountValue = $params['dP'];
     $subscriptionType = $params['tp'];
     $subscriptionEdit = $params['ed'];
@@ -1558,7 +1560,6 @@ Route::post('/api/createsubgroup', function (Request $request) {
             if (isset($value['interval']) && !empty($value['interval'])) {
                 $scheduleInterval = $value['interval'];
             } else {
-
                 foreach ($subscriptionPlanState as $pkey => $pvalue) {
                     if ($pvalue['id'] == $value['id']) {
                         $scheduleInterval = $pvalue['interval'];
@@ -1618,6 +1619,7 @@ Route::post('/api/createsubgroup', function (Request $request) {
 
     $sellingPlansToCreate = [];
     foreach ($scheduleFrequency as $key => $value) {
+        $scheduleInterval = $scheduleIntervalArray[$key]; 
         if ($scheduleInterval == 'DAY') {
             $scheduleIntervalValue = 'day';
         }
@@ -2484,6 +2486,7 @@ Route::get('/api/editgroup/{groupIdParam}', function (Request $request, $groupId
 
     return response($arrayResult);
 })->middleware('shopify.auth');
+
 Route::get('/api/index/data',function( Request $request){
     $session = $request->get('shopifySession');
     $shop = $session->getShop();
@@ -2539,6 +2542,7 @@ Route::get('/api/index/data',function( Request $request){
     }
     return response()->json(['count'=>$orderCount,'currency'=>$currency,'totalsumBefore'=>$totalsumBefore,'totalsumAfter'=>$totalsumAfter]);
 })->middleware('shopify.auth');
+
 Route::get('/api/subscriptionContract/update/status',function( Request $request){
     $session = $request->get('shopifySession');
     $shop = $session->getShop();
@@ -2721,7 +2725,6 @@ Route::get('/api/subscriptionContract/update/status',function( Request $request)
         $orders['products'][$i]['totalPrice'] = $order['line_items'][$i]['price'];
     }
     try {
-
         $ciphering = "AES-128-CTR";
         $iv_length = openssl_cipher_iv_length($ciphering);
         $options = 0;

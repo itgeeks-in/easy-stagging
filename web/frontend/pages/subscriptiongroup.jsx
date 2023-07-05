@@ -13,7 +13,7 @@ export default function createSubscriptionGroup(){
     const [ samePlan, samePlanOption ] = useState(false);  
     const [ subscriptionAdd, subscriptionAddOptions ] = useState({ count: 0, load:false, adding:false, ids:[], products:{}, shop:{}, alreadyIds:[] });
     const [ filterValues, filterValuesOptions ] = useState({ title: '', type: '', vendor: '' , query: '' });
-    const [ subscriptionAction, subscriptionActionOptions ] = useState({ name:"New Subscription Group", namereq:false, namespec:false, details:true, discountPer:0, discount:false, type:'subscription-one-time', scheduleInterval:'MONTH', scheduleIntervalValue:'Months' , scheduleFrequency:[1], scheduleFrequencyName:["Delivery every"],scheduleFrequencyIds:[], expire:false, expireNumber:0 });
+    const [ subscriptionAction, subscriptionActionOptions ] = useState({ name:"New Subscription Group", namereq:false, namespec:false, details:true, discountPer:0, discount:false, type:'subscription-one-time', scheduleInterval:["MONTH"], scheduleIntervalValue:["Months"] , scheduleFrequency:[1], scheduleFrequencyName:["Delivery every"],scheduleFrequencyIds:[], expire:false, expireNumber:0 });
     const [ productData, productDataOption ] = useState({}); 
     const [ editSubscriptionGroup, editSubscriptionGroupOption ] = useState({ edit:false, data:{}, id:'', plansState:{}, planUpdate:{}, planRemove:[] }); 
 
@@ -73,8 +73,8 @@ export default function createSubscriptionGroup(){
                     }
                     // var subscriptionType = data.dtb[0].type;
                     var sellingPlanGroup = data.data.data.sellingPlanGroup;
-                    var scheduleIntervalValue = 'Months';
-                    var scheduleInterval = 'MONTH';
+                    var scheduleIntervalValue = [];
+                    var scheduleInterval = [];
                     var discountPer = 0;
                     var discount = false;
                     var scheduleFrequency = [];
@@ -87,22 +87,24 @@ export default function createSubscriptionGroup(){
                             scheduleFrequencyIds.push(scheduleFrequencyId);
                             var sellingPlanName = sellingPlan.node.name;
                             var sellingPlanOption = sellingPlan.node.options[0];
-                            scheduleInterval = sellingPlan.node.billingPolicy.interval;
+                            var scheduleIntervalName = sellingPlan.node.billingPolicy.interval;
                             var intervalCount = sellingPlan.node.billingPolicy.intervalCount;
-                            var scheduleIntervalValue = 'day';
+                            var scheduleIntervalValueName = 'day';
                             scheduleFrequency.push(intervalCount);
-                            if( scheduleInterval == 'DAY' ){
-                                scheduleIntervalValue = 'day';
+                            if( scheduleIntervalName == 'DAY' ){
+                                scheduleIntervalValueName = 'day';
                             }
-                            if( scheduleInterval == 'WEEK' ){
-                                scheduleIntervalValue = 'week';	
+                            if( scheduleIntervalName == 'WEEK' ){
+                                scheduleIntervalValueName = 'week';	
                             }
-                            if( scheduleInterval == 'MONTH' ){
-                                scheduleIntervalValue = 'month';	
+                            if( scheduleIntervalName == 'MONTH' ){
+                                scheduleIntervalValueName = 'month';	
                             }
                             if( intervalCount > 1 ){
-                                scheduleIntervalValue = scheduleIntervalValue+'s';
+                                scheduleIntervalValueName = scheduleIntervalValueName+'s';
                             }
+                            scheduleInterval.push(scheduleIntervalName);
+                            scheduleIntervalValue.push(scheduleIntervalValueName);
                             var sellingPlanName=sellingPlanName.replace(' '+sellingPlanOption, "");
                             scheduleFrequencyName.push(sellingPlanName);
                             var pricingPolicies = sellingPlan.node.pricingPolicies[0];
@@ -114,7 +116,7 @@ export default function createSubscriptionGroup(){
                             planState[i].discountPer=discountPer;
                             planState[i].name = sellingPlanName;
                             planState[i].intervalCount = intervalCount;
-                            planState[i].interval = scheduleInterval;
+                            planState[i].interval = scheduleIntervalName;
                             planState[i].id = scheduleFrequencyId;
                         });
                     }
@@ -273,8 +275,11 @@ export default function createSubscriptionGroup(){
     }
 
     function scheduleIntervalChange(e){
+        var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+        var scheduleIntervalValueArrayValues = subscriptionAction.scheduleIntervalValue;
         var value = e.target.value;
         var targetElement = e.target;
+        var index = targetElement.getAttribute('data-index');
         var valueView = 'Days';
         if( value == 'WEEK' ){
             valueView = 'Weeks';
@@ -282,7 +287,9 @@ export default function createSubscriptionGroup(){
         if( value == 'MONTH' ){
             valueView = 'Months';
         }
-        subscriptionActionOptions({...subscriptionAction, scheduleInterval:value, scheduleIntervalValue:valueView });
+        scheduleIntervalArrayValues[index] = value;
+        scheduleIntervalValueArrayValues[index] = valueView;
+        subscriptionActionOptions({...subscriptionAction, scheduleInterval:scheduleIntervalArrayValues, scheduleIntervalValue:scheduleIntervalValueArrayValues });
         var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
         var warn = false;
         if( value == 'DAY' ){
@@ -296,25 +303,40 @@ export default function createSubscriptionGroup(){
         }
         if( editSubscriptionGroup.edit ){
             var planUpdate = editSubscriptionGroup.planUpdate;
-            var plansState = editSubscriptionGroup.plansState;
-            for ( const property in plansState ) {
-                if( planUpdate.hasOwnProperty(property) ){
-                    planUpdate[property].id=plansState[property].id;
-                    planUpdate[property].interval=value;
+            var planId = targetElement.getAttribute('data-id');
+            if( planId !== null ){
+                if( objsize(planUpdate) > 0 ){
+                    var length = objsize(planUpdate);
+                    var find = 0;
+                    for ( const property in planUpdate ) {
+                        if( planUpdate[property]['id'] == planId ){
+                            planUpdate[property].interval=value;
+                            find = 1;
+                        }
+                    }
+                    if( find==0 ){
+                        planUpdate[length]={}
+                        planUpdate[length].id=planId;
+                        planUpdate[length].interval=value;
+                    }
                 }else{
-                    planUpdate[property]={}
-                    planUpdate[property].id=plansState[property].id;;
-                    planUpdate[property].interval=value;
+                    planUpdate[0]={}
+                    planUpdate[0].id=planId;
+                    planUpdate[0].interval=value;
                 }
+                editSubscriptionGroupOption({...editSubscriptionGroup, planUpdate:planUpdate});
             }
-            editSubscriptionGroupOption({...editSubscriptionGroup, planUpdate:planUpdate});
         }
         dayWarnOption(warn);
-        samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues));
+        samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
     }
 
-    function toFindDuplicates(arry) {
-        var arry = arry;
+    function toFindDuplicates(arryOne, arryTwo) {
+        var newArray = [];
+        for (let i = 0; i < arryOne.length; i++) {
+            newArray[i]=arryOne[i]+''+arryTwo[i];
+        }
+        var arry = newArray;
         let toMap = {};
         let resultToReturn = false;
         for (let i = 0; i < arry.length; i++) {
@@ -329,7 +351,7 @@ export default function createSubscriptionGroup(){
 
     function scheduleFrequencyChange(e){
         var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
-        var scheduleInterval = subscriptionAction.scheduleInterval;
+        var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
         var value = parseInt(e.target.value);
         if( value > 1 ){
             value = value;
@@ -341,13 +363,7 @@ export default function createSubscriptionGroup(){
         scheduleFrequencyArrayValues[index]=value;
         subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues });
         var warn = false;
-        if( scheduleInterval == 'DAY' ){
-            scheduleFrequencyArrayValues.map(function(object, i){
-                if( object == 1 ){
-                    warn = true;
-                }
-            });
-        }
+
         if( editSubscriptionGroup.edit ){
             var planUpdate = editSubscriptionGroup.planUpdate;
             var planId = targetElement.getAttribute('data-id');
@@ -375,29 +391,48 @@ export default function createSubscriptionGroup(){
             }
         }
         dayWarnOption(warn);
-        samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues));
+        samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
     }
+
+    console.log(editSubscriptionGroup);
+    console.log(subscriptionAction);
 
     function scheduleAdd(e){
         e.preventDefault();
+        var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval; 
+        var scheduleIntervalValueArrayValues = subscriptionAction.scheduleIntervalValue; 
         var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency; 
         var scheduleFrequencyNameArray = subscriptionAction.scheduleFrequencyName;
         var firstValue = scheduleFrequencyArrayValues[scheduleFrequencyArrayValues.length-1]+1;
+        var firstIntervalValue = scheduleIntervalArrayValues[scheduleIntervalArrayValues.length-1];
         var sellingPlanName = "Delivery every";
         scheduleFrequencyArrayValues.push(firstValue);
+        scheduleIntervalArrayValues.push(firstIntervalValue);
         scheduleFrequencyNameArray.push(sellingPlanName);
-        subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues, scheduleFrequencyName:scheduleFrequencyNameArray });
-        samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues));
+        var valueView = 'Days';
+        if( firstIntervalValue == 'WEEK' ){
+            valueView = 'Weeks';
+        }
+        if( firstIntervalValue == 'MONTH' ){
+            valueView = 'Months';
+        }
+        scheduleIntervalValueArrayValues.push(valueView);
+        subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues, scheduleInterval:scheduleIntervalArrayValues, scheduleIntervalValue:scheduleIntervalValueArrayValues, scheduleFrequencyName:scheduleFrequencyNameArray });
+        samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
     }
 
     function scheduleRemove(e){
         e.preventDefault();
+        var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+        var scheduleIntervalValueArrayValues = subscriptionAction.scheduleIntervalValue;
         var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency; 
         var scheduleFrequencyNameArray = subscriptionAction.scheduleFrequencyName;
         var scheduleFrequencyIdsArray = subscriptionAction.scheduleFrequencyIds;
         var targetElement = e.target;
         var index = targetElement.getAttribute('data-index');
         scheduleFrequencyNameArray.splice(index, 1); 
+        scheduleIntervalArrayValues.splice(index, 1); 
+        scheduleIntervalValueArrayValues.splice(index, 1); 
         scheduleFrequencyArrayValues.splice(index, 1); 
         if( editSubscriptionGroup.edit ){
             var planId = targetElement.getAttribute('data-id');
@@ -408,8 +443,8 @@ export default function createSubscriptionGroup(){
             }
             editSubscriptionGroupOption({...editSubscriptionGroup, planRemove:planRemove});
         }
-        subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues, scheduleFrequencyName:scheduleFrequencyNameArray, scheduleFrequencyIds:scheduleFrequencyIdsArray });
-        samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues));
+        subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues, scheduleInterval:scheduleIntervalArrayValues, scheduleIntervalValue:scheduleIntervalValueArrayValues, scheduleFrequencyName:scheduleFrequencyNameArray, scheduleFrequencyIds:scheduleFrequencyIdsArray });
+        samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
     }
 
     function objsize(obj) {
@@ -602,7 +637,7 @@ export default function createSubscriptionGroup(){
                                                 <label>Billing Rules</label>
                                                 <div className="itgSubGroupPageInnerFieldPlanItemBillingRuleFields">
                                                     <input type="number" className="input" data-index={i} data-id={subscriptionAction.scheduleFrequencyIds[i]}  value={object} onChange={scheduleFrequencyChange}/>
-                                                    <select name="frequency-interval" value={subscriptionAction.scheduleInterval} data-id={subscriptionAction.scheduleFrequencyIds[i]} className="itg-frequency-value-interval" onChange={scheduleIntervalChange} disabled={i>0}>
+                                                    <select name="frequency-interval" data-index={i} value={subscriptionAction.scheduleInterval[i]} data-id={subscriptionAction.scheduleFrequencyIds[i]} className="itg-frequency-value-interval" onChange={scheduleIntervalChange}>
                                                         <option value="DAY">Days</option>
                                                         <option value="WEEK">Weeks</option>
                                                         <option value="MONTH">Months</option>
@@ -736,18 +771,18 @@ export default function createSubscriptionGroup(){
                                     <img src={verifyCheck} alt=""/>
                                     <span>Product ships every <span className="itgSubGroupPageInnerPreviewTypeShipDetail">
                                     {subscriptionAction.scheduleFrequency.map(function(object, i){
+                                        var scheduleIntervalValueArray = subscriptionAction.scheduleIntervalValue;
                                         if( i === 0 ){
-                                        return(
-                                            <span key={i}>{object}</span>
-                                        );
+                                            return(
+                                                <span key={i}>{object} {scheduleIntervalValueArray[i]}</span>
+                                            );
                                         }else{
-                                        return(
-                                            <span key={i}>, {object}</span>
-                                        );
+                                            return(
+                                                <span key={i}>, {object} {scheduleIntervalValueArray[i]}</span>
+                                            );
                                         }
                                     })}
-                                    &nbsp;{subscriptionAction.scheduleIntervalValue}.
-                                    </span></span>
+                                    </span>.</span>
                                 </li>
                                 { subscriptionAction.discount && subscriptionAction.discountPer > 0 ?
                                     <>
