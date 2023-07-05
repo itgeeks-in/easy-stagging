@@ -507,16 +507,15 @@ Route::post('/api/webhooks', function (Request $request) {
     }
 });
 Route::post('/api/subscriptioncontracts', function (Request $request) {
+    $hmacHeader = $request->header('X-Shopify-Hmac-SHA256');
+    $secret = env('SHOPIFY_API_SECRET'); // Replace with your webhook secret
+    $data = $request->getContent();
+    $calculatedHmac = base64_encode(hash_hmac('sha256', $data, $secret, true));
 
-    $topic = $request->header(HttpHeaders::X_SHOPIFY_TOPIC, '');
-
-    $response = Registry::process($request->header(), $request->getContent());
-
+    $ifShopify = hash_equals($hmacHeader, $calculatedHmac);
     $croninfo = DB::table('easylog')->insert([
-        'data' => $response
+        'data' => $ifShopify
     ]);
-
-    return true;
 
     $data = $request->getContent();
 
@@ -823,6 +822,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     } catch (\Throwable $th) {
         Log::error(['error'=>$th]);
     }
+    return true;
 });
 
 Route::post('/api/subscriptioncontracts/update',function(Request $request){
