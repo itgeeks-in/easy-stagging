@@ -504,8 +504,6 @@ export default function createSubscriptionGroup(){
         }
     }
 
-    console.log(productData);
-
     return (
         <>
             <div className="itgSubGroupPage">
@@ -827,7 +825,6 @@ export default function createSubscriptionGroup(){
                                     <>
                                         {productData.data.products.edges.map(function(objectdata, i){
                                             var object = objectdata.node;
-                                            console.log(object);
                                             var objectId = object.id.replace("gid://shopify/Product/", "");
                                             var imageSrc = productPlaceholder;
                                             var already = object.sellingPlanGroups.edges.length;
