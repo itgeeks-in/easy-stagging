@@ -25,5 +25,8 @@ class VerifyCsrfToken extends Middleware
         '/api/easy-subscription/testmail',
         '/api/easy-subscription/previewmail',
         '/api/customerdata',
+        '/api/easycustomerdatarequest',
+        '/api/easycustomerdataerasure',
+        '/api/easyshopdataerasure',
     ];
 }
