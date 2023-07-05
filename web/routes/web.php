@@ -516,6 +516,8 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
         'data' => $response
     ]);
 
+    return true;
+
     $data = $request->getContent();
 
 
