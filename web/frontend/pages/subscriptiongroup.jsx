@@ -826,6 +826,7 @@ export default function createSubscriptionGroup(){
                                     { productData.data.products.edges.length > 0 ?
                                     <>
                                         {productData.data.products.edges.map(function(object, i){
+                                            console.log(object);
                                             var object = object.node;
                                             var objectId = object.id.replace("gid://shopify/Product/", "");
                                             var imageSrc = productPlaceholder;
