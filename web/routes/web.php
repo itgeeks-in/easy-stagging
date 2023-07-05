@@ -513,11 +513,15 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     $calculatedHmac = base64_encode(hash_hmac('sha256', $data, $secret, true));
 
     $ifShopify = hash_equals($hmacHeader, $calculatedHmac);
+
     $croninfo = DB::table('easylog')->insert([
         'data' => $ifShopify
     ]);
 
-    $data = $request->getContent();
+    if (!$ifShopify) {
+        Log::warning('Webhook verification failed.');
+       return response('Unauthorized', 401);
+    }
 
 
     $decodeData = json_decode($data);
