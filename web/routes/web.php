@@ -507,12 +507,18 @@ Route::post('/api/webhooks', function (Request $request) {
     }
 });
 Route::post('/api/subscriptioncontracts', function (Request $request) {
-    $data = $request->getContent();
+
+    $topic = $request->header(HttpHeaders::X_SHOPIFY_TOPIC, '');
+
+    $response = Registry::process($request->header(), $request->getContent());
 
     $croninfo = DB::table('easylog')->insert([
-        'data' => $data
+        'data' => $response
     ]);
-    
+
+    $data = $request->getContent();
+
+
     $decodeData = json_decode($data);
     $origin_order_id = $decodeData->origin_order_id;
     $admin_graphql_api_id = $decodeData->admin_graphql_api_id;
