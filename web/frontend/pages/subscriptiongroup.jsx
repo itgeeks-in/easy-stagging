@@ -394,9 +394,6 @@ export default function createSubscriptionGroup(){
         samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
     }
 
-    console.log(editSubscriptionGroup);
-    console.log(subscriptionAction);
-
     function scheduleAdd(e){
         e.preventDefault();
         var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval; 
@@ -506,6 +503,8 @@ export default function createSubscriptionGroup(){
             }
         }
     }
+
+    console.log(productData);
 
     return (
         <>
