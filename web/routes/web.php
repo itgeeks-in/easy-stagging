@@ -518,12 +518,12 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     $croninfo = DB::table('easylog')->insert([
         'data' => $data
     ]);
-
+/*
     if (!$ifShopify) {
         Log::warning('Webhook verification failed.');
        return response('Unauthorized', 401);
     }
-
+*/
     $decodeData = json_decode($data);
     $origin_order_id = $decodeData->origin_order_id;
     $admin_graphql_api_id = $decodeData->admin_graphql_api_id;
