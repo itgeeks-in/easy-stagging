@@ -514,15 +514,15 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
 
     $ifShopify = hash_equals($hmacHeader, $calculatedHmac);
 
+
     $croninfo = DB::table('easylog')->insert([
-        'data' => $ifShopify
+        'data' => $data
     ]);
 
     if (!$ifShopify) {
         Log::warning('Webhook verification failed.');
        return response('Unauthorized', 401);
     }
-
 
     $decodeData = json_decode($data);
     $origin_order_id = $decodeData->origin_order_id;
@@ -831,7 +831,18 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
 
 Route::post('/api/subscriptioncontracts/update',function(Request $request){
    // echo true;
+    $hmacHeader = $request->header('X-Shopify-Hmac-SHA256');
+    $secret = env('SHOPIFY_API_SECRET'); // Replace with your webhook secret
     $data = $request->getContent();
+    $calculatedHmac = base64_encode(hash_hmac('sha256', $data, $secret, true));
+
+    $ifShopify = hash_equals($hmacHeader, $calculatedHmac);
+
+    if (!$ifShopify) {
+        Log::warning('Webhook verification failed.');
+       return response('Unauthorized', 401);
+    }
+
     $decodeData = json_decode($data);
     $origin_order_id = $decodeData->origin_order_id;
     $admin_graphql_api_id = $decodeData->admin_graphql_api_id;
@@ -954,8 +965,6 @@ Route::post('/api/subscriptioncontracts/update',function(Request $request){
         $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
         $encryptionemail = openssl_encrypt( $encryption_email, $ciphering, $encryption_key, $options, $encryption_iv );
         try {
-
-
             $ciphering = "AES-128-CTR";
             $iv_length = openssl_cipher_iv_length($ciphering);
             $options = 0;
@@ -1088,7 +1097,18 @@ Route::post('/api/subscriptioncontracts/update',function(Request $request){
 });
 
 Route::post('/api/subscriptioncontracts/billingattempt',function(Request $request){
+
+    $hmacHeader = $request->header('X-Shopify-Hmac-SHA256');
+    $secret = env('SHOPIFY_API_SECRET'); // Replace with your webhook secret
     $data = $request->getContent();
+    $calculatedHmac = base64_encode(hash_hmac('sha256', $data, $secret, true));
+
+    $ifShopify = hash_equals($hmacHeader, $calculatedHmac);
+
+    if (!$ifShopify) {
+        Log::warning('Webhook verification failed.');
+       return response('Unauthorized', 401);
+    }
     // Log::error(['error'=>$data]);
     $decodeData = json_decode($data);
     $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
@@ -1354,8 +1374,20 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
 });
 
 Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request $request){
+    $hmacHeader = $request->header('X-Shopify-Hmac-SHA256');
+    $secret = env('SHOPIFY_API_SECRET'); // Replace with your webhook secret
     $data = $request->getContent();
+    $calculatedHmac = base64_encode(hash_hmac('sha256', $data, $secret, true));
+
+    $ifShopify = hash_equals($hmacHeader, $calculatedHmac);
+
+    if (!$ifShopify) {
+        Log::warning('Webhook verification failed.');
+       return response('Unauthorized', 401);
+    }
+
     $decodeData = json_decode($data);
+
     $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
     
     $header = $request->header();
