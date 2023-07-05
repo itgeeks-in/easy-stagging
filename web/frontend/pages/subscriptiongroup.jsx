@@ -834,7 +834,7 @@ export default function createSubscriptionGroup(){
                                             var objectIdLabbel = 'labbelproduct-'+objectId;
                                             var checkedAlready = false;
                                             if( object.images ){
-                                                if( object.images.edges ){
+                                                if( object.images.edges.length > 0 ){
                                                     if( object.images.edges[0].node ){
                                                         if( object.images.edges[0].node.url.indexOf(".png") != -1 ){
                                                             imageSrc = object.images.edges[0].node.url.replace(".png","_100x.png");
