@@ -11,6 +11,10 @@
   color: #fff;
   font-size: 16px;
   padding: 12px 30px;
+  margin-bottom: 2px;
+}
+.easySubscriptionWidget .easySubscriptionWidgetIn button.button.loading {
+  opacity: 0.6;
 }
 .easySubscriptionWidgetIn .easySubscriptionWidgetModel,
 .easySubscriptionWidgetIn .easySubscriptionSubscriptionModel {

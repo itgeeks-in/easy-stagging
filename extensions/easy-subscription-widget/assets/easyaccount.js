@@ -107,6 +107,7 @@ addEventListener('DOMContentLoaded',(e)=>{
                 for(items of easySubscriptionShowMore){
                     items.addEventListener('click',(e)=>{
                         let subidmoredetailsId = e.target.getAttribute('subid');
+                        e.target.classList.add("loading");
                         getCutomerSubscription(subidmoredetailsId);
                     })
                 }
@@ -115,6 +116,7 @@ addEventListener('DOMContentLoaded',(e)=>{
                 easySubscriptionWidgetModelIn.appendChild(lineItemsDiv);
                 document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="block";
             }
+            easySubscriptionMannage.classList.remove("loading");
         }
         xhttp.open("POST", url+"/api/customerdata");
         xhttp.send(customerDataForm);
@@ -176,6 +178,7 @@ addEventListener('DOMContentLoaded',(e)=>{
                 for (const iterator of easyCustomerSubscriptionStatusbutton) {
                     iterator.addEventListener('click',(e)=>{
                         let target = e.target;
+                        target.classList.add("loading");
                         let changesubscriptionDatastatusform = new FormData();
                         let subidmoredetailsId = target.value;
                         changesubscriptionDatastatusform.append('id',target.value);
@@ -190,6 +193,10 @@ addEventListener('DOMContentLoaded',(e)=>{
                     })
                 }
             }
+            easySubscriptionShowMore = document.getElementsByClassName('easySubscriptionMoreDetails');
+            for(items of easySubscriptionShowMore){
+                items.classList.remove("loading");
+            }
         }
         let subidmoredetails = new FormData();
         subidmoredetails.append('subidmoredetailsId',subidmoredetailsId);
@@ -198,6 +205,7 @@ addEventListener('DOMContentLoaded',(e)=>{
         xhttp1.send(subidmoredetails);
     }
     easySubscriptionMannage.addEventListener('click',(e)=>{
+        easySubscriptionMannage.classList.add("loading");
         getCutomerSubscriptions();
     })
 })
