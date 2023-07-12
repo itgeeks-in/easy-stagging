@@ -590,18 +590,15 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
 
     $orders = [];
     $orders['id']=$order['id'];
+
     $arrays = array(
         'fields' => 'name'
     );
     $resultShop = $clientRest->get('shop', [], $arrays);
 
-    $resultShop = json_encode($resultShop->getDecodedBody());
-
-    $croninfo = DB::table('easylog')->insert([
-        'data' => $resultShop
-    ]);
+    $resultShop = $resultShop->getDecodedBody();
     
-    $orders['shop']=$shop_name[0];
+    $orders['shop']=$resultShop['shop']['name'];
     $orders['subscriptionContractId'] = $data['data']['subscriptionContract']['id'];
     $orders['subscriptionContractStatus'] = $data['data']['subscriptionContract']['status'];
     $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContract']['nextBillingDate']));
@@ -897,7 +894,14 @@ Route::post('/api/subscriptioncontracts/update',function(Request $request){
     $order = $restOrder['order'];
     $orders = [];
     $orders['id']=$order['id'];
-    $orders['shop']=$shop_name[0];
+    $arrays = array(
+        'fields' => 'name'
+    );
+    $resultShop = $clientRest->get('shop', [], $arrays);
+
+    $resultShop = $resultShop->getDecodedBody();
+
+    $orders['shop']=$resultShop['shop']['name'];
     $orders['subscriptionContractId'] = $data['data']['subscriptionContract']['id'];
     $orders['subscriptionContractStatus'] = $data['data']['subscriptionContract']['status'];
     $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContract']['nextBillingDate']));
@@ -1214,7 +1218,15 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
     
     $orders = [];
     $orders['id']=$order['id'];
-    $orders['shop']=$shop_name[0];
+    $arrays = array(
+        'fields' => 'name'
+    );
+    $resultShop = $clientRest->get('shop', [], $arrays);
+
+    $resultShop = $resultShop->getDecodedBody();
+    
+    $orders['shop']=$resultShop['shop']['name'];
+
     $email = $data['data']['subscriptionContractSetNextBillingDate']['contract']['customer']['email'];
     $name = $data['data']['subscriptionContractSetNextBillingDate']['contract']['customer']['displayName'];
     $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContractSetNextBillingDate']['contract']['nextBillingDate']));
@@ -2740,8 +2752,16 @@ Route::get('/api/subscriptionContract/update/status',function( Request $request)
     $restOrder = $restOrder->getDecodedBody();
     $order = $restOrder['order'];
     $orders = [];
-    $orders['id']=$order['id'];
-    $orders['shop']=$shop_name[0];
+    $orders['id']=$order['id']; 
+    $arrays = array(
+        'fields' => 'name'
+    );
+    $resultShop = $clientRest->get('shop', [], $arrays);
+
+    $resultShop = $resultShop->getDecodedBody();
+    
+    $orders['shop']=$resultShop['shop']['name'];
+
     $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContract']['nextBillingDate']));
 
     $newDateTime = new DateTime($nextbillingDate, new DateTimeZone("UTC")); 
@@ -2949,7 +2969,14 @@ Route::get('/api/subscriptionContract/update/skip',function(Request $request){
     $order = $restOrder['order'];
     $orders = [];
     $orders['id']=$order['id'];
-    $orders['shop']=$shop_name[0];
+    $arrays = array(
+        'fields' => 'name'
+    );
+    $resultShop = $clientRest->get('shop', [], $arrays);
+
+    $resultShop = $resultShop->getDecodedBody();
+    
+    $orders['shop']=$resultShop['shop']['name'];
     $email = $data['data']['subscriptionContractSetNextBillingDate']['contract']['customer']['email'];
     $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContractSetNextBillingDate']['contract']['nextBillingDate']));
     
@@ -3348,7 +3375,7 @@ Route::post('/api/easy-subscription/testmail',function(Request $request){
     }
     $orders = $dummyData ;
     $orders['mailHtml'] = $message;
-    $orders['shop'] = $shop_name[0];
+    $orders['shop'] = $dummyData['shop'];
     $orders['mail']['from_email'] = $email;
     $orders['mail']['from_name'] = $name;
     $orders['mail']['subject'] = 'This is a test mail';
