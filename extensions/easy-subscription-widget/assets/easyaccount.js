@@ -35,7 +35,7 @@ addEventListener('DOMContentLoaded',(e)=>{
     });
     document.getElementById('easySubscriptionInnerClosebtn').addEventListener('click',()=>{
         easySubscriptionSubscriptionModel.style.display="none";
-        document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="block";
+        document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="none";
     });
     function getCutomerSubscriptions(){
         let statusFilter = '';
@@ -95,7 +95,7 @@ addEventListener('DOMContentLoaded',(e)=>{
                                     </div>
                                 </div>
                                 <div class="easySubscriptionWidgetModelInLineitemsDetailsIn">
-                                    <button class="easySubscriptionMoreDetails btn button" subId=`+subId+`>Show more details</button>
+                                    <button class="easySubscriptionMoreDetails btn button" subId=`+subId+`>View More</button>
                                 </div>
                             </div>
                         </div>`

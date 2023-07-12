@@ -4,6 +4,7 @@ import { loaderIcon, editIcon, settingsIcon, bellIcon, messageIcon, videoIcon, m
 import { useAppQuery, useAuthenticatedFetch } from '../hooks';
 import { useContext, useEffect, useState, useRef } from 'react';
 import { Sidebar, Topbar } from '../components';
+
 export default function settings(){ 
     const windowSize = useRef([window.innerWidth, window.innerHeight]);
     const fetch = useAuthenticatedFetch();
@@ -12,17 +13,18 @@ export default function settings(){
     const [ loadStart , loadStartOption ] = useState(false);
     const [ showApp, showAppOption ] = useState(true);
     const activityContext = useContext(ItgContext);
+
     useEffect(()=>{
         if(activityContext.activity !== ' '){
             if( activityContext.activity === 9 ){
-            navigateTo('/noteligible');
+                navigateTo('/noteligible');
             }else if ( activityContext.activity === 0 ){
-            navigateTo('/welcome');
+                navigateTo('/welcome');
             } else if ( activityContext.activity === 1 ){
-            navigateTo('/plans');
+                navigateTo('/plans');
             } else if(activityContext.activity!=' ') {
-            showAppOption(true);
-            loadStartOption(false);
+                showAppOption(true);
+                loadStartOption(false);
             }
         }else{
             loadStartOption(true);
@@ -31,9 +33,9 @@ export default function settings(){
     
     useEffect(()=>{
         if( windowSize.current[0] < 776 ){
-        setToggleMenu(!toggleMenu);
+            setToggleMenu(!toggleMenu);
         }
-    }, []);
+    },[]);
     
     const toggle = () =>{
         setToggleMenu(!toggleMenu);
@@ -55,7 +57,7 @@ export default function settings(){
                             <div className="itgSettingPageHead">
                                 <h5 className="itgSubscriptionCustomersInnerHead">Support</h5>
                             </div>
-                            <a href="https://calendly.com/support-hiq/support" target="_blank" className="settingOptions" >
+                            <a href="https://calendly.com/support-hiq" target="_blank" className="settingOptions" >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
                                         <img src={messageIcon} alt="general" />
