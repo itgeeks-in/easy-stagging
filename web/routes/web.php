@@ -598,7 +598,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     $resultShop = json_encode($resultShop->getDecodedBody());
 
     $croninfo = DB::table('easylog')->insert([
-        'data' => $shop
+        'data' => $resultShop
     ]);
     
     $orders['shop']=$shop_name[0];
