@@ -590,6 +590,17 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
 
     $orders = [];
     $orders['id']=$order['id'];
+    $arrays = array(
+        'fields' => 'name'
+    );
+    $resultShop = $clientRest->get('shop', [], $arrays);
+
+    $resultShop = json_encode($resultShop->getDecodedBody());
+
+    $croninfo = DB::table('easylog')->insert([
+        'data' => $shop
+    ]);
+    
     $orders['shop']=$shop_name[0];
     $orders['subscriptionContractId'] = $data['data']['subscriptionContract']['id'];
     $orders['subscriptionContractStatus'] = $data['data']['subscriptionContract']['status'];
