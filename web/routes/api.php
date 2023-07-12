@@ -508,7 +508,13 @@ Route::post('cstm/changesubscriptionDatastatus',function(Request $request){
         $order = $restOrder['order'];
         $orders = [];
         $orders['id']=$order['id'];
-        $orders['shop']=$shop;
+        $arrays = array(
+            'fields' => 'name'
+        );
+        $resultShop = $clientRest->get('shop', [], $arrays);
+        $resultShop = $resultShop->getDecodedBody();
+        $orders['shop']=$resultShop['shop']['name'];
+        $orders['shopurl']=$shop;
         $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContract']['nextBillingDate']));
     
         $newDateTime = new DateTime($nextbillingDate, new DateTimeZone("UTC")); 
@@ -629,7 +635,14 @@ Route::post('cstm/changesubscriptionDatastatus',function(Request $request){
         $order = $restOrder['order'];
         $orders = [];
         $orders['id']=$order['id'];
-        $orders['shop']=$shop;
+        $arrays = array(
+            'fields' => 'name'
+        );
+        $resultShop = $clientRest->get('shop', [], $arrays);
+        $resultShop = $resultShop->getDecodedBody();
+        $orders['shop']=$resultShop['shop']['name'];
+
+        $orders['shopurl']=$shop;
         $email = $data['data']['subscriptionContractSetNextBillingDate']['contract']['customer']['email'];
         $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContractSetNextBillingDate']['contract']['nextBillingDate']));
         $newDateTime = new DateTime($nextbillingDate); 

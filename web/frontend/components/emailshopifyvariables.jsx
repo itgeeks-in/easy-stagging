@@ -22,6 +22,10 @@ export function Variables(props){
                                     <td>Name of your store.</td>
                                 </tr>
                                 <tr>
+                                    <th>&#60;shophandle&#62;</th>
+                                    <td>Handle of Store url.</td>
+                                </tr>
+                                <tr>
                                     <th>&#60;billingAddressName&#62;</th>
                                     <td>The name for the customer.</td>
                                 </tr>

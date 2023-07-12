@@ -43,6 +43,10 @@ class SkipSubMail extends Mailable
         $replacedId = str_replace("gid://shopify/SubscriptionContract/","",$data['subscriptionContractId']);
         $replacement_replace[$i++] = 'Subscription #'.$replacedId;
     }
+    if(!empty($data['shopurl'])){
+        $replacement_find[$i] = "<shophandle>";
+        $replacement_replace[$i++] = $data['shopurl'];
+    }
         if(!empty($data['shop'])){
             $replacement_find[$i] = "<shop>";
             $replacement_replace[$i++] = $data['shop'];

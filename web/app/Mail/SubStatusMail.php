@@ -41,6 +41,10 @@ class SubStatusMail extends Mailable
         $replacedId = str_replace("gid://shopify/SubscriptionContract/","",$data['subscriptionContractId']);
         $replacement_replace[$i++] = 'Subscription #'.$replacedId;
     }
+    if(!empty($data['shopurl'])){
+        $replacement_find[$i] = "<shophandle>";
+        $replacement_replace[$i++] = $data['shopurl'];
+    }
         if(!empty($data['name'])){
             $replacement_find[$i] = "<orderName>";
             $replacement_replace[$i++] = $data['name'];

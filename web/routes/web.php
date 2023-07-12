@@ -599,6 +599,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     $resultShop = $resultShop->getDecodedBody();
     
     $orders['shop']=$resultShop['shop']['name'];
+    $orders['shopurl']=$shop_name[0];
     $orders['subscriptionContractId'] = $data['data']['subscriptionContract']['id'];
     $orders['subscriptionContractStatus'] = $data['data']['subscriptionContract']['status'];
     $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContract']['nextBillingDate']));
@@ -902,6 +903,7 @@ Route::post('/api/subscriptioncontracts/update',function(Request $request){
     $resultShop = $resultShop->getDecodedBody();
 
     $orders['shop']=$resultShop['shop']['name'];
+    $orders['shopurl']=$shop_name[0];
     $orders['subscriptionContractId'] = $data['data']['subscriptionContract']['id'];
     $orders['subscriptionContractStatus'] = $data['data']['subscriptionContract']['status'];
     $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContract']['nextBillingDate']));
@@ -1226,6 +1228,7 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
     $resultShop = $resultShop->getDecodedBody();
     
     $orders['shop']=$resultShop['shop']['name'];
+    $orders['shopurl']=$shop_name[0];
 
     $email = $data['data']['subscriptionContractSetNextBillingDate']['contract']['customer']['email'];
     $name = $data['data']['subscriptionContractSetNextBillingDate']['contract']['customer']['displayName'];
@@ -2761,6 +2764,7 @@ Route::get('/api/subscriptionContract/update/status',function( Request $request)
     $resultShop = $resultShop->getDecodedBody();
     
     $orders['shop']=$resultShop['shop']['name'];
+    $orders['shopurl']=$shop_name[0];
 
     $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContract']['nextBillingDate']));
 
@@ -2977,6 +2981,7 @@ Route::get('/api/subscriptionContract/update/skip',function(Request $request){
     $resultShop = $resultShop->getDecodedBody();
     
     $orders['shop']=$resultShop['shop']['name'];
+    $orders['shopurl']=$shop_name[0];
     $email = $data['data']['subscriptionContractSetNextBillingDate']['contract']['customer']['email'];
     $nextbillingDate = date("Y-m-d H:i:s",strtotime($data['data']['subscriptionContractSetNextBillingDate']['contract']['nextBillingDate']));
     
@@ -3373,9 +3378,10 @@ Route::post('/api/easy-subscription/testmail',function(Request $request){
     for($i=0;$i<count($dummyData['products']);$i++){
         $dummyData['products'][$i]= (array)$dummyData['products'][$i];
     }
-    $orders = $dummyData ;
+    $orders = $dummyData;
     $orders['mailHtml'] = $message;
     $orders['shop'] = $dummyData['shop'];
+    $orders['shopurl']=$shop_name[0];
     $orders['mail']['from_email'] = $email;
     $orders['mail']['from_name'] = $name;
     $orders['mail']['subject'] = 'This is a test mail';
