@@ -706,6 +706,7 @@ body.itgBody #app .itgSubGroupPageInnerFieldPlanItemBillingRuleFields input.inpu
 body.itgBody #app .itgSubGroupPageInnerFieldPlanItemBillingRuleFields select.itg-frequency-value-interval {
     width: 100%;
     max-width: 150px;
+    min-height:45px;
 }
 body.itgBody #app .itgSubGroupPageInnerFieldPlans .itgSubGroupPageInnerFieldPlanItem .itgSubGroupPageInnerFieldPlanItemName {
     width: 100%;
