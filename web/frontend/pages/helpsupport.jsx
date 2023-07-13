@@ -57,6 +57,7 @@ export default function settings(){
                             <div className="itgSettingPageHead">
                                 <h5 className="itgSubscriptionCustomersInnerHead">Support</h5>
                             </div>
+                            {/*
                             <a href="https://calendly.com/support-hiq" target="_blank" className="settingOptions" >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
@@ -72,6 +73,7 @@ export default function settings(){
                                     </p>
                                 </div>
                             </a>
+                            */}
                             <a href="https://easysubscription.io/help-guide/" target="_blank" className="settingOptions" >
                                 <div className="settingsOptionIconBack">
                                     <div className="settingsOptionIcon">
