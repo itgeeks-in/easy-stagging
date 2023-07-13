@@ -22,8 +22,9 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN composer install
 RUN touch /app/storage/db.sqlite
 RUN chown www-data:www-data /app/storage/db.sqlite
+RUN npm install @tawk.to/tawk-messenger-react
 
-RUN cd frontend && npm install && npm install @tawk.to/tawk-messenger-react && npm run build
+RUN cd frontend && npm install && npm run build
 RUN composer build
 
 ENTRYPOINT ["sh", "/app/entrypoint.sh" ]
