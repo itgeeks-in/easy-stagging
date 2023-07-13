@@ -1,6 +1,5 @@
 import { toggleIcon, mailIcon, phoneIcon } from "../assets";
 import { Link  } from "react-router-dom";
-import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 
 export function Topbar(props) {
     return (
@@ -19,9 +18,6 @@ export function Topbar(props) {
                             </li>
                         </ul>
                     </div>
-                    <TawkMessengerReact
-                propertyId="64ae72afcc26a871b027eaa9"
-                widgetId="1h54n00iv"/>
                 </div>
             </div>
         </>
