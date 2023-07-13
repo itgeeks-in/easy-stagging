@@ -56,7 +56,7 @@ export default function settings(){
                         <div className="itgSettingPageIn">
                             <div className="itgSettingPageHead">
                                 <h5 className="itgSubscriptionCustomersInnerHead">Support</h5>
-                            </div>
+                            </div> 
                             {/*
                             <a href="https://calendly.com/support-hiq" target="_blank" className="settingOptions" >
                                 <div className="settingsOptionIconBack">
