@@ -40,8 +40,10 @@ export default function Welcome(){
     },[]);
 
     function letsGoEvent(){
-        loadStartOption(true);
-        updateColumn();
+        if( privacybox ){}else{
+            loadStartOption(true);
+            updateColumn();
+        }
     }
  
     function letsGoEventPrivacy(){
@@ -49,7 +51,7 @@ export default function Welcome(){
         privacyCheck(true);
         setTimeout(function(){
             loadStartOption(false);
-        }, 2000);
+        }, 1000);
     }
 
     function privacyboxFunc(){
@@ -79,7 +81,7 @@ export default function Welcome(){
                                 </div>
                             </div>
                             <div className="itgWelcomeButton">
-                                <button type="button" onClick={letsGoEvent} className="btn primary-btn">Let's go!</button>
+                                <button type="button" onClick={letsGoEvent} className="btn primary-btn" disabled={!privacybox}>Let's go!</button>
                             </div>
                         </div>
                     </div>
