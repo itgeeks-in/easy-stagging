@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useAppQuery } from '../hooks';
-import { welcomeCss, welcomeIcon, loaderIcon, welcomeGiftIcon } from "../assets";
+import { welcomeCss, welcomeIcon, loaderIcon, welcomeGiftIcon, privacyCheckIcon } from "../assets";
 
 export default function Welcome(){
     const navigateTo = useNavigate();
     const [ loadStart , loadStartOption ] = useState(false);
-    const [status,setStatus] = useState(0);
+    const [ status, setStatus ] = useState(0);
+    const [ privacy, privacyCheck ] = useState(false);
+
     const { data }=useAppQuery({
         url:"/api/checkactivity",
         reactQueryOptions: {
@@ -24,6 +26,7 @@ export default function Welcome(){
             },
         }, 
     },[]);
+
     const{ udata, refetch:updateColumn }= useAppQuery({
         url:"/api/addnewcolumn?activity=1",
         reactQueryOptions: {
@@ -38,6 +41,10 @@ export default function Welcome(){
         loadStartOption(true);
         updateColumn();
     }
+ 
+    function letsGoEventPrivacy(){
+        privacyCheck(true);
+    }
 
     return (
         <>
@@ -45,22 +52,42 @@ export default function Welcome(){
                 <div className={loadStart?"itg-main-loader active":"itg-main-loader"}>
                     <img src={loaderIcon} alt=""/>
                 </div>
-                <div className="itgWelcomeBack">
-                    <div className="itgWelcomeFront">
-                        <div className="itgWelcomeIcon">
-                            <img src={welcomeGiftIcon} alt="" width="80"/>
-                        </div>
-                        <div className="itgWelcomeContent">
-                            <h4 className="title"> !!  Welcome to world of Easy Subscription  !!</h4>
-                            <div className="desc">
-                                <p>Smoothest App to sell subscription products directly through your Shopify checkouts. Unlock a world of possibilities with our subscription service.</p>
+                {privacy?<>
+                    <div className="itgWelcomeBack">
+                        <div className="itgWelcomeFront">
+                            <div className="itgWelcomeIcon">
+                                <img src={privacyCheckIcon} alt="" width="80"/>
+                            </div>
+                            <div className="itgWelcomeContent">
+                                <h4 className="title">We protected customer data and fields!</h4>
+                                <div className="desc">
+                                    <p>By clicking the "Let's go!" button, you agree to our Terms & Conditions and that you have read our Privacy Policy.</p>
+                                    <a href="#" className="btn-link">More Details</a>
+                                </div>
+                            </div>
+                            <div className="itgWelcomeButton">
+                                <button type="button" onClick={letsGoEvent} className="btn primary-btn">Let's go!</button>
                             </div>
                         </div>
-                        <div className="itgWelcomeButton">
-                            <button type="button" onClick={letsGoEvent} className="btn primary-btn">Start exploring now! <span>{'>'}</span></button>
+                    </div>
+                </>:<>
+                    <div className="itgWelcomeBack">
+                        <div className="itgWelcomeFront">
+                            <div className="itgWelcomeIcon">
+                                <img src={welcomeGiftIcon} alt="" width="80"/>
+                            </div>
+                            <div className="itgWelcomeContent">
+                                <h4 className="title"> !!  Welcome to world of Easy Subscription  !!</h4>
+                                <div className="desc">
+                                    <p>Smoothest App to sell subscription products directly through your Shopify checkouts. Unlock a world of possibilities with our subscription service.</p>
+                                </div>
+                            </div>
+                            <div className="itgWelcomeButton">
+                                <button type="button" onClick={letsGoEventPrivacy} className="btn primary-btn">Start exploring now! <span>{'>'}</span></button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </>}
             </>:<></>}
         </>
     );
