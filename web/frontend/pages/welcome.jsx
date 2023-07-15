@@ -59,7 +59,7 @@ export default function Welcome(){
                     <img src={loaderIcon} alt=""/>
                 </div>
                 {privacy?<>
-                    <div className="itgWelcomeBack">
+                    <div className="itgWelcomeBack privacyox">
                         <div className="itgWelcomeFront ">
                             <div className="itgWelcomeIcon">
                                 <img src={privacyCheckIcon} alt="" width="80"/>
