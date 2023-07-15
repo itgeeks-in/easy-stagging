@@ -40,8 +40,7 @@ export default function Welcome(){
     },[]);
 
     function letsGoEvent(){
-        console.log( privacybox );
-        if( privacybox ){}else{
+        if( privacybox ){
             loadStartOption(true);
             updateColumn();
         }
