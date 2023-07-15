@@ -45,7 +45,11 @@ export default function Welcome(){
     }
  
     function letsGoEventPrivacy(){
+        loadStartOption(true);
         privacyCheck(true);
+        setTimeout(function(){
+            loadStartOption(false);
+        }, 2000);
     }
 
     function privacyboxFunc(){

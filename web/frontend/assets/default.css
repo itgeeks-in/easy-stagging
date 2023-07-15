@@ -2029,6 +2029,7 @@ body.itgBody #app .itgWelcomeBack.privacyox .itgWelcomeFront .itgWelcomeContent 
     color: #000;
     text-decoration: underline;
     font-weight: 600;
+    margin-left: 5px;
 }
 body.itgBody #app .itgWelcomeBack.privacyox .itgWelcomeFront .itgWelcomeContent .desc{
     padding-top: 10px;
