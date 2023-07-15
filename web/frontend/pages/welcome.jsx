@@ -4,11 +4,12 @@ import { useAppQuery } from '../hooks';
 import { welcomeCss, welcomeIcon, loaderIcon, welcomeGiftIcon, privacyCheckIcon } from "../assets";
 
 export default function Welcome(){
-    
+
     const navigateTo = useNavigate();
     const [ loadStart , loadStartOption ] = useState(false);
     const [ status, setStatus ] = useState(0);
     const [ privacy, privacyCheck ] = useState(false);
+    const [ privacybox, privacyCheckox ] = useState(false);
 
     const { data }=useAppQuery({
         url:"/api/checkactivity",
@@ -47,6 +48,10 @@ export default function Welcome(){
         privacyCheck(true);
     }
 
+    function privacyboxFunc(){
+        privacyCheckox(!privacybox);
+    }
+
     return (
         <>
             {status==0?<>
@@ -55,15 +60,16 @@ export default function Welcome(){
                 </div>
                 {privacy?<>
                     <div className="itgWelcomeBack">
-                        <div className="itgWelcomeFront">
+                        <div className="itgWelcomeFront ">
                             <div className="itgWelcomeIcon">
                                 <img src={privacyCheckIcon} alt="" width="80"/>
                             </div>
                             <div className="itgWelcomeContent">
                                 <h4 className="title">We protected customer data and fields!</h4>
                                 <div className="desc">
-                                    <p>By clicking the "Let's go!" button, you agree to our Terms & Conditions and that you have read our Privacy Policy.</p>
-                                    <a href="#" className="btn-link">More Details</a>
+                                    <input type="checkbox" id="itgPrivacyCheck" name="itgcheckbox" checked={privacybox} onChange={privacyboxFunc}/>
+                                    <label htmlFor="itgPrivacyCheck">By clicking the "Let's go!" button, you agree to our Terms & Conditions and that you have read our Privacy Policy.</label>
+                                    <a href="https://easysubscription.io/privacy-policy/" target="_blank" className="btn-link">More Details</a>
                                 </div>
                             </div>
                             <div className="itgWelcomeButton">
