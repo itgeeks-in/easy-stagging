@@ -67,8 +67,10 @@ export default function Welcome(){
                             <div className="itgWelcomeContent">
                                 <h4 className="title">We protected customer data and fields!</h4>
                                 <div className="desc">
-                                    <input type="checkbox" id="itgPrivacyCheck" name="itgcheckbox" checked={privacybox} onChange={privacyboxFunc}/>
-                                    <label htmlFor="itgPrivacyCheck">By clicking the "Let's go!" button, you agree to our Terms & Conditions and that you have read our Privacy Policy.</label>
+                                    <div className="easyPrivacyBBox">
+                                        <input type="checkbox" id="itgPrivacyCheck" name="itgcheckbox" checked={privacybox} onChange={privacyboxFunc}/>
+                                        <label htmlFor="itgPrivacyCheck">By clicking the "Let's go!" button, you agree to our Terms & Conditions and that you have read our Privacy Policy.</label>
+                                    </div>
                                     <a href="https://easysubscription.io/privacy-policy/" target="_blank" className="btn-link">More Details</a>
                                 </div>
                             </div>
