@@ -4,6 +4,7 @@ import { useAppQuery } from '../hooks';
 import { welcomeCss, welcomeIcon, loaderIcon, welcomeGiftIcon, privacyCheckIcon } from "../assets";
 
 export default function Welcome(){
+    
     const navigateTo = useNavigate();
     const [ loadStart , loadStartOption ] = useState(false);
     const [ status, setStatus ] = useState(0);
