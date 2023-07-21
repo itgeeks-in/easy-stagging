@@ -2244,6 +2244,10 @@ Route::get('/api/getsubscription', function (Request $request) {
     QUERY;
     $result = $client->query(['query' => $query]);
     $data = $result->getDecodedBody();
+
+    $croninfo = DB::table('easylog')->insert([
+        'data' => json_encode($data)
+    ]);
     $customerdata = $data['data']['subscriptionContract']['customer'];
     $Unformattedorders = $data['data']['subscriptionContract']['orders']['edges'];
     $orders = [];
