@@ -181,7 +181,7 @@ export default function subscription(){
                                     :
                                         <>
                                             <button type="button" className="btn primary-btn" onClick={paymentPage} plantype="proyearly" planfreq="year">
-                                                {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
+                                                {existingPlan.type == 'free'?"Choose Yearly ":"Choose Yearly "}<span>{'>'}</span>
                                             </button>
                                         </>
                                     }
