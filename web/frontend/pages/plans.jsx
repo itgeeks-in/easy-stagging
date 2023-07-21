@@ -149,13 +149,9 @@ export default function subscription(){
                                         <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Activated</button>
                                     :
                                         <>
-                                            {existingPlan.type == 'proyearly'?
-                                                <button type="button" className="btn dark-btn" plantype="pro" disabled="disabled">Disabled</button>
-                                            :
-                                                <button type="button" className="btn" onClick={paymentPage} plantype="promonthly" planfreq="month">
-                                                    {existingPlan.type == 'free'?"Upgrade plan":"Choose pro "}<span>{'>'}</span>
-                                                </button>
-                                            }
+                                            <button type="button" className="btn" onClick={paymentPage} plantype="promonthly" planfreq="month">
+                                                {existingPlan.type == 'free'?"Choose Monthly ":"Choose Monthly "}<span>{'>'}</span>
+                                            </button>
                                         </>
                                     }
                                     <p class="easyYearlyDiscount"></p>
