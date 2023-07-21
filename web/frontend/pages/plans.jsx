@@ -201,7 +201,7 @@ export default function subscription(){
                                 <button type="button" className="btn primary-btn" onClick={paymentPageDicount} planfreq="year">Yearly $278/year and save 20%</button>
                             </div>
                         </>:<>
-                            <h5 className="title">Please press "Confirm" to continue with the Pro Plan {planType}.</h5>
+                            <h5 className="title">Please press "Confirm" to continue with the {planType==='promonthly'?"Monthly":"Yearly"} Pro Plan.</h5>
                             <div className="itgProPlanConfirmationAction">
                                 <button type="button" className="btn primary-btn" onClick={sentToPaymentPage}>Confirm</button>
                                 <button type="button" className="btn" onClick={closeConfirmPopup}>Cancel</button>
