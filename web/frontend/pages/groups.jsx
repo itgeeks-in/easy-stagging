@@ -57,7 +57,7 @@ export default function Groups() {
   const activityContext = useContext(ItgContext);
     useEffect(()=>{
       setOnPage(true);
-      if(activityContext.activity !== ' ' && activityContext.planType !==' '){
+      if(activityContext.activity !== ' ' ){
         if( activityContext.activity === 9 ){
           navigateTo('/noteligible');
         }else if ( activityContext.activity!==' ' && activityContext.activity === 0 ){
