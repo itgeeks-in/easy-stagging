@@ -507,6 +507,7 @@ Route::post('/api/webhooks', function (Request $request) {
     }
 });
 Route::post('/api/subscriptioncontracts', function (Request $request) {
+
     $hmacHeader = $request->header('X-Shopify-Hmac-SHA256');
     $secret = env('SHOPIFY_API_SECRET'); // Replace with your webhook secret
     $data = $request->getContent();
@@ -1366,11 +1367,6 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
             $orders['mail']['from_name'] = '';
             $orders['mail']['subject'] = '';
         }
-/*
-        $croninfo = DB::table('ordercheck')->insert([
-            'data' => json_encode($orders)
-        ]);
-        */
         $done = DB::table($shop_name[0] . '_billingAttemptSuccess')->select('*')->where('subId',$subscriptionContractId)->get()->count();
         $mail = DB::table($shop_name[0] . '_billingAttemptSuccess')->select('mail')->where('subId',$subscriptionContractId)->get();
         if(!empty($mail) && !empty($mail->toArray())){

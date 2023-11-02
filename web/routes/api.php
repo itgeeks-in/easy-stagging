@@ -30,6 +30,7 @@ Route::get('/easysubcron', function () {
         $shop = $session->shop;
         $token = $session->access_token;
         $shop_name = explode('.', $shop);
+        $client = new Graphql($shop, $token);
         $datetime = new \DateTime(date('Y-m-d H:i:s'));
         $datetime->setTimezone(new \DateTimeZone('Asia/Kolkata'));
         $time = $datetime->format('Y-m-d H:i:s');
@@ -42,7 +43,6 @@ Route::get('/easysubcron', function () {
             foreach($subscriptionContractsPaused as $subscriptionContractPaused){
                 $subscriptionContractPaused = (array)$subscriptionContractPaused;
                 $subscriptionContractPausedID = $subscriptionContractPaused['subId'];
-                $client = new Graphql($shop, $token);
                 $query1 = <<<QUERY
                 {
                     subscriptionContract(id:"$subscriptionContractPausedID"){
@@ -83,7 +83,6 @@ Route::get('/easysubcron', function () {
             }
             $subscriptionContracts = DB::table($shop_name[0].'_subscriptioncontracts')->select('*')->where('nextBillingDate','<',$time)->where('status','ACTIVE')->get()->toArray();
             foreach($subscriptionContracts as $subscriptionContract){
-                $client = new Graphql($shop, $token);
                 $oldsubscriptionContractid = $subscriptionContract->subId;
 
                 if (Schema::hasTable($shop_name[0] . '_billingAttemptSuccess')) {
@@ -141,12 +140,67 @@ Route::get('/easysubcron', function () {
                 $billingStatus = 'pending';
                 $totalprice = '';
                 if( empty( $resultBody['data']['userErrors'] ) ){
-                    $totalprice = $resultBody['data']['subscriptionBillingAttemptCreate']['subscriptionBillingAttempt']['subscriptionContract']['originOrder']['totalPriceSet']['presentmentMoney']['currencyCode'] .' '. $resultBody['data']['subscriptionBillingAttemptCreate']['subscriptionBillingAttempt']['subscriptionContract']['originOrder']['totalPriceSet']['presentmentMoney']['amount'];
-                    $subscriptionBillingAttemptId = $resultBody['data']['subscriptionBillingAttemptCreate']['subscriptionBillingAttempt']['id'];
-                    $clientRest = new Rest($shop, $token);
-                    $request1 = new \Illuminate\Http\Request();
-                    $request1->replace(['id' => $subscriptionBillingAttemptId,'client' => $client,'clientRest'=>$clientRest,'shop'=>$shop]);
-                    //(new PendingMail)->index($request1);
+                    $billingStatus = 'success';
+                    if( isset($resultBody['data']['subscriptionBillingAttemptCreate']['subscriptionBillingAttempt']['subscriptionContract']['originOrder']) ){
+                        $totalprice = $resultBody['data']['subscriptionBillingAttemptCreate']['subscriptionBillingAttempt']['subscriptionContract']['originOrder']['totalPriceSet']['presentmentMoney']['currencyCode'] .' '. $resultBody['data']['subscriptionBillingAttemptCreate']['subscriptionBillingAttempt']['subscriptionContract']['originOrder']['totalPriceSet']['presentmentMoney']['amount'];
+                    }
+                    if( isset($resultBody['data']['subscriptionBillingAttemptCreate']['subscriptionBillingAttempt']['subscriptionContract']) ){
+                        $deliveryPolicy = $resultBody['data']['subscriptionBillingAttemptCreate']['subscriptionBillingAttempt']['subscriptionContract']['deliveryPolicy'];
+                        $setNextBillingDate = date('d M Y H:i:s',strtotime( '+'.$deliveryPolicy['intervalCount'].' '.$deliveryPolicy['interval']));
+                        $setNextBillingDate = date_format(date_create($setNextBillingDate), 'c');
+                        $suscriptionContractId = $resultBody['data']['subscriptionBillingAttemptCreate']['subscriptionBillingAttempt']['subscriptionContract']['id'];
+                        $query = <<<QUERY
+                        mutation subscriptionContractSetNextBillingDate(\$contractId: ID!, \$date: DateTime!) {
+                            subscriptionContractSetNextBillingDate(contractId: \$contractId, date: \$date) {
+                            contract {
+                                id
+                                nextBillingDate
+                                deliveryPolicy{
+                                    interval
+                                    intervalCount
+                                }
+                                customer{
+                                    email
+                                    displayName
+                                }
+                                originOrder{
+                                    id
+                                    lineItems(first:50){
+                                        edges{
+                                            node{
+                                                image{
+                                                    url
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            userErrors {
+                                field
+                                message
+                            }
+                            }
+                        }
+                        QUERY;
+                        $variables = [
+                            "contractId"=> $suscriptionContractId,
+                            "date"=> $setNextBillingDate
+                        ];
+                        $result = $client->query(['query' => $query,'variables'=>$variables]);
+                        $data = $result->getDecodedBody();
+
+                        $nextbillingDate = date("Y-m-d H:i:s",strtotime($setNextBillingDate));
+
+                        $newDateTime = new DateTime($nextbillingDate); 
+                        $newDateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
+                        $dateTimeUTC = $newDateTime->format("Y-m-d H:i:s");
+
+                        DB::table($shop_name[0] . '_subscriptioncontracts')->where('subId',$suscriptionContractId)->update([
+                            'nextBillingDate' => $dateTimeUTC,
+                        ]);
+
+                    }
                 }else{
                     $billingStatus = 'failed';
                 }
@@ -404,7 +458,7 @@ Route::post('cstm/changesubscriptionDatastatus',function(Request $request){
         if(!$statusSave){
             return response()->json(['status'=>false]);
         }
-        $client = new Graphql($authShop, $authTokken);
+        $client = new Graphql( $authShop, $authTokken );
         $query = <<<QUERY
         mutation subscriptionContractUpdate(\$contractId: ID!) {
             subscriptionContractUpdate(contractId: \$contractId) {
