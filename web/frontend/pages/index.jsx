@@ -59,7 +59,7 @@ export default function Index() {
     }).then((data)=>{
       if(onpage){
         setIndexData(data);
-        console.log(data);
+        //console.log(data);
       }
     }).catch((err)=>{
       console.log(err);
@@ -150,8 +150,8 @@ export default function Index() {
                           <span className='app_index_in_coloumn_icon'><img src={orderState} alt=""/></span>
                         </>
                     }
-                    
                   </div>
+                  {/* 
                   <div className='app_index_in_coloumn'>
                     {indexData == " " ?
                       <div className="itg-product-loader">
@@ -170,6 +170,7 @@ export default function Index() {
                       </>
                     }
                   </div>
+                  */}
                   <div className='app_index_in_coloumn'>
                     {indexData == " " ?
                       <div className="itg-product-loader">
