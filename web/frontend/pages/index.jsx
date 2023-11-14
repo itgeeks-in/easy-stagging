@@ -182,8 +182,8 @@ export default function Index() {
                           </div>
                       </div>:
                       <>
-                        <span className='app_index_in_linksstyle'>Upcoming sales</span>
-                        <span className='app_index_in_count'>{indexData.currency} {indexData.totalsumAfter.toFixed(2)}</span>
+                        <span className='app_index_in_linksstyle'>Upcoming orders</span>
+                        <span className='app_index_in_count'>{indexData.orderAfterCount}</span>
                         <span className='app_index_in_timeline'>NEXT {selectedValueInterval}</span>
                         <span className='app_index_in_coloumn_icon'><img src={upcomingSales} alt=""/></span>
                       </>
