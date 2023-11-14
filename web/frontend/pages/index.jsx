@@ -109,6 +109,7 @@ export default function Index() {
               <div className='app_index_in'>
                 <div className="app_index_in_head">
                   <h5 className='app_index_in_innerHead'>Dashboard</h5>
+                   {/*
                   <div className="itgSubscriptionsFilter">
                     {selectedValueInterval !== 'WEEK'?<>
                           <button type='button' onClick={resetFilter}>Reset Filter</button>
@@ -132,7 +133,9 @@ export default function Index() {
                       </div>
                     </div>
                   </div>
+                  */}
                 </div>
+                {/*
                 <div className='app_index_in_row'>
                   <div className='app_index_in_coloumn'>
                     {indexData == " " ?
@@ -190,6 +193,7 @@ export default function Index() {
                     }
                   </div>
                 </div>
+                */}
                 <div className='app_index_in_subscriptionrow '>
                   <div className='app_index_in_icon'>
                     <img src={subscriptionGroupIcon} alt="Group" />
