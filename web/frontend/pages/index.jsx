@@ -29,7 +29,7 @@ export default function Index() {
         navigateTo('/plans');
       } else if(activityContext.activity!=' ') {
         showAppOption(true);
-       // StatisticsData('WEEK');
+        StatisticsData('WEEK');
         loadStartOption(false);
       }
     }else{
@@ -50,7 +50,6 @@ export default function Index() {
     setToggleMenu(!toggleMenu);
   }
 
-  /*
   function StatisticsData(interval){
     fetch('/api/index/data?interval='+interval).then((res)=>{
       if(res.ok){
@@ -65,13 +64,12 @@ export default function Index() {
       console.log(err);
     })
   }
-  */
 
   function resetFilter(){
     setIndexData(' ');
     setSelectedTextInterval('WEEK');
     setSelectedValueInterval('WEEK');
-   // StatisticsData('WEEK');
+    StatisticsData('WEEK');
   }
 
   function customSelectInterval() {
@@ -87,9 +85,9 @@ export default function Index() {
       setSelectedTextInterval(innerText);
       setSelectedValueInterval(value);
       setCstmSlctOptionsTypeInterval(!cstmSlctOptionsTypeInterval);
-    //  StatisticsData(value);
+      StatisticsData(value);
     }else{
-    //  StatisticsData('WEEK');
+      StatisticsData('WEEK');
     }
   }
 
@@ -109,7 +107,6 @@ export default function Index() {
               <div className='app_index_in'>
                 <div className="app_index_in_head">
                   <h5 className='app_index_in_innerHead'>Dashboard</h5>
-                   {/*
                   <div className="itgSubscriptionsFilter">
                     {selectedValueInterval !== 'WEEK'?<>
                           <button type='button' onClick={resetFilter}>Reset Filter</button>
@@ -133,9 +130,7 @@ export default function Index() {
                       </div>
                     </div>
                   </div>
-                  */}
                 </div>
-                {/*
                 <div className='app_index_in_row'>
                   <div className='app_index_in_coloumn'>
                     {indexData == " " ?
@@ -193,7 +188,6 @@ export default function Index() {
                     }
                   </div>
                 </div>
-                */}
                 <div className='app_index_in_subscriptionrow '>
                   <div className='app_index_in_icon'>
                     <img src={subscriptionGroupIcon} alt="Group" />
