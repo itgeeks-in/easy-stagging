@@ -2605,13 +2605,15 @@ Route::get('/api/index/data',function( Request $request){
             $currency = '';
         }
         $orderCount = count($getDBDataBefore);
+        $orderAfterCount = count($getTotalAfter);
     }else{
         $orderCount = 0;
+        $orderAfterCount = 0;
         $currency = '';
         $totalsumBefore = 0;
         $totalsumAfter = 0;
     }
-    return response()->json(['count'=>$orderCount,'currency'=>$currency,'totalsumBefore'=>$totalsumBefore,'totalsumAfter'=>$totalsumAfter]);
+    return response()->json(['count'=>$orderCount,'currency'=>$currency,'totalsumBefore'=>$totalsumBefore,'totalsumAfter'=>$totalsumAfter,'orderAfterCount'=>$orderAfterCount]);
 })->middleware('shopify.auth');
 
 Route::get('/api/subscriptionContract/update/status',function( Request $request){
