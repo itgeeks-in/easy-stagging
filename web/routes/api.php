@@ -204,7 +204,6 @@ Route::get('/easysubcron', function () {
                 }else{
                     $billingStatus = 'failed';
                 }
-                
                 if (!Schema::hasTable($shop_name[0] . '_billingAttempt')) {
                     Schema::create($shop_name[0] . '_billingAttempt', function (Blueprint $table) {
                         $table->id();

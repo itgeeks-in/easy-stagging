@@ -50,6 +50,7 @@ export default function Index() {
     setToggleMenu(!toggleMenu);
   }
 
+  /*
   function StatisticsData(interval){
     fetch('/api/index/data?interval='+interval).then((res)=>{
       if(res.ok){
@@ -64,6 +65,7 @@ export default function Index() {
       console.log(err);
     })
   }
+  */
 
   function resetFilter(){
     setIndexData(' ');
