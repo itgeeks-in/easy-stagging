@@ -29,7 +29,7 @@ export default function Index() {
         navigateTo('/plans');
       } else if(activityContext.activity!=' ') {
         showAppOption(true);
-        StatisticsData('WEEK');
+       // StatisticsData('WEEK');
         loadStartOption(false);
       }
     }else{
@@ -71,7 +71,7 @@ export default function Index() {
     setIndexData(' ');
     setSelectedTextInterval('WEEK');
     setSelectedValueInterval('WEEK');
-    StatisticsData('WEEK');
+   // StatisticsData('WEEK');
   }
 
   function customSelectInterval() {
@@ -87,9 +87,9 @@ export default function Index() {
       setSelectedTextInterval(innerText);
       setSelectedValueInterval(value);
       setCstmSlctOptionsTypeInterval(!cstmSlctOptionsTypeInterval);
-      StatisticsData(value);
+    //  StatisticsData(value);
     }else{
-      StatisticsData('WEEK');
+    //  StatisticsData('WEEK');
     }
   }
 
