@@ -508,6 +508,11 @@ Route::post('/api/webhooks', function (Request $request) {
 });
 Route::post('/api/subscriptioncontracts', function (Request $request) {
 
+
+    $croninfo = DB::table('easylog')->insert([
+        'data' => '0'
+    ]);
+
     $hmacHeader = $request->header('X-Shopify-Hmac-SHA256');
     $secret = env('SHOPIFY_API_SECRET'); // Replace with your webhook secret
     $data = $request->getContent();
@@ -519,6 +524,10 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
         Log::warning('Webhook verification failed.');
        return response('Unauthorized', 401);
     }
+
+    $croninfo = DB::table('easylog')->insert([
+        'data' => '1'
+    ]);
 
     $decodeData = json_decode($data);
     $origin_order_id = $decodeData->origin_order_id;
@@ -567,6 +576,11 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     $result = $client->query(['query' => $query]);
     $data = $result->getDecodedBody();
     
+
+    $croninfo = DB::table('easylog')->insert([
+        'data' => '2'
+    ]);
+
     $order = $restOrder['order'];
 
     if( $ordertag == '1' ){
@@ -598,6 +612,10 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     $resultShop = $clientRest->get('shop', [], $arrays);
 
     $resultShop = $resultShop->getDecodedBody();
+
+    $croninfo = DB::table('easylog')->insert([
+        'data' => '3'
+    ]);
     
     $orders['shop']=$resultShop['shop']['name'];
     $orders['shopurl']=$shop_name[0];
@@ -646,192 +664,182 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
         $orders['products'][$i]['productQuantity'] = $order['line_items'][$i]['quantity'];
         $orders['products'][$i]['totalPrice'] = $order['line_items'][$i]['price'];
     }    
-    try {
-        if (!Schema::hasTable($shop_name[0] . '_subscriptioncontracts')) {
-            Schema::create($shop_name[0] . '_subscriptioncontracts', function (Blueprint $table) {
-                $table->id();
-                $table->json('data')->nullable(true);
-                $table->string('subId')->nullable(true);
-                $table->string('name')->nullable(true);
-                $table->string('order_name')->nullable(true);
-                $table->string('email')->nullable(true);
-                $table->string('nextBillingDate')->nullable(true);
-                $table->string('status')->nullable(true);
-                $table->string('total')->nullable(true);
-                $table->string('interval')->nullable(true);
-                $table->string('intervalCount')->nullable(true);
-                $table->string('created_at')->nullable(true);
-                $table->dateTime('created_at_sort')->nullable(true);
-            });
-        }
-        if (!Schema::hasTable($shop_name[0] . '_customer')) {
-            Schema::create($shop_name[0] . '_customer', function (Blueprint $table) {
-                $table->id();
-                $table->string('customer_id')->nullable(true);
-                $table->string('name')->nullable(true);
-                $table->string('email')->nullable(true);
-                $table->dateTime('created_at')->useCurrent();
-            });
-        }
-        if (!Schema::hasTable($shop_name[0] . '_billingAttempt')) {
-            Schema::create($shop_name[0] . '_billingAttempt', function (Blueprint $table) {
-                $table->id();
-                $table->json('data')->nullable(true);
-                $table->string('subId')->nullable(true);
-                $table->string('status')->nullable(true);
-                $table->string('total')->nullable(true);
-                $table->timestamp('created_at')->useCurrent();
-            });
-        }
-        $customerdone = DB::table($shop_name[0] . '_customer')->where('customer_id',$customerId)->get()->count();
-        $encryption_name = $name;
-        $encryption_email = $email;
+    if (!Schema::hasTable($shop_name[0] . '_subscriptioncontracts')) {
+        Schema::create($shop_name[0] . '_subscriptioncontracts', function (Blueprint $table) {
+            $table->id();
+            $table->json('data')->nullable(true);
+            $table->string('subId')->nullable(true);
+            $table->string('name')->nullable(true);
+            $table->string('order_name')->nullable(true);
+            $table->string('email')->nullable(true);
+            $table->string('nextBillingDate')->nullable(true);
+            $table->string('status')->nullable(true);
+            $table->string('total')->nullable(true);
+            $table->string('interval')->nullable(true);
+            $table->string('intervalCount')->nullable(true);
+            $table->string('created_at')->nullable(true);
+            $table->dateTime('created_at_sort')->nullable(true);
+        });
+    }
+    if (!Schema::hasTable($shop_name[0] . '_customer')) {
+        Schema::create($shop_name[0] . '_customer', function (Blueprint $table) {
+            $table->id();
+            $table->string('customer_id')->nullable(true);
+            $table->string('name')->nullable(true);
+            $table->string('email')->nullable(true);
+            $table->dateTime('created_at')->useCurrent();
+        });
+    }
+    if (!Schema::hasTable($shop_name[0] . '_billingAttempt')) {
+        Schema::create($shop_name[0] . '_billingAttempt', function (Blueprint $table) {
+            $table->id();
+            $table->json('data')->nullable(true);
+            $table->string('subId')->nullable(true);
+            $table->string('status')->nullable(true);
+            $table->string('total')->nullable(true);
+            $table->timestamp('created_at')->useCurrent();
+        });
+    }
+    $customerdone = DB::table($shop_name[0] . '_customer')->where('customer_id',$customerId)->get()->count();
+    $encryption_name = $name;
+    $encryption_email = $email;
+    $ciphering = "AES-128-CTR";
+    $iv_length = openssl_cipher_iv_length($ciphering);
+    $options = 0;
+    $encryption_iv = '1332425434231121';
+    $encryption_key = "easyitgkeyencryp";
+    $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
+    $encryptionemail = openssl_encrypt( $encryption_email, $ciphering, $encryption_key, $options, $encryption_iv );
+    if(!$customerdone){
+        DB::table($shop_name[0] . '_customer')->insert([
+                    'name' => $encryptionname,
+                    'email' => $encryptionemail,
+                    'customer_id'=>$customerId
+            ]
+        );
+    }
+    $subscriptionContractId = $orders['subscriptionContractId'];
+    $done = DB::table($shop_name[0] . '_subscriptioncontracts')->select('*')->where('subId',$subscriptionContractId)->get()->count();
+    if(!$done){
+        
         $ciphering = "AES-128-CTR";
         $iv_length = openssl_cipher_iv_length($ciphering);
         $options = 0;
         $encryption_iv = '1332425434231121';
         $encryption_key = "easyitgkeyencryp";
-        $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
-        $encryptionemail = openssl_encrypt( $encryption_email, $ciphering, $encryption_key, $options, $encryption_iv );
-        if(!$customerdone){
-            DB::table($shop_name[0] . '_customer')->insert([
-                        'name' => $encryptionname,
-                        'email' => $encryptionemail,
-                        'customer_id'=>$customerId
+
+        if( isset( $orders['shippingAddress']['last_name'] ) ){
+            $encryption_slast_name = $orders['shippingAddress']['last_name'];
+            $encryptionslast_name = openssl_encrypt( $encryption_slast_name, $ciphering, $encryption_key, $options, $encryption_iv );
+            $orders['shippingAddress']['last_name'] = $encryptionslast_name;
+        }
+
+        if( isset( $orders['shippingAddress']['first_name'] ) ){
+            $encryption_sfirst_name = $orders['shippingAddress']['first_name'];
+            $encryptionsfirst_name = openssl_encrypt( $encryption_sfirst_name, $ciphering, $encryption_key, $options, $encryption_iv );
+            $orders['shippingAddress']['first_name'] = $encryptionsfirst_name;
+        }
+
+        if( isset( $orders['shippingAddress']['name'] ) ){
+            $encryption_sname = $orders['shippingAddress']['name'];
+            $encryptionsname = openssl_encrypt( $encryption_sname, $ciphering, $encryption_key, $options, $encryption_iv );
+            $orders['shippingAddress']['name'] = $encryptionsname;
+        }
+
+        if( isset( $orders['billingAddress']['last_name'] ) ){
+            $encryption_last_name = $orders['billingAddress']['last_name'];
+            $encryptionlast_name = openssl_encrypt( $encryption_last_name, $ciphering, $encryption_key, $options, $encryption_iv );
+            $orders['billingAddress']['last_name'] = $encryptionlast_name;
+        }
+
+        if( isset( $orders['billingAddress']['first_name'] ) ){
+            $encryption_first_name = $orders['billingAddress']['first_name'];
+            $encryptionfirst_name = openssl_encrypt( $encryption_first_name, $ciphering, $encryption_key, $options, $encryption_iv );
+            $orders['billingAddress']['first_name'] = $encryptionfirst_name;
+        }
+        
+        if( isset( $orders['billingAddress']['name'] ) ){
+            $encryption_name = $orders['billingAddress']['name'];
+            $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
+            $orders['billingAddress']['name'] = $encryptionname;
+        }
+
+        if( isset( $orders['billingAddress']['phone'] ) ){
+            $encryption_phone = $orders['billingAddress']['phone'];
+            $encryptionphone = openssl_encrypt( $encryption_phone, $ciphering, $encryption_key, $options, $encryption_iv );
+            $orders['billingAddress']['phone'] = $encryptionphone;
+        }
+
+        if( isset( $orders['shippingAddress']['phone'] ) ){
+            $encryption_sphone = $orders['shippingAddress']['phone'];
+            $encryptionsphone = openssl_encrypt( $encryption_sphone, $ciphering, $encryption_key, $options, $encryption_iv );
+            $orders['shippingAddress']['phone'] = $encryptionsphone;
+        }
+        
+        DB::table($shop_name[0] . '_subscriptioncontracts')->insert([
+                    'subId' =>$subscriptionContractId,
+                    'data' => json_encode($orders),
+                    'status' => $status,
+                    'order_name' => $orders['name'],
+                    'name' => $encryptionname,
+                    'email' => $encryptionemail,
+                    'interval' => $interval,
+                    'total'=>$orders['total'],
+                    'intervalCount' => $intervalCount,
+                    'nextBillingDate' => $dateTimeUTC,
+                    'created_at' => $creteadDate,
+                    'created_at_sort'=>$created_at_sort
+            ]
+        );
+
+        DB::table($shop_name[0] . '_billingAttempt')->insert([
+                'subId' =>$subscriptionContractId,
+                'status' => 'success',
+                'total' => $orders['total'],
+            ]
+        );
+        if (Schema::hasTable($shop_name[0] . '_notification_template')) {
+            $mail = DB::table($shop_name[0] . '_notification_template')->select('*')->where('topic','order')->get()->toArray();
+            if(empty($mail)){
+                $mail = DB::table('default_mail')->select('*')->where('topic','order')->get()->toArray();
+            }
+        }else{
+            $mail = DB::table('default_mail')->select('*')->where('topic','order')->get()->toArray();
+        }
+        if(!empty($mail[0]->mail)){
+            $orders['mailHtml'] = $mail[0]->mail;
+            $orders['mail']['from_email'] = $mail[0]->from_email;
+            $orders['mail']['from_name'] = $mail[0]->from_name;
+            $orders['mail']['subject'] = $mail[0]->subject;
+        }else{
+            $orders['mailHtml'] = '';
+            $orders['mail']['from_email'] = '';
+            $orders['mail']['from_name'] = '';
+            $orders['mail']['subject'] = '';
+        }
+
+
+        Mail::to($email)->send(new OrderMail($orders));
+        //Log::error(new OrderMail($orders));
+        if (!Schema::hasTable($shop_name[0] . '_billingAttemptSuccess')) {
+            Schema::create($shop_name[0] . '_billingAttemptSuccess', function (Blueprint $table) {
+                $table->id();
+                $table->json('data')->nullable(true);
+                $table->string('subId')->nullable(true);
+                $table->string('total')->nullable(true);
+                $table->boolean('mail')->default(false);
+                $table->timestamp('created_at')->useCurrent();
+            });
+        }
+        $done = DB::table($shop_name[0] . '_billingAttemptSuccess')->select('*')->where('subId',$admin_graphql_api_id)->get()->count();
+        if(!$done){
+            DB::table($shop_name[0] . '_billingAttemptSuccess')->insert([
+                        'subId' =>$admin_graphql_api_id,
+                        'total' =>$orders['total'],
                 ]
             );
         }
-        $subscriptionContractId = $orders['subscriptionContractId'];
-        try {
-            $done = DB::table($shop_name[0] . '_subscriptioncontracts')->select('*')->where('subId',$subscriptionContractId)->get()->count();
-            if(!$done){
-                
-                $ciphering = "AES-128-CTR";
-                $iv_length = openssl_cipher_iv_length($ciphering);
-                $options = 0;
-                $encryption_iv = '1332425434231121';
-                $encryption_key = "easyitgkeyencryp";
-
-                if( isset( $orders['shippingAddress']['last_name'] ) ){
-                    $encryption_slast_name = $orders['shippingAddress']['last_name'];
-                    $encryptionslast_name = openssl_encrypt( $encryption_slast_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                    $orders['shippingAddress']['last_name'] = $encryptionslast_name;
-                }
-
-                if( isset( $orders['shippingAddress']['first_name'] ) ){
-                    $encryption_sfirst_name = $orders['shippingAddress']['first_name'];
-                    $encryptionsfirst_name = openssl_encrypt( $encryption_sfirst_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                    $orders['shippingAddress']['first_name'] = $encryptionsfirst_name;
-                }
-
-                if( isset( $orders['shippingAddress']['name'] ) ){
-                    $encryption_sname = $orders['shippingAddress']['name'];
-                    $encryptionsname = openssl_encrypt( $encryption_sname, $ciphering, $encryption_key, $options, $encryption_iv );
-                    $orders['shippingAddress']['name'] = $encryptionsname;
-                }
-
-                if( isset( $orders['billingAddress']['last_name'] ) ){
-                    $encryption_last_name = $orders['billingAddress']['last_name'];
-                    $encryptionlast_name = openssl_encrypt( $encryption_last_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                    $orders['billingAddress']['last_name'] = $encryptionlast_name;
-                }
-
-                if( isset( $orders['billingAddress']['first_name'] ) ){
-                    $encryption_first_name = $orders['billingAddress']['first_name'];
-                    $encryptionfirst_name = openssl_encrypt( $encryption_first_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                    $orders['billingAddress']['first_name'] = $encryptionfirst_name;
-                }
-                
-                if( isset( $orders['billingAddress']['name'] ) ){
-                    $encryption_name = $orders['billingAddress']['name'];
-                    $encryptionname = openssl_encrypt( $encryption_name, $ciphering, $encryption_key, $options, $encryption_iv );
-                    $orders['billingAddress']['name'] = $encryptionname;
-                }
-
-                if( isset( $orders['billingAddress']['phone'] ) ){
-                    $encryption_phone = $orders['billingAddress']['phone'];
-                    $encryptionphone = openssl_encrypt( $encryption_phone, $ciphering, $encryption_key, $options, $encryption_iv );
-                    $orders['billingAddress']['phone'] = $encryptionphone;
-                }
-
-                if( isset( $orders['shippingAddress']['phone'] ) ){
-                    $encryption_sphone = $orders['shippingAddress']['phone'];
-                    $encryptionsphone = openssl_encrypt( $encryption_sphone, $ciphering, $encryption_key, $options, $encryption_iv );
-                    $orders['shippingAddress']['phone'] = $encryptionsphone;
-                }
-                
-                DB::table($shop_name[0] . '_subscriptioncontracts')->insert([
-                            'subId' =>$subscriptionContractId,
-                            'data' => json_encode($orders),
-                            'status' => $status,
-                            'order_name' => $orders['name'],
-                            'name' => $encryptionname,
-                            'email' => $encryptionemail,
-                            'interval' => $interval,
-                            'total'=>$orders['total'],
-                            'intervalCount' => $intervalCount,
-                            'nextBillingDate' => $dateTimeUTC,
-                            'created_at' => $creteadDate,
-                            'created_at_sort'=>$created_at_sort
-                    ]
-                );
-
-                DB::table($shop_name[0] . '_billingAttempt')->insert([
-                        'subId' =>$subscriptionContractId,
-                        'status' => 'success',
-                        'total' => $orders['total'],
-                    ]
-                );
-                if (Schema::hasTable($shop_name[0] . '_notification_template')) {
-                    $mail = DB::table($shop_name[0] . '_notification_template')->select('*')->where('topic','order')->get()->toArray();
-                    if(empty($mail)){
-                        $mail = DB::table('default_mail')->select('*')->where('topic','order')->get()->toArray();
-                    }
-                }else{
-                    $mail = DB::table('default_mail')->select('*')->where('topic','order')->get()->toArray();
-                }
-                if(!empty($mail[0]->mail)){
-                    $orders['mailHtml'] = $mail[0]->mail;
-                    $orders['mail']['from_email'] = $mail[0]->from_email;
-                    $orders['mail']['from_name'] = $mail[0]->from_name;
-                    $orders['mail']['subject'] = $mail[0]->subject;
-                }else{
-                    $orders['mailHtml'] = '';
-                    $orders['mail']['from_email'] = '';
-                    $orders['mail']['from_name'] = '';
-                    $orders['mail']['subject'] = '';
-                }
-
-
-                Mail::to($email)->send(new OrderMail($orders));
-                //Log::error(new OrderMail($orders));
-                if (!Schema::hasTable($shop_name[0] . '_billingAttemptSuccess')) {
-                    Schema::create($shop_name[0] . '_billingAttemptSuccess', function (Blueprint $table) {
-                        $table->id();
-                        $table->json('data')->nullable(true);
-                        $table->string('subId')->nullable(true);
-                        $table->string('total')->nullable(true);
-                        $table->boolean('mail')->default(false);
-                        $table->timestamp('created_at')->useCurrent();
-                    });
-                }
-                $done = DB::table($shop_name[0] . '_billingAttemptSuccess')->select('*')->where('subId',$admin_graphql_api_id)->get()->count();
-                if(!$done){
-                    DB::table($shop_name[0] . '_billingAttemptSuccess')->insert([
-                                'subId' =>$admin_graphql_api_id,
-                                'total' =>$orders['total'],
-                        ]
-                    );
-                }
-            }
-        } catch (\Throwable $th) {
-            Log::error(['error'=>$th]);
-        }
-       return true;
-    } catch (\Throwable $th) {
-        Log::error(['error'=>$th]);
-    }
-    return true;
+    } 
 });
 
 Route::post('/api/subscriptioncontracts/update',function(Request $request){
