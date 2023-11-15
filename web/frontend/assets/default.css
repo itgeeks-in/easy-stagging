@@ -1245,7 +1245,7 @@ body.itgBody #app .app_index_in_head h5{
 }
 body.itgBody #app .app_index_in_row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 .itgBody #app .app_index_in .app_index_in_coloumn{
@@ -2099,7 +2099,7 @@ body.itgBody #app .itgWelcomeBack.privacyox .itgWelcomeFront .itgWelcomeButton{
         max-width: 100%;
     }
     body.itgBody #app .app_index_in_row{
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
     .itgBody #app .app_index_in_details{
         grid-template-columns: 1fr;
