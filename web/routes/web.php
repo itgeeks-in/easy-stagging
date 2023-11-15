@@ -569,7 +569,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     
 
     $croninfo = DB::table('easylog')->insert([
-        'data' => json_encode($restOrder);
+        'data' => json_encode($restOrder)
     ]);
 
     $order = $restOrder['order'];
