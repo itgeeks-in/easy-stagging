@@ -508,11 +508,6 @@ Route::post('/api/webhooks', function (Request $request) {
 });
 Route::post('/api/subscriptioncontracts', function (Request $request) {
 
-
-    $croninfo = DB::table('easylog')->insert([
-        'data' => '0'
-    ]);
-
     $hmacHeader = $request->header('X-Shopify-Hmac-SHA256');
     $secret = env('SHOPIFY_API_SECRET'); // Replace with your webhook secret
     $data = $request->getContent();
@@ -524,10 +519,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
         Log::warning('Webhook verification failed.');
        return response('Unauthorized', 401);
     }
-
-    $croninfo = DB::table('easylog')->insert([
-        'data' => '1'
-    ]);
 
     $decodeData = json_decode($data);
     $origin_order_id = $decodeData->origin_order_id;
@@ -578,7 +569,7 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     
 
     $croninfo = DB::table('easylog')->insert([
-        'data' => '2'
+        'data' => json_encode($restOrder);
     ]);
 
     $order = $restOrder['order'];
