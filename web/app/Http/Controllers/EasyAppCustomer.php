@@ -18,6 +18,10 @@ class EasyAppCustomer extends Controller
         $allDataContent = json_encode($allDataContent);
         $allDataContent = json_decode($allDataContent,true);
 
+        echo '<pre>';
+            print_r($allDataContent);
+        echo '</pre>';
+
         if( is_null( $allDataContent['logged_in_customer_id'] ) ){
             return '';
         }else{
