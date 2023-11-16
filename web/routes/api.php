@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Shopify\Clients\Rest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\PendingMail;
+use App\Http\Controllers\EasyAppCustomer;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,9 +21,7 @@ use App\Http\Controllers\PendingMail;
 |
 */
 
-Route::get('/easycustomer', function () {
-    return "Hello API";
-});
+Route::any('/easycustomer', [EasyAppCustomer::class, 'showData']);
 
 Route::get('/', function () {
     return "Hello API";
