@@ -16,7 +16,7 @@ class EasyAppCustomer extends Controller
 
         $allDataContent = $request->all();
         $allDataContent = json_encode($allDataContent);
-        $allDataContent = json_decode($allDataContent);
+        $allDataContent = json_decode($allDataContent,true);
 
         $croninfo = DB::table('easylog')->insert([
             'data' => json_encode($allDataContent)
