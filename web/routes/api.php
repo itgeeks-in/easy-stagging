@@ -20,6 +20,10 @@ use App\Http\Controllers\PendingMail;
 |
 */
 
+Route::get('/easycustomer', function () {
+    return "Hello API";
+});
+
 Route::get('/', function () {
     return "Hello API";
 });
