@@ -21,7 +21,7 @@ use App\Http\Controllers\EasyAppCustomer;
 |
 */
 
-Route::any('/easycustomer', [EasyAppCustomer::class, 'showData'])->middleware('shopify.auth');
+Route::any('/easycustomer', [EasyAppCustomer::class, 'showData']);
 
 Route::get('/', function () {
     return "Hello API";
