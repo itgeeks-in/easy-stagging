@@ -13,6 +13,6 @@ class EasyAppCustomer extends Controller
         // Example: $data = YourModel::all();
 
         // Return the data to the Shopify template.
-        return view('shopify.template', ['data' => $data]);
+        return view('shopify.template', ['data' => '']);
     }
 }
