@@ -3360,6 +3360,7 @@ Route::post('/api/easy-subscription/settings/subscription_mail_activation/update
     }
     return response($result);
 })->middleware('shopify.auth');
+
 Route::post('/api/easy-subscription/testmail',function(Request $request){
     $session = $request->get('shopifySession');
     $shop = $session->getShop();
@@ -3397,6 +3398,7 @@ Route::post('/api/easy-subscription/testmail',function(Request $request){
     return response()->json(['status'=>true]);
     dd("Email is sent successfully.");
 })->middleware('shopify.auth');
+
 Route::post('/api/easy-subscription/previewmail',function(Request $request){
     $topic = $request['topic'];
     $data = DB::table('dummy_data')->select('data')->where('topic',$topic)->get()->toArray();
