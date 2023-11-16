@@ -22,23 +22,29 @@ class EasyAppCustomer extends Controller
             print_r($allDataContent);
         echo '</pre>';
 
-        if( is_null( $allDataContent['logged_in_customer_id'] ) ){
-            return '';
-        }else{
-            if( isset( $allDataContent['shop'] ) && isset( $allDataContent['signature'] ) ){
-    
-                $croninfo = DB::table('easylog')->insert([
-                    'data' => json_encode($allDataContent)
-                ]); 
-    
-                // Return the data to the Shopify template.
-                return view('shopify.template', ['data' => '']);
-    
-            }else{
-    
+        if( !empty( $allDataContent ) ){
+
+            if( empty( $allDataContent['logged_in_customer_id'] ) ){
                 return '';
-    
+            }else{
+                if( isset( $allDataContent['shop'] ) && isset( $allDataContent['signature'] ) ){
+        
+                    $croninfo = DB::table('easylog')->insert([
+                        'data' => json_encode($allDataContent)
+                    ]); 
+        
+                    // Return the data to the Shopify template.
+                    return view('shopify.template', ['data' => '']);
+        
+                }else{
+        
+                    return '';
+        
+                }
             }
+
+        }else{
+            return '';
         }
 
     }
