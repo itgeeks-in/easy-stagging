@@ -29,13 +29,24 @@ class EasyAppCustomer extends Controller
 
                     $signature = $allDataContent['signature'];
 
+
+                    echo '<pre>';
+                        print_r($allDataContent);
+                    echo '</pre>';
+
                     unset($allDataContent['signature']);
 
                     ksort($allDataContent);
 
-                    $sortedParams = http_build_query($allDataContent);
+                    $data = implode('', array_map(
+                        function ($value, $key) {
+                            return $key . '=' . $value;
+                        },
+                        $allDataContent,
+                        array_keys($allDataContent)
+                    ));
 
-                    $calculatedSignature = hash_hmac('sha256', $sortedParams, $sharedSecret);
+                    $calculatedSignature = hash_hmac('sha256', $data, $sharedSecret);
 
                     echo '<pre>';
                         print_r($allDataContent);
@@ -46,13 +57,9 @@ class EasyAppCustomer extends Controller
                     echo $signature;
 
                     if (hash_equals($signature, $calculatedSignature)) {
-        
-                        $croninfo = DB::table('easylog')->insert([
-                            'data' => json_encode($allDataContent)
-                        ]); 
-            
-                        // Return the data to the Shopify template.
-                        return view('shopify.template', ['data' => '']);
+                        
+                        return response('Authorized', 200);
+                        
                     }else{
 
                         return response('Unauthorized', 401);
