@@ -21,7 +21,7 @@ class EasyAppCustomer extends Controller
         if( !empty( $allDataContent ) ){
 
             if( empty( $allDataContent['logged_in_customer_id'] ) ){
-                return response('Unauthorized', 401);
+                return response('', 401);
             }else{
                 if( isset( $allDataContent['shop'] ) && isset( $allDataContent['signature'] ) ){
 
@@ -46,19 +46,19 @@ class EasyAppCustomer extends Controller
                         return view('shopify.template', ['data' => '']);
                     }else{
 
-                        return response('Unauthorized', 401);
+                        return response('', 401);
 
                     }
         
                 }else{
         
-                    return response('Unauthorized', 401);
+                    return response('', 401);
         
                 }
             }
 
         }else{
-            return response('Unauthorized', 401);
+            return response('', 401);
         }
 
     }
