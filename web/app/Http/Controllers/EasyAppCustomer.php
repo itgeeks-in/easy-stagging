@@ -36,6 +36,11 @@ class EasyAppCustomer extends Controller
                     $sortedParams = http_build_query($allDataContent);
 
                     $calculatedSignature = hash_hmac('sha256', $sortedParams, $sharedSecret);
+
+                    echo '<pre>';
+                        print_r($allDataContent);
+                    echo '</pre>';
+
                     if (hash_equals($signature, $calculatedSignature)) {
         
                         $croninfo = DB::table('easylog')->insert([
