@@ -41,6 +41,10 @@ class EasyAppCustomer extends Controller
                         print_r($allDataContent);
                     echo '</pre>';
 
+                    echo $calculatedSignature;
+                    echo '<br>';
+                    echo $signature;
+
                     if (hash_equals($signature, $calculatedSignature)) {
         
                         $croninfo = DB::table('easylog')->insert([
