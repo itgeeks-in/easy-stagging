@@ -29,11 +29,6 @@ class EasyAppCustomer extends Controller
 
                     $signature = $allDataContent['signature'];
 
-
-                    echo '<pre>';
-                        print_r($allDataContent);
-                    echo '</pre>';
-
                     unset($allDataContent['signature']);
 
                     ksort($allDataContent);
@@ -48,16 +43,8 @@ class EasyAppCustomer extends Controller
 
                     $calculatedSignature = hash_hmac('sha256', $data, $sharedSecret);
 
-                    echo '<pre>';
-                        print_r($allDataContent);
-                    echo '</pre>';
-
-                    echo $calculatedSignature;
-                    echo '<br>';
-                    echo $signature;
-
                     if (hash_equals($signature, $calculatedSignature)) {
-                        
+
                         return response('Authorized', 200);
                         
                     }else{
