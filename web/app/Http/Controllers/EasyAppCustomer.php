@@ -18,33 +18,47 @@ class EasyAppCustomer extends Controller
         $allDataContent = json_encode($allDataContent);
         $allDataContent = json_decode($allDataContent,true);
 
-        echo '<pre>';
-            print_r($allDataContent);
-        echo '</pre>';
-
         if( !empty( $allDataContent ) ){
 
             if( empty( $allDataContent['logged_in_customer_id'] ) ){
-                return '';
+                return response('Unauthorized', 401);
             }else{
                 if( isset( $allDataContent['shop'] ) && isset( $allDataContent['signature'] ) ){
+
+                    $sharedSecret = env('SHOPIFY_API_SECRET');
+
+                    $signature = $allDataContent['signature'];
+
+                    unset($allDataContent['signature']);
+
+                    ksort($allDataContent);
+
+                    $sortedParams = http_build_query($allDataContent);
+
+                    $calculatedSignature = hash_hmac('sha256', $sortedParams, $sharedSecret);
+                    if (hash_equals($signature, $calculatedSignature)) {
         
-                    $croninfo = DB::table('easylog')->insert([
-                        'data' => json_encode($allDataContent)
-                    ]); 
-        
-                    // Return the data to the Shopify template.
-                    return view('shopify.template', ['data' => '']);
+                        $croninfo = DB::table('easylog')->insert([
+                            'data' => json_encode($allDataContent)
+                        ]); 
+            
+                        // Return the data to the Shopify template.
+                        return view('shopify.template', ['data' => '']);
+                    }else{
+
+                        return response('Unauthorized', 401);
+
+                    }
         
                 }else{
         
-                    return '';
+                    return response('Unauthorized', 401);
         
                 }
             }
 
         }else{
-            return '';
+            return response('Unauthorized', 401);
         }
 
     }
