@@ -1526,7 +1526,7 @@ body.itgBody #app .itgSubscriptionCustomersHead .itgOrderSearch{
 }
 body.itgBody #app .itgCustomerDataTable .itgCustomerDataHeader, body.itgBody #app .itgCustomerDataContent .itgCustomerContentRow {
     display: grid;
-    grid-template-columns: 25% 30% 15% 15% 15%;
+    grid-template-columns: 30% 40% 15% 15%;
 }
 body.itgBody #app .itgCustomerDataTable .itgCustomerDataHeader .itgCustomerDataTableBox,
 body.itgBody #app .itgCustomerDataContent .itgCustomerContentRow .itgCustomerDataTableBox{
