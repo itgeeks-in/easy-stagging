@@ -21,17 +21,20 @@ class EasyAppCustomer extends Controller
         if( !empty( $allDataContent ) ){
 
             if( empty( $allDataContent['logged_in_customer_id'] ) ){
+
                 return response('Unauthorized', 401);
+
             }else{
+
                 if( isset( $allDataContent['shop'] ) && isset( $allDataContent['signature'] ) ){
 
                     $sharedSecret = env('SHOPIFY_API_SECRET');
 
                     $signature = $allDataContent['signature'];
 
-                    unset($allDataContent['signature']);
+                    unset( $allDataContent['signature'] );
 
-                    ksort($allDataContent);
+                    ksort( $allDataContent );
 
                     $data = implode('', array_map(
                         function ($value, $key) {
@@ -45,7 +48,9 @@ class EasyAppCustomer extends Controller
 
                     if (hash_equals($signature, $calculatedSignature)) {
 
-                        return response('Authorized', 200);
+                        $customerId  = $allDataContent['logged_in_customer_id'];
+
+                        return view('shopify.template', ['data' => '']);
                         
                     }else{
 

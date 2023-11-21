@@ -1,6 +1,6 @@
 addEventListener('DOMContentLoaded',(e)=>{
     let lineItemsHtml;
-    let url = 'https://easysubscription-pemp5.ondigitalocean.app';
+    let url = 'https://app.easysubscription.io';
     let easySubscriptionShowMore;
     let easySubscriptionMannage = document.getElementById('easySubscriptionMannage');
     let easySubscriptionWidgetModelIn = document.getElementById('easySubscriptionWidgetModelIn');
