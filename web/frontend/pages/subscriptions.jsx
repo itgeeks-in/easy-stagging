@@ -505,7 +505,7 @@ export default function Groups() {
                         </div>
                         {showCustomerDetailsData.status=='ACTIVE'?<>
                         <div className="itgCustomerOrdersNextOrder">
-                          <h3 className={changeStatus?"itgCustomerSubscriptionStatusLowOp":""}>Next Order : {showCustomerDetailsData.nextBillingDate} {showCustomerDetailsData.total}</h3>
+                          <h3 className={changeStatus?"itgCustomerSubscriptionStatusLowOp":""}>Next Order : {showCustomerDetailsData.nextBillingDate}</h3>
                           <div>
                           {allowRetry? <>
                             {showCustomerDetailsData.pendingSubscriptionId != ''?
@@ -527,10 +527,9 @@ export default function Groups() {
                               <label>Date</label>
                             </div>
                             <div className="itgCustomerOrdersHead">
-                              <label>Total</label>
+                              <label>Status</label>
                             </div>
                             <div className="itgCustomerOrdersHead">
-                              <label>Status</label>
                             </div>
                           </div>
                           <div className="itgCustomerOrdersDataContent">
@@ -548,11 +547,6 @@ export default function Groups() {
                                     <div className="itgCustomerOrdersDataTableBox">
                                         <span>
                                           {createdAt}
-                                        </span>
-                                    </div>
-                                    <div className="itgCustomerOrdersDataTableBox">
-                                        <span>
-                                          {total}
                                         </span>
                                     </div>
                                     <div className="itgCustomerOrdersDataTableBox">
