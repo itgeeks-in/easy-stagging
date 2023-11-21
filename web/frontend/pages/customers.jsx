@@ -164,9 +164,6 @@ export default function Index() {
                         <label>Active Plan</label>
                       </div>
                       <div className="itgCustomerDataTableBox">
-                        <label>Spent</label>
-                      </div>
-                      <div className="itgCustomerDataTableBox">
                         <label></label>
                       </div>
                     </div>
@@ -186,9 +183,6 @@ export default function Index() {
                               </div>
                               <div className="itgCustomerDataTableBox">
                                   <span>{activePlans}</span>
-                              </div>
-                              <div className="itgCustomerDataTableBox">
-                                  <span>{currency} {total.toFixed(2)}</span>
                               </div>
                               <div className="itgCustomerDataTableBox">
                                   <span className="itg-Customer-action">
