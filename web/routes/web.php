@@ -567,11 +567,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     QUERY;
     $result = $client->query(['query' => $query]);
     $data = $result->getDecodedBody();
-    
-
-    $croninfo = DB::table('easylog')->insert([
-        'data' => json_encode($restOrder)
-    ]);
 
     $order = $restOrder['order'];
 
@@ -604,10 +599,6 @@ Route::post('/api/subscriptioncontracts', function (Request $request) {
     $resultShop = $clientRest->get('shop', [], $arrays);
 
     $resultShop = $resultShop->getDecodedBody();
-
-    $croninfo = DB::table('easylog')->insert([
-        'data' => '3'
-    ]);
     
     $orders['shop']=$resultShop['shop']['name'];
     $orders['shopurl']=$shop_name[0];
@@ -2241,9 +2232,6 @@ Route::get('/api/getsubscription', function (Request $request) {
     $result = $client->query(['query' => $query]);
     $data = $result->getDecodedBody();
 
-    $croninfo = DB::table('easylog')->insert([
-        'data' => json_encode($data)
-    ]);
     $customerdata = $data['data']['subscriptionContract']['customer'];
     $Unformattedorders = $data['data']['subscriptionContract']['orders']['edges'];
     $orders = [];
