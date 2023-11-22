@@ -2049,7 +2049,7 @@ Route::post('/api/getsubscriptions', function (Request $request) {
             for($i=0;$i<count($records);$i++){
                 $date = $records[$i]->created_at;
                 $date=date_create($date);
-                $records[$i]->created_at=date_format($date,"M d,Y");
+                $records[$i]->created_at=date_format($date,"M d, Y");
                 $encryptionname = $records[$i]->name;
                 $encryptionemail = $records[$i]->email;
                 $ciphering = "AES-128-CTR";
@@ -2090,7 +2090,7 @@ Route::post('/api/getsubscriptions', function (Request $request) {
             for($i=0;$i<count($records);$i++){
                 $date = $records[$i]->created_at;
                 $date=date_create($date);
-                $records[$i]->created_at=date_format($date,"M d,Y");
+                $records[$i]->created_at=date_format($date,"M d, Y");
                 $encryptionname = $records[$i]->name;
                 $encryptionemail = $records[$i]->email;
                 $ciphering = "AES-128-CTR";
@@ -2154,7 +2154,7 @@ Route::post('/api/getsubscriptions', function (Request $request) {
         for($i=0;$i<count($records);$i++){
             $date = $records[$i]->created_at;
             $date=date_create($date);
-            $records[$i]->created_at=date_format($date,"M d,Y");
+            $records[$i]->created_at=date_format($date,"M d, Y");
             $encryptionname = $records[$i]->name;
             $encryptionemail = $records[$i]->email;
             $ciphering = "AES-128-CTR";
