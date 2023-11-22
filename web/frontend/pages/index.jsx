@@ -18,6 +18,7 @@ export default function Index() {
   const [selectedValueInterval, setSelectedValueInterval] = useState("WEEK");
   const [selectedTextInterval, setSelectedTextInterval] = useState("WEEK");
   const [cstmSlctOptionsTypeInterval, setCstmSlctOptionsTypeInterval] = useState(false);
+  
   useEffect(()=>{
     setOnPage(true);  
     if(activityContext.activity !== ' '){

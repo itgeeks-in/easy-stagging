@@ -2585,6 +2585,7 @@ Route::get('/api/index/data',function( Request $request){
                 }
             }
         }
+        $orderTCount = 0;
         $getTotalAfter = DB::table($shop_name[0].'_subscriptioncontracts')->select('total','nextBillingDate','interval','intervalCount')->where('nextBillingDate','<',$sevenDayAfter)->where('status','ACTIVE')->get()->toArray();
         foreach($getTotalAfter as $TotalAfter){
             $newTotalBefore = 0;
@@ -2596,6 +2597,7 @@ Route::get('/api/index/data',function( Request $request){
                 $underSevenDay = date('Y-m-d', strtotime($underSevenDay.'+'.$TotalAfter->intervalCount.' '.$TotalAfter->interval));
                 if(!empty($newTotalBefore[0])){
                     $totalsumAfter += $newTotalBefore[0][0];
+                    $orderTCount++;
                 }
             }
         }
@@ -2605,7 +2607,7 @@ Route::get('/api/index/data',function( Request $request){
             $currency = '';
         }
         $orderCount = count($getDBDataBefore);
-        $orderAfterCount = count($getTotalAfter);
+        $orderAfterCount = count($orderTCount);
     }else{
         $orderCount = 0;
         $orderAfterCount = 0;
@@ -2614,6 +2616,7 @@ Route::get('/api/index/data',function( Request $request){
         $totalsumAfter = 0;
     }
     return response()->json(['count'=>$orderCount,'currency'=>$currency,'totalsumBefore'=>$totalsumBefore,'totalsumAfter'=>$totalsumAfter,'orderAfterCount'=>$orderAfterCount]);
+
 })->middleware('shopify.auth');
 
 Route::get('/api/subscriptionContract/update/status',function( Request $request){
