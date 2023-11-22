@@ -158,6 +158,7 @@ export default function Groups() {
     }).then((response) => {
       if(Object.keys(response).length !== 0){
         setShowCustomerDetailsData(response);
+        console.log(response);
       }else{
         setShowCustomerDetails(false);
       }
