@@ -2595,7 +2595,7 @@ Route::get('/api/index/data',function( Request $request){
             $currency = '';
         }
         $orderCount = count($getDBDataBefore);
-        $orderAfterCount = $orderTCount-1;
+        $orderAfterCount = $orderTCount;
     }else{
         $orderCount = 0;
         $orderAfterCount = 0;
