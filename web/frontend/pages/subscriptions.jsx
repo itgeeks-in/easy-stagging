@@ -85,7 +85,6 @@ export default function Groups() {
           }
           subscriptionFilterOptions({...subscriptionFilter,query:query, hasNextPage:hasNextPage, hasPreviousPage:hasPreviousPage});
           getsubscriptionOptions({...getsubscription, data:response, loading:false});
-          console.log(response);
         }
       })
       .catch((err) => {
