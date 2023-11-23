@@ -1,73 +1,50 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
 
 class EasyAppCustomer extends Controller
 {
     public function showData(Request $request)
     {
-        // Fetch data from your Laravel application.
-
-        // Example: $data = YourModel::all();
-
         $allDataContent = $request->all();
-        $allDataContent = json_encode($allDataContent);
-        $allDataContent = json_decode($allDataContent,true);
 
-        if( !empty( $allDataContent ) ){
+        // Validate the incoming data or use request validation rules
 
-            if( empty( $allDataContent['logged_in_customer_id'] ) ){
-
-                return response('Unauthorized', 401);
-
-            }else{
-
-                if( isset( $allDataContent['shop'] ) && isset( $allDataContent['signature'] ) ){
-
-                    $sharedSecret = env('SHOPIFY_API_SECRET');
-
-                    $signature = $allDataContent['signature'];
-
-                    unset( $allDataContent['signature'] );
-
-                    ksort( $allDataContent );
-
-                    $data = implode('', array_map(
-                        function ($value, $key) {
-                            return $key . '=' . $value;
-                        },
-                        $allDataContent,
-                        array_keys($allDataContent)
-                    ));
-
-                    $calculatedSignature = hash_hmac('sha256', $data, $sharedSecret);
-
-                    if (hash_equals($signature, $calculatedSignature)) {
-
-                        $customerId  = $allDataContent['logged_in_customer_id'];
-
-                        return view('shopify.template')->with('data', $allDataContent);;
-                        
-                    }else{
-
-                        return response('Unauthorized', 401);
-
-                    }
-        
-                }else{
-        
-                    return response('Unauthorized', 401);
-        
-                }
-            }
-
-        }else{
-            return response('Unauthorized', 401);
+        if (empty($allDataContent['logged_in_customer_id'])) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        if (isset($allDataContent['shop']) && isset($allDataContent['signature'])) {
+            if ($this->validateSignature($allDataContent)) {
+                $customerId = $allDataContent['logged_in_customer_id'];
+                return view('shopify.template')->with('data', $allDataContent);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    private function validateSignature(array $data): bool
+    {
+        $sharedSecret = env('SHOPIFY_API_SECRET');
+        $signature = $data['signature'];
+
+        unset($data['signature']);
+        ksort($data);
+
+        $dataString = implode('', array_map(
+            function ($value, $key) {
+                return $key . '=' . $value;
+            },
+            $data,
+            array_keys($data)
+        ));
+
+        $calculatedSignature = hash_hmac('sha256', $dataString, $sharedSecret);
+
+        return hash_equals($signature, $calculatedSignature);
     }
 }
