@@ -30,9 +30,6 @@ addEventListener('DOMContentLoaded',(e)=>{
             easySubscriptionWidgetShowFilter.setAttribute('value',e.target.value);
         })
     }
-    document.getElementById('easySubscriptionClosebtn').addEventListener('click',()=>{
-        document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="none";
-    });
     document.getElementById('easySubscriptionInnerClosebtn').addEventListener('click',()=>{
         easySubscriptionSubscriptionModel.style.display="none";
         document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="none";
