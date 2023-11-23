@@ -207,5 +207,6 @@ addEventListener('DOMContentLoaded',(e)=>{
     easySubscriptionMannage.addEventListener('click',(e)=>{
         easySubscriptionMannage.classList.add("loading");
         getCutomerSubscriptions();
-    })
+    });
+    easySubscriptionMannage.dispatchEvent(new Event('click'));
 })
