@@ -71,10 +71,6 @@ addEventListener('DOMContentLoaded',(e)=>{
                                     <div class="easySubscriptionWidgetModelInLineitemsPriceDetails">
                                         <label id="easySubscriptionProductTitle">`+productTitle+`</label>
                                         <div class="easySubscriptionProductPriceQuantity">
-                                            <div class="easySubscriptionProductPrice">
-                                                <label>Price:</label>
-                                                <span>`+productCurrency+` `+totalPrice+`</span>
-                                            </div>
                                             <div class="easySubscriptionProductQuantity">
                                                 <label>Quantity:</label>
                                                 <span>`+productQuantity+`</span>
@@ -86,12 +82,6 @@ addEventListener('DOMContentLoaded',(e)=>{
                                     <div class="easySubscriptionOrderFrequency">
                                         <label>Order frequency:</label>
                                         <span id="easySubscriptionOrderFrequencyTime">`+intervalCount+` `+interval+`</span>
-                                    </div>
-                                </div>
-                                <div class="easySubscriptionWidgetModelInLineitemsDetailsIn">
-                                    <div class="easySubscriptionOrderTotal">
-                                        <label>Total:</label>
-                                        <span id="easySubscriptionOrderTotalPrice">`+total+`</span>
                                     </div>
                                 </div>
                                 <div class="easySubscriptionWidgetModelInLineitemsDetailsIn">
