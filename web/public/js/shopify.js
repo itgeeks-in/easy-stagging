@@ -70,18 +70,18 @@ addEventListener('DOMContentLoaded',(e)=>{
                                     </div>
                                     <div class="easySubscriptionWidgetModelInLineitemsPriceDetails">
                                         <label id="easySubscriptionProductTitle">`+productTitle+`</label>
-                                        <div class="easySubscriptionProductPriceQuantity">
-                                            <div class="easySubscriptionProductQuantity">
-                                                <label>Quantity:</label>
-                                                <span>`+productQuantity+`</span>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="easySubscriptionWidgetModelInLineitemsDetailsIn">
                                     <div class="easySubscriptionOrderFrequency">
                                         <label>Order frequency:</label>
                                         <span id="easySubscriptionOrderFrequencyTime">`+intervalCount+` `+interval+`</span>
+                                    </div>
+                                </div>
+                                <div class="easySubscriptionWidgetModelInLineitemsDetailsIn">
+                                    <div class="easySubscriptionOrderTotal">
+                                        <label>Quantity:</label>
+                                        <span>`+productQuantity+`</span>
                                     </div>
                                 </div>
                                 <div class="easySubscriptionWidgetModelInLineitemsDetailsIn">
