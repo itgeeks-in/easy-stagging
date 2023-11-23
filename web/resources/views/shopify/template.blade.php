@@ -8,6 +8,15 @@
         <script src="{{ asset('js/shopify.js') }}"></script>
     </head>
     <body>
+    @if(isset($data) && is_array($data))
+        <ul>
+            @foreach($data as $key => $value)
+                <li>{{ $key }}: {{ $value }}</li>
+            @endforeach
+        </ul>
+    @else
+        <p>No data available</p>
+    @endif
         <button class="btn button" id="easySubscriptionMannage">Manage Subscriptions</button>
         <div class="easySubscriptionWidget">
             <div class="easySubscriptionWidgetIn">
