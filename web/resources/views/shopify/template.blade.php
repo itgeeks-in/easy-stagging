@@ -9,7 +9,7 @@
     </head>
     <body>
     @if( isset($data) && isset($data['shop']) && isset($data['logged_in_customer_id']) )
-        <button class="btn button" id="easySubscriptionMannage" email="{{ $data['logged_in_customer_id'] }}" value="{{ $data['shop'] }}">Manage Subscriptions</button>
+        <button class="btn button" id="easySubscriptionMannage" email="{{ $data['logged_in_customer_id'] }}" value="{{ str_replace('.myshopify.com', '', $data['shop']) }}">Manage Subscriptions</button>
         <div class="easySubscriptionWidget">
             <div class="easySubscriptionWidgetIn">
                 <div class="easySubscriptionWidgetModel" style="display:none;">
