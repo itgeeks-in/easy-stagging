@@ -8,7 +8,7 @@
         <script src="{{ asset('js/shopify.js') }}"></script>
     </head>
     <body>
-    @if(isset($data) && is_array($data))
+    
         <ul>
             @foreach($data as $key => $value)
                 <li>{{ $key }}: {{ $value }}</li>
@@ -16,7 +16,10 @@
         </ul>
     @else
         <p>No data available</p>
-    @endif
+    @if( isset($data) && isset($data['shop']) && isset($data['logged_in_customer_id']) )
+
+        {{ $data['logged_in_customer_id'] }}
+        {{ $data['shop'] }}
         <button class="btn button" id="easySubscriptionMannage">Manage Subscriptions</button>
         <div class="easySubscriptionWidget">
             <div class="easySubscriptionWidgetIn">
@@ -46,5 +49,6 @@
                 </div>
             </div>
         </div>
+    @endif
     </body>
 </html>
