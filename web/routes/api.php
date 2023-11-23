@@ -247,6 +247,14 @@ Route::post('customerdata',function(Request $request){
     $subscriptionContracts = [];
     $authShop = $sessions[0]->shop;
     $authTokken = $sessions[0]->access_token;
+    $clientRest = new Rest($authShop, $authTokken);
+    $restCustomer = $clientRest->get('customers/'.$email);
+
+
+    DB::table('easylog')->insert([
+        'data' =>json_encode($restCustomer)
+    ]);
+
     $encryption_email = $email;
     $ciphering = "AES-128-CTR";
     $iv_length = openssl_cipher_iv_length($ciphering);
