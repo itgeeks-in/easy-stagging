@@ -252,7 +252,7 @@ Route::post('customerdata',function(Request $request){
 
 
     DB::table('easylog')->insert([
-        'data' =>json_encode($restCustomer)
+        'data' =>json_encode($restCustomer->getDecodedBody())
     ]);
 
     $encryption_email = $email;
