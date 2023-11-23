@@ -149,6 +149,8 @@ span.status-CANCELLED{
 }
 .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetails .easySubscriptionWidgetModelInLineitemsDetailsIn:last-child {
     padding-right: 0;
+    display: flex;
+    justify-content: flex-end;
 }
 .easySubscriptionLineItems .easySubscriptionWidgetModelInLineitemsDetailsIn {
     position: relative;

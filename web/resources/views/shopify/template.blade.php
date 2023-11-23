@@ -15,7 +15,6 @@
                     <div class="easySubscriptionWidgetModelInner">
                         <div class="easySubscriptionWidgetModelInnerTitle">
                             <h3 class="title">Subscriptions</h3>
-                            <button type="button" class="btn button" id="easySubscriptionClosebtn">Close</button>
                         </div>
                         <div id="easySubscriptionWidgetModelIn" class="easySubscriptionWidgetModelIn">
                             <div class="easySubscriptionWidgetModelInstatusfilters">
