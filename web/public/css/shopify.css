@@ -3,6 +3,9 @@
 body{
     font-family: 'Poppins', sans-serif;
 }
+body div{
+    box-sizing: border-box;
+}
 .easySubscriptionWidget {
     position: relative;
     width: 100%;
