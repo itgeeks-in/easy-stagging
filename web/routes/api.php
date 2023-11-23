@@ -248,14 +248,20 @@ Route::post('customerdata',function(Request $request){
     $authShop = $sessions[0]->shop;
     $authTokken = $sessions[0]->access_token;
     $clientRest = new Rest($authShop, $authTokken);
-    $restCustomer = $clientRest->get('customers/'.$email);
+    $arrays = array(
+        'fields' => 'email'
+    );
+    $restCustomer = $clientRest->get('customers/'.$email,[],$arrays);
 
+    $restCustomerDecode = $restCustomer->getDecodedBody();
 
     DB::table('easylog')->insert([
         'data' =>json_encode($restCustomer->getDecodedBody())
     ]);
 
-    $encryption_email = $email;
+    $restCustomerDecodeEmail = $restCustomerDecode['customer']['email'];
+
+    $encryption_email = $restCustomerDecodeEmail;
     $ciphering = "AES-128-CTR";
     $iv_length = openssl_cipher_iv_length($ciphering);
     $options = 0;
