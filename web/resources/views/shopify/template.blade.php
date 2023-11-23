@@ -9,13 +9,6 @@
     </head>
     <body>
     
-        <ul>
-            @foreach($data as $key => $value)
-                <li>{{ $key }}: {{ $value }}</li>
-            @endforeach
-        </ul>
-    @else
-        <p>No data available</p>
     @if( isset($data) && isset($data['shop']) && isset($data['logged_in_customer_id']) )
 
         {{ $data['logged_in_customer_id'] }}
