@@ -291,8 +291,7 @@ span.status-CANCELLED{
 <body>
 <div class="easySubscriptionWidget">
   <div class="easySubscriptionWidgetIn">
-      <button class="btn button" id="easySubscriptionMannage" data-url="" email="akashsharma@itgeeks.com" value="app-test-itg">Manage Subscriptions</button>
-      <div class="easySubscriptionWidgetModel" style="display: block;">
+      <div class="easySubscriptionWidgetModel">
           <div class="easySubscriptionWidgetModelInner">
             <div class="easySubscriptionWidgetModelInnerTitle">
                 <h3 class="title">Subscriptions</h3>
