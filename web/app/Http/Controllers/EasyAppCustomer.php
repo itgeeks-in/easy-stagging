@@ -50,7 +50,7 @@ class EasyAppCustomer extends Controller
 
                         $customerId  = $allDataContent['logged_in_customer_id'];
 
-                        return view('shopify.template', ['data' => '']);
+                        return view('shopify.template')->with('data', $allDataContent);;
                         
                     }else{
 
