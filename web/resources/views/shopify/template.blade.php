@@ -8,7 +8,6 @@
         <script src="{{ asset('js/shopify.js') }}"></script>
     </head>
     <body>
-    
     @if( isset($data) && isset($data['shop']) && isset($data['logged_in_customer_id']) )
         <button class="btn button" id="easySubscriptionMannage" email="{{ $data['logged_in_customer_id'] }}" value="{{ $data['shop'] }}">Manage Subscriptions</button>
         <div class="easySubscriptionWidget">
