@@ -28,10 +28,10 @@
                 </div> 
                 <div id="easySubscriptionSubscriptionModel" style="display:none;" class="easySubscriptionSubscriptionModel">
                     <div id="easySubscriptionSubscriptionModelInner" class="easySubscriptionSubscriptionModelInner">
-                    <div class="easySubscriptionWidgetModelInnerTitle">
-                        <h3 class="title">Subscription <span id="easySubscriptionId"></span></h3>
-                        <button type="button" class="btn button" id="easySubscriptionInnerClosebtn">Close</button>
-                    </div>
+                        <div class="easySubscriptionWidgetModelInnerTitle">
+                            <h3 class="title">Subscription <span id="easySubscriptionId"></span></h3>
+                            <button type="button" class="btn button" id="easySubscriptionInnerClosebtn">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>

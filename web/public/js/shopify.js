@@ -31,6 +31,7 @@ addEventListener('DOMContentLoaded',(e)=>{
         })
     }
     document.getElementById('easySubscriptionInnerClosebtn').addEventListener('click',()=>{
+        easySubscriptionMannage.dispatchEvent(new Event('click'));
         easySubscriptionSubscriptionModel.style.display="none";
         document.getElementsByClassName('easySubscriptionWidgetModel')[0].style.display="none";
     });
@@ -136,7 +137,6 @@ addEventListener('DOMContentLoaded',(e)=>{
                                 <label>Order</label>
                             </div>
                             <div class="easyCustomerOrdersHead"><label>Date</label></div>
-                            <div class="easyCustomerOrdersHead"><label>Total</label></div>
                             <div class="easyCustomerOrdersHead"><label>Type</label></div>
                         </div>
                         <div class="easyCustomerOrdersDataContent">
@@ -154,7 +154,6 @@ addEventListener('DOMContentLoaded',(e)=>{
                         `<div class="easyCustomerOrdersDataTableBoxRow">
                             <div class="easyCustomerOrdersDataTableBox"><span>`+name+`</span></div>
                             <div class="easyCustomerOrdersDataTableBox"><span>`+createdAt+`</span></div>
-                            <div class="easyCustomerOrdersDataTableBox"><span>`+total+`</span></div>
                             <div class="easyCustomerOrdersDataTableBox"><span>Every `+data1.intervalCount+` `+data1.interval+`</span></div>
                         </div>`
                     )
