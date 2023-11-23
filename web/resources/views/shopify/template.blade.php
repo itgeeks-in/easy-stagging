@@ -8,7 +8,7 @@
         <script src="{{ asset('js/shopify.js') }}"></script>
     </head>
     <body>
-        <button class="btn button" id="easySubscriptionMannage" data-id="{{ data['logged_in_customer_id'] }}" value="{{ data['shop'] }}">Manage Subscriptions</button>
+        <button class="btn button" id="easySubscriptionMannage">Manage Subscriptions</button>
         <div class="easySubscriptionWidget">
             <div class="easySubscriptionWidgetIn">
                 <div class="easySubscriptionWidgetModel" style="display:none;">
