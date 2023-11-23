@@ -10,10 +10,7 @@
     <body>
     
     @if( isset($data) && isset($data['shop']) && isset($data['logged_in_customer_id']) )
-
-        {{ $data['logged_in_customer_id'] }}
-        {{ $data['shop'] }}
-        <button class="btn button" id="easySubscriptionMannage">Manage Subscriptions</button>
+        <button class="btn button" id="easySubscriptionMannage" email="{{ $data['logged_in_customer_id'] }}" value="{{ $data['shop'] }}">Manage Subscriptions</button>
         <div class="easySubscriptionWidget">
             <div class="easySubscriptionWidgetIn">
                 <div class="easySubscriptionWidgetModel" style="display:none;">
