@@ -5,11 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Manage Subscriptions</title>
         <link rel="stylesheet" href="{{ asset('css/shopify.css') }}">
+        <script src="{{ asset('js/shopify.js') }}"></script>
     </head>
     <body>
         <div class="easySubscriptionWidget">
             <div class="easySubscriptionWidgetIn">
-                <div class="easySubscriptionWidgetModel" style="display:block;">
+                <div class="easySubscriptionWidgetModel" style="display:none;">
                     <div class="easySubscriptionWidgetModelInner">
                         <div class="easySubscriptionWidgetModelInnerTitle">
                             <h3 class="title">Subscriptions</h3>
