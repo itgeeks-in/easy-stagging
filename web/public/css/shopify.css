@@ -18,6 +18,7 @@ body{
     padding: 12px 30px;
     margin-bottom: 2px;
     border:none;
+    cursor:pointer;
 }
 .easySubscriptionWidget .easySubscriptionWidgetIn button.button.loading {
     opacity: 0.6;
