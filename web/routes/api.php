@@ -422,7 +422,7 @@ Route::post('singlesubscriptionData',function(Request $request){
         $easySubscriptionSubscriptionModelIn = '<div class="easyCustomerOrderStatusParent">
             <div class="easyCustomerSubscriptionStatus">
                 <h3 class="easySubbscriptionTitle">Status :<span class="easyCustomerSubscriptionStatus status-'.$subscriptionStatus.'">'.$subscriptionStatus.'</span></h3>
-                <label class="easyCustomerSubscriptionStatusNextOrder">Next Order : '.$nextBilling.' '.$total.'</label>
+                <label class="easyCustomerSubscriptionStatusNextOrder">Next Order : '.$nextBilling.'</label>
             </div>
         </div>';
     }
