@@ -385,7 +385,7 @@ Route::post('singlesubscriptionData',function(Request $request){
     $changeStatusHtmlfirst = '<div class="easyCustomerOrderStatusParent">
     <div class="easyCustomerSubscriptionStatus">
         <h4 class="easySubbscriptionTitle">Status :<span class="easyCustomerSubscriptionStatus status-'.$subscriptionStatus.'">'.$subscriptionStatus.'</span></h4>
-        <label class="easyCustomerSubscriptionStatusNextOrder">Next Order : '.$nextBilling.' '.$total.'</label>
+        <label class="easyCustomerSubscriptionStatusNextOrder">Next Order : '.$nextBilling.'</label>
     </div>
     <div class="easyCustomerSubscriptionStatusbtns">';
     $changeStatusHtmlLast = '</div>
