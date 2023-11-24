@@ -12,7 +12,7 @@ class EasyAppCustomer extends Controller
         // Validate the incoming data or use request validation rules
 
         if (empty($allDataContent['logged_in_customer_id'])) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return '';
         }
 
         if (isset($allDataContent['shop']) && isset($allDataContent['signature'])) {
@@ -20,11 +20,11 @@ class EasyAppCustomer extends Controller
                 $customerId = $allDataContent['logged_in_customer_id'];
                 return view('shopify.template')->with('data', $allDataContent);
             } else {
-                return response()->json(['error' => 'Unauthorized'], 401);
+                return '';
             }
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return '';
     }
 
     private function validateSignature(array $data): bool
