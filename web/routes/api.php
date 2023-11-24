@@ -257,38 +257,41 @@ Route::post('customerdata',function(Request $request){
 
     $restCustomerDecodeEmail = $restCustomerDecode['customer']['email'];
 
-    $encryption_email = $restCustomerDecodeEmail;
-    $ciphering = "AES-128-CTR";
-    $iv_length = openssl_cipher_iv_length($ciphering);
-    $options = 0;
-    $encryption_iv = '1332425434231121';
-    $encryption_key = "easyitgkeyencryp";
-    $encryptionemail = openssl_encrypt( $encryption_email, $ciphering, $encryption_key, $options, $encryption_iv );
-    if(!$statusFilter || $statusFilter == '' || $statusFilter == 'All'){
-        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->orderBy("created_at","desc")->get()->toArray();
-    }elseif($statusFilter == 'Active'){
-        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->where('status','ACTIVE')->orderBy("created_at","desc")->get()->toArray();
-    }elseif($statusFilter == 'Cancelled'){
-        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->where('status','CANCELLED')->orderBy("created_at","desc")->get()->toArray();
-    }elseif($statusFilter == 'Paused'){
-        $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->where('status','PAUSED')->orderBy("created_at","desc")->get()->toArray();
-    }
-    foreach($subscriptionContractsDbData as $subscriptionContractDbData){
-        $data = [];
-        if(!empty(json_decode($subscriptionContractDbData->data)->products[0]->productImage)){
-            $data['image'] = json_decode($subscriptionContractDbData->data)->products[0]->productImage;
-            $data['productQuantity'] = json_decode($subscriptionContractDbData->data)->products[0]->productQuantity;
-            $data['totalPrice'] = json_decode($subscriptionContractDbData->data)->products[0]->totalPrice;
-            $data['productTitle'] = json_decode($subscriptionContractDbData->data)->products[0]->productTitle;
-            $data['productCurrency'] = json_decode($subscriptionContractDbData->data)->currency;
+    if (!Schema::hasTable($shop. '_subscriptioncontracts')) {}else{
+        $encryption_email = $restCustomerDecodeEmail;
+        $ciphering = "AES-128-CTR";
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = 0;
+        $encryption_iv = '1332425434231121';
+        $encryption_key = "easyitgkeyencryp";
+        $encryptionemail = openssl_encrypt( $encryption_email, $ciphering, $encryption_key, $options, $encryption_iv );
+        if(!$statusFilter || $statusFilter == '' || $statusFilter == 'All'){
+            $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->orderBy("created_at","desc")->get()->toArray();
+        }elseif($statusFilter == 'Active'){
+            $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->where('status','ACTIVE')->orderBy("created_at","desc")->get()->toArray();
+        }elseif($statusFilter == 'Cancelled'){
+            $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->where('status','CANCELLED')->orderBy("created_at","desc")->get()->toArray();
+        }elseif($statusFilter == 'Paused'){
+            $subscriptionContractsDbData = DB::table($shop.'_subscriptioncontracts')->select('*')->where('email',$encryptionemail)->where('status','PAUSED')->orderBy("created_at","desc")->get()->toArray();
         }
-        $data['subId'] = $subscriptionContractDbData->subId;
-        $data['total'] = $subscriptionContractDbData->total;
-        $data['interval'] = $subscriptionContractDbData->interval;
-        $data['intervalCount'] = $subscriptionContractDbData->intervalCount;
-        $data['nextBillingDate'] = $subscriptionContractDbData->nextBillingDate;
-        $data['status'] = $subscriptionContractDbData->status;
-        $subscriptionContracts[] = $data;
+        foreach($subscriptionContractsDbData as $subscriptionContractDbData){
+            $data = [];
+            if(!empty(json_decode($subscriptionContractDbData->data)->products[0]->productImage)){
+                $data['image'] = json_decode($subscriptionContractDbData->data)->products[0]->productImage;
+                $data['productQuantity'] = json_decode($subscriptionContractDbData->data)->products[0]->productQuantity;
+                $data['totalPrice'] = json_decode($subscriptionContractDbData->data)->products[0]->totalPrice;
+                $data['productTitle'] = json_decode($subscriptionContractDbData->data)->products[0]->productTitle;
+                $data['productCurrency'] = json_decode($subscriptionContractDbData->data)->currency;
+            }
+            $data['subId'] = $subscriptionContractDbData->subId;
+            $data['total'] = $subscriptionContractDbData->total;
+            $data['interval'] = $subscriptionContractDbData->interval;
+            $data['intervalCount'] = $subscriptionContractDbData->intervalCount;
+            $data['nextBillingDate'] = $subscriptionContractDbData->nextBillingDate;
+            $data['status'] = $subscriptionContractDbData->status;
+            $subscriptionContracts[] = $data;
+        }
+
     }
     return response()->json(['data'=>$subscriptionContracts]);
 });
@@ -426,6 +429,7 @@ Route::post('singlesubscriptionData',function(Request $request){
             </div>
         </div>';
     }
+    
     return response()->json(['status'=>$subscriptionStatus,'nextBillingDate'=>$nextBilling,'customerId'=>$customerId,'customerDetails'=>$customerdata,'orders'=>$orders,'total'=>$total,'shop'=>$shop_name,'intervalCount'=>$intervalCount,'interval'=>$interval,'id'=>$subID,'btnStatus'=>$easySubscriptionSubscriptionModelIn]);
 });
 Route::post('cstm/changesubscriptionDatastatus',function(Request $request){
