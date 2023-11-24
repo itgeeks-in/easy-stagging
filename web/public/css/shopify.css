@@ -214,7 +214,7 @@ span.status-CANCELLED{
 .easySubscriptioneasyCustomerOrders .easyCustomerOrdersTable .easyCustomerOrdersDataContent .easyCustomerOrdersDataContentRow .easyCustomerOrdersDataTableBox {
     position: relative;
     width: 100%;
-    max-width: 25%;
+    max-width: 33.33%;
     box-sizing: border-box;
     padding: 15px;
     line-height: 1em;
