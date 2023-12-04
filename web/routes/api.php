@@ -36,8 +36,9 @@ Route::post('/ad/prod/sub', function (Request $request) {
     $anyHeader = $request->header('token-shop');
 
     $decodedToken = JWTAuth::decode($anyHeader, $clientSecret, ['HS256']);
+    $allClaims = $decodedToken->getClaims();
 
-    Log::error($decodedToken);
+    Log::error($allClaims);
     Log::error($requestData);
 
     return response()->json(['message' => 'Subscription handled successfully']);
