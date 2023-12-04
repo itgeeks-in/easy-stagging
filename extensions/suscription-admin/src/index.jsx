@@ -236,15 +236,17 @@ function Remove() {
       console.log(tokenS);
 
       const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub', {
+        method: 'POST', // Use POST method
         headers: {
-          'any-header-key': tokenS || 'unknown token',
+          'Content-Type': 'application/json', // Set Content-Type header if sending JSON
+          'token-shop': tokenS || 'unknown token',
         },
         body: JSON.stringify(data)
       });
     
       // If the server responds with an OK status, then refresh the UI and close the modal
       if (response.ok) {
-        
+
         const responseBody = await response.json();
 
         // Log the response to the console
@@ -259,7 +261,7 @@ function Remove() {
 
     fetchData();
 
-  }, [data]);
+  }, []);
 
 
   return (

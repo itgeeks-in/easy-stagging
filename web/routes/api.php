@@ -31,6 +31,9 @@ Route::post('/ad/prod/sub', function (Request $request) {
 
     $requestData = $request->all();
 
+    $anyHeader = $request->header('token-shop');
+
+    Log::error($anyHeader);
     Log::error($requestData);
 
     return response()->json(['message' => 'Subscription handled successfully']);
