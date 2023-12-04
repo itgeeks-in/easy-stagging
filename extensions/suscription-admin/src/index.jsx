@@ -260,7 +260,7 @@ function Remove() {
 
     fetchData();
 
-  }, []);
+  }, [getSessionToken]);
 
 
   return (

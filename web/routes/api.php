@@ -10,6 +10,8 @@ use Shopify\Clients\Rest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\PendingMail;
 use App\Http\Controllers\EasyAppCustomer;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
