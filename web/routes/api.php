@@ -38,10 +38,15 @@ Route::any('/ad/prod/sub', function (Request $request) {
 
     $decodedToken = JWT::decode($token, new Key($clientSecret, 'HS256'));
 
-    Log::error(['JWT'=>$decodedToken]);
+    if( isset( $decodedToken->iss ) && isset( $decodedToken->dest ) ){
+        $shopurl =  $decodedToken->dest;
 
+        return response()->json(['data' => $requestData, 'shop'=>$shopurl]);
 
-    return response()->json(['message' => 'Subscription handled successfully']);
+    }else{
+        return '';
+    }
+
 });
 
 Route::get('/easysubcron', function () {
