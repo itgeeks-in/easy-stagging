@@ -10,7 +10,7 @@ use Shopify\Clients\Rest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\PendingMail;
 use App\Http\Controllers\EasyAppCustomer;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Firebase\JWT\JWT;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,12 +36,12 @@ Route::any('/ad/prod/sub', function (Request $request) {
     //$requestData = $request->all();
     $algorithm = ['HS256'];
     $clientSecret = env('SHOPIFY_API_SECRET');
-    $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczpcL1wvYXBwLXRlc3QtaXRnLm15c2hvcGlmeS5jb21cL2FkbWluIiwiZGVzdCI6Imh0dHBzOlwvXC9hcHAtdGVzdC1pdGcubXlzaG9waWZ5LmNvbSIsImF1ZCI6IjM2OTYwOTgwZDA4MWQwMDM3NzRhNjczMTE4OTFlZGFmIiwic3ViIjoiOTg0MDk2NDQzNTMiLCJleHAiOjE3MDE2OTc5MDAsIm5iZiI6MTcwMTY5Nzg0MCwiaWF0IjoxNzAxNjk3ODQwLCJqdGkiOiJmMTFmMzg2Yi00ZjJiLTRlMDMtYmJhMS01YzA1MzNhNTc0NjQiLCJzaWQiOiI4MmQxOGRlODIxOTM1OWIwOGIyZDNhNjBmZmQ3MTU1OGZiMDZmYzI3ZDQ4MjNlNjczYTVlNDk0NjQ1OWRlOWQyIiwic2lnIjoiMmNlZGI4MmU5YjA0NDA0ZGQ5OTdjYzE4NDc0OGFkMjQ3NjA4N2VlM2M2M2E4MDgwNjMwMWI0MDRmYTZjNDgxNyJ9.ChndGWvG8Vn3R5Z4YKWvdqGcSov_O8SOTAp6sSrJW14";
+    $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczpcL1wvYXBwLXRlc3QtaXRnLm15c2hvcGlmeS5jb21cL2FkbWluIiwiZGVzdCI6Imh0dHBzOlwvXC9hcHAtdGVzdC1pdGcubXlzaG9waWZ5LmNvbSIsImF1ZCI6IjM2OTYwOTgwZDA4MWQwMDM3NzRhNjczMTE4OTFlZGFmIiwic3ViIjoiOTg0MDk2NDQzNTMiLCJleHAiOjE3MDE2ODUyNDEsIm5iZiI6MTcwMTY4NTE4MSwiaWF0IjoxNzAxNjg1MTgxLCJqdGkiOiI4NDdkNTBiZi1hMzBmLTQ4MzktYTFiOC1mOWJlY2NlNDBmN2MiLCJzaWQiOiI4MmQxOGRlODIxOTM1OWIwOGIyZDNhNjBmZmQ3MTU1OGZiMDZmYzI3ZDQ4MjNlNjczYTVlNDk0NjQ1OWRlOWQyIiwic2lnIjoiZjcxMjJkZmEwNWRlYjRmYjgyMDU3NTdjNzdlNzU1MWEwOWU4MmQ4MTc2ZDdiYzhlMWYzZjYzYWY2YWU1N2YwYyJ9.6Bve64z72NVQ4Dx9pr6r8tdhhEdMeOSJPLUW59pk1H0";
 
-    $decodedToken = JWTAuth::setToken($token)->decode();
-    $tokenData = $decodedToken->toArray();
-    print_r($tokenData);
+    $decodedToken = JWT::decode($token, $clientSecret, $algorithm, $clientSecret);
+
     // Access the decoded data
+    print_r($decodedToken);
 
     return response()->json(['message' => 'Subscription handled successfully']);
 });
