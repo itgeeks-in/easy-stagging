@@ -31,9 +31,13 @@ Route::post('/ad/prod/sub', function (Request $request) {
 
     $requestData = $request->all();
 
+    $clientSecret = env('SHOPIFY_API_SECRET'); 
+
     $anyHeader = $request->header('token-shop');
 
-    Log::error($anyHeader);
+    $decodedToken = JWTAuth::decode($anyHeader, $clientSecret, ['HS256']);
+
+    Log::error($decodedToken);
     Log::error($requestData);
 
     return response()->json(['message' => 'Subscription handled successfully']);

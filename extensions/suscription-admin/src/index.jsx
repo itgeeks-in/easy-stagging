@@ -252,7 +252,6 @@ function Remove() {
         // Log the response to the console
         console.log('Response:', responseBody);
 
-        done();
       } else {
         console.log('Handle error.');
       }  
