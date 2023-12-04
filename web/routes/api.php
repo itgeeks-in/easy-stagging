@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\PendingMail;
 use App\Http\Controllers\EasyAppCustomer;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,13 +35,13 @@ Route::any('/ad/prod/sub', function (Request $request) {
    // auth()->guard('api');
 
     //$requestData = $request->all();
-    $algorithm = ['HS256'];
     $clientSecret = env('SHOPIFY_API_SECRET');
     $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczpcL1wvYXBwLXRlc3QtaXRnLm15c2hvcGlmeS5jb21cL2FkbWluIiwiZGVzdCI6Imh0dHBzOlwvXC9hcHAtdGVzdC1pdGcubXlzaG9waWZ5LmNvbSIsImF1ZCI6IjM2OTYwOTgwZDA4MWQwMDM3NzRhNjczMTE4OTFlZGFmIiwic3ViIjoiOTg0MDk2NDQzNTMiLCJleHAiOjE3MDE2ODUyNDEsIm5iZiI6MTcwMTY4NTE4MSwiaWF0IjoxNzAxNjg1MTgxLCJqdGkiOiI4NDdkNTBiZi1hMzBmLTQ4MzktYTFiOC1mOWJlY2NlNDBmN2MiLCJzaWQiOiI4MmQxOGRlODIxOTM1OWIwOGIyZDNhNjBmZmQ3MTU1OGZiMDZmYzI3ZDQ4MjNlNjczYTVlNDk0NjQ1OWRlOWQyIiwic2lnIjoiZjcxMjJkZmEwNWRlYjRmYjgyMDU3NTdjNzdlNzU1MWEwOWU4MmQ4MTc2ZDdiYzhlMWYzZjYzYWY2YWU1N2YwYyJ9.6Bve64z72NVQ4Dx9pr6r8tdhhEdMeOSJPLUW59pk1H0";
 
-    $stdClassAlgorithm = json_decode(json_encode($algorithm));
 
-    $decodedToken = JWT::decode($token, $clientSecret, $stdClassAlgorithm, $clientSecret);
+    $decodedToken = JWT::decode($token, new Key($clientSecret, 'HS256'));
+
+    
 
     // Access the decoded data
     print_r($decodedToken);
