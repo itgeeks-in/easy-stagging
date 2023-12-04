@@ -41,7 +41,9 @@ Route::any('/ad/prod/sub', function (Request $request) {
 
     //$decodedToken = JWTAuth::decode($anyHeader, $clientSecret, ['HS256']);
 
-    $decodedToken = JWTAuth::setToken($anyHeader)->decode();
+    $guard = 'api';
+
+    $decodedToken = JWTAuth::setToken($anyHeader)->guard($guard)->decode();
     $allClaims = $decodedToken->getClaims();
 
     $allClaims = $decodedToken->getClaims();
