@@ -228,8 +228,36 @@ function Remove() {
 
   useEffect(() => {
 
-    console.log('ITGTEST');
-    console.log(data);
+    const fetchData = async () => {
+
+      const tokenS = await getSessionToken();
+      console.log('ITGTEST');
+      console.log(data);
+      console.log(tokenS);
+
+      const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub', {
+        headers: {
+          'any-header-key': tokenS || 'unknown token',
+        },
+        body: JSON.stringify(data)
+      });
+    
+      // If the server responds with an OK status, then refresh the UI and close the modal
+      if (response.ok) {
+        
+        const responseBody = await response.json();
+
+        // Log the response to the console
+        console.log('Response:', responseBody);
+
+        done();
+      } else {
+        console.log('Handle error.');
+      }  
+
+    };
+
+    fetchData();
 
   }, [data]);
 

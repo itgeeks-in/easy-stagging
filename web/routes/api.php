@@ -29,9 +29,9 @@ Route::get('/', function () {
 
 Route::post('/ad/prod/sub', function (Request $request) {
 
-    $requestData = $request;
+    $requestData = $request->all();
 
-    return $requestData;
+    return response()->json(['message' => 'Subscription handled successfully']);
 });
 
 Route::get('/easysubcron', function () {
