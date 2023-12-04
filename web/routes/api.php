@@ -27,6 +27,13 @@ Route::get('/', function () {
     return "Hello API";
 });
 
+Route::post('/ad/prod/sub', function (Request $request) {
+
+    $requestData = $request;
+
+    return $requestData;
+});
+
 Route::get('/easysubcron', function () {
     $sessions = DB::table('sessions')->select('shop','access_token')->where('access_token','!=','')->get();
     foreach($sessions as $session){
