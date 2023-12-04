@@ -54,6 +54,33 @@ Route::any('/ad/prod/sub', function (Request $request) {
     return response()->json(['message' => 'Subscription handled successfully']);
 });
 
+Route::middleware('auth:api')->group(function () {
+    Route::any('/ad/prod/sub', function (Request $request) {
+
+        // auth()->guard('api');
+     
+         //$requestData = $request->all();
+     
+         $clientSecret = env('SHOPIFY_API_SECRET'); 
+     
+         $anyHeader = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczpcL1wvYXBwLXRlc3QtaXRnLm15c2hvcGlmeS5jb21cL2FkbWluIiwiZGVzdCI6Imh0dHBzOlwvXC9hcHAtdGVzdC1pdGcubXlzaG9waWZ5LmNvbSIsImF1ZCI6IjM2OTYwOTgwZDA4MWQwMDM3NzRhNjczMTE4OTFlZGFmIiwic3ViIjoiOTg0MDk2NDQzNTMiLCJleHAiOjE3MDE2ODUyNDEsIm5iZiI6MTcwMTY4NTE4MSwiaWF0IjoxNzAxNjg1MTgxLCJqdGkiOiI4NDdkNTBiZi1hMzBmLTQ4MzktYTFiOC1mOWJlY2NlNDBmN2MiLCJzaWQiOiI4MmQxOGRlODIxOTM1OWIwOGIyZDNhNjBmZmQ3MTU1OGZiMDZmYzI3ZDQ4MjNlNjczYTVlNDk0NjQ1OWRlOWQyIiwic2lnIjoiZjcxMjJkZmEwNWRlYjRmYjgyMDU3NTdjNzdlNzU1MWEwOWU4MmQ4MTc2ZDdiYzhlMWYzZjYzYWY2YWU1N2YwYyJ9.6Bve64z72NVQ4Dx9pr6r8tdhhEdMeOSJPLUW59pk1H0";
+     
+         //$decodedToken = JWTAuth::decode($anyHeader, $clientSecret, ['HS256']);
+     
+         $guard = 'api';
+     
+         $decodedToken = JWTAuth::setToken($anyHeader)->guard($guard)->decode();
+         $allClaims = $decodedToken->getClaims();
+     
+         $allClaims = $decodedToken->getClaims();
+     
+         Log::error($allClaims);
+         Log::error($requestData);
+     
+         return response()->json(['message' => 'Subscription handled successfully']);
+     });
+});
+
 Route::get('/easysubcron', function () {
     $sessions = DB::table('sessions')->select('shop','access_token')->where('access_token','!=','')->get();
     foreach($sessions as $session){
