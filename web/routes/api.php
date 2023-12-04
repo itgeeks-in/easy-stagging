@@ -38,7 +38,7 @@ Route::any('/ad/prod/sub', function (Request $request) {
     $clientSecret = env('SHOPIFY_API_SECRET');
     $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczpcL1wvYXBwLXRlc3QtaXRnLm15c2hvcGlmeS5jb21cL2FkbWluIiwiZGVzdCI6Imh0dHBzOlwvXC9hcHAtdGVzdC1pdGcubXlzaG9waWZ5LmNvbSIsImF1ZCI6IjM2OTYwOTgwZDA4MWQwMDM3NzRhNjczMTE4OTFlZGFmIiwic3ViIjoiOTg0MDk2NDQzNTMiLCJleHAiOjE3MDE2ODUyNDEsIm5iZiI6MTcwMTY4NTE4MSwiaWF0IjoxNzAxNjg1MTgxLCJqdGkiOiI4NDdkNTBiZi1hMzBmLTQ4MzktYTFiOC1mOWJlY2NlNDBmN2MiLCJzaWQiOiI4MmQxOGRlODIxOTM1OWIwOGIyZDNhNjBmZmQ3MTU1OGZiMDZmYzI3ZDQ4MjNlNjczYTVlNDk0NjQ1OWRlOWQyIiwic2lnIjoiZjcxMjJkZmEwNWRlYjRmYjgyMDU3NTdjNzdlNzU1MWEwOWU4MmQ4MTc2ZDdiYzhlMWYzZjYzYWY2YWU1N2YwYyJ9.6Bve64z72NVQ4Dx9pr6r8tdhhEdMeOSJPLUW59pk1H0";
 
-    $decodedToken = JWT::decode($token, $clientSecret, $algorithm);
+    $decodedToken = JWT::decode($token, $clientSecret, $algorithm, ['HS256']);
 
     // Access the decoded data
     print_r($decodedToken);
