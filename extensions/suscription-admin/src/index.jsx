@@ -231,7 +231,7 @@ function Remove() {
           // If the server responds with an OK status, then refresh the UI and close the modal
           if (responseP.ok) {
     
-            const responseData = await response.json();
+            const responseData = await responseP.json();
             console.log(responseData);
             loaderOption(false);
     
