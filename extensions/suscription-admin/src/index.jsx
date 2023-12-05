@@ -271,7 +271,7 @@ function Remove() {
           <BlockStack spacing="base">
             <TextBlock size="medium">{groupDetails.name}</TextBlock>
             <Text size="base">{groupDetails.summary}</Text>
-            <Text size="base">- - - - - - - -</Text>
+            <Text size="base">--------</Text>
             <Text size="base" strong={true}>Selling Plans</Text>
             <InlineStack inlineAlignment="leading" spacing="loose">
             {groupDetails.sellingPlans.edges.map(function(value,index){
@@ -282,8 +282,8 @@ function Remove() {
               );
             })}
             </InlineStack>
-            <Text size="base">- - - - - - - -</Text>
-            <Text size="base" strong={true}>Remove Product Nname from Plan group {groupDetails.name}</Text>
+            <Text size="base">--------</Text>
+            <Text size="base">Remove Product Nname from Plan group {groupDetails.name}</Text>
           </BlockStack>
         </>:<>
           <Spinner accessibilityLabel="Spinner example" size="large" />

@@ -83,7 +83,7 @@ Route::any('/ad/prod/sub/rem', function (Request $request) {
                     }
                 }
             QUERY;
-            $result1 = $client->query(['query' => $query]);
+            $result1 = $client->query(['query' => $query1]);
             $resultBody1 = $result1->getDecodedBody();
 
             return response()->json(['data' => $requestData, 'group'=>$resultBody, 'product'=>$resultBody1]);
