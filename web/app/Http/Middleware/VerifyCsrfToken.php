@@ -28,6 +28,7 @@ class VerifyCsrfToken extends Middleware
         '/api/easycustomerdatarequest',
         '/api/easycustomerdataerasure',
         '/api/easyshopdataerasure',
-        '/ad/prod/sub/rem'
+        '/ad/prod/sub/rem',
+        '/ad/prod/sub/remtrig'
     ];
 }

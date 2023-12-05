@@ -206,6 +206,7 @@ function Remove() {
 
   const {getSessionToken} = useSessionToken();
 
+  const [ loader , loaderOption ] = useState(true);
   const [ groupDetails , groupDetailsOption ] = useState({});
   const [ productDetails , productDetailsOption ] = useState({});
 
@@ -216,9 +217,33 @@ function Remove() {
       onAction: async () => {
         const token = await getSessionToken();
 
-        // Here, send the form data to your app server to remove the product from the plan.
+        const postData = async () => {
+    
+          const responseP = await fetch('https://app.easysubscription.io/api/ad/prod/sub/remtrig', {
+            method: 'POST', // Use POST method
+            headers: {
+              'Content-Type': 'application/json', // Set Content-Type header if sending JSON
+              'token-shop': token || 'unknown token',
+            },
+            body: JSON.stringify(data)
+          });
+        
+          // If the server responds with an OK status, then refresh the UI and close the modal
+          if (responseP.ok) {
+    
+            const responseData = await response.json();
+            console.log(responseData);
+            loaderOption(false);
+    
+          } else {
+            console.log('Handle error.');
+          }  
+    
+        };
+    
+        loaderOption(true);
+        postData();
 
-        done();
       },
     });
 
@@ -248,9 +273,9 @@ function Remove() {
 
         const responseBody = await response.json();
 
+        productDetailsOption(responseBody.product.data.product);
         groupDetailsOption(responseBody.group.data.sellingPlanGroup);
-
-        console.log(responseBody);
+        loaderOption(false);
 
       } else {
         console.log('Handle error.');
@@ -262,33 +287,34 @@ function Remove() {
 
   }, [data]);
 
-  console.log(groupDetails);
 
   return (
     <>
-
-        {groupDetails.name?<>
-          <BlockStack spacing="base">
-            <TextBlock size="medium">{groupDetails.name}</TextBlock>
-            <Text size="base">{groupDetails.summary}</Text>
-            <Text size="base">--------</Text>
-            <Text size="base" strong={true}>Selling Plans</Text>
-            <InlineStack inlineAlignment="leading" spacing="loose">
-            {groupDetails.sellingPlans.edges.map(function(value,index){
-              return(
-                <>
-                  <Text>- {value.node.name}</Text>
-                </>
-              );
-            })}
-            </InlineStack>
-            <Text size="base">--------</Text>
-            <Text size="base">Remove Product Nname from Plan group {groupDetails.name}</Text>
-          </BlockStack>
+        {loader?<>
+          <Spinner accessibilityLabel="Spinner example" size="large"/>
         </>:<>
-          <Spinner accessibilityLabel="Spinner example" size="large" />
+          {groupDetails.name?<>
+            <BlockStack spacing="base">
+              <TextBlock size="medium">{groupDetails.name}</TextBlock>
+              <Text size="base">{groupDetails.summary}</Text>
+              <Text size="base">--------</Text>
+              <Text size="base" strong={true}>Selling Plans</Text>
+              <InlineStack inlineAlignment="leading" spacing="loose">
+              {groupDetails.sellingPlans.edges.map(function(value,index){
+                return(
+                  <>
+                    <Text>- {value.node.name}</Text>
+                  </>
+                );
+              })}
+              </InlineStack>
+              <Text size="base">--------</Text>
+              <Text size="base" appearance="critical">Remove Product "{productDetails.title}"" from Plan group "{groupDetails.name}"</Text>
+            </BlockStack>
+          </>:<>
+            <Spinner accessibilityLabel="Spinner example" size="large"/>
+          </>}
         </>}
-
     </>
   );
 }
