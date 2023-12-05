@@ -51,7 +51,7 @@ Route::any('/ad/prod/sub/remtrig', function (Request $request) {
 
             $client = new Graphql($authShop, $authTokken);
 
-            return response()->json(['data' => 'ITG123']);
+            return response()->json(['data' => $requestData]);
         }else{
             return '';
         }
