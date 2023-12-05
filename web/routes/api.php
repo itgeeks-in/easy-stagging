@@ -45,8 +45,39 @@ Route::any('/ad/prod/sub/rem', function (Request $request) {
 
         $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shopDomain)->get();
 
-        return response()->json(['data' => $requestData, 'shop'=>$sessions]);
+        if( !empty( $sessions ) ){
+            $authShop = $sessions[0]->shop;
+            $authTokken = $sessions[0]->access_token;
 
+            $client = new Graphql($authShop, $authTokken);
+
+            $sellingPlanGroupId = $requestData['sellingPlanGroupId'];
+            $productId = $requestData['productId'];
+        
+            $query = <<<QUERY
+                {
+                    sellingPlanGroup(id:"$sellingPlanGroupId") {
+                        id
+                        name
+                        summary
+                        sellingPlans(first:20){
+                            edges {
+                                node {
+                                    id
+                                    name
+                                }
+                            }
+                        }
+                    }
+                }
+            QUERY;
+            $result = $client->query(['query' => $query]);
+            $resultBody = $result->getDecodedBody();
+
+            return response()->json(['data' => $requestData, 'group'=>$resultBody]);
+        }else{
+            return '';
+        }
     }else{
         return '';
     }
