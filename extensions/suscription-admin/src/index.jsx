@@ -235,7 +235,7 @@ function Remove() {
       console.log(data);
       console.log(tokenS);
 
-      const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub', {
+      const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub/rem', {
         method: 'POST', // Use POST method
         headers: {
           'Content-Type': 'application/json', // Set Content-Type header if sending JSON

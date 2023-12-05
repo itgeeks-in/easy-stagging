@@ -30,7 +30,7 @@ Route::get('/', function () {
     return "Hello API";
 });
 
-Route::any('/ad/prod/sub', function (Request $request) {
+Route::any('/ad/prod/sub/rem', function (Request $request) {
 
     $requestData = $request->all();
     $clientSecret = env('SHOPIFY_API_SECRET');
@@ -41,7 +41,9 @@ Route::any('/ad/prod/sub', function (Request $request) {
     if( isset( $decodedToken->iss ) && isset( $decodedToken->dest ) ){
         $shopurl =  $decodedToken->dest;
 
-        return response()->json(['data' => $requestData, 'shop'=>$shopurl]);
+        $shopDomain = str_replace('https://','',$shopurl);
+
+        return response()->json(['data' => $requestData, 'shop'=>$shopDomain]);
 
     }else{
         return '';
