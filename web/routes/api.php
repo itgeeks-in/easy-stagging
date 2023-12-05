@@ -43,7 +43,9 @@ Route::any('/ad/prod/sub/rem', function (Request $request) {
 
         $shopDomain = str_replace('https://','',$shopurl);
 
-        return response()->json(['data' => $requestData, 'shop'=>$shopDomain]);
+        $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shopDomain)->get();
+
+        return response()->json(['data' => $requestData, 'shop'=>$sessions]);
 
     }else{
         return '';
