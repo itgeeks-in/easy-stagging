@@ -14,7 +14,8 @@ import {
   useContainer,
   useSessionToken,
   useLocale,
-  Spinner
+  Spinner,
+  StackItem
 } from '@shopify/admin-ui-extensions-react';
 
 const translations = {
@@ -205,7 +206,8 @@ function Remove() {
 
   const {getSessionToken} = useSessionToken();
 
-  const [ loadStart , loadStartOption ] = useState(true);
+  const [ groupDetails , groupDetailsOption ] = useState({});
+  const [ productDetails , productDetailsOption ] = useState({});
 
 
   useEffect(() => {
@@ -231,9 +233,6 @@ function Remove() {
     const fetchData = async () => {
 
       const tokenS = await getSessionToken();
-      console.log('ITGTEST');
-      console.log(data);
-      console.log(tokenS);
 
       const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub/rem', {
         method: 'POST', // Use POST method
@@ -249,8 +248,9 @@ function Remove() {
 
         const responseBody = await response.json();
 
-        // Log the response to the console
-        console.log('Response:', responseBody);
+        groupDetailsOption(responseBody.group.data.sellingPlanGroup);
+
+        console.log(responseBody);
 
       } else {
         console.log('Handle error.');
@@ -262,19 +262,32 @@ function Remove() {
 
   }, [data]);
 
+  console.log(groupDetails);
 
   return (
     <>
 
-      {loadStart?<>
-        <Spinner accessibilityLabel="Spinner example" size="large" />
-      </>:<>
-        <TextBlock size="extraLarge">{localizedStrings.hello}!</TextBlock>
-        <Text>
-          Remove Product id {data.productId} from Plan group id{' '}
-          {data.sellingPlanGroupId}
-        </Text>
-      </>}
+        {groupDetails.name?<>
+          <BlockStack spacing="base">
+            <TextBlock size="medium">{groupDetails.name}</TextBlock>
+            <Text size="base">{groupDetails.summary}</Text>
+            <Text size="base">- - - - - - - -</Text>
+            <Text size="base" strong={true}>Selling Plans</Text>
+            <InlineStack inlineAlignment="leading" spacing="loose">
+            {groupDetails.sellingPlans.edges.map(function(value,index){
+              return(
+                <>
+                  <Text>- {value.node.name}</Text>
+                </>
+              );
+            })}
+            </InlineStack>
+            <Text size="base">- - - - - - - -</Text>
+            <Text size="base" strong={true}>Remove Product Nname from Plan group {groupDetails.name}</Text>
+          </BlockStack>
+        </>:<>
+          <Spinner accessibilityLabel="Spinner example" size="large" />
+        </>}
 
     </>
   );
