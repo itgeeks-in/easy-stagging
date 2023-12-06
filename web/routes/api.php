@@ -38,6 +38,8 @@ Route::any('/ad/prod/sub/remtrig', function (Request $request) {
 
     $decodedToken = JWT::decode($token, new Key($clientSecret, 'HS256'));
 
+    Log::error($decodedToken);
+
     if( isset( $decodedToken->iss ) && isset( $decodedToken->dest ) ){
         $shopurl =  $decodedToken->dest;
 
@@ -46,12 +48,44 @@ Route::any('/ad/prod/sub/remtrig', function (Request $request) {
         $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shopDomain)->get();
 
         if( !empty( $sessions ) ){
+
+
+    Log::error($sessions);
             $authShop = $sessions[0]->shop;
             $authTokken = $sessions[0]->access_token;
 
             $client = new Graphql($authShop, $authTokken);
 
-            return response()->json(['data' => $requestData]);
+            $productRemoveIdsGql = [];
+
+            $sellingPlanGroupId = $requestData['sellingPlanGroupId'];
+            $productId = $requestData['productId'];
+
+            $productRemoveIdsGql[0] = $productId;
+
+            $queryUsingVariables = <<<QUERY
+                mutation sellingPlanGroupRemoveProducts(\$id: ID!, \$productIds: [ID!]!) {
+                    sellingPlanGroupRemoveProducts(id: \$id, productIds: \$productIds) {
+                        removedProductIds
+                        userErrors {
+                            field
+                            message
+                        }
+                    }
+                }
+            QUERY;
+            $variables = [
+                "id" => $sellingPlanGroupId,
+                "productIds" => $productRemoveIdsGql
+            ];
+            $result = $client->query(['query' => $queryUsingVariables, 'variables' => $variables]);
+            $resultBody = $result->getDecodedBody();
+
+
+    Log::error($resultBody);
+
+            return response()->json(['data' => $resultBody]);
+
         }else{
             return '';
         }
