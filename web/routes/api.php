@@ -177,7 +177,12 @@ Route::any('/ad/prod/sub/rem', function (Request $request) {
             $result1 = $client->query(['query' => $query1]);
             $resultBody1 = $result1->getDecodedBody();
 
-            return response()->json(['data' => $requestData, 'group'=>$resultBody, 'product'=>$resultBody1]);
+            $shop_name = explode('.', $authShop);
+            $table_name = $shop_name[0] . '_sellingplangroup';
+
+            $data = DB::table($table_name)->where('groupid', $sellingPlanGroupId)->get();
+
+            return response()->json(['data' => $requestData, 'group'=>$resultBody, 'product'=>$resultBody1, 'dtb'=>$data]);
         }else{
             return '';
         }

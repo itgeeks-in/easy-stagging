@@ -412,7 +412,7 @@ function Edit() {
     },
   ];
 
-  //console.log(groupDetails);
+  console.log(groupDetails);
 
   //console.log(productDetails);
 
