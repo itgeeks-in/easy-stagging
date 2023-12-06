@@ -38,9 +38,6 @@ Route::any('/ad/prod/sub/remtrig', function (Request $request) {
 
     $decodedToken = JWT::decode($token, new Key($clientSecret, 'HS256'));
 
-    Log::error($decodedToken);
-    return response()->json(['data' => $decodedToken]);
-
     if( isset( $decodedToken->iss ) && isset( $decodedToken->dest ) ){
         $shopurl =  $decodedToken->dest;
 
