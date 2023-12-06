@@ -232,8 +232,8 @@ function Remove() {
           if (responseP.ok) {
     
             const responseData = await responseP.json();
-           // console.log(responseData);
-           // loaderOption(false);
+            console.log(responseData);
+            loaderOption(false);
     
           } else {
             console.log('Handle error.');
