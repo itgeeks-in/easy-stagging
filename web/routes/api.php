@@ -47,8 +47,6 @@ Route::any('/ad/prod/sub/remtrig', function (Request $request) {
 
         if( !empty( $sessions ) ){
 
-
-    Log::error($sessions);
             $authShop = $sessions[0]->shop;
             $authTokken = $sessions[0]->access_token;
 
@@ -78,9 +76,6 @@ Route::any('/ad/prod/sub/remtrig', function (Request $request) {
             ];
             $result = $client->query(['query' => $queryUsingVariables, 'variables' => $variables]);
             $resultBody = $result->getDecodedBody();
-
-
-    Log::error($resultBody);
 
             return response()->json(['data' => $resultBody]);
 
@@ -123,11 +118,44 @@ Route::any('/ad/prod/sub/rem', function (Request $request) {
                         id
                         name
                         summary
+                        productCount
+                        options
                         sellingPlans(first:20){
                             edges {
                                 node {
                                     id
                                     name
+                                    options
+                                    position
+                                    category
+                                    billingPolicy{
+                                        ... on SellingPlanRecurringBillingPolicy{
+                                            interval
+                                            intervalCount
+                                        }
+                                    }
+                                    deliveryPolicy{
+                                        ... on SellingPlanRecurringDeliveryPolicy{
+                                            interval
+                                            intervalCount
+                                        }
+                                    }
+                                    pricingPolicies{
+                                        ... on SellingPlanFixedPricingPolicy{
+                                            adjustmentType
+                                            adjustmentValue {
+                                            ... on
+                                            SellingPlanPricingPolicyPercentageValue {
+                                                percentage
+                                            }
+                                            ... on
+                                            MoneyV2 {
+                                                amount
+                                                currencyCode
+                                            }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

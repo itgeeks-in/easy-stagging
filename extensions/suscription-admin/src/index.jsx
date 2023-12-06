@@ -15,7 +15,8 @@ import {
   useSessionToken,
   useLocale,
   Spinner,
-  StackItem
+  Radio,
+  Select
 } from '@shopify/admin-ui-extensions-react';
 
 const translations = {
@@ -232,8 +233,8 @@ function Remove() {
           if (responseP.ok) {
     
             const responseData = await responseP.json();
-            console.log(responseData);
             loaderOption(false);
+            done();
     
           } else {
             console.log('Handle error.');
@@ -351,43 +352,161 @@ function Edit() {
     [onPrimaryAction, close]
   );
 
+
+
+  const [ loader , loaderOption ] = useState(true);
+  const [ groupDetails , groupDetailsOption ] = useState({});
+  const [ productDetails , productDetailsOption ] = useState({});
+  const [ subscriptionType , subscriptionTypeOption ] = useState('subscription-one-time');
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+
+      const tokenS = await getSessionToken();
+
+      const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub/rem', {
+        method: 'POST', // Use POST method
+        headers: {
+          'Content-Type': 'application/json', // Set Content-Type header if sending JSON
+          'token-shop': tokenS || 'unknown token',
+        },
+        body: JSON.stringify(data)
+      });
+    
+      // If the server responds with an OK status, then refresh the UI and close the modal
+      if (response.ok) {
+
+        const responseBody = await response.json();
+
+        productDetailsOption(responseBody.product.data.product);
+        groupDetailsOption(responseBody.group.data.sellingPlanGroup);
+        loaderOption(false);
+
+      } else {
+        console.log('Handle error.');
+      }  
+
+    };
+
+    fetchData();
+
+  }, [data]);
+
+  function subscriptionTypeChage(e){
+      subscriptionTypeOption(e);
+  }
+
+  const options = [
+    {
+      label: 'Cool option',
+      value: 'cool-option',
+    },
+    {
+      label: 'Cooler option',
+      value: 'cooler-option',
+    },
+    {
+      label: 'Coolest option',
+      value: 'coolest-option',
+    },
+  ];
+
+  //console.log(groupDetails);
+
+  //console.log(productDetails);
+
   return (
     <>
-      <BlockStack spacing="none">
-        <TextBlock size="extraLarge">
-          {localizedStrings.hello}! Edit subscription plan
-        </TextBlock>
-      </BlockStack>
+      {loader?<>
+        <Spinner accessibilityLabel="Spinner example" size="large"/>
+      </>:<>
+        <BlockStack spacing="none">
+          <TextBlock size="extraLarge">
+            Edit a subscription group
+          </TextBlock>
+        </BlockStack>
 
-      <Card
-        title={`Edit subscription plan for Product id ${data.productId}`}
-        sectioned
-      >
-        <TextField
-          label="Plan title"
-          value={planTitle}
-          onChange={setPlanTitle}
-        />
-      </Card>
-
-      <Card title="Delivery and discount" sectioned>
-        <InlineStack>
+        <Card
+          title={`Group Name`}
+          sectioned
+        >
           <TextField
-            type="number"
-            label="Delivery frequency (in weeks)"
-            value={deliveryFrequency}
-            onChange={setDeliveryFrequency}
+            value={groupDetails.name}
+            onChange={setPlanTitle}
           />
-          <TextField
-            type="number"
-            label="Percentage off (%)"
-            value={percentageOff}
-            onChange={setPercentageOff}
-          />
-        </InlineStack>
-      </Card>
+        </Card>
 
-      {cachedActions}
+        <Card
+          title={`Subscription Type`}
+          sectioned
+        >
+        
+        <BlockStack spacing="none">
+          <Radio
+            label="One-time + Subscription"
+            helpText="This gives option to your customers either to purchase the item as one time purchase or a recurring subscription."
+            checked={subscriptionType=="subscription-one-time"}
+            value="subscription-one-time"
+            id="option1"
+            name="subsciptionoptions"
+            onChange={subscriptionTypeChage}
+          />
+          <Radio
+            label="Subscription only"
+            helpText="This gives option to your customers to purchase the item on recurring basis."
+            id="option2"
+            value="subscription-only"
+            name="subsciptionoptions"
+            checked={subscriptionType=="subscription-only"}
+            onChange={subscriptionTypeChage}
+          />
+          </BlockStack>
+        </Card>
+
+        <Card
+          title={`Subscription Plans`}
+          sectioned
+        >
+          <BlockStack spacing="loose">
+            <Text size="base">Set the name and billing rules for your subscription group</Text>
+            <InlineStack>
+              <TextField
+                type="text"
+                label="Name"
+                value={deliveryFrequency}
+                onChange={setDeliveryFrequency}
+              />
+              <TextField
+                type="number"
+                label="Order frequency"
+                value={percentageOff}
+                onChange={setPercentageOff}
+              />
+              <Select
+                label="Select delivery frequency type"
+                options={options}
+                labelInline={false}
+                onChange={(value) => console.log(value, 'was selected')}
+                value="cooler-option"
+              />
+            </InlineStack>
+          </BlockStack>
+        </Card>
+
+        <Card title="Discount" sectioned>
+          <InlineStack>
+            <TextField
+              type="number"
+              label="Offer discounts for the subscription product"
+              value={deliveryFrequency}
+              onChange={setDeliveryFrequency}
+            />
+          </InlineStack>
+        </Card>
+
+        {cachedActions}
+      </>}
     </>
   );
 }
