@@ -72,8 +72,6 @@ function Add() {
 
       const tokenS = await getSessionToken();
 
-      console.log(data)
-
       const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub/ls', {
         method: 'POST', // Use POST method
         headers: {

@@ -552,12 +552,6 @@ Route::any('/ad/prod/sub/ls', function (Request $request) {
                                 }
                             }
                         }
-                        pageInfo {
-                            hasNextPage
-                            hasPreviousPage
-                            startCursor
-                            endCursor
-                        }
                     }
                 }
             QUERY;
