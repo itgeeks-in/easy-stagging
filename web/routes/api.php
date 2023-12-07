@@ -254,7 +254,7 @@ Route::any('/ad/prod/sub/ed', function (Request $request) {
                             ["fixed" => [
                                 "adjustmentType" => "PERCENTAGE",
                                 "adjustmentValue" => [
-                                    "percentage" => $discountPer
+                                    "percentage" => $discountValue
                                 ],
                             ]]
                         ],
