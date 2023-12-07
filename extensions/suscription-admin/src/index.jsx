@@ -133,6 +133,7 @@ function Create() {
   const [planTitle, setPlanTitle] = useState('');
   const [percentageOff, setPercentageOff] = useState('');
   const [deliveryFrequency, setDeliveryFrequency] = useState('');
+  
 
   const onPrimaryAction = useCallback(async () => {
     const token = await getSessionToken();
@@ -333,31 +334,74 @@ function Edit() {
 
   const {getSessionToken} = useSessionToken();
 
-  const [planTitle, setPlanTitle] = useState('Current plan');
-  const [percentageOff, setPercentageOff] = useState('10');
-  const [deliveryFrequency, setDeliveryFrequency] = useState('1');
-
-  const onPrimaryAction = useCallback(async () => {
-    const token = await getSessionToken();
-
-    // Here, send the form data to your app server to modify the selling plan.
-
-    done();
-  }, [getSessionToken, done]);
-
-  const cachedActions = useMemo(
-    () => (
-      <Actions onPrimary={onPrimaryAction} onClose={close} title="Edit plan" />
-    ),
-    [onPrimaryAction, close]
-  );
-
-
-
   const [ loader , loaderOption ] = useState(true);
+  const [ samePlan, samePlanOption ] = useState(false); 
   const [ groupDetails , groupDetailsOption ] = useState({});
   const [ productDetails , productDetailsOption ] = useState({});
   const [ subscriptionType , subscriptionTypeOption ] = useState('subscription-one-time');
+  const [ subscriptionAction, subscriptionActionOptions ] = useState({ name:"New Subscription Group", namereq:false, namespec:false, discountPer:0, discount:false, scheduleInterval:["MONTH"], scheduleIntervalValue:["Months"] , scheduleFrequency:[1], scheduleFrequencyName:["Delivery every"], scheduleFrequencyIds:[] });
+  const [ editSubscriptionGroup, editSubscriptionGroupOption ] = useState({ edit:true, data:{}, id:'', plansState:{}, planUpdate:{}, planRemove:[] });
+
+
+  const onPrimaryAction = useCallback(async () => {
+    const tokenE = await getSessionToken();
+    
+
+    if( samePlan ){}else{
+        if( subscriptionAction.name == '' ){
+            subscriptionActionOptions({...subscriptionAction, namereq:true });
+        }else{
+            if( subscriptionAction.namespec === true ){}else{
+                loaderOption(true);
+
+                const createSubGroupData = {
+                    ed:editSubscriptionGroup.edit,
+                    id:data.sellingPlanGroupId,
+                    nm:subscriptionAction.name,
+                    dP:subscriptionAction.discountPer,
+                    sF:subscriptionAction.scheduleFrequency,
+                    sI:subscriptionAction.scheduleInterval,
+                    sFN:subscriptionAction.scheduleFrequencyName,
+                    tp:subscriptionType,
+                    pu:editSubscriptionGroup.planUpdate,
+                    ps:editSubscriptionGroup.plansState,
+                    pr:editSubscriptionGroup.planRemove
+                }
+
+                console.log(createSubGroupData);
+                const responseE = await fetch('https://app.easysubscription.io/api/ad/prod/sub/ed', {
+                  method: 'POST', // Use POST method
+                  headers: {
+                    'Content-Type': 'application/json', // Set Content-Type header if sending JSON
+                    'token-shop': tokenE || 'unknown token',
+                  },
+                  body: JSON.stringify(createSubGroupData)
+                });
+
+                if (responseE.ok) {
+    
+                  const responseEData = await responseE.json();
+                  console.log(responseEData);
+                  loaderOption(false);
+                  //done();
+          
+                } else {
+                  console.log('Handle error.');
+                }  
+
+            }
+        }
+    }
+
+    //done();
+  }, [getSessionToken, data, done, subscriptionType, subscriptionAction, editSubscriptionGroup, samePlan]);
+
+  const cachedActions = useMemo(
+    () => (
+      <Actions onPrimary={onPrimaryAction} onClose={close} title="Save Group" />
+    ),
+    [onPrimaryAction, close]
+  );
 
   useEffect(() => {
 
@@ -381,6 +425,59 @@ function Edit() {
 
         productDetailsOption(responseBody.product.data.product);
         groupDetailsOption(responseBody.group.data.sellingPlanGroup);
+        if( responseBody.dtb[0].type ){
+          subscriptionTypeOption(responseBody.dtb[0].type)
+        }
+        var sellingPlanGroup = responseBody.group.data.sellingPlanGroup;
+        var scheduleIntervalValue = [];
+        var scheduleInterval = [];
+        var discountPer = 0;
+        var discount = false;
+        var scheduleFrequency = [];
+        var scheduleFrequencyName = [];
+        var scheduleFrequencyIds = [];
+        var planState = {};
+        if( sellingPlanGroup.sellingPlans.edges ){
+            sellingPlanGroup.sellingPlans.edges.map(function(sellingPlan, i){
+                var scheduleFrequencyId = sellingPlan.node.id.replace("gid://shopify/SellingPlan/", "");
+                scheduleFrequencyIds.push(scheduleFrequencyId);
+                var sellingPlanName = sellingPlan.node.name;
+                var sellingPlanOption = sellingPlan.node.options[0];
+                var scheduleIntervalName = sellingPlan.node.billingPolicy.interval;
+                var intervalCount = sellingPlan.node.billingPolicy.intervalCount;
+                var scheduleIntervalValueName = 'day';
+                scheduleFrequency.push(intervalCount);
+                if( scheduleIntervalName == 'DAY' ){
+                    scheduleIntervalValueName = 'day';
+                }
+                if( scheduleIntervalName == 'WEEK' ){
+                    scheduleIntervalValueName = 'week';	
+                }
+                if( scheduleIntervalName == 'MONTH' ){
+                    scheduleIntervalValueName = 'month';	
+                }
+                if( intervalCount > 1 ){
+                    scheduleIntervalValueName = scheduleIntervalValueName+'s';
+                }
+                scheduleInterval.push(scheduleIntervalName);
+                scheduleIntervalValue.push(scheduleIntervalValueName);
+                var sellingPlanName=sellingPlanName.replace(' '+sellingPlanOption, "");
+                scheduleFrequencyName.push(sellingPlanName);
+                var pricingPolicies = sellingPlan.node.pricingPolicies[0];
+                discountPer = pricingPolicies.adjustmentValue.percentage;
+                if( discountPer > 0 ){
+                    discount = true;
+                }
+                planState[i]={}
+                planState[i].discountPer=discountPer;
+                planState[i].name = sellingPlanName;
+                planState[i].intervalCount = intervalCount;
+                planState[i].interval = scheduleIntervalName;
+                planState[i].id = scheduleFrequencyId;
+            });
+        }
+        editSubscriptionGroupOption({...editSubscriptionGroup, data:sellingPlanGroup, id:sellingPlanGroup.id , plansState:planState});
+        subscriptionActionOptions({...subscriptionAction, name:sellingPlanGroup.name, discount:discount, discountPer:discountPer, scheduleInterval:scheduleInterval, scheduleIntervalValue:scheduleIntervalValue , scheduleFrequency:scheduleFrequency, scheduleFrequencyName:scheduleFrequencyName, scheduleFrequencyIds:scheduleFrequencyIds});
         loaderOption(false);
 
       } else {
@@ -397,24 +494,66 @@ function Edit() {
       subscriptionTypeOption(e);
   }
 
+  function containsSpecialChars(str) {
+      const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+      return specialChars.test(str);  
+  }
+
+  function subscriptionActionName(value){
+    if( value == '' ){
+        subscriptionActionOptions({...subscriptionAction, name:value, namereq:true, namespec:false });
+    }else{
+        if( containsSpecialChars(value) === true ){
+            subscriptionActionOptions({...subscriptionAction, name:value, namereq:false, namespec:true });
+        }else{
+            subscriptionActionOptions({...subscriptionAction, name:value, namereq:false, namespec:false });
+        }
+    }
+  }
+
+  function toFindDuplicates(arryOne, arryTwo) {
+      var newArray = [];
+      for (let i = 0; i < arryOne.length; i++) {
+          newArray[i]=arryOne[i]+''+arryTwo[i];
+      }
+      var arry = newArray;
+      let toMap = {};
+      let resultToReturn = false;
+      for (let i = 0; i < arry.length; i++) {
+          if (toMap[arry[i]]) {
+              resultToReturn = true;
+              break;
+          }
+          toMap[arry[i]] = true;
+      }
+      return resultToReturn;
+  }
+
+
   const options = [
     {
-      label: 'Cool option',
-      value: 'cool-option',
+      label: 'Days',
+      value: 'DAY',
     },
     {
-      label: 'Cooler option',
-      value: 'cooler-option',
+      label: 'Weeks',
+      value: 'WEEK',
     },
     {
-      label: 'Coolest option',
-      value: 'coolest-option',
+      label: 'Months',
+      value: 'MONTH',
     },
   ];
 
-  console.log(groupDetails);
-
-  //console.log(productDetails);
+  function objsize(obj) {
+      var size = 0, key;
+    
+      for (key in obj) {
+          if (obj.hasOwnProperty(key))
+          size++;
+      }
+      return size;
+  };
 
   return (
     <>
@@ -431,10 +570,18 @@ function Edit() {
           title={`Group Name`}
           sectioned
         >
-          <TextField
-            value={groupDetails.name}
-            onChange={setPlanTitle}
-          />
+          <BlockStack spacing="loose">
+            <TextField
+              value={subscriptionAction.name}
+              onChange={subscriptionActionName}
+            />
+            {subscriptionAction.namereq?<>
+              <Text size="base" appearance="critical">Group name is required</Text>
+            </>:<></>}
+            {subscriptionAction.namespec?<>
+              <Text size="base" appearance="critical">Special characters not allowed</Text>
+            </>:<></>}
+          </BlockStack>
         </Card>
 
         <Card
@@ -470,27 +617,139 @@ function Edit() {
         >
           <BlockStack spacing="loose">
             <Text size="base">Set the name and billing rules for your subscription group</Text>
-            <InlineStack>
-              <TextField
-                type="text"
-                label="Name"
-                value={deliveryFrequency}
-                onChange={setDeliveryFrequency}
-              />
-              <TextField
-                type="number"
-                label="Order frequency"
-                value={percentageOff}
-                onChange={setPercentageOff}
-              />
-              <Select
-                label="Select delivery frequency type"
-                options={options}
-                labelInline={false}
-                onChange={(value) => console.log(value, 'was selected')}
-                value="cooler-option"
-              />
-            </InlineStack>
+            {subscriptionAction.scheduleFrequency.map(function(object, i){
+                var sellingPlanName = subscriptionAction.scheduleFrequencyName[i]; 
+                var index = i;
+                var planId = subscriptionAction.scheduleFrequencyIds[i];
+                return(
+                  <>
+                    <InlineStack>
+                        <TextField
+                          type="text"
+                          label="Name"
+                          value={sellingPlanName}
+                          onChange={(value) => {
+                            var scheduleFrequencyNameArray = subscriptionAction.scheduleFrequencyName;
+                            scheduleFrequencyNameArray[index]=value;
+                            subscriptionActionOptions({...subscriptionAction, scheduleFrequencyName:scheduleFrequencyNameArray });
+                            var planUpdate = editSubscriptionGroup.planUpdate;
+                            if( planId !== null ){
+                                if( objsize(planUpdate) > 0 ){
+                                    var length = objsize(planUpdate);
+                                    var find = 0;
+                                    for ( const property in planUpdate ) {
+                                      if( planUpdate[property]['id'] == planId ){
+                                        planUpdate[property].name=value;
+                                        find = 1;
+                                      }
+                                    }
+                                    if( find==0 ){
+                                        planUpdate[length]={}
+                                        planUpdate[length].id=planId;
+                                        planUpdate[length].name=value;
+                                    }
+                                }else{
+                                    planUpdate[0]={}
+                                    planUpdate[0].id=planId;
+                                    planUpdate[0].name=value;
+                                }
+                                editSubscriptionGroupOption({...editSubscriptionGroup, planUpdate:planUpdate});
+                            }
+                          }}
+                        />
+                        <TextField
+                          type="number"
+                          label="Order frequency"
+                          value={object}
+                          onChange={(value) => {
+                            var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
+                            var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+                            var value = parseInt(value);
+                            if( value > 1 ){
+                                value = value;
+                            }else{
+                                value = 1;
+                            }
+                            scheduleFrequencyArrayValues[index]=value;
+                            subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues });
+                            var planUpdate = editSubscriptionGroup.planUpdate;
+                            if( planId !== null ){
+                                if( objsize(planUpdate) > 0 ){
+                                    var length = objsize(planUpdate);
+                                    var find = 0;
+                                    for ( const property in planUpdate ) {
+                                        if( planUpdate[property]['id'] == planId ){
+                                            planUpdate[property].intervalCount=value;
+                                            find = 1;
+                                        }
+                                    }
+                                    if( find==0 ){
+                                        planUpdate[length]={}
+                                        planUpdate[length].id=planId;
+                                        planUpdate[length].intervalCount=value;
+                                    }
+                                }else{
+                                    planUpdate[0]={}
+                                    planUpdate[0].id=planId;
+                                    planUpdate[0].intervalCount=value;
+                                }
+                                editSubscriptionGroupOption({...editSubscriptionGroup, planUpdate:planUpdate});
+                            }
+                            samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+                          }}
+                        />
+                        <Select
+                          label="Select delivery frequency type"
+                          options={options}
+                          labelInline={false}
+                          onChange={(value) => {
+                            var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+                            var scheduleIntervalValueArrayValues = subscriptionAction.scheduleIntervalValue;
+                            var valueView = 'Days';
+                            if( value == 'WEEK' ){
+                                valueView = 'Weeks';
+                            }
+                            if( value == 'MONTH' ){
+                                valueView = 'Months';
+                            }
+                            scheduleIntervalArrayValues[index] = value;
+                            scheduleIntervalValueArrayValues[index] = valueView;
+                            subscriptionActionOptions({...subscriptionAction, scheduleInterval:scheduleIntervalArrayValues, scheduleIntervalValue:scheduleIntervalValueArrayValues });
+                            var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
+                            var planUpdate = editSubscriptionGroup.planUpdate;
+                            if( planId !== null ){
+                                if( objsize(planUpdate) > 0 ){
+                                    var length = objsize(planUpdate);
+                                    var find = 0;
+                                    for ( const property in planUpdate ) {
+                                        if( planUpdate[property]['id'] == planId ){
+                                            planUpdate[property].interval=value;
+                                            find = 1;
+                                        }
+                                    }
+                                    if( find==0 ){
+                                        planUpdate[length]={}
+                                        planUpdate[length].id=planId;
+                                        planUpdate[length].interval=value;
+                                    }
+                                }else{
+                                    planUpdate[0]={}
+                                    planUpdate[0].id=planId;
+                                    planUpdate[0].interval=value;
+                                }
+                                editSubscriptionGroupOption({...editSubscriptionGroup, planUpdate:planUpdate});
+                            }
+                            samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+                          }}
+                          value={subscriptionAction.scheduleInterval[i]}
+                        />
+                    </InlineStack>
+                  </>
+                );
+            })}
+            {samePlan?<>
+              <Text size="base" appearance="critical">Every plan will have different Billing Rules</Text>
+            </>:<></>}
           </BlockStack>
         </Card>
 
@@ -498,11 +757,23 @@ function Edit() {
           <InlineStack>
             <TextField
               type="number"
-              label="Offer discounts for the subscription product"
-              value={deliveryFrequency}
-              onChange={setDeliveryFrequency}
+              label="Percentage off (%)"
+              value={subscriptionAction.discountPer}
+              onChange={(value) => {
+                var value = parseInt(value);
+                if( value > 1 ){
+                    value = value;
+                }else{
+                    value = 1;
+                }
+                subscriptionActionOptions({...subscriptionAction, discountPer:value});
+              }}
             />
           </InlineStack>
+        </Card>
+
+        <Card title="Info:" sectioned>
+          <Text size="base" appearance="critical">Changes will apply to the subscription group, and they will affect all the products present in this group.</Text>
         </Card>
 
         {cachedActions}

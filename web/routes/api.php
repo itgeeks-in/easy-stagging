@@ -88,6 +88,39 @@ Route::any('/ad/prod/sub/remtrig', function (Request $request) {
 
 });
 
+Route::any('/ad/prod/sub/ed', function (Request $request) {
+
+    $requestData = $request->all();
+    $clientSecret = env('SHOPIFY_API_SECRET');
+    $token = $request->header('token-shop');
+
+    $decodedToken = JWT::decode($token, new Key($clientSecret, 'HS256'));
+
+    if( isset( $decodedToken->iss ) && isset( $decodedToken->dest ) ){
+        $shopurl =  $decodedToken->dest;
+
+        $shopDomain = str_replace('https://','',$shopurl);
+
+        $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shopDomain)->get();
+
+        if( !empty( $sessions ) ){
+            $authShop = $sessions[0]->shop;
+            $authTokken = $sessions[0]->access_token;
+
+            $client = new Graphql($authShop, $authTokken);
+            
+
+            return response()->json(['data' => $requestData, 'res'=>true]);
+
+        }else{
+            return '';
+        }
+    }else{
+        return '';
+    }
+
+});
+
 Route::any('/ad/prod/sub/rem', function (Request $request) {
 
     $requestData = $request->all();
