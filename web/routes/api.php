@@ -533,12 +533,7 @@ Route::any('/ad/prod/sub/ls', function (Request $request) {
             $result1 = $client->query(['query' => $query1]);
             $resultBody1 = $result1->getDecodedBody();
 
-            $shop_name = explode('.', $authShop);
-            $table_name = $shop_name[0] . '_sellingplangroup';
-
-            $data = DB::table($table_name)->where('groupid', $sellingPlanGroupId)->get();
-
-            return response()->json(['data' => $requestData, 'product'=>$resultBody1, 'dtb'=>$data]);
+            return response()->json(['data' => $requestData, 'product'=>$resultBody1]);
         }else{
             return '';
         }
