@@ -380,9 +380,8 @@ function Edit() {
                 if (responseE.ok) {
     
                   const responseEData = await responseE.json();
-                  console.log(responseEData);
                   loaderOption(false);
-                  //done();
+                  done();
           
                 } else {
                   console.log('Handle error.');
@@ -392,7 +391,6 @@ function Edit() {
         }
     }
 
-    //done();
   }, [getSessionToken, data, done, subscriptionType, subscriptionAction, editSubscriptionGroup, samePlan]);
 
   const cachedActions = useMemo(
