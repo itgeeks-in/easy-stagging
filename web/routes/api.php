@@ -520,6 +520,7 @@ Route::any('/ad/prod/sub/ls', function (Request $request) {
             $authTokken = $sessions[0]->access_token;
 
             $client = new Graphql($authShop, $authTokken);
+            $productId = $requestData['productId'];
 
             $query1 = <<<QUERY
                 {
