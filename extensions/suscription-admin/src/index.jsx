@@ -367,7 +367,7 @@ function Edit() {
                     ps:editSubscriptionGroup.plansState,
                     pr:editSubscriptionGroup.planRemove
                 }
-                
+
                 const responseE = await fetch('https://app.easysubscription.io/api/ad/prod/sub/ed', {
                   method: 'POST', // Use POST method
                   headers: {
@@ -580,33 +580,6 @@ function Edit() {
             {subscriptionAction.namespec?<>
               <Text size="base" appearance="critical">Special characters not allowed</Text>
             </>:<></>}
-          </BlockStack>
-        </Card>
-
-        <Card
-          title={`Subscription Type`}
-          sectioned
-        >
-        
-        <BlockStack spacing="none">
-          <Radio
-            label="One-time + Subscription"
-            helpText="This gives option to your customers either to purchase the item as one time purchase or a recurring subscription."
-            checked={subscriptionType=="subscription-one-time"}
-            value="subscription-one-time"
-            id="option1"
-            name="subsciptionoptions"
-            onChange={subscriptionTypeChage}
-          />
-          <Radio
-            label="Subscription only"
-            helpText="This gives option to your customers to purchase the item on recurring basis."
-            id="option2"
-            value="subscription-only"
-            name="subsciptionoptions"
-            checked={subscriptionType=="subscription-only"}
-            onChange={subscriptionTypeChage}
-          />
           </BlockStack>
         </Card>
 
