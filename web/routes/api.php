@@ -561,7 +561,6 @@ Route::any('/ad/prod/sub/ls', function (Request $request) {
     }
 });
 
-
 Route::any('/ad/prod/sub/ep', function (Request $request) {
 
     $requestData = $request->all();
@@ -584,7 +583,31 @@ Route::any('/ad/prod/sub/ep', function (Request $request) {
 
             $client = new Graphql($authShop, $authTokken);
 
-            return response()->json(['response'=>'true', 'data'=>$requestData]);
+            $groupId = $requestData['group'];
+            $productIdsGql = $requestData['product']['productId'];
+
+            $queryUsingVariables = <<<QUERY
+                mutation sellingPlanGroupAddProducts(\$id: ID!, \$productIds: [ID!]!) {
+                    sellingPlanGroupAddProducts(id: \$id, productIds: \$productIds) {
+                        sellingPlanGroup{
+                            id
+                        }
+                        userErrors {
+                            field
+                            message
+                        }
+                    }
+                }
+            QUERY;
+            $variables = [
+                "id" => $groupId,
+                "productIds" => $productIdsGql
+            ];
+            $result = $client->query(['query' => $queryUsingVariables, 'variables' => $variables]);
+            $updateData = $result->getDecodedBody();
+
+            return response()->json(['response'=>'true', 'data'=>$updateData]);
+
         }else{
             return '';
         }

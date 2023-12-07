@@ -114,7 +114,7 @@ function Add() {
           group:selectedGroup
         }
 
-        const responseEp = await fetch('https://app.easysubscription.io/api/ad/prod/sub/ls', {
+        const responseEp = await fetch('https://app.easysubscription.io/api/ad/prod/sub/ep', {
           method: 'POST', // Use POST method
           headers: {
             'Content-Type': 'application/json', // Set Content-Type header if sending JSON
