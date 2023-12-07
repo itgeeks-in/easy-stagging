@@ -543,13 +543,6 @@ Route::any('/ad/prod/sub/ls', function (Request $request) {
                                 id
                                 name
                                 summary
-                                products(first:20){
-                                    edges {
-                                        node {
-                                            id
-                                        }
-                                    }
-                                }
                             }
                         }
                     }
@@ -566,7 +559,38 @@ Route::any('/ad/prod/sub/ls', function (Request $request) {
     }else{
         return '';
     }
+});
 
+
+Route::any('/ad/prod/sub/ep', function (Request $request) {
+
+    $requestData = $request->all();
+    $clientSecret = env('SHOPIFY_API_SECRET');
+    $token = $request->header('token-shop');
+
+    $decodedToken = JWT::decode($token, new Key($clientSecret, 'HS256'));
+
+    if( isset( $decodedToken->iss ) && isset( $decodedToken->dest ) ){
+        $shopurl =  $decodedToken->dest;
+
+        $shopDomain = str_replace('https://','',$shopurl);
+
+        $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shopDomain)->get();
+
+        if( !empty( $sessions ) ){
+
+            $authShop = $sessions[0]->shop;
+            $authTokken = $sessions[0]->access_token;
+
+            $client = new Graphql($authShop, $authTokken);
+
+            return response()->json(['response'=>'true', 'data'=>$requestData]);
+        }else{
+            return '';
+        }
+    }else{
+        return '';
+    }
 });
 
 Route::get('/easysubcron', function () {

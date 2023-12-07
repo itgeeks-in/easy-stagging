@@ -63,6 +63,7 @@ function Add() {
   const {getSessionToken} = useSessionToken();
 
   const [ loader , loaderOption ] = useState(true);
+  const [ selectedGroup , selectedGroupOption ] = useState('');
   const [ groupDetails , groupDetailsOption ] = useState({});
   const [ productDetails , productDetailsOption ] = useState({});
 
@@ -85,7 +86,8 @@ function Add() {
       if (response.ok) {
 
         const responseBody = await response.json();
-        console.log(responseBody);
+        groupDetailsOption(responseBody.groups.data.sellingPlanGroups);
+        productDetailsOption(responseBody.product.data.product);
         loaderOption(false);
 
       } else {
@@ -98,19 +100,44 @@ function Add() {
 
   }, [data]);
 
+
   // Configure the extension container UI
   useEffect(() => {
     setPrimaryAction({
-      content: 'Add to plan',
+      content: 'Add Group',
       onAction: async () => {
         // Get a fresh session token before every call to your app server.
         const token = await getSessionToken();
 
+        const sendData = {
+          product:data,
+          group:selectedGroup
+        }
+
+        const responseEp = await fetch('https://app.easysubscription.io/api/ad/prod/sub/ls', {
+          method: 'POST', // Use POST method
+          headers: {
+            'Content-Type': 'application/json', // Set Content-Type header if sending JSON
+            'token-shop': token || 'unknown token',
+          },
+          body: JSON.stringify(sendData)
+        });
+      
+        // If the server responds with an OK status, then refresh the UI and close the modal
+        if (responseEp.ok) {
+
+          const responseEpBody = await responseEp.json();
+          console.log(responseEpBody)
+          loaderOption(false);
+
+        } else {
+          console.log('Handle error.');
+        }  
         // Here, send the form data to your app server to add the product to an existing plan.
 
         // Upon completion, call done() to trigger a reload of the resource page
         // and terminate the extension.
-        done();
+        //done();
       },
     });
 
@@ -118,17 +145,35 @@ function Add() {
       content: 'Cancel',
       onAction: () => close(),
     });
-  }, [getSessionToken, close, done, setPrimaryAction, setSecondaryAction]);
+  }, [getSessionToken, data, selectedGroup, close, done, setPrimaryAction, setSecondaryAction]);
 
   return (
     <>
       {loader?<>
             <Spinner accessibilityLabel="Spinner example" size="large"/>
           </>:<>
-        <TextBlock size="extraLarge">{localizedStrings.hello}!</TextBlock>
-        <Text>
-          Add Product id {data.productId} to an existing plan or existing plans
-        </Text>
+        <BlockStack spacing="loose">
+          <TextBlock size="base" variation="strong">Add Product "{productDetails.title}" to an existing plan group</TextBlock>
+          {groupDetails.edges.map(function(value,index){
+                var name = value.node.name;
+                var summary = value.node.summary;
+                var value = value.node.id;
+                var id = "option"+index;
+                return(
+                  <>
+                    <Radio
+                      label={name}
+                      helpText={summary}
+                      checked={selectedGroup==value}
+                      id={id}
+                      value={value}
+                      name="groupOptions"
+                      onChange={(value) => { selectedGroupOption(value) }}
+                    />
+                  </>
+                );
+              })}
+        </BlockStack>
       </>}
 
     </>
