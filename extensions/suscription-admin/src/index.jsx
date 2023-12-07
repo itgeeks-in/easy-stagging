@@ -62,12 +62,41 @@ function Add() {
   // from your extension to your app server.
   const {getSessionToken} = useSessionToken();
 
-  const [selectedPlans, setSelectedPlans] = useState([]);
-  const mockPlans = [
-    {name: 'Subscription Plan A', id: 'a'},
-    {name: 'Subscription Plan B', id: 'b'},
-    {name: 'Subscription Plan C', id: 'c'},
-  ];
+  const [ loader , loaderOption ] = useState(true);
+  const [ groupDetails , groupDetailsOption ] = useState({});
+  const [ productDetails , productDetailsOption ] = useState({});
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+
+      const tokenS = await getSessionToken();
+
+      const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub/ls', {
+        method: 'POST', // Use POST method
+        headers: {
+          'Content-Type': 'application/json', // Set Content-Type header if sending JSON
+          'token-shop': tokenS || 'unknown token',
+        },
+        body: JSON.stringify(data)
+      });
+    
+      // If the server responds with an OK status, then refresh the UI and close the modal
+      if (response.ok) {
+
+        const responseBody = await response.json();
+        console.log(responseBody);
+        loaderOption(false);
+
+      } else {
+        console.log('Handle error.');
+      }  
+
+    };
+
+    fetchData();
+
+  }, [data]);
 
   // Configure the extension container UI
   useEffect(() => {
@@ -93,26 +122,15 @@ function Add() {
 
   return (
     <>
-      <TextBlock size="extraLarge">{localizedStrings.hello}!</TextBlock>
-      <Text>
-        Add Product id {data.productId} to an existing plan or existing plans
-      </Text>
+      {loader?<>
+            <Spinner accessibilityLabel="Spinner example" size="large"/>
+          </>:<>
+        <TextBlock size="extraLarge">{localizedStrings.hello}!</TextBlock>
+        <Text>
+          Add Product id {data.productId} to an existing plan or existing plans
+        </Text>
+      </>}
 
-      <InlineStack>
-        {mockPlans.map((plan) => (
-          <Checkbox
-            key={plan.id}
-            label={plan.name}
-            onChange={(checked) => {
-              const plans = checked
-                ? selectedPlans.concat(plan.id)
-                : selectedPlans.filter((id) => id !== plan.id);
-              setSelectedPlans(plans);
-            }}
-            checked={selectedPlans.includes(plan.id)}
-          />
-        ))}
-      </InlineStack>
     </>
   );
 }
@@ -385,6 +403,7 @@ function Edit() {
           
                 } else {
                   console.log('Handle error.');
+                  done();
                 }  
 
             }
@@ -582,7 +601,7 @@ function Edit() {
         </Card>
 
         <Card
-          title={`Subscription Plans`}
+          title={`Selling Plans`}
           sectioned
         >
           <BlockStack spacing="loose">
@@ -640,7 +659,42 @@ function Edit() {
                             }else{
                                 value = 1;
                             }
-                            
+                            scheduleFrequencyArrayValues[index]=value;
+                            subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues });
+                            var planUpdate = editSubscriptionGroup.planUpdate;
+                            if( planId !== null ){
+                                if( objsize(planUpdate) > 0 ){
+                                    var length = objsize(planUpdate);
+                                    var find = 0;
+                                    for ( const property in planUpdate ) {
+                                        if( planUpdate[property]['id'] == planId ){
+                                            planUpdate[property].intervalCount=value;
+                                            find = 1;
+                                        }
+                                    }
+                                    if( find==0 ){
+                                        planUpdate[length]={}
+                                        planUpdate[length].id=planId;
+                                        planUpdate[length].intervalCount=value;
+                                    }
+                                }else{
+                                    planUpdate[0]={}
+                                    planUpdate[0].id=planId;
+                                    planUpdate[0].intervalCount=value;
+                                }
+                                editSubscriptionGroupOption({...editSubscriptionGroup, planUpdate:planUpdate});
+                            }
+                            samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+                          }}
+                          onInput={(value) => {
+                            var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
+                            var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+                            var value = value;
+                            if( value > 1 ){
+                                value = value;
+                            }else{
+                                value = 1;
+                            }
                             scheduleFrequencyArrayValues[index]=value;
                             subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues });
                             var planUpdate = editSubscriptionGroup.planUpdate;
@@ -731,12 +785,46 @@ function Edit() {
               label="Percentage off (%)"
               value={subscriptionAction.discountPer}
               onChange={(value) => {
-                if( value > 1 ){
+                if( value > 0 ){
                     value = value;
                 }else{
-                    value = 1;
+                    value = 0;
                 }
                 subscriptionActionOptions({...subscriptionAction, discountPer:value});
+                var planUpdate = editSubscriptionGroup.planUpdate;
+                var plansState = editSubscriptionGroup.plansState;
+                for ( const property in plansState ) {
+                    if( planUpdate.hasOwnProperty(property) ){
+                        planUpdate[property].id=plansState[property].id;
+                        planUpdate[property].discountPer=parseInt(value);
+                    }else{
+                        planUpdate[property]={}
+                        planUpdate[property].id=plansState[property].id;;
+                        planUpdate[property].discountPer=parseInt(value);
+                    }
+                }
+                editSubscriptionGroupOption({...editSubscriptionGroup, planUpdate:planUpdate});
+              }}
+              onInput={(value) => {
+                if( value > 0 ){
+                    value = value;
+                }else{
+                    value = 0;
+                }
+                subscriptionActionOptions({...subscriptionAction, discountPer:value});
+                var planUpdate = editSubscriptionGroup.planUpdate;
+                var plansState = editSubscriptionGroup.plansState;
+                for ( const property in plansState ) {
+                    if( planUpdate.hasOwnProperty(property) ){
+                        planUpdate[property].id=plansState[property].id;
+                        planUpdate[property].discountPer=parseInt(value);
+                    }else{
+                        planUpdate[property]={}
+                        planUpdate[property].id=plansState[property].id;;
+                        planUpdate[property].discountPer=parseInt(value);
+                    }
+                }
+                editSubscriptionGroupOption({...editSubscriptionGroup, planUpdate:planUpdate});
               }}
             />
           </InlineStack>

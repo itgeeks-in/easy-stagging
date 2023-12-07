@@ -500,6 +500,53 @@ Route::any('/ad/prod/sub/rem', function (Request $request) {
 
 });
 
+Route::any('/ad/prod/sub/ls', function (Request $request) {
+
+    $requestData = $request->all();
+    $clientSecret = env('SHOPIFY_API_SECRET');
+    $token = $request->header('token-shop');
+
+    $decodedToken = JWT::decode($token, new Key($clientSecret, 'HS256'));
+
+    if( isset( $decodedToken->iss ) && isset( $decodedToken->dest ) ){
+        $shopurl =  $decodedToken->dest;
+
+        $shopDomain = str_replace('https://','',$shopurl);
+
+        $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shopDomain)->get();
+
+        if( !empty( $sessions ) ){
+            $authShop = $sessions[0]->shop;
+            $authTokken = $sessions[0]->access_token;
+
+            $client = new Graphql($authShop, $authTokken);
+
+            $query1 = <<<QUERY
+                {
+                    product(id:"$productId") {
+                        id
+                        title
+                    }
+                }
+            QUERY;
+            $result1 = $client->query(['query' => $query1]);
+            $resultBody1 = $result1->getDecodedBody();
+
+            $shop_name = explode('.', $authShop);
+            $table_name = $shop_name[0] . '_sellingplangroup';
+
+            $data = DB::table($table_name)->where('groupid', $sellingPlanGroupId)->get();
+
+            return response()->json(['data' => $requestData, 'product'=>$resultBody1, 'dtb'=>$data]);
+        }else{
+            return '';
+        }
+    }else{
+        return '';
+    }
+
+});
+
 Route::get('/easysubcron', function () {
     $sessions = DB::table('sessions')->select('shop','access_token')->where('access_token','!=','')->get();
     foreach($sessions as $session){
