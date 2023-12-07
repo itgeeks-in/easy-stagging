@@ -506,6 +506,9 @@ Route::any('/ad/prod/sub/ls', function (Request $request) {
     $clientSecret = env('SHOPIFY_API_SECRET');
     $token = $request->header('token-shop');
 
+
+    return response()->json(['data' => $requestData ]);
+
     $decodedToken = JWT::decode($token, new Key($clientSecret, 'HS256'));
 
     if( isset( $decodedToken->iss ) && isset( $decodedToken->dest ) ){
