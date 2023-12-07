@@ -543,7 +543,13 @@ Route::any('/ad/prod/sub/ls', function (Request $request) {
                                 id
                                 name
                                 summary
-                                productCount
+                                products(first:20){
+                                    edges {
+                                        node {
+                                            id
+                                        }
+                                    }
+                                }
                             }
                         }
                         pageInfo {
