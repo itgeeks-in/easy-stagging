@@ -459,7 +459,7 @@ export default function Groups() {
                       <div className="itgDataicon">
                         <img src={searchIcon} alt="" />
                       </div>
-                        <h4>No Records Found</h4>
+                      <h4>No Records Found</h4>
                     </div> 
                     {selectedValueStatus !== ' ' || selectedValueType !== ' '?<>
                           <button type='button' onClick={resetFilter}>Reset Filter</button>

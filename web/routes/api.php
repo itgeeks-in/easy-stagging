@@ -516,6 +516,7 @@ Route::any('/ad/prod/sub/ls', function (Request $request) {
         $sessions = DB::table('sessions')->select('shop','access_token')->where('shop',$shopDomain)->get();
 
         if( !empty( $sessions ) ){
+
             $authShop = $sessions[0]->shop;
             $authTokken = $sessions[0]->access_token;
 
@@ -530,10 +531,35 @@ Route::any('/ad/prod/sub/ls', function (Request $request) {
                     }
                 }
             QUERY;
+
             $result1 = $client->query(['query' => $query1]);
             $resultBody1 = $result1->getDecodedBody();
 
-            return response()->json(['data' => $requestData, 'product'=>$resultBody1]);
+            $query = <<<QUERY
+                {
+                sellingPlanGroups(first:10) {
+                        edges {
+                            node {
+                                id
+                                name
+                                summary
+                                productCount
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                    }
+                }
+            QUERY;
+            
+            $result = $client->query(['query' => $query]);
+            $resultBody = $result->getDecodedBody();
+
+            return response()->json(['data' => $requestData, 'product'=>$resultBody1, 'groups'=>$resultBody]);
         }else{
             return '';
         }
