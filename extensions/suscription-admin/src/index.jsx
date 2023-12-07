@@ -634,12 +634,13 @@ function Edit() {
                           onChange={(value) => {
                             var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
                             var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
-                            var value = parseInt(value);
+                            var value = value;
                             if( value > 1 ){
                                 value = value;
                             }else{
                                 value = 1;
                             }
+                            
                             scheduleFrequencyArrayValues[index]=value;
                             subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues });
                             var planUpdate = editSubscriptionGroup.planUpdate;
@@ -730,7 +731,6 @@ function Edit() {
               label="Percentage off (%)"
               value={subscriptionAction.discountPer}
               onChange={(value) => {
-                var value = parseInt(value);
                 if( value > 1 ){
                     value = value;
                 }else{
