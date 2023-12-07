@@ -106,11 +106,283 @@ Route::any('/ad/prod/sub/ed', function (Request $request) {
         if( !empty( $sessions ) ){
             $authShop = $sessions[0]->shop;
             $authTokken = $sessions[0]->access_token;
-
             $client = new Graphql($authShop, $authTokken);
-            
 
-            return response()->json(['data' => $requestData, 'res'=>true]);
+            $subscriptionEdit = $requestData['ed'];
+            $subscriptionEditId = $requestData['id'];
+            $sellingPlanGroupName = $requestData['nm'];
+            $discountValue = $requestData['dP'];
+            $scheduleFrequency = $requestData['sF'];
+            $scheduleIntervalArray = $requestData['sI'];
+            $scheduleFrequencyName = $requestData['sFN'];
+            $subscriptionType = $requestData['tp'];
+            $subscriptionPlanUpdate = $requestData['pu'];
+            $subscriptionPlanState = $requestData['ps'];
+            $deletePlans = $requestData['pr'];
+
+            $updatedData = array();
+            $updateCount = 0;
+            foreach ($subscriptionPlanUpdate as $key => $value) {
+                $removedPlan = 0;
+                foreach ($deletePlans as $dkey => $dvalue) {
+                    if ($dvalue == $value['id']) {
+                        $removedPlan = 1;
+                    }
+                }
+                if ($removedPlan == 0) {
+                    foreach ($subscriptionPlanState as $pkey => $pvalue) {
+                        if ($value['id'] == $pvalue['id']) {
+                            $updatedData[$updateCount] = array();
+                            $added = 0;
+                            if (isset($value['discountPer'])) {
+                                if ($value['discountPer'] != $pvalue['discountPer']) {
+                                    $updatedData[$updateCount]['discountPer'] = $value['discountPer'];
+                                    $added = 1;
+                                }
+                            }
+                            if (isset($value['name']) && !empty($value['name'])) {
+                                if ($value['name'] != $pvalue['name']) {
+                                    $updatedData[$updateCount]['name'] = $value['name'];
+                                    $added = 1;
+                                }
+                            }
+                            if (isset($value['intervalCount']) && !empty($value['intervalCount'])) {
+                                if ($value['intervalCount'] != $pvalue['intervalCount']) {
+                                    $updatedData[$updateCount]['intervalCount'] = $value['intervalCount'];
+                                    $added = 1;
+                                }
+                            }
+                            if (isset($value['interval']) && !empty($value['interval'])) {
+                                if ($value['interval'] != $pvalue['interval']) {
+                                    $updatedData[$updateCount]['interval'] = $value['interval'];
+                                    $added = 1;
+                                }
+                            }
+                            if ($added == 1) {
+                                $updatedData[$updateCount]['id'] = $value['id'];
+                            }
+                            $updateCount++;
+                        }
+                    }
+                }
+            }
+
+            $sellingPlanDeleteIds = [];
+            $countKey = 0;
+            foreach ($deletePlans as $key => $value) {
+                if (!empty($value)) {
+                    $sellingPlanDeleteIds[$countKey] = "gid://shopify/SellingPlan/$value";
+                    $countKey++;
+                }
+            }
+
+            $sellingPlansToCreateUpdate = [];
+            $countUpdate = 0;
+            foreach ($updatedData as $key => $value) {
+                if (!empty($value) && $value != '' && isset($value['id'])) {
+                    $sellingPlanNameId = "gid://shopify/SellingPlan/" . $value['id'];
+                    $sellingPlanName = '';
+                    if (isset($value['name']) && !empty($value['name'])) {
+                        $sellingPlanName .= $value['name'];
+                    } else {
+                        foreach ($subscriptionPlanState as $pkey => $pvalue) {
+                            if ($pvalue['id'] == $value['id']) {
+                                $sellingPlanName .= $pvalue['name'];
+                            }
+                        }
+                    }
+                    if (isset($value['intervalCount']) && !empty($value['intervalCount'])) {
+                        $sellingPlanName .= ' ' . $value['intervalCount'];
+                        $intervalCount = $value['intervalCount'];
+                    } else {
+
+                        foreach ($subscriptionPlanState as $pkey => $pvalue) {
+                            if ($pvalue['id'] == $value['id']) {
+                                $sellingPlanName .= ' ' . $pvalue['intervalCount'];
+                                $intervalCount = $pvalue['intervalCount'];
+                            }
+                        }
+                    }
+                    if (isset($value['interval']) && !empty($value['interval'])) {
+                        $scheduleInterval = $value['interval'];
+                    } else {
+                        foreach ($subscriptionPlanState as $pkey => $pvalue) {
+                            if ($pvalue['id'] == $value['id']) {
+                                $scheduleInterval = $pvalue['interval'];
+                            }
+                        }
+                    }
+                    if (isset($value['discountPer'])) {
+                        $discountPer = $value['discountPer'];
+                    } else {
+                        foreach ($subscriptionPlanState as $pkey => $pvalue) {
+                            if ($pvalue['id'] == $value['id']) {
+                                $discountPer = $pvalue['discountPer'];
+                            }
+                        }
+                    }
+                    if ($scheduleInterval == 'DAY') {
+                        $scheduleIntervalValue = 'day';
+                    }
+                    if ($scheduleInterval == 'WEEK') {
+                        $scheduleIntervalValue = 'week';
+                    }
+                    if ($scheduleInterval == 'MONTH') {
+                        $scheduleIntervalValue = 'month';
+                    }
+                    if ($intervalCount > 1) {
+                        $scheduleIntervalValue = $scheduleIntervalValue . 's';
+                    }
+                    $sellingPlanName .= ' ' . $scheduleIntervalValue;
+                    $sellingPlansToCreateUpdate[$countUpdate] = [
+                        "id" => $sellingPlanNameId,
+                        "name" => "$sellingPlanName",
+                        "options" => "$intervalCount $scheduleIntervalValue",
+                        "billingPolicy" => [
+                            "recurring" => [
+                                "interval" => $scheduleInterval,
+                                "intervalCount" => $intervalCount,
+                            ]
+                        ],
+                        "deliveryPolicy" => [
+                            "recurring" => [
+                                "interval" => $scheduleInterval,
+                                "intervalCount" => $intervalCount,
+                            ]
+                        ],
+                        "pricingPolicies" => [
+                            ["fixed" => [
+                                "adjustmentType" => "PERCENTAGE",
+                                "adjustmentValue" => [
+                                    "percentage" => $discountPer
+                                ],
+                            ]]
+                        ],
+                    ];
+                    $countUpdate++;
+                }
+            }
+
+            $sellingPlansToCreate = [];
+            foreach ($scheduleFrequency as $key => $value) {
+                $scheduleInterval = $scheduleIntervalArray[$key]; 
+                if ($scheduleInterval == 'DAY') {
+                    $scheduleIntervalValue = 'day';
+                }
+                if ($scheduleInterval == 'WEEK') {
+                    $scheduleIntervalValue = 'week';
+                }
+                if ($scheduleInterval == 'MONTH') {
+                    $scheduleIntervalValue = 'month';
+                }
+                if ($value > 1) {
+                    $scheduleIntervalValue = $scheduleIntervalValue . 's';
+                }
+                $position = $key + 1;
+                $cscheduleFrequencyName = $scheduleFrequencyName[$key];
+
+                $sellingPlansToCreate[$key] = [
+                    "name" => "$cscheduleFrequencyName $value $scheduleIntervalValue",
+                    "options" => "$value $scheduleIntervalValue",
+                    "category" => "SUBSCRIPTION",
+                    "position" => $position,
+                    "billingPolicy" => [
+                        "recurring" => [
+                            "interval" => $scheduleInterval,
+                            "intervalCount" => $value,
+                        ]
+                    ],
+                    "deliveryPolicy" => [
+                        "recurring" => [
+                            "interval" => $scheduleInterval,
+                            "intervalCount" => $value,
+                        ]
+                    ],
+                    "pricingPolicies" => [
+                        ["fixed" => [
+                            "adjustmentType" => "PERCENTAGE",
+                            "adjustmentValue" => [
+                                "percentage" => $discountValue
+                            ],
+                        ]]
+                    ],
+                ];
+            }
+
+            $sellingPlanHandle = str_replace(' ', '-', strtolower($sellingPlanGroupName));
+
+            $groupId = $subscriptionEditId;
+
+            $queryUsingVariables = <<<QUERY
+                mutation sellingPlanGroupUpdate(\$id: ID!,\$input: SellingPlanGroupInput!) {
+                    sellingPlanGroupUpdate(id: \$id,input: \$input) {
+                        sellingPlanGroup {
+                            id
+                            sellingPlans(first:20){
+                                edges {
+                                    node {
+                                        billingPolicy{
+                                            ... on SellingPlanRecurringBillingPolicy{
+                                                interval
+                                                intervalCount
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        userErrors {
+                            field
+                            message
+                        }
+                    } 
+                }
+            QUERY;
+            $variables = [
+                "id" => $groupId,
+                "input" => [
+                    "name" => $sellingPlanGroupName,
+                    "merchantCode" => $sellingPlanHandle,
+                    "options" => ["$sellingPlanGroupName"],
+                    "position" => 1,
+                    "sellingPlansToDelete" => $sellingPlanDeleteIds,
+                    "sellingPlansToUpdate" => $sellingPlansToCreateUpdate
+                ]
+            ];
+            $result = $client->query(['query' => $queryUsingVariables, 'variables' => $variables]);
+            $resultDecode = $result->getDecodedBody();
+            $oldSellingPlans = $resultDecode['data']['sellingPlanGroupUpdate']['sellingPlanGroup']['sellingPlans']['edges'];
+            $newSellingPlansToCreate = [];
+            $newCount = 0;
+            foreach ($sellingPlansToCreate as $key => $value) {
+                $intervalCount = $value['billingPolicy']['recurring']['intervalCount'];
+                $interval = $value['billingPolicy']['recurring']['interval'];
+                $sellingPlanData = $value;
+                $skip = 0;
+                foreach ($oldSellingPlans as $key => $value) {
+                    $oldInterval = $value['node']['billingPolicy']['interval'];
+                    $oldIntervalCount = $value['node']['billingPolicy']['intervalCount'];
+                    if ($intervalCount == $oldIntervalCount && $oldInterval == $interval) {
+                        $skip = 1;
+                    }
+                }
+                if ($skip == 0) {
+                    $newSellingPlansToCreate[$newCount] = $sellingPlanData;
+                    $newCount++;
+                }
+            }
+
+            if (!empty($newSellingPlansToCreate)) {
+                $variables = [
+                    "id" => $groupId,
+                    "input" => [
+                        "sellingPlansToCreate" => $newSellingPlansToCreate
+                    ]
+                ];
+                $result = $client->query(['query' => $queryUsingVariables, 'variables' => $variables]);
+            }
+
+            return response()->json(['res'=>'update']);
 
         }else{
             return '';

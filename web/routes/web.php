@@ -1510,7 +1510,6 @@ Route::get('/api/subproducts/{ids}', function (Request $request, $ids) {
 
 Route::post('/api/createsubgroup', function (Request $request) {
     /** @var AuthSession */
-    Log::error("itgCronRunningCheck");
     $session = $request->get('shopifySession');
     $shop = $session->getShop();
     $shop_name = explode('.', $shop);

@@ -367,8 +367,7 @@ function Edit() {
                     ps:editSubscriptionGroup.plansState,
                     pr:editSubscriptionGroup.planRemove
                 }
-
-                console.log(createSubGroupData);
+                
                 const responseE = await fetch('https://app.easysubscription.io/api/ad/prod/sub/ed', {
                   method: 'POST', // Use POST method
                   headers: {
