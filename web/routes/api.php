@@ -718,7 +718,7 @@ Route::any('/ad/prod/sub/cr', function (Request $request) {
 
             $status = 'create';
 
-            return response()->json(['response'=>'true', 'data'=>$requestData]);
+            return response()->json(['response'=>'true']);
 
         }else{
             return '';
