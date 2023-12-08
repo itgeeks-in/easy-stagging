@@ -217,8 +217,6 @@ function Create() {
                     suscription:subscriptionAction
                 }
 
-                console.log(createSubGroupData);
-
                 const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub/cr', {
                   method: 'POST', // Use POST method
                   headers: {
@@ -741,8 +739,6 @@ function Edit() {
                     pr:editSubscriptionGroup.planRemove
                 }
 
-                console.log(createSubGroupData);
-
                 const responseE = await fetch('https://app.easysubscription.io/api/ad/prod/sub/ed', {
                   method: 'POST', // Use POST method
                   headers: {
@@ -798,9 +794,6 @@ function Edit() {
 
         productDetailsOption(responseBody.product.data.product);
         groupDetailsOption(responseBody.group.data.sellingPlanGroup);
-        if( responseBody.dtb[0].type ){
-          subscriptionTypeOption(responseBody.dtb[0].type)
-        }
         var sellingPlanGroup = responseBody.group.data.sellingPlanGroup;
         var scheduleIntervalValue = [];
         var scheduleInterval = [];
@@ -1147,7 +1140,7 @@ function Edit() {
                 }else{
                     value = 0;
                 }
-                subscriptionActionOptions({...subscriptionAction, discountPer:value});
+                subscriptionActionOptions({...subscriptionAction, discountPer:parseInt(value)});
                 var planUpdate = editSubscriptionGroup.planUpdate;
                 var plansState = editSubscriptionGroup.plansState;
                 for ( const property in plansState ) {
