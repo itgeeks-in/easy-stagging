@@ -32,6 +32,7 @@ class VerifyCsrfToken extends Middleware
         '/ad/prod/sub/remtrig',
         '/ad/prod/sub/ed',
         '/ad/prod/sub/ls',
-        '/ad/prod/sub/ep'
+        '/ad/prod/sub/ep',
+        '/ad/prod/sub/cr'
     ];
 }

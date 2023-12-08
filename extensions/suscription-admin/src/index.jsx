@@ -204,11 +204,43 @@ function Create() {
 
   const onPrimaryAction = useCallback(async () => {
     const token = await getSessionToken();
+
+    if( samePlan ){}else{
+        if( subscriptionAction.name == '' ){
+            subscriptionActionOptions({...subscriptionAction, namereq:true });
+        }else{
+            if( subscriptionAction.namespec === true ){}else{
+                loaderOption(true);
+
+                const createSubGroupData = {
+                    data:data,
+                    suscription:subscriptionAction
+                }
+
+                const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub/cr', {
+                  method: 'POST', // Use POST method
+                  headers: {
+                    'Content-Type': 'application/json', // Set Content-Type header if sending JSON
+                    'token-shop': token || 'unknown token',
+                  },
+                  body: JSON.stringify(createSubGroupData)
+                });
+
+                if (response.ok) {
     
-    loaderOption(true);
-    console.log(token);
-    console.log(data);
-    console.log(subscriptionAction);
+                  const responseEData = await response.json();
+                  console.log(responseEData);
+                  loaderOption(false);
+                 // done();
+          
+                } else {
+                  console.log('Handle error.');
+                  done();
+                }  
+
+            }
+        }
+    }
     // Here, send the form data to your app server to create the new plan.
 
    // done();
@@ -688,7 +720,6 @@ function Edit() {
   const onPrimaryAction = useCallback(async () => {
     const tokenE = await getSessionToken();
     
-
     if( samePlan ){}else{
         if( subscriptionAction.name == '' ){
             subscriptionActionOptions({...subscriptionAction, namereq:true });
