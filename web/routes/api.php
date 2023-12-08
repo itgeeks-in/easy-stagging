@@ -353,7 +353,7 @@ Route::any('/ad/prod/sub/ed', function (Request $request) {
           //  Log::error(['variable'=>$variables]);
             $result = $client->query(['query' => $queryUsingVariables, 'variables' => $variables]);
             $resultDecode = $result->getDecodedBody();
-         //   Log::error(['error'=>$resultDecode]);
+            Log::error(['error'=>$resultDecode]);
             $oldSellingPlans = $resultDecode['data']['sellingPlanGroupUpdate']['sellingPlanGroup']['sellingPlans']['edges'];
             $newSellingPlansToCreate = [];
             $newCount = 0;
