@@ -714,11 +714,9 @@ Route::any('/ad/prod/sub/cr', function (Request $request) {
 
             $resultDecode = $result->getDecodedBody();
 
-            $groupId = $resultDecode['data']['sellingPlanGroupCreate']['sellingPlanGroup']['id'];
-
             $status = 'create';
 
-            return response()->json(['response'=>'true']);
+            return response()->json(['response'=>'true', 'data'=>$resultDecode]);
 
         }else{
             return '';

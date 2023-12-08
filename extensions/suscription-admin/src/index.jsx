@@ -227,11 +227,9 @@ function Create() {
                 });
 
                 if (response.ok) {
-    
                   const responseEData = await response.json();
-                  console.log(responseEData);
                   loaderOption(false);
-                 // done();
+                  done();
           
                 } else {
                   console.log('Handle error.');
