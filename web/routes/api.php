@@ -615,7 +615,7 @@ Route::any('/ad/prod/sub/ep', function (Request $request) {
                 if( $sellingPlanGroup['node']['id'] == $groupId ){
                     $samePlan = true;
                 }else{
-                    $groupIdR = $sellingPlanGroup['node']['id']
+                    $groupIdR = $sellingPlanGroup['node']['id'];
                     $queryUsingVariablesR = <<<QUERY
                         mutation sellingPlanGroupRemoveProducts(\$id: ID!, \$productIds: [ID!]!) {
                             sellingPlanGroupRemoveProducts(id: \$id, productIds: \$productIds) {
