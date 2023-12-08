@@ -128,8 +128,8 @@ function Add() {
         if (responseEp.ok) {
 
           const responseEpBody = await responseEp.json();
-          console.log(responseEpBody)
           loaderOption(false);
+          done();
 
         } else {
           console.log('Handle error.');
@@ -174,6 +174,7 @@ function Add() {
                   </>
                 );
               })}
+              <Text size="base" appearance="critical">This action will remove the product '{productDetails.title}' from the current plan group and add it to the new plan group that you select.</Text>
         </BlockStack>
       </>}
 
@@ -194,7 +195,9 @@ function Create() {
   const {getSessionToken} = useSessionToken();
 
   // Mock plan settings
-  const [planTitle, setPlanTitle] = useState('');
+  const [ loader , loaderOption ] = useState(false);
+  const [ samePlan, samePlanOption ] = useState(false); 
+  const [ subscriptionAction, subscriptionActionOptions ] = useState({ name:"New Subscription Group", namereq:false, namespec:false, discountPer:0, discount:false, scheduleInterval:["MONTH"], scheduleIntervalValue:["Months"] , scheduleFrequency:[1], scheduleFrequencyName:["Delivery every"], scheduleFrequencyIds:[] });
   const [percentageOff, setPercentageOff] = useState('');
   const [deliveryFrequency, setDeliveryFrequency] = useState('');
   
@@ -202,10 +205,13 @@ function Create() {
   const onPrimaryAction = useCallback(async () => {
     const token = await getSessionToken();
 
+    console.log(token);
+    console.log(data);
+    console.log(subscriptionAction);
     // Here, send the form data to your app server to create the new plan.
 
-    done();
-  }, [getSessionToken, done]);
+   // done();
+  }, [getSessionToken, done, subscriptionAction]);
 
   const cachedActions = useMemo(
     () => (
@@ -218,43 +224,314 @@ function Create() {
     [onPrimaryAction, close]
   );
 
+  const options = [
+    {
+      label: 'Days',
+      value: 'DAY',
+    },
+    {
+      label: 'Weeks',
+      value: 'WEEK',
+    },
+    {
+      label: 'Months',
+      value: 'MONTH',
+    },
+  ];
+
+  function toFindDuplicates(arryOne, arryTwo) {
+      var newArray = [];
+      for (let i = 0; i < arryOne.length; i++) {
+          newArray[i]=arryOne[i]+''+arryTwo[i];
+      }
+      var arry = newArray;
+      let toMap = {};
+      let resultToReturn = false;
+      for (let i = 0; i < arry.length; i++) {
+          if (toMap[arry[i]]) {
+              resultToReturn = true;
+              break;
+          }
+          toMap[arry[i]] = true;
+      }
+      return resultToReturn;
+  }
+
+  function containsSpecialChars(str) {
+      const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+      return specialChars.test(str);  
+  }
+
+  function subscriptionActionName(value){
+    if( value == '' ){
+        subscriptionActionOptions({...subscriptionAction, name:value, namereq:true, namespec:false });
+    }else{
+        if( containsSpecialChars(value) === true ){
+            subscriptionActionOptions({...subscriptionAction, name:value, namereq:false, namespec:true });
+        }else{
+            subscriptionActionOptions({...subscriptionAction, name:value, namereq:false, namespec:false });
+        }
+    }
+  }
+
+
   return (
     <>
+    {loader?<>
+        <Spinner accessibilityLabel="Spinner example" size="large"/>
+      </>:<>
       <BlockStack spacing="none">
         <TextBlock size="extraLarge">
-          {localizedStrings.hello}! Create subscription plan
+          Create subscription plan group
         </TextBlock>
       </BlockStack>
 
       <Card
-        title={`Create subscription plan for Product id ${data.productId}`}
+        title={`Group Name`}
         sectioned
       >
-        <TextField
-          label="Plan title"
-          value={planTitle}
-          onChange={setPlanTitle}
-        />
+        <BlockStack spacing="loose">
+          <TextField
+            value={subscriptionAction.name}
+            onChange={subscriptionActionName}
+          />
+          {subscriptionAction.namereq?<>
+            <Text size="base" appearance="critical">Group name is required</Text>
+          </>:<></>}
+          {subscriptionAction.namespec?<>
+            <Text size="base" appearance="critical">Special characters not allowed</Text>
+          </>:<></>}
+        </BlockStack>
       </Card>
 
-      <Card title="Delivery and discount" sectioned>
-        <InlineStack>
-          <TextField
-            type="number"
-            label="Delivery frequency (in weeks)"
-            value={deliveryFrequency}
-            onChange={setDeliveryFrequency}
+      <Card
+          title={`Selling Plans`}
+          sectioned
+        >
+        <BlockStack spacing="loose">
+          <Text size="base">Set the name and billing rules for your subscription group</Text>
+          {subscriptionAction.scheduleFrequency.map(function(object, i){
+              var sellingPlanName = subscriptionAction.scheduleFrequencyName[i]; 
+              var index = i;
+              var planId = subscriptionAction.scheduleFrequencyIds[i];
+              var scheduleIntervalV = subscriptionAction.scheduleInterval[i];
+              return(
+                <>
+                  {index==0?<>
+                    <InlineStack>
+                        <TextField
+                          type="text"
+                          label="Name"
+                          value={sellingPlanName}
+                          onChange={(value) => {
+                            var scheduleFrequencyNameArray = subscriptionAction.scheduleFrequencyName;
+                            scheduleFrequencyNameArray[index]=value;
+                            subscriptionActionOptions({...subscriptionAction, scheduleFrequencyName:scheduleFrequencyNameArray });
+                          }}
+                        />
+                        <TextField
+                          type="number"
+                          label="Order frequency"
+                          value={object}
+                          onChange={(value) => {
+                            var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
+                            var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+                            var value = value;
+                            if( value > 1 ){
+                                value = value;
+                            }else{
+                                value = 1;
+                            }
+                            scheduleFrequencyArrayValues[index]=value;
+                            subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues });
+                            samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+                          }}
+                          onInput={(value) => {
+                            var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
+                            var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+                            var value = value;
+                            if( value > 1 ){
+                                value = value;
+                            }else{
+                                value = 1;
+                            }
+                            scheduleFrequencyArrayValues[index]=value;
+                            subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues });
+                            samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+                          }}
+                        />
+                        <Select
+                          label="Select delivery frequency type"
+                          options={options}
+                          labelInline={false}
+                          value={scheduleIntervalV}
+                          onChange={(value) => {
+                            var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+                            var scheduleIntervalValueArrayValues = subscriptionAction.scheduleIntervalValue;
+                            var valueView = 'Days';
+                            if( value == 'WEEK' ){
+                                valueView = 'Weeks';
+                            }
+                            if( value == 'MONTH' ){
+                                valueView = 'Months';
+                            }
+                            scheduleIntervalArrayValues[index] = value;
+                            scheduleIntervalValueArrayValues[index] = valueView;
+                            subscriptionActionOptions({...subscriptionAction, scheduleInterval:scheduleIntervalArrayValues, scheduleIntervalValue:scheduleIntervalValueArrayValues });
+                            var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
+                            samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+                          }}
+                        />
+                    </InlineStack>
+                  </>:<>
+                  <InlineStack>
+                        <TextField
+                          type="text"
+                          value={sellingPlanName}
+                          onChange={(value) => {
+                            var scheduleFrequencyNameArray = subscriptionAction.scheduleFrequencyName;
+                            scheduleFrequencyNameArray[index]=value;
+                            subscriptionActionOptions({...subscriptionAction, scheduleFrequencyName:scheduleFrequencyNameArray });
+                          }}
+                        />
+                        <TextField
+                          type="number"
+                          value={object}
+                          onChange={(value) => {
+                            var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
+                            var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+                            var value = value;
+                            if( value > 1 ){
+                                value = value;
+                            }else{
+                                value = 1;
+                            }
+                            scheduleFrequencyArrayValues[index]=value;
+                            subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues });
+                            samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+                          }}
+                          onInput={(value) => {
+                            var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
+                            var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+                            var value = value;
+                            if( value > 1 ){
+                                value = value;
+                            }else{
+                                value = 1;
+                            }
+                            scheduleFrequencyArrayValues[index]=value;
+                            subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues });
+                            samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+                          }}
+                        />
+                        <Select
+                          options={options}
+                          labelInline={false}
+                          value={scheduleIntervalV}
+                          onChange={(value) => {
+                            var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+                            var scheduleIntervalValueArrayValues = subscriptionAction.scheduleIntervalValue;
+                            var valueView = 'Days';
+                            if( value == 'WEEK' ){
+                                valueView = 'Weeks';
+                            }
+                            if( value == 'MONTH' ){
+                                valueView = 'Months';
+                            }
+                            scheduleIntervalArrayValues[index] = value;
+                            scheduleIntervalValueArrayValues[index] = valueView;
+                            subscriptionActionOptions({...subscriptionAction, scheduleInterval:scheduleIntervalArrayValues, scheduleIntervalValue:scheduleIntervalValueArrayValues });
+                            var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency;
+                            samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+                          }}
+                        />
+                        <Button
+                            title="Remove"
+                            kind="primary"
+                            appearance="critical"
+                            accessibilityLabel="Remove Plan"
+                            disabled={false}
+                            onPress={() => {
+                              var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval;
+                              var scheduleIntervalValueArrayValues = subscriptionAction.scheduleIntervalValue;
+                              var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency; 
+                              var scheduleFrequencyNameArray = subscriptionAction.scheduleFrequencyName;
+                              var scheduleFrequencyIdsArray = subscriptionAction.scheduleFrequencyIds;
+                              scheduleFrequencyNameArray.splice(index, 1); 
+                              scheduleIntervalArrayValues.splice(index, 1); 
+                              scheduleIntervalValueArrayValues.splice(index, 1); 
+                              scheduleFrequencyArrayValues.splice(index, 1); 
+                              subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues, scheduleInterval:scheduleIntervalArrayValues, scheduleIntervalValue:scheduleIntervalValueArrayValues, scheduleFrequencyName:scheduleFrequencyNameArray, scheduleFrequencyIds:scheduleFrequencyIdsArray });
+                              samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+                            }}
+                        />
+                    </InlineStack>
+                  </>}
+                  
+                </>
+              );
+          })}
+          <Button
+              title="Add Plan"
+              kind="primary"
+              accessibilityLabel="Add Plan"
+              disabled={false}
+              onPress={() => {
+                var scheduleIntervalArrayValues = subscriptionAction.scheduleInterval; 
+                var scheduleIntervalValueArrayValues = subscriptionAction.scheduleIntervalValue; 
+                var scheduleFrequencyArrayValues = subscriptionAction.scheduleFrequency; 
+                var scheduleFrequencyNameArray = subscriptionAction.scheduleFrequencyName;
+                var firstValue = scheduleFrequencyArrayValues[scheduleFrequencyArrayValues.length-1]+1;
+                var firstIntervalValue = scheduleIntervalArrayValues[scheduleIntervalArrayValues.length-1];
+                var sellingPlanName = "Delivery every";
+                scheduleFrequencyArrayValues.push(firstValue);
+                scheduleIntervalArrayValues.push(firstIntervalValue);
+                scheduleFrequencyNameArray.push(sellingPlanName);
+                var valueView = 'Days';
+                if( firstIntervalValue == 'WEEK' ){
+                    valueView = 'Weeks';
+                }
+                if( firstIntervalValue == 'MONTH' ){
+                    valueView = 'Months';
+                }
+                scheduleIntervalValueArrayValues.push(valueView);
+                subscriptionActionOptions({...subscriptionAction, scheduleFrequency:scheduleFrequencyArrayValues, scheduleInterval:scheduleIntervalArrayValues, scheduleIntervalValue:scheduleIntervalValueArrayValues, scheduleFrequencyName:scheduleFrequencyNameArray });
+                samePlanOption(toFindDuplicates(scheduleFrequencyArrayValues, scheduleIntervalArrayValues));
+              }}
           />
-          <TextField
-            type="number"
-            label="Percentage off (%)"
-            value={percentageOff}
-            onChange={setPercentageOff}
-          />
-        </InlineStack>
+          {samePlan?<>
+            <Text size="base" appearance="critical">Every plan will have different Billing Rules</Text>
+          </>:<></>}
+        </BlockStack>
       </Card>
+      <Card title="Discount" sectioned>
+          <InlineStack>
+            <TextField
+              type="number"
+              label="Percentage off (%)"
+              value={subscriptionAction.discountPer}
+              onChange={(value) => {
+                if( value > 0 ){
+                    value = value;
+                }else{
+                    value = 0;
+                }
+                subscriptionActionOptions({...subscriptionAction, discountPer:value});
+              }}
+              onInput={(value) => {
+                if( value > 0 ){
+                    value = value;
+                }else{
+                    value = 0;
+                }
+                subscriptionActionOptions({...subscriptionAction, discountPer:value});
+              }}
+            />
+          </InlineStack>
+        </Card>
 
       {cachedActions}
+      </>}
     </>
   );
 }
