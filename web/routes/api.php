@@ -591,6 +591,7 @@ Route::any('/ad/prod/sub/ep', function (Request $request) {
                     product(id:"$productIdsGql") {
                         id
                         title
+                        createdAt
                         sellingPlanGroups(first:10){
                             edges{
                                 node{
