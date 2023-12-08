@@ -607,7 +607,11 @@ Route::any('/ad/prod/sub/ep', function (Request $request) {
             $result1 = $client->query(['query' => $query1]);
             $resultBody1 = $result1->getDecodedBody();
 
-            return response()->json(['response'=>'true', 'data'=>$resultBody1]);
+            $alreadySellingPlann = '';
+
+            $sellingPlanGroups = $resultBody1['data']['product']['sellingPlanGroups']['edges'];
+
+            return response()->json(['response'=>'true', 'data'=>$sellingPlanGroups]);
 
             $queryUsingVariables = <<<QUERY
                 mutation sellingPlanGroupAddProducts(\$id: ID!, \$productIds: [ID!]!) {

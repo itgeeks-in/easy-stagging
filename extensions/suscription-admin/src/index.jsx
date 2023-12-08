@@ -107,6 +107,7 @@ function Add() {
       content: 'Add Group',
       onAction: async () => {
         // Get a fresh session token before every call to your app server.
+        loaderOption(true);
         const token = await getSessionToken();
 
         const sendData = {
