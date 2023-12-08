@@ -583,6 +583,141 @@ Route::any('/ad/prod/sub/cr', function (Request $request) {
 
             $client = new Graphql($authShop, $authTokken);
 
+            $sellingPlanGroupData = $requestData['suscription'];
+            $sellingPlanGroupName = $sellingPlanGroupData['name'];
+            $scheduleFrequency = $sellingPlanGroupData['scheduleFrequency'];
+            $scheduleIntervalArray = $sellingPlanGroupData['scheduleInterval'];
+            $discountValue = $sellingPlanGroupData['discountPer'];
+            $scheduleFrequencyName = $sellingPlanGroupData['scheduleFrequencyName'];
+            $sellingPlanHandle = str_replace(' ', '-', strtolower($sellingPlanGroupName));
+            $productIdsGql = $requestData['data']['productId'];
+
+            $query1 = <<<QUERY
+                {
+                    product(id:"$productIdsGql") {
+                        id
+                        title
+                        createdAt
+                        sellingPlanGroups(first:10){
+                            edges{
+                                node{
+                                    name
+                                    id
+                                }
+                            }
+                        }
+                    }
+                }
+            QUERY;
+
+            $result1 = $client->query(['query' => $query1]);
+            $resultBody1 = $result1->getDecodedBody();
+
+            $sellingPlanGroups = $resultBody1['data']['product']['sellingPlanGroups']['edges'];
+
+            foreach( $sellingPlanGroups as $sellingPlanGroup ){
+                $groupIdR = $sellingPlanGroup['node']['id'];
+                $queryUsingVariablesR = <<<QUERY
+                    mutation sellingPlanGroupRemoveProducts(\$id: ID!, \$productIds: [ID!]!) {
+                        sellingPlanGroupRemoveProducts(id: \$id, productIds: \$productIds) {
+                            removedProductIds
+                            userErrors {
+                                field
+                                message
+                            }
+                        }
+                    }
+                QUERY;
+                $variablesR = [
+                    "id" => $groupIdR,
+                    "productIds" => $productIdsGql
+                ];
+                $resultR = $client->query(['query' => $queryUsingVariablesR, 'variables' => $variablesR]);
+            }
+
+
+            $sellingPlansToCreate = [];
+            foreach ($scheduleFrequency as $key => $value) {
+                $scheduleInterval = $scheduleIntervalArray[$key]; 
+                if ($scheduleInterval == 'DAY') {
+                    $scheduleIntervalValue = 'day';
+                }
+                if ($scheduleInterval == 'WEEK') {
+                    $scheduleIntervalValue = 'week';
+                }
+                if ($scheduleInterval == 'MONTH') {
+                    $scheduleIntervalValue = 'month';
+                }
+                if ($value > 1) {
+                    $scheduleIntervalValue = $scheduleIntervalValue . 's';
+                }
+                $position = $key + 1;
+                $cscheduleFrequencyName = $scheduleFrequencyName[$key];
+
+                $sellingPlansToCreate[$key] = [
+                    "name" => "$cscheduleFrequencyName $value $scheduleIntervalValue",
+                    "options" => "$value $scheduleIntervalValue",
+                    "category" => "SUBSCRIPTION",
+                    "position" => $position,
+                    "billingPolicy" => [
+                        "recurring" => [
+                            "interval" => $scheduleInterval,
+                            "intervalCount" => $value,
+                        ]
+                    ],
+                    "deliveryPolicy" => [
+                        "recurring" => [
+                            "interval" => $scheduleInterval,
+                            "intervalCount" => $value,
+                        ]
+                    ],
+                    "pricingPolicies" => [
+                        ["fixed" => [
+                            "adjustmentType" => "PERCENTAGE",
+                            "adjustmentValue" => [
+                                "percentage" => $discountValue
+                            ],
+                        ]]
+                    ],
+                ];
+            }
+
+            $queryUsingVariables = <<<QUERY
+                mutation sellingPlanGroupCreate(\$input: SellingPlanGroupInput!,\$resources: SellingPlanGroupResourceInput!,) {
+                    sellingPlanGroupCreate(input: \$input, resources:\$resources) {
+                        sellingPlanGroup {
+                            id
+                        }
+                        userErrors {
+                            field
+                            message
+                        }
+                    } 
+                }
+            QUERY;
+
+            $variables = [
+                "input" => [
+                    "name" => $sellingPlanGroupName,
+                    "merchantCode" => $sellingPlanHandle,
+                    "options" => ["$sellingPlanGroupName"],
+                    "position" => 1,
+                    "sellingPlansToCreate" => $sellingPlansToCreate,
+                ],
+                "resources" => [
+                    "productIds" => $productIdsGql,
+                    "productVariantIds" => []
+                ]
+            ];
+
+            $result = $client->query(['query' => $queryUsingVariables, 'variables' => $variables]);
+
+            $resultDecode = $result->getDecodedBody();
+
+            $groupId = $resultDecode['data']['sellingPlanGroupCreate']['sellingPlanGroup']['id'];
+
+            $status = 'create';
+
             return response()->json(['response'=>'true', 'data'=>$requestData]);
 
         }else{
