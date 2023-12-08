@@ -586,6 +586,20 @@ Route::any('/ad/prod/sub/ep', function (Request $request) {
             $groupId = $requestData['group'];
             $productIdsGql = $requestData['product']['productId'];
 
+            $query1 = <<<QUERY
+                {
+                    product(id:"$productIdsGql") {
+                        id
+                        title
+                    }
+                }
+            QUERY;
+
+            $result1 = $client->query(['query' => $query1]);
+            $resultBody1 = $result1->getDecodedBody();
+
+            return response()->json(['response'=>'true', 'data'=>$resultBody1]);
+
             $queryUsingVariables = <<<QUERY
                 mutation sellingPlanGroupAddProducts(\$id: ID!, \$productIds: [ID!]!) {
                     sellingPlanGroupAddProducts(id: \$id, productIds: \$productIds) {
