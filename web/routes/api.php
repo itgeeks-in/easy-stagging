@@ -591,6 +591,14 @@ Route::any('/ad/prod/sub/ep', function (Request $request) {
                     product(id:"$productIdsGql") {
                         id
                         title
+                        sellingPlanGroups(first:10){
+                            edges{
+                                node{
+                                    name
+                                    id
+                                }
+                            }
+                        }
                     }
                 }
             QUERY;
