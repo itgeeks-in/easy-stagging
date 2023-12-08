@@ -217,6 +217,8 @@ function Create() {
                     suscription:subscriptionAction
                 }
 
+                console.log(createSubGroupData);
+
                 const response = await fetch('https://app.easysubscription.io/api/ad/prod/sub/cr', {
                   method: 'POST', // Use POST method
                   headers: {
@@ -547,7 +549,7 @@ function Create() {
                 }else{
                     value = 0;
                 }
-                subscriptionActionOptions({...subscriptionAction, discountPer:value});
+                subscriptionActionOptions({...subscriptionAction, discountPer:parseInt(value)});
               }}
               onInput={(value) => {
                 if( value > 0 ){
@@ -555,7 +557,7 @@ function Create() {
                 }else{
                     value = 0;
                 }
-                subscriptionActionOptions({...subscriptionAction, discountPer:value});
+                subscriptionActionOptions({...subscriptionAction, discountPer:parseInt(value)});
               }}
             />
           </InlineStack>
