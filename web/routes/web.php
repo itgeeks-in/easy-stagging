@@ -368,7 +368,7 @@ Route::get('/api/payment', function (Request $request) {
                                 {
                                     plan: {
                                         appRecurringPricingDetails: {
-                                            price: { amount: 278.00, currencyCode: USD }
+                                            price: { amount: 421.00, currencyCode: USD }
                                             interval: ANNUAL
                                         }
                                     }
@@ -396,9 +396,9 @@ Route::get('/api/payment', function (Request $request) {
             }
     }else{
         if ($request['plan'] == 'pro') {
-            $application_charge->price = 29.00;
+            $application_charge->price = 39.00;
         } else {
-            $application_charge->price = 29.00;
+            $application_charge->price = 39.00;
         }
         $application_charge->return_url = $returnUrl;
         $application_charge->trial_days = 15;
