@@ -1,6 +1,6 @@
 import { useNavigate, NavLink } from 'react-router-dom';
 import ItgContext from '../context/activityState.jsx';
-import { loaderIcon, editIcon, settingsIcon, bellIcon, tagIcon } from "../assets";
+import { loaderIcon, editIcon, settingsIcon, bellIcon, tagIcon, dunningIcon } from "../assets";
 import { useAppQuery, useAuthenticatedFetch } from '../hooks';
 import { useContext, useEffect, useState, useRef } from 'react';
 import { Sidebar, Topbar } from '../components';
@@ -67,6 +67,21 @@ export default function settings(){
                                     </h5>
                                     <p className="settingOptionContentDes">
                                     Choose the features that will be available to your customers through the customer portal
+                                    </p>
+                                </div>
+                            </div>
+                            <div onClick={() => { navigateTo("/dunning"); }} className="settingOptions" >
+                                <div className="settingsOptionIconBack">
+                                    <div className="settingsOptionIcon">
+                                        <img src={dunningIcon} alt="general" />
+                                    </div>
+                                </div>
+                                <div className="settingOptionContent">
+                                    <h5 className="settingOptionContentHead">
+                                        Dunning Management
+                                    </h5>
+                                    <p className="settingOptionContentDes">
+                                        Address incidents of card expiration, or anything else that would result in involuntary churn of customers
                                     </p>
                                 </div>
                             </div>
