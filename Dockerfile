@@ -20,6 +20,7 @@ COPY web/nginx.conf /etc/nginx/nginx.conf
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 RUN composer install
+RUN composer self-update
 RUN touch /app/storage/db.sqlite
 RUN chown www-data:www-data /app/storage/db.sqlite
 RUN npm install @tawk.to/tawk-messenger-react
