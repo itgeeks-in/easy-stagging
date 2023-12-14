@@ -119,7 +119,7 @@ return (
                                 </li>
                                 <li>
                                     <NavLink to="/dunning" title="Dunning Management">
-                                        <span className="linksstyle">Dunning Management</span>
+                                        <span className="linksstyle">Dunning</span>
                                     </NavLink>
                                 </li>
                                 <li>
