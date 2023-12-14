@@ -363,7 +363,7 @@ Route::get('/api/payment', function (Request $request) {
                             name: "Subscription"
                             returnUrl: "$returnUrl"
                             trialDays:15
-                            test:true
+                            test:false
                             lineItems: [
                                 {
                                     plan: {
@@ -402,7 +402,7 @@ Route::get('/api/payment', function (Request $request) {
         }
         $application_charge->return_url = $returnUrl;
         $application_charge->trial_days = 15;
-        $application_charge->test = true;
+        $application_charge->test = false;
         try {
             $application_charge->save(true);
             return response(json_encode(['status' => true, 'url' => $application_charge->confirmation_url, 'id' => $application_charge->id]));
