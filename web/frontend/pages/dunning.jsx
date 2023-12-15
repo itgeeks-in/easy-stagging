@@ -42,13 +42,14 @@ export default function NotificationSettings(){
         cancelSubscriptions: false,
         skipNextOrder: false,
     });
-    
+
     function UpdateSetting(data) {
         fetch(
             "/api/easy-subscription/settings/customerportal/update?data=" +
                 JSON.stringify(data)
         ).then((res) => res.json()).then((data) => {});
     }
+
     useAppQuery({
         url: "/api/easy-subscription/settings/customerportal",
         reactQueryOptions: {
@@ -89,6 +90,14 @@ export default function NotificationSettings(){
                             <p className="paragraph">
                                 Address incidents of card expiration, or anything else that would result in involuntary churn of customers
                             </p>
+                        </div>
+                        <div class="notificationSections">
+                            <div class="notificationManagecont">
+                                <div class="cont">
+                                    <h6>Subscription order Confirmation</h6>
+                                    <p>Sent to customers when subscription order is confirmed.</p>
+                                </div>
+                            </div>
                         </div>
                         </>}
                     </div>
