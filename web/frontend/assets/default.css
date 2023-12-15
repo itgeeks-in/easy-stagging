@@ -2056,6 +2056,11 @@ body.itgBody #app .itgWelcomeBack.privacyox .itgWelcomeFront .itgWelcomeButton{
     justify-content: flex-start;
     width: 100%;
     max-width: 100%;
+    flex-wrap: wrap; 
+}
+.itgBody #app .notificationManagecont.dunningBlockData .itgCustomSelectParentDunningBlock .itgCustomSelectParent .itg-custom-select{
+    width: 100%;
+    max-width: 100%;
 }
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
