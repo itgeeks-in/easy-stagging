@@ -116,7 +116,7 @@ export default function NotificationSettings(){
                                     <p>Sent to customers when subscription order is confirmed.</p>
                                     <div className="itgCustomSelectParentDunningBlock">
                                         <div className="itgCustomSelectParent">
-                                            <h3>Type</h3>
+                                            <h3>Retry Attempts</h3>
                                             <div className="itg-custom-select">
                                                 <div onClick={customSelectType} className="custom-select-selected">
                                                     <div id="selectedValue"><span>{selectedTextType}</span></div>
@@ -131,7 +131,7 @@ export default function NotificationSettings(){
                                             </div>
                                         </div>
                                         <div className="itgCustomSelectParent">
-                                            <h3>Type</h3>
+                                            <h3>Day Before Retrying</h3>
                                             <div className="itg-custom-select">
                                                 <div onClick={customSelectType} className="custom-select-selected">
                                                     <div id="selectedValue"><span>{selectedTextType}</span></div>
@@ -146,7 +146,7 @@ export default function NotificationSettings(){
                                             </div>
                                         </div>
                                         <div className="itgCustomSelectParent">
-                                            <h3>Type</h3>
+                                            <h3>Once the subscription reaches the maximum number of failures:</h3>
                                             <div className="itg-custom-select">
                                                 <div onClick={customSelectType} className="custom-select-selected">
                                                     <div id="selectedValue"><span>{selectedTextType}</span></div>
