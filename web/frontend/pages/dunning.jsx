@@ -86,7 +86,7 @@ export default function NotificationSettings(){
                         <div className="notificationSettingHead">
                             <h5 className="innerHead">Customer Portal</h5>
                             <p className="paragraph">
-                                Customize the customer portal experience for your customers.
+                                Address incidents of card expiration, or anything else that would result in involuntary churn of customers
                             </p>
                         </div>
                         <div className={activation.pauseResumeSubscriptions?"notificationSections active":"notificationSections"}>
