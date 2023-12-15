@@ -114,50 +114,51 @@ export default function NotificationSettings(){
                                 <div class="cont">
                                     <h6>Dunning Management Setting</h6>
                                     <p>Sent to customers when subscription order is confirmed.</p>
-
-                                    <div className="itgCustomSelectParent">
-                                        <h3>Type</h3>
-                                        <div className="itg-custom-select">
-                                            <div onClick={customSelectType} className="custom-select-selected">
-                                                <div id="selectedValue"><span>{selectedTextType}</span></div>
-                                                <div className="selectIcon"><img src={selectIcon} alt="select" /></div>
+                                    <div className="itgCustomSelectParent dunningBlock">
+                                        <div className="itgCustomSelectParent">
+                                            <h3>Type</h3>
+                                            <div className="itg-custom-select">
+                                                <div onClick={customSelectType} className="custom-select-selected">
+                                                    <div id="selectedValue"><span>{selectedTextType}</span></div>
+                                                    <div className="selectIcon"><img src={selectIcon} alt="select" /></div>
+                                                </div>
+                                                <ul className={ cstmSlctOptionsType ? "itg-custom-select-menu" : "itg-custom-select-menu itg-custom-select-hide" }>
+                                                    <li onClick={selectTypeValue} value=" ">All</li>
+                                                    <li onClick={selectTypeValue} value="DAY">DAY</li>
+                                                    <li onClick={selectTypeValue} value="WEEK">WEEK</li>
+                                                    <li onClick={selectTypeValue} value="MONTH">MONTH</li>
+                                                </ul>
                                             </div>
-                                            <ul className={ cstmSlctOptionsType ? "itg-custom-select-menu" : "itg-custom-select-menu itg-custom-select-hide" }>
-                                                <li onClick={selectTypeValue} value=" ">All</li>
-                                                <li onClick={selectTypeValue} value="DAY">DAY</li>
-                                                <li onClick={selectTypeValue} value="WEEK">WEEK</li>
-                                                <li onClick={selectTypeValue} value="MONTH">MONTH</li>
-                                            </ul>
                                         </div>
-                                    </div>
-                                    <div className="itgCustomSelectParent">
-                                        <h3>Type</h3>
-                                        <div className="itg-custom-select">
-                                            <div onClick={customSelectType} className="custom-select-selected">
-                                                <div id="selectedValue"><span>{selectedTextType}</span></div>
-                                                <div className="selectIcon"><img src={selectIcon} alt="select" /></div>
+                                        <div className="itgCustomSelectParent">
+                                            <h3>Type</h3>
+                                            <div className="itg-custom-select">
+                                                <div onClick={customSelectType} className="custom-select-selected">
+                                                    <div id="selectedValue"><span>{selectedTextType}</span></div>
+                                                    <div className="selectIcon"><img src={selectIcon} alt="select" /></div>
+                                                </div>
+                                                <ul className={ cstmSlctOptionsType ? "itg-custom-select-menu" : "itg-custom-select-menu itg-custom-select-hide" }>
+                                                    <li onClick={selectTypeValue} value=" ">All</li>
+                                                    <li onClick={selectTypeValue} value="DAY">DAY</li>
+                                                    <li onClick={selectTypeValue} value="WEEK">WEEK</li>
+                                                    <li onClick={selectTypeValue} value="MONTH">MONTH</li>
+                                                </ul>
                                             </div>
-                                            <ul className={ cstmSlctOptionsType ? "itg-custom-select-menu" : "itg-custom-select-menu itg-custom-select-hide" }>
-                                                <li onClick={selectTypeValue} value=" ">All</li>
-                                                <li onClick={selectTypeValue} value="DAY">DAY</li>
-                                                <li onClick={selectTypeValue} value="WEEK">WEEK</li>
-                                                <li onClick={selectTypeValue} value="MONTH">MONTH</li>
-                                            </ul>
                                         </div>
-                                    </div>
-                                    <div className="itgCustomSelectParent">
-                                        <h3>Type</h3>
-                                        <div className="itg-custom-select">
-                                            <div onClick={customSelectType} className="custom-select-selected">
-                                                <div id="selectedValue"><span>{selectedTextType}</span></div>
-                                                <div className="selectIcon"><img src={selectIcon} alt="select" /></div>
+                                        <div className="itgCustomSelectParent">
+                                            <h3>Type</h3>
+                                            <div className="itg-custom-select">
+                                                <div onClick={customSelectType} className="custom-select-selected">
+                                                    <div id="selectedValue"><span>{selectedTextType}</span></div>
+                                                    <div className="selectIcon"><img src={selectIcon} alt="select" /></div>
+                                                </div>
+                                                <ul className={ cstmSlctOptionsType ? "itg-custom-select-menu" : "itg-custom-select-menu itg-custom-select-hide" }>
+                                                    <li onClick={selectTypeValue} value=" ">All</li>
+                                                    <li onClick={selectTypeValue} value="DAY">DAY</li>
+                                                    <li onClick={selectTypeValue} value="WEEK">WEEK</li>
+                                                    <li onClick={selectTypeValue} value="MONTH">MONTH</li>
+                                                </ul>
                                             </div>
-                                            <ul className={ cstmSlctOptionsType ? "itg-custom-select-menu" : "itg-custom-select-menu itg-custom-select-hide" }>
-                                                <li onClick={selectTypeValue} value=" ">All</li>
-                                                <li onClick={selectTypeValue} value="DAY">DAY</li>
-                                                <li onClick={selectTypeValue} value="WEEK">WEEK</li>
-                                                <li onClick={selectTypeValue} value="MONTH">MONTH</li>
-                                            </ul>
                                         </div>
                                     </div>
                                 </div>
