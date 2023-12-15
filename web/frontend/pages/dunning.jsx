@@ -110,7 +110,7 @@ export default function NotificationSettings(){
                             </p>
                         </div>
                         <div class="notificationSections">
-                            <div class="notificationManagecont">
+                            <div class="notificationManagecont dunningBlockData">
                                 <div class="cont">
                                     <h6>Dunning Management Setting</h6>
                                     <p>Sent to customers when subscription order is confirmed.</p>
