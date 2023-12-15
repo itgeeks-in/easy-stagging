@@ -3,7 +3,7 @@ import { useContext, useEffect, useState, useRef } from 'react';
 import { useAppQuery, useAuthenticatedFetch } from '../hooks';
 import ItgContext from '../context/activityState.jsx';
 import { Sidebar, Topbar } from '../components';
-import { loaderIcon, searchIcon, viewIcon, chevronRight, chevronLeft,selectIcon } from "../assets";
+import { loaderIcon, searchIcon, viewIcon, chevronRight, chevronLeft, selectIcon } from "../assets";
 
 export default function Groups() {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);

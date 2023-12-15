@@ -3,7 +3,7 @@ import { useState, useContext, useEffect, useRef } from 'react';
 import { useAppQuery, useAuthenticatedFetch } from '../hooks';
 import { Sidebar, Topbar } from '../components';
 import ItgContext from '../context/activityState.jsx';
-import { loaderIcon } from "../assets";
+import { loaderIcon, selectIcon } from "../assets";
 export default function NotificationSettings(){
     const windowSize = useRef([window.innerWidth, window.innerHeight]);
     const fetch = useAuthenticatedFetch();
@@ -12,6 +12,10 @@ export default function NotificationSettings(){
     const [ loadStart , loadStartOption ] = useState(false);
     const [ showApp, showAppOption ] = useState(true);
     const [ isLoading, setIsLoading ] = useState(true);
+    const [cstmSlctOptionsType, setCstmSlctOptionsType] = useState(false);
+    const [selectedTextType, setSelectedTextType] = useState("ALL");
+    const [selectedValueType, setSelectedValueType] = useState(" ");
+
     const activityContext = useContext(ItgContext);
     useEffect(()=>{
         if(activityContext.activity !== ' '){
@@ -49,6 +53,20 @@ export default function NotificationSettings(){
                 JSON.stringify(data)
         ).then((res) => res.json()).then((data) => {});
     }
+
+    
+  function customSelectType() {
+    setCstmSlctOptionsType(!cstmSlctOptionsType);
+  }
+  
+  function selectTypeValue(e) {
+    let target = e.target;
+    let innerText = target.innerText;
+    let value = target.getAttribute("value");
+    setSelectedTextType(innerText);
+    setSelectedValueType(value);
+    setCstmSlctOptionsType(!cstmSlctOptionsType);
+  }
 
     useAppQuery({
         url: "/api/easy-subscription/settings/customerportal",
@@ -94,8 +112,24 @@ export default function NotificationSettings(){
                         <div class="notificationSections">
                             <div class="notificationManagecont">
                                 <div class="cont">
-                                    <h6>Subscription order Confirmation</h6>
+                                    <h6>Dunning Management Setting</h6>
                                     <p>Sent to customers when subscription order is confirmed.</p>
+
+                                    <div className="itgCustomSelectParent">
+                                        <h3>Type</h3>
+                                        <div className="itg-custom-select">
+                                        <div onClick={customSelectType} className="custom-select-selected">
+                                            <div id="selectedValue"><span>{selectedTextType}</span></div>
+                                            <div className="selectIcon"><img src={selectIcon} alt="select" /></div>
+                                        </div>
+                                        <ul className={ cstmSlctOptionsType ? "itg-custom-select-menu" : "itg-custom-select-menu itg-custom-select-hide" }>
+                                            <li onClick={selectTypeValue} value=" ">All</li>
+                                            <li onClick={selectTypeValue} value="DAY">DAY</li>
+                                            <li onClick={selectTypeValue} value="WEEK">WEEK</li>
+                                            <li onClick={selectTypeValue} value="MONTH">MONTH</li>
+                                        </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
