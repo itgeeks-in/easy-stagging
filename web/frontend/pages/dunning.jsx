@@ -84,7 +84,7 @@ export default function NotificationSettings(){
                             </div>
                         ) :<>
                         <div className="notificationSettingHead">
-                            <h5 className="innerHead">Customer Portal</h5>
+                            <h5 className="innerHead">Dunning Management</h5>
                             <p className="paragraph">
                                 Address incidents of card expiration, or anything else that would result in involuntary churn of customers
                             </p>
