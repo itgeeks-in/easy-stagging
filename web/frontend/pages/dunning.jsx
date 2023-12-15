@@ -114,7 +114,7 @@ export default function NotificationSettings(){
                                 <div class="cont">
                                     <h6>Dunning Management Setting</h6>
                                     <p>Sent to customers when subscription order is confirmed.</p>
-                                    <div className="itgCustomSelectParent dunningBlock">
+                                    <div className="itgCustomSelectParentDunningBlock">
                                         <div className="itgCustomSelectParent">
                                             <h3>Type</h3>
                                             <div className="itg-custom-select">
