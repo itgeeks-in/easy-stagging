@@ -117,17 +117,11 @@ export default function NotificationSettings(){
                                     <div className="itgCustomSelectParentDunningBlock">
                                         <div className="itgCustomSelectParent">
                                             <h3>Retry Attempts</h3>
-                                            <div className="itg-custom-select">
-                                                <div onClick={customSelectType} className="custom-select-selected">
-                                                    <div id="selectedValue"><span>{selectedTextType}</span></div>
-                                                    <div className="selectIcon"><img src={selectIcon} alt="select" /></div>
+                                            <div class="itgSubGroupPageInnerGroupDiscountNumberBox">
+                                                <div class="itgSubGroupPageInnerGroupDiscountNumber">
+                                                    <input type="number" name="set-up-discount-percent" value="0"/>
+                                                    <span>% off</span>
                                                 </div>
-                                                <ul className={ cstmSlctOptionsType ? "itg-custom-select-menu" : "itg-custom-select-menu itg-custom-select-hide" }>
-                                                    <li onClick={selectTypeValue} value=" ">All</li>
-                                                    <li onClick={selectTypeValue} value="DAY">DAY</li>
-                                                    <li onClick={selectTypeValue} value="WEEK">WEEK</li>
-                                                    <li onClick={selectTypeValue} value="MONTH">MONTH</li>
-                                                </ul>
                                             </div>
                                         </div>
                                         <div className="itgCustomSelectParent">
