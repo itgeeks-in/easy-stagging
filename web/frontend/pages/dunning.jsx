@@ -148,7 +148,7 @@ export default function NotificationSettings(){
                                             <div class="itgSubGroupPageInnerGroupDiscountNumberBox">
                                                 <div class="itgSubGroupPageInnerGroupDiscountNumber">
                                                     <input type="number" onChange={retryAttemptSetup} name="set-up-attempt-number" value={retryAttempt}/>
-                                                    <span>Attempt</span>
+                                                    <span>Attempt</span> 
                                                 </div>
                                             </div>
                                         </div>
