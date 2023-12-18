@@ -15,6 +15,7 @@ export default function NotificationSettings(){
     const [cstmSlctOptionsType, setCstmSlctOptionsType] = useState(false);
     const [selectedTextType, setSelectedTextType] = useState("Cancel Subscription");
     const [selectedValueType, setSelectedValueType] = useState(" ");
+    const [retryDunning, retryDunningOption] = useState(4);
 
     const activityContext = useContext(ItgContext);
     useEffect(()=>{
@@ -68,6 +69,20 @@ export default function NotificationSettings(){
         setCstmSlctOptionsType(!cstmSlctOptionsType);
     }
 
+    function retryDunningSetup(e){
+        let target = e.target;
+        var value = parseInt(target.value);
+        if( value < 2 ){
+            value = 1;
+        }else if( value > 10 ){
+            value = 10;
+        }else{
+            value = value;
+        }
+        retryDunningOption(value);
+
+    }
+
     useAppQuery({
         url: "/api/easy-subscription/settings/customerportal",
         reactQueryOptions: {
@@ -119,7 +134,7 @@ export default function NotificationSettings(){
                                             <h3>Retry Attempts</h3>
                                             <div class="itgSubGroupPageInnerGroupDiscountNumberBox">
                                                 <div class="itgSubGroupPageInnerGroupDiscountNumber">
-                                                    <input type="number" name="set-up-discount-percent" value="0"/>
+                                                    <input type="number" name="set-up-attempt-number" value="0"/>
                                                     <span>Attempt</span>
                                                 </div>
                                             </div>
@@ -128,7 +143,7 @@ export default function NotificationSettings(){
                                             <h3>Day Before Retrying</h3>
                                             <div class="itgSubGroupPageInnerGroupDiscountNumberBox">
                                                 <div class="itgSubGroupPageInnerGroupDiscountNumber">
-                                                    <input type="number" name="set-up-discount-percent" value="0"/>
+                                                    <input type="number" onChange={retryDunningSetup} name="set-up-day-retry" value={retryDunning}/>
                                                     <span>Day</span>
                                                 </div>
                                             </div>
