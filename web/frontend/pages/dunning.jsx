@@ -55,18 +55,18 @@ export default function NotificationSettings(){
     }
 
     
-  function customSelectType() {
-    setCstmSlctOptionsType(!cstmSlctOptionsType);
-  }
-  
-  function selectTypeValue(e) {
-    let target = e.target;
-    let innerText = target.innerText;
-    let value = target.getAttribute("value");
-    setSelectedTextType(innerText);
-    setSelectedValueType(value);
-    setCstmSlctOptionsType(!cstmSlctOptionsType);
-  }
+    function customSelectType() {
+        setCstmSlctOptionsType(!cstmSlctOptionsType);
+    }
+    
+    function selectTypeValue(e) {
+        let target = e.target;
+        let innerText = target.innerText;
+        let value = target.getAttribute("value");
+        setSelectedTextType(innerText);
+        setSelectedValueType(value);
+        setCstmSlctOptionsType(!cstmSlctOptionsType);
+    }
 
     useAppQuery({
         url: "/api/easy-subscription/settings/customerportal",

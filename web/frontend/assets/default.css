@@ -2055,13 +2055,20 @@ body.itgBody #app .itgWelcomeBack.privacyox .itgWelcomeFront .itgWelcomeButton{
 .itgBody #app .notificationManagecont.dunningBlockData .itgCustomSelectParentDunningBlock .itgCustomSelectParent {
     justify-content: flex-start;
     width: 100%;
-    max-width: 100%;
-    flex-wrap: wrap; 
+    max-width: calc( 50% - 10px );
+    flex-wrap: wrap;
+}
+.itgBody #app .notificationManagecont.dunningBlockData .itgCustomSelectParentDunningBlock .itgCustomSelectParent:last-child{
+    max-width:100%;
 }
 .itgBody #app .notificationManagecont.dunningBlockData .itgCustomSelectParentDunningBlock .itgCustomSelectParent .itg-custom-select{
     width: 100%;
     max-width: 100%;
 }
+.itgBody #app .notificationManagecont.dunningBlockData .itgCustomSelectParentDunningBlock .itgCustomSelectParent .itgSubGroupPageInnerGroupDiscountNumberBox {
+    width: 100%;
+}
+
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
         display: none;
