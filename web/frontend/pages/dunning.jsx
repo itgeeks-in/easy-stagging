@@ -13,7 +13,7 @@ export default function NotificationSettings(){
     const [ showApp, showAppOption ] = useState(true);
     const [ isLoading, setIsLoading ] = useState(true);
     const [cstmSlctOptionsType, setCstmSlctOptionsType] = useState(false);
-    const [selectedTextType, setSelectedTextType] = useState("ALL");
+    const [selectedTextType, setSelectedTextType] = useState("Cancel Subscription");
     const [selectedValueType, setSelectedValueType] = useState(" ");
 
     const activityContext = useContext(ItgContext);
