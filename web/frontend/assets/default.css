@@ -2073,7 +2073,9 @@ body.itgBody #app .itgWelcomeBack.privacyox .itgWelcomeFront .itgWelcomeButton{
 .itgBody #app .notificationManagecont.dunningBlockData .itgCustomSelectParentDunningBlock .itgCustomSelectParent .itgSubGroupPageInnerGroupDiscountNumberBox {
     width: 100%;
 }
-
+.itgBody #app .notificationManagecont.dunningBlockData .itgCustomSelectParentDunningBlock .itgCustomSelectParent .itgSubGroupPageInnerGroupDiscountNumberBox .itgSubGroupPageInnerGroupDiscountNumber span {
+    font-weight: 500;
+}
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
         display: none;
