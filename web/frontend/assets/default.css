@@ -2051,6 +2051,8 @@ body.itgBody #app .itgWelcomeBack.privacyox .itgWelcomeFront .itgWelcomeButton{
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 20px;
 }
 .itgBody #app .notificationManagecont.dunningBlockData .itgCustomSelectParentDunningBlock .itgCustomSelectParent {
     justify-content: flex-start;
