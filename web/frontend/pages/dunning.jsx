@@ -141,7 +141,7 @@ export default function NotificationSettings(){
                             <div class="notificationManagecont dunningBlockData">
                                 <div class="cont">
                                     <h6>Dunning Management Setting</h6>
-                                    <p>Sent to customers when subscription order is confirmed.</p>
+                                    <p>With this section, Easy Subscriptions facilitates you to set and modify the mechanisms such as how often and how many times you want the card to be retried before canceling the subscription or skipping the order.</p>
                                     <div className="itgCustomSelectParentDunningBlock">
                                         <div className="itgCustomSelectParent">
                                             <h3>Retry Attempts</h3>
