@@ -43,11 +43,6 @@ export default function NotificationSettings(){
     const toggle = () =>{
         setToggleMenu(!toggleMenu);
     }
-    const [activation, setActivation] = useState({
-        pauseResumeSubscriptions: false,
-        cancelSubscriptions: false,
-        skipNextOrder: false,
-    });
 
     function UpdateSetting(data) {
         fetch(
@@ -101,13 +96,7 @@ export default function NotificationSettings(){
         reactQueryOptions: {
             onSuccess: (data) => {
                 if (data.length > 0) {
-                    setActivation({
-                        ...activation,
-                        pauseResumeSubscriptions:
-                            data[0]["pauseResumeSubscriptions"],
-                        cancelSubscriptions: data[0]["cancelSubscriptions"],
-                        skipNextOrder: data[0]["skipNextOrder"]
-                    });
+                    console.log(data);
                     setIsLoading(false);
                 }
             },

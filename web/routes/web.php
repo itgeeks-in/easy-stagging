@@ -3640,6 +3640,39 @@ Route::get('/api/easy-subscription/settings/ordertags',function(Request $request
     return response(json_encode($result));
 })->middleware('shopify.auth');
 
+Route::get('/api/easy-subscription/settings/dunning',function(Request $request){
+    $session = $request->get('shopifySession');
+    $result = [];
+    $shop = $session->getShop();
+    $shop_name = explode('.', $shop);
+    if (!Schema::hasTable($shop_name[0] . '_dunning_manage_set')) {
+        Schema::create($shop_name[0] . '_dunning_manage_set', function (Blueprint $table) {
+            $table->id();
+            $table->integer('retry')->default(4);
+            $table->integer('daybefore')->default(1);
+            $table->string('status')->default('pause');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+        });
+        DB::table($shop_name[0] . '_dunning_manage_set')->insert([
+                'retry' => 4,
+                'daybefore' => 1,
+                'status'=>'pause'
+            ]
+        );
+        $data = DB::table($shop_name[0] . '_dunning_manage_set')->get();
+        if (!empty($data->toArray())) {
+            $result = $data->toArray();
+        }
+    } else {
+        $data = DB::table($shop_name[0] . '_dunning_manage_set')->get();
+        if (!empty($data->toArray())) {
+            $result = $data->toArray();
+        }
+    }
+    return response(json_encode($result));
+})->middleware('shopify.auth');
+
 Route::get('/api/easy-subscription/settings/customerportal',function(Request $request){
     $session = $request->get('shopifySession');
     $result = [];
