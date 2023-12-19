@@ -14,7 +14,7 @@ export default function NotificationSettings(){
     const [ isLoading, setIsLoading ] = useState(true);
     const [cstmSlctOptionsType, setCstmSlctOptionsType] = useState(false);
     const [selectedTextType, setSelectedTextType] = useState("Cancel Subscription");
-    const [selectedValueType, setSelectedValueType] = useState(" ");
+    const [selectedValueType, setSelectedValueType] = useState("pause");
     const [retryDunning, retryDunningOption] = useState(1);
     const [retryAttempt, retryAttemptOption] = useState(4);
 
@@ -96,7 +96,10 @@ export default function NotificationSettings(){
         reactQueryOptions: {
             onSuccess: (data) => {
                 if (data.length > 0) {
-                    console.log(data);
+                    var dunningData = data[0];
+                    retryAttemptOption(dunningData.retry);
+                    retryDunningOption(dunningData.daybefore);
+                    setSelectedValueType(dunningData.status);
                     setIsLoading(false);
                 }
             },
