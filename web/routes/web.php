@@ -107,6 +107,16 @@ Route::get('/api/auth/callback', function (Request $request) {
                     $table->timestamp('updated_at')->useCurrent();
                 });
             }
+            if (!Schema::hasTable($shop_name[0] . '_dunning_manage_set')) {
+                Schema::create($shop_name[0] . '_dunning_manage_set', function (Blueprint $table) {
+                    $table->id();
+                    $table->string('retry')->nullable(true);
+                    $table->string('daybefore')->nullable(true);
+                    $table->string('status')->nullable(true);
+                    $table->timestamp('created_at')->useCurrent();
+                    $table->timestamp('updated_at')->useCurrent();
+                });
+            }
         } catch (\Throwable $th) {
             Log::error(
                 "Failed to create $shop_name[0] database " .
