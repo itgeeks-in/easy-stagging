@@ -92,7 +92,7 @@ export default function NotificationSettings(){
     }
 
     useAppQuery({
-        url: "/api/easy-subscription/settings/customerportal",
+        url: "/api/easy-subscription/settings/dunning",
         reactQueryOptions: {
             onSuccess: (data) => {
                 if (data.length > 0) {
