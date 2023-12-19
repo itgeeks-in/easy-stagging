@@ -110,12 +110,18 @@ Route::get('/api/auth/callback', function (Request $request) {
             if (!Schema::hasTable($shop_name[0] . '_dunning_manage_set')) {
                 Schema::create($shop_name[0] . '_dunning_manage_set', function (Blueprint $table) {
                     $table->id();
-                    $table->string('retry')->nullable(true);
-                    $table->string('daybefore')->nullable(true);
-                    $table->string('status')->nullable(true);
+                    $table->integer('retry')->default(4);
+                    $table->integer('daybefore')->default(1);
+                    $table->string('status')->default('pause');
                     $table->timestamp('created_at')->useCurrent();
                     $table->timestamp('updated_at')->useCurrent();
                 });
+                DB::table($shop_name[0] . '_dunning_manage_set')->insert([
+                        'retry' => 4,
+                        'daybefore' => 1,
+                        'status'=>'pause'
+                    ]
+                );
             }
         } catch (\Throwable $th) {
             Log::error(
