@@ -168,6 +168,9 @@ export default function NotificationSettings(){
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="itgCustomSelectParentDunningAction">
+                                        <button type="button" class="btn">Save</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
