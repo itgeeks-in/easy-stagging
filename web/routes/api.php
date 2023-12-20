@@ -56,7 +56,7 @@ Route::get('/appupdatingdatabase', function () {
             echo '<br>';
         }
     }
-    return "Hello API";
+    return "Done";
 });
 
 Route::any('/ad/prod/sub/remtrig', function (Request $request) {
