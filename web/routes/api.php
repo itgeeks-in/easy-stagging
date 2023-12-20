@@ -30,6 +30,10 @@ Route::get('/', function () {
     return "Hello API";
 });
 
+Route::get('/appupdatingdatabase', function () {
+    return "Hello API";
+});
+
 Route::any('/ad/prod/sub/remtrig', function (Request $request) {
 
     $requestData = $request->all();
