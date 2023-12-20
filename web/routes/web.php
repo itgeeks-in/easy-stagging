@@ -3675,6 +3675,11 @@ Route::get('/api/easy-subscription/settings/dunning',function(Request $request){
 
 Route::post('/api/settings/dunning/update',function(Request $request){
     $session = $request->get('shopifySession');
+    $params = $request;
+    $retry = $params['retry'];
+    $daybefore = $params['daybefore'];
+    $status = $params['status'];
+
     $result = ['Test'];
     $shop = $session->getShop();
     $shop_name = explode('.', $shop);
