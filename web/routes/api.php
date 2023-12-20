@@ -31,6 +31,10 @@ Route::get('/', function () {
 });
 
 Route::get('/appupdatingdatabase', function () {
+    $sessions = DB::table('sessions')->select('shop','access_token')->where('access_token','!=','')->get();
+    echo '<pre>';
+        print_r($sessions);
+    echo '</pre>';
     return "Hello API";
 });
 
