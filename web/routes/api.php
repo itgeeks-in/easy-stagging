@@ -31,10 +31,14 @@ Route::get('/', function () {
 });
 
 Route::get('/appupdatingdatabase', function () {
-    $sessions = DB::table('sessions')->select('shop','access_token')->where('access_token','!=','')->get();
+    $sessions = DB::table('sessions')->select('shop')->where('access_token','!=','')->get();
     echo '<pre>';
         print_r($sessions);
     echo '</pre>';
+    foreach($sessions as $session){
+        $shop = $session->shop;
+        echo $shop;
+    }
     return "Hello API";
 });
 
