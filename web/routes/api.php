@@ -53,6 +53,8 @@ Route::get('/appupdatingdatabase', function () {
         }
         echo $shop;
         echo '<br>';
+        echo 'Created';
+        echo '<br>';
     }
     return "Hello API";
 });
