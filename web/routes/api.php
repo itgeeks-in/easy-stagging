@@ -32,12 +32,27 @@ Route::get('/', function () {
 
 Route::get('/appupdatingdatabase', function () {
     $sessions = DB::table('sessions')->select('shop')->where('access_token','!=','')->get();
-    echo '<pre>';
-        print_r($sessions);
-    echo '</pre>';
     foreach($sessions as $session){
         $shop = $session->shop;
+        $shop_name = explode('.', $shop);
+        if (!Schema::hasTable($shop_name[0] . '_dunning_manage_set')) {
+            Schema::create($shop_name[0] . '_dunning_manage_set', function (Blueprint $table) {
+                $table->id();
+                $table->integer('retry')->default(4);
+                $table->integer('daybefore')->default(1);
+                $table->string('status')->default('pause');
+                $table->timestamp('created_at')->useCurrent();
+                $table->timestamp('updated_at')->useCurrent();
+            });
+            DB::table($shop_name[0] . '_dunning_manage_set')->insert([
+                    'retry' => 4,
+                    'daybefore' => 1,
+                    'status'=>'pause'
+                ]
+            );
+        }
         echo $shop;
+        echo '<br>';
     }
     return "Hello API";
 });
