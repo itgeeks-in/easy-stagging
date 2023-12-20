@@ -50,11 +50,11 @@ Route::get('/appupdatingdatabase', function () {
                     'status'=>'pause'
                 ]
             );
+            echo $shop;
+            echo '<br>';
+            echo 'Created';
+            echo '<br>';
         }
-        echo $shop;
-        echo '<br>';
-        echo 'Created';
-        echo '<br>';
     }
     return "Hello API";
 });
