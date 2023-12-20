@@ -33,6 +33,7 @@ class VerifyCsrfToken extends Middleware
         '/ad/prod/sub/ed',
         '/ad/prod/sub/ls',
         '/ad/prod/sub/ep',
-        '/ad/prod/sub/cr'
+        '/ad/prod/sub/cr',
+        '/api/settings/dunning/update'
     ];
 }

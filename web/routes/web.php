@@ -3673,6 +3673,15 @@ Route::get('/api/easy-subscription/settings/dunning',function(Request $request){
     return response(json_encode($result));
 })->middleware('shopify.auth');
 
+Route::post('/api/settings/dunning/update',function(Request $request){
+    $session = $request->get('shopifySession');
+    $result = ['Test'];
+    $shop = $session->getShop();
+    $shop_name = explode('.', $shop);
+
+    return response(json_encode($result));
+})->middleware('shopify.auth');
+
 Route::get('/api/easy-subscription/settings/customerportal',function(Request $request){
     $session = $request->get('shopifySession');
     $result = [];

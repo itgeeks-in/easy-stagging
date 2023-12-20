@@ -44,11 +44,27 @@ export default function NotificationSettings(){
         setToggleMenu(!toggleMenu);
     }
 
-    function UpdateSetting(data) {
-        fetch(
-            "/api/easy-subscription/settings/customerportal/update?data=" +
-                JSON.stringify(data)
-        ).then((res) => res.json()).then((data) => {});
+    async function UpdateSetting() {
+        loadStartOption(true);
+        var sendData = {
+            retry:retryAttempt,
+            daybefore:retryDunning,
+            status:selectedValueType
+        }
+        const response = await fetch('/api/settings/dunning/update', {
+            method: 'POST',
+            body: JSON.stringify(sendData),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        }).then((res) => res.json()).then((response) => {
+            console.log(response);
+            loadStartOption(false);
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+
     }
 
     
@@ -100,6 +116,15 @@ export default function NotificationSettings(){
                     retryAttemptOption(dunningData.retry);
                     retryDunningOption(dunningData.daybefore);
                     setSelectedValueType(dunningData.status);
+                    if( dunningData.status == 'cancle' ){
+                        setSelectedTextType('Cancel Subscription');
+                    }
+                    if( dunningData.status == 'pause' ){
+                        setSelectedTextType('Pause Subscription');
+                    }
+                    if( dunningData.status == 'skip' ){
+                        setSelectedTextType('Skip failed Order');
+                    }
                     setIsLoading(false);
                 }
             },
@@ -169,7 +194,7 @@ export default function NotificationSettings(){
                                         </div>
                                     </div>
                                     <div class="itgCustomSelectParentDunningAction">
-                                        <button type="button" class="btn">Save</button>
+                                        <button type="button" class="btn" onClick={UpdateSetting}>Save</button>
                                     </div>
                                 </div>
                             </div>
