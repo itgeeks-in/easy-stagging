@@ -60,7 +60,6 @@ export default function Index() {
     }).then((data)=>{
       if(onpage){
         setIndexData(data);
-        console.log(data);
       }
     }).catch((err)=>{
       console.log(err);

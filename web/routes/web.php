@@ -3788,17 +3788,17 @@ Route::get('/api/easy-subscription/widgetsetting/product',function(Request $requ
             $query = <<<QUERY
                 mutation metafieldsSet(\$metafields: [MetafieldsSetInput!]!) {
                     metafieldsSet(metafields: \$metafields) {
-                    metafields {
-                        namespace
-                        ownerType
-                        value
-                        createdAt
-                        key
-                    }
-                    userErrors {
-                        field
-                        message
-                    }
+                        metafields {
+                            namespace
+                            ownerType
+                            value
+                            createdAt
+                            key
+                        }
+                        userErrors {
+                            field
+                            message
+                        }
                     }
                 }
             QUERY;
