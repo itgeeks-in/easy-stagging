@@ -3702,7 +3702,7 @@ Route::post('/api/settings/dunning/update',function(Request $request){
     }else{
         $data = DB::table($shop_name[0] . '_dunning_manage_set')->get();
         if (!empty($data->toArray())) {
-            DB::table($shop_name[0] . '_dunning_manage_set')->where('id ',1)->update([
+            DB::table($shop_name[0] . '_dunning_manage_set')->where('id', 1)->update([
                     'retry' => $retry,
                     'daybefore' => $daybefore,
                     'status'=> $status
