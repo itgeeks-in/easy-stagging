@@ -1016,7 +1016,8 @@ body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow.highl
     background-color: var(--secondary-color);
 }
 body.itgBody #app .itgDashboardPageContentInner .itgDashboardAction,
-.itgBody #app .notificationSections .cont.easycont .itgDashboardAction {
+.itgBody #app .notificationSections .cont.easycont .itgDashboardAction,
+.itgBody #app .notificationManagecont.dunningBlockData .itgDashboardAction {
     margin-top: 10px;
     color: var(--success-color);
     font-weight: 600;
