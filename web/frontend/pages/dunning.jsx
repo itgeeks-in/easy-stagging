@@ -192,9 +192,9 @@ export default function NotificationSettings(){
                                                     <div className="selectIcon"><img src={selectIcon} alt="select" /></div>
                                                 </div>
                                                 <ul className={ cstmSlctOptionsType ? "itg-custom-select-menu" : "itg-custom-select-menu itg-custom-select-hide" }>
-                                                    <li onClick={selectTypeValue} value="cancle">Cancel Subscription</li>
-                                                    <li onClick={selectTypeValue} value="pause">Pause Subscription</li>
-                                                    <li onClick={selectTypeValue} value="skip">Skip failed Order</li>
+                                                    <li onClick={selectTypeValue} value="cancle" className={selectedValueType=='cancle'?"default-select":""}>Cancel Subscription</li>
+                                                    <li onClick={selectTypeValue} value="pause" className={selectedValueType=='pause'?"default-select":""}>Pause Subscription</li>
+                                                    <li onClick={selectTypeValue} value="skip" className={selectedValueType=='skip'?"default-select":""}>Skip failed Order</li>
                                                 </ul>
                                             </div>
                                         </div>
