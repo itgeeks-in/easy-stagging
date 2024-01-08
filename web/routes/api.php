@@ -1063,9 +1063,11 @@ Route::get('/easysubcron', function () {
                 }
             }
         }
+        /*
         $croninfo = DB::table('cronrun')->insert([
             'store' => $shop
         ]);
+        */
     }
 });
 
