@@ -1364,7 +1364,8 @@ body.itgBody #app .itgOrderSearch .itgOrderSearchInput input[type="date"] {
     font-weight: 400;
 }
 
-.itgBody #app .itg-custom-select > ul > li:hover {
+.itgBody #app .itg-custom-select > ul > li:hover,
+.itgBody #app .notificationManagecont.dunningBlockData .itg-custom-select>ul>li.default-select:hover {
     background-color: var(--primary-color);
     color: var(--white-color);
 }
