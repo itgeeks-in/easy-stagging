@@ -2088,6 +2088,9 @@ body.itgBody #app .itgWelcomeBack.privacyox .itgWelcomeFront .itgWelcomeButton{
     margin-top: 20px;
     border-top: 1px solid var(--border-color);
 }
+.itgBody #app .notificationManagecont.dunningBlockData .itg-custom-select>ul>li.default-select {
+    background-color: #eaeaea;
+}
 @media (max-width:1100px){
     body.itgBody #app .itgAddSubGroupDataContent .itgAddSubGroupDataContentRow .itgAddSubGroupDataTableBox .email{
         display: none;
