@@ -205,6 +205,7 @@ export default function NotificationSettings(){
                                     {updated?<>
                                         <div class="itgDashboardAction">Settings saved successfully.</div>
                                     </>:<></>}
+                                    <div class="itgDashboardAction">Settings saved successfully.</div>
                                 </div>
                             </div>
                         </div>
