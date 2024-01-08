@@ -3680,9 +3680,43 @@ Route::post('/api/settings/dunning/update',function(Request $request){
     $daybefore = $params['daybefore'];
     $status = $params['status'];
 
-    $result = [$retry, $daybefore, $status];
+    $result = ['true'];
     $shop = $session->getShop();
     $shop_name = explode('.', $shop);
+
+    if (!Schema::hasTable($shop_name[0] . '_dunning_manage_set')) {
+        Schema::create($shop_name[0] . '_dunning_manage_set', function (Blueprint $table) {
+            $table->id();
+            $table->integer('retry')->default(4);
+            $table->integer('daybefore')->default(1);
+            $table->string('status')->default('pause');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+        });
+        DB::table($shop_name[0] . '_dunning_manage_set')->insert([
+                'retry' => $retry,
+                'daybefore' => $daybefore,
+                'status'=> $status
+            ]
+        );
+    }else{
+        $data = DB::table($shop_name[0] . '_dunning_manage_set')->get();
+        if (!empty($data->toArray())) {
+            DB::table($shop_name[0] . '_dunning_manage_set')->where('id ',1)->update([
+                    'retry' => $retry,
+                    'daybefore' => $daybefore,
+                    'status'=> $status
+                ]
+            );
+        }else{
+            DB::table($shop_name[0] . '_dunning_manage_set')->insert([
+                    'retry' => $retry,
+                    'daybefore' => $daybefore,
+                    'status'=> $status
+                ]
+            );
+        }
+    }
 
     return response(json_encode($result));
 })->middleware('shopify.auth');
