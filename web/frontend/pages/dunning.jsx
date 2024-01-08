@@ -45,7 +45,9 @@ export default function NotificationSettings(){
     }
 
     async function UpdateSetting() {
+
         loadStartOption(true);
+        
         var sendData = {
             retry:retryAttempt,
             daybefore:retryDunning,
