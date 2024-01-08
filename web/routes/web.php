@@ -3680,7 +3680,7 @@ Route::post('/api/settings/dunning/update',function(Request $request){
     $daybefore = $params['daybefore'];
     $status = $params['status'];
 
-    $result = [$params];
+    $result = [$retry, $daybefore, $status];
     $shop = $session->getShop();
     $shop_name = explode('.', $shop);
 
