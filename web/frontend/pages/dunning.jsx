@@ -17,6 +17,7 @@ export default function NotificationSettings(){
     const [selectedValueType, setSelectedValueType] = useState("pause");
     const [retryDunning, retryDunningOption] = useState(1);
     const [retryAttempt, retryAttemptOption] = useState(4);
+    const [updated, UpdatedData] = useState(false);
 
     const activityContext = useContext(ItgContext);
     useEffect(()=>{
@@ -60,8 +61,11 @@ export default function NotificationSettings(){
                 'Content-type': 'application/json; charset=UTF-8',
             },
         }).then((res) => res.json()).then((response) => {
-            console.log(response);
+            UpdatedData(true);
             loadStartOption(false);
+            setTimeout(function(){
+                UpdatedData(false);
+            },4000)
         })
         .catch((err) => {
             console.log(err.message);
@@ -198,6 +202,9 @@ export default function NotificationSettings(){
                                     <div class="itgCustomSelectParentDunningAction">
                                         <button type="button" class="btn" onClick={UpdateSetting}>Save</button>
                                     </div>
+                                    {updated?<>
+                                        <div class="itgDashboardAction">Settings saved successfully.</div>
+                                    </>:<></>}
                                 </div>
                             </div>
                         </div>
