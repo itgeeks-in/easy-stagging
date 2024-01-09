@@ -954,7 +954,7 @@ Route::get('/easysubcron', function () {
                                         amount
                                         currencyCode
                                     }
-                                }
+                                } 
                             }
                         }
                     }
