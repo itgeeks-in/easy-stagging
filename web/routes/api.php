@@ -968,7 +968,7 @@ Route::get('/easysubcron', function () {
                 $variables =[
                     "subscriptionBillingAttemptInput"=>[
                     "idempotencyKey"=>$idempotencyKey
-                    ],
+                    ], 
                     "subscriptionContractId"=>$oldsubscriptionContractid
                 ];
                 
