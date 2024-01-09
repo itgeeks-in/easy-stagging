@@ -1413,6 +1413,12 @@ Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request
 
     $decodeData = json_decode($data);
 
+
+    
+    Log::error(['data'=>$decodeData]);
+
+    return true;
+
     $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
     
     $header = $request->header();
@@ -1431,8 +1437,6 @@ Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request
     QUERY;
     $result = $client->query(['query' => $query]);
     $data = $result->getDecodedBody();
-    
-    Log::error(['data'=>$data]);
 
     $email = $data['data']['subscriptionContract']['customer']['email'];
     if (!Schema::hasTable($shop_name[0] . '_billingAttemptFailed')) {
