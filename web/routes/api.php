@@ -976,7 +976,6 @@ Route::get('/easysubcron', function () {
                 $resultBody = $result->getDecodedBody();
                 $billingStatus = 'pending';
                 $totalprice = '';
-                Log::error(['error'=>$resultBody]);
                 if( empty( $resultBody['data']['userErrors'] ) ){
                     $billingStatus = 'success';
                     if( isset($resultBody['data']['subscriptionBillingAttemptCreate']['subscriptionBillingAttempt']['subscriptionContract']['originOrder']) ){

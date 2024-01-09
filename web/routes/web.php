@@ -1408,15 +1408,12 @@ Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request
 
     if (!$ifShopify) {
         Log::warning('Webhook verification failed.');
-       return response('Unauthorized', 401);
+        return response('Unauthorized', 401);
     }
 
     $decodeData = json_decode($data);
 
     $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
-
-    
-    Log::error(['data'=>$decodeData]);
 
     $header = $request->header();
     $shop = $header['x-shopify-shop-domain'][0];
@@ -1436,6 +1433,16 @@ Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request
             'data' => json_encode($decodeData),
         ]
     );
+
+    $daybefore = 1;
+
+    $dunningdata = DB::table($shop_name[0] . '_dunning_manage_set')->get();
+
+    if (!empty($dunningdata->toArray())) {
+        $datadunn = $dunningdata->toArray();
+        Log::warning($datadunn);
+    }
+    
 
     return true;
 
