@@ -1399,6 +1399,7 @@ Route::post('/api/subscriptioncontracts/billingattempt',function(Request $reques
 });
 
 Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request $request){
+
     $hmacHeader = $request->header('X-Shopify-Hmac-SHA256');
     $secret = env('SHOPIFY_API_SECRET'); // Replace with your webhook secret
     $data = $request->getContent();
@@ -1435,14 +1436,37 @@ Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request
     );
 
     $daybefore = 1;
+    $retry = 4;
+    $status = "pause";
 
     $dunningdata = DB::table($shop_name[0] . '_dunning_manage_set')->get();
 
     if (!empty($dunningdata->toArray())) {
         $datadunn = $dunningdata->toArray();
-        Log::warning($datadunn);
+        $retry = $datadunn[0]->retry;
+        $daybefore = $datadunn[0]->daybefore;
+        $status = $datadunn[0]->status;
     }
-    
+
+    if (!Schema::hasTable($shop_name[0] . '_dunning_contracts')) {
+        Schema::create($shop_name[0] . '_dunning_contracts', function (Blueprint $table) {
+            $table->id();
+            $table->string('subId')->nullable(true);
+            $table->integer('attempts')->default(0);
+            $table->string('nextBillingDate')->nullable(true);
+            $table->string('status')->default('open');
+            $table->timestamp('created_at')->useCurrent();
+        });
+    }
+
+    $setNextBillingDate = date('Y-m-d H:i:s',strtotime('+1 day'));
+
+    $checkalready = DB::table($shop_name[0] . '_dunning_contracts')->select('*')->where('subId',$admin_graphql_api_id)->get()->count();
+
+
+    Log::error($setNextBillingDate);
+    Log::error($checkalready);
+
 
     return true;
 
