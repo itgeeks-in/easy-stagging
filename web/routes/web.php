@@ -1431,8 +1431,9 @@ Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request
     QUERY;
     $result = $client->query(['query' => $query]);
     $data = $result->getDecodedBody();
-    Log::error(['data'=>$data]);
     
+    Log::error(['data'=>$data]);
+
     $email = $data['data']['subscriptionContract']['customer']['email'];
     if (!Schema::hasTable($shop_name[0] . '_billingAttemptFailed')) {
         Schema::create($shop_name[0] . '_billingAttemptFailed', function (Blueprint $table) {
