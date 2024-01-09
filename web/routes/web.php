@@ -1413,32 +1413,15 @@ Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request
 
     $decodeData = json_decode($data);
 
+    $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
 
     
     Log::error(['data'=>$decodeData]);
 
-    return true;
-
-    $admin_graphql_api_id = $decodeData->admin_graphql_api_subscription_contract_id;
-    
     $header = $request->header();
     $shop = $header['x-shopify-shop-domain'][0];
     $shop_name = explode('.', $shop);
-    $session = DB::table('sessions')->select('access_token')->where('shop',$shop)->get();
-    $token = $session->toArray()[0]->access_token;
-    $client = new Graphql($shop, $token);
-    $query = <<<QUERY
-    {
-        subscriptionContract(id:"$admin_graphql_api_id"){
-            customer{
-                email
-            }
-    }
-    QUERY;
-    $result = $client->query(['query' => $query]);
-    $data = $result->getDecodedBody();
 
-    $email = $data['data']['subscriptionContract']['customer']['email'];
     if (!Schema::hasTable($shop_name[0] . '_billingAttemptFailed')) {
         Schema::create($shop_name[0] . '_billingAttemptFailed', function (Blueprint $table) {
             $table->id();
@@ -1447,19 +1430,15 @@ Route::post('/api/subscriptioncontracts/billingattempt/failure',function(Request
             $table->timestamp('created_at')->useCurrent();
         });
     }
-    try {
-        $done = DB::table($shop_name[0] . '_billingAttemptFailed')->select('*')->where('subId',$admin_graphql_api_id)->get()->count();
-        if(!$done){
-            DB::table($shop_name[0] . '_billingAttemptFailed')->insert([
-                        'subId' =>$admin_graphql_api_id,
-                        'data' => $data,
-                ]
-            );
-            //Mail::to($email)->send(new OrderMail($orders));
-        }
-    } catch (\Throwable $th) {
-        Log::error(['error'=>json_encode($th)]);
-    }
+
+    DB::table($shop_name[0] . '_billingAttemptFailed')->insert([
+            'subId' =>$admin_graphql_api_id,
+            'data' => json_encode($decodeData),
+        ]
+    );
+
+    return true;
+
 });
 
 Route::get('/api/products/{params}', function (Request $request, $params) {
